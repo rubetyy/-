@@ -54,6 +54,8 @@ bin
 build
 .project
 .classpath
+/.metadata/
+=======
 
 # Tracked gradle-wrapper
 !/backend/gradle/wrapper/gradle-wrapper.jar
