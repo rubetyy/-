@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="livepage">
     <h1>LiveBroadpage</h1>
     <el-row>
       <el-button icon="el-icon-search" circle></el-button>
@@ -19,5 +19,7 @@ export default {
 </script>
 
 <style scoped>
-
+#livepage {
+  text-align: center;
+}
 </style>
