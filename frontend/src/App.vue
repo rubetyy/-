@@ -3,22 +3,22 @@
     <div id="nav">
         <router-link :to="{name: 'MainPage'}">MainPage</router-link> |
         <router-link :to="{name: 'CategoryPage'}">CategoryPage</router-link> |
-      <div v-if="isLogged">
+      <!-- <div v-if="isLogged"> -->
         <router-link :to="{name: 'Mypage'}">Mypage</router-link> |
         <router-link :to="{name: 'LiveBroadpage'}">LiveBroadpage</router-link> |
         <router-link :to="{name: 'ProductRegister'}">ProductRegister</router-link> |
         <router-link :to="{name: 'MakeBroadCast'}">MakeBroadCast</router-link> |
         <router-link :to="{name: 'ProductDetail'}">ProductDetail</router-link> |
         <router-link to="#" @click.native="logout">Logout</router-link> |
-      </div>
+      <!-- </div> -->
 
-      <div v-else>
+      <!-- <div v-else> -->
         <router-link :to="{name: 'Signup'}">Signup</router-link> |
         <router-link :to="{name: 'Login'}">Login</router-link> |
-      </div>
+      <!-- </div> -->
       
     </div>
-    <router-view/>
+    <router-view/> 
   </div>
 </template>
 
@@ -53,11 +53,11 @@ export default {
 </script>
 
 <style>
-/* #app {
+#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
 }
 
@@ -72,5 +72,5 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
-} */
+}
 </style>
