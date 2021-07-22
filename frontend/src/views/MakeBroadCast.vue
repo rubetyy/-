@@ -38,7 +38,7 @@
 </template>
 
 <script>
-// 필수항목 유효성 검사
+// 필수항목 유효성 검사 & 방송을 만든 사용자만 CRUD 가능 -> 로그인정보 받아서 제목 수정할 수 있도록 구성할것
 // import { mapActions } from 'vuex'
 
 // const live = 'live'
@@ -52,14 +52,21 @@ export default {
     }
   },
   methods : {
+    // 방송시작하기
     startLive: function() {
       if (this.title.trim() && this.text.trim()) {
         const params = {
           title: this.title.trim(),
           text: this.text.trim(),
         }
-        this.$store.dispatch('reviewModify', params)
-        this.$router.push({ name: 'LiveBroadpage' })
+        this.$store.dispatch('startLive', params)
+        .then(() => {
+          // router 인자로 방송id 필요
+          this.$router.push({ name: 'LiveBroadpage' })
+        })
+        .catch(err => {
+          console.log(err + '방송만들기 에러')
+        })
       } else if (this.title.trim()) {
         alert('내용을 입력해주세요')
       } else {
