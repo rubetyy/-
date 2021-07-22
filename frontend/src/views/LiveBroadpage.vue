@@ -11,9 +11,13 @@
     </el-row>
 
     <br><br><br>
-    <el-button type="danger" round @click="getLive">방송정보 get</el-button>
-    {{  }}
+    <el-button type="danger" round @click="getInfo">방송정보 get</el-button>
 
+    <div v-show="isLive">
+      <h3>"{{ data.userid }}"님의 방송</h3>
+      <h3>{{ data.livetitle }}</h3>
+      <p>{{ data.liveds }}</p>
+    </div>
 
   </div>
 </template>
@@ -23,16 +27,19 @@ import axios from 'axios'
 
 export default {
   name: 'LiveBroadpage',
-  // data: function () {
-  //   return {
-
-  //   }
-  // },
+  data: function () {
+    return {
+      data: {},
+      isLive: false,
+    }
+  },
   methods: {
-    async getLive() {
+    async getInfo() {
       const url = 'https://874d0867-2828-4911-8e80-4e913dbf635d.mock.pstmn.io/live/1'  // 라이브방송 url
       const res = await axios.get(url)
-      console.log(res)
+      console.log(res.data)
+      this.data = res.data
+      this.isLive = true
     },
   }
 
