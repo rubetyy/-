@@ -8,5 +8,6 @@
 https://jazzy-partner-3a0.notion.site/74deb92179b54a66a10d6cfa45c10766
 
 ## API 명세서
-- 작성중에 있습니다.
+작성중에 있습니다.
+
 https://documenter.getpostman.com/view/3490568/TzsWuARM
