@@ -12,9 +12,9 @@
 
       <h3>방송 제목</h3>
       <el-input
-        type="text"
+        type="liveds"
         placeholder="방송 제목을 입력하세요"
-        v-model="title"
+        v-model="livetitle"
         maxlength="30"
         show-word-limit
         style="margin-bottom: 30px;"
@@ -22,16 +22,16 @@
       </el-input>
       <h3>방송 내용</h3>
       <el-input
-        type="textarea"
+        type="livedsarea"
         placeholder="방송 내용을 입력하세요"
-        v-model="text"
+        v-model="liveds"
         maxlength="100"
         show-word-limit
       >
       </el-input>
     </div>
     <div class="start-btn">
-      <el-button type="primary" round @click="startLive">방송 시작하기</el-button>
+      <el-button type="primary" round @click="startlive">방송 시작하기</el-button>
     </div>
     
   </div>
@@ -39,27 +39,28 @@
 
 <script>
 // 필수항목 유효성 검사 & 방송을 만든 사용자만 CRUD 가능 -> 로그인정보 받아서 제목 수정할 수 있도록 구성할것
-// import { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
-// const live = 'live'
+const live = 'live'
 
 export default {
   name: 'MakeBroadCast',
   data: function () {
     return {
-      title: '',
-      text: '',
+      livetitle: '',
+      liveds: '',
     }
   },
   methods : {
+    ...mapActions(live, ['startLive',]),
     // 방송시작하기
-    startLive: function() {
-      if (this.title.trim() && this.text.trim()) {
+    startlive: function() {
+      if (this.livetitle.trim() && this.liveds.trim()) {
         const params = {
-          title: this.title.trim(),
-          text: this.text.trim(),
+          livetitle: this.livetitle.trim(),
+          liveds: this.liveds.trim(),
         }
-        this.$store.dispatch('startLive', params)
+        this.startLive(params)
         .then(() => {
           // router 인자로 방송id 필요
           this.$router.push({ name: 'LiveBroadpage' })
@@ -67,7 +68,7 @@ export default {
         .catch(err => {
           console.log(err + '방송만들기 에러')
         })
-      } else if (this.title.trim()) {
+      } else if (this.livetitle.trim()) {
         alert('내용을 입력해주세요')
       } else {
         alert('제목을 입력해주세요')
