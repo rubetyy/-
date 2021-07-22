@@ -23,7 +23,6 @@ public class ProductServiceImpl implements ProductService {
         product.setP_description(productRegisterPostReq.getDescription());
         product.setCategory_id(productRegisterPostReq.getCategory());
         product.setP_price(productRegisterPostReq.getPrice());
-        product.setImages(productRegisterPostReq.getImages());
         product.setP_is_sold(productRegisterPostReq.getIs_sold());
         product.setP_live_status(productRegisterPostReq.getLive_status());
 

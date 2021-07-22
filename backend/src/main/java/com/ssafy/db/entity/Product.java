@@ -20,8 +20,5 @@ public class Product extends BaseEntity{
     String p_is_sold;
     String p_live_status;
     String user_id;
-    String images;
-
-
 
 }

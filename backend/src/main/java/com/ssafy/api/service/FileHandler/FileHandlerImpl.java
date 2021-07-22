@@ -12,7 +12,7 @@ import java.nio.file.StandardCopyOption;
 
 @Service("fileHandlerService")
 public class FileHandlerImpl implements FileHandlerService{
-    @Value("{upload.path}")
+    @Value("{uploads}")
     private String path;
 
     @Override
