@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
+import java.util.List;
 
 @Api(value = "상품관리 API", tags = {"Product"})
 @RestController
@@ -29,9 +30,8 @@ public class ProductController {
     @PostMapping("/create")
     public ResponseEntity<? extends BaseResponseBody> registerProduct(
             @ModelAttribute ProductRegisterPostReq productRegisterPostReq,
-            @RequestParam("images") MultipartFile images){
-        Product product = productService.createProduct(productRegisterPostReq);
-        fileHandlerService.upload(images);
+            @RequestParam("images") List<MultipartFile> images){
+        Product product = productService.createProduct(productRegisterPostReq,images);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
