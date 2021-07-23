@@ -6,6 +6,7 @@ Vue.use(Vuex)
 import userStore from '@/store/modules/userStore.js'
 import live from '@/store/modules/live.js'
 import product from '@/store/modules/product.js'
+import productStore from '@/store/modules/productStore.js'
 
 const store = new Vuex.Store({
   modules: {
@@ -13,6 +14,7 @@ const store = new Vuex.Store({
     userStore: userStore,
     live: live,
     product: product,
+    productStore: productStore,
   }
 })
 
