@@ -2,18 +2,19 @@
   <div>
     <h1 id="header">방송 만들기</h1>
 
-    <!-- 상품상세페이지에서 링크 넘겨줘야함 -> 자동으로 링크 등록할 수 있도록 -->
-    <p>판매 상품 : {링크받아서 걸기}</p>
-    <hr>
-    <p>썸네일 등록 : {사진 등록} or 이 부분 빼고 나중에 화면 캡쳐로 대체</p>
-    <input type="file">
-  
     <div class="broad-box">
+      <!-- 상품상세페이지에서 링크 넘겨줘야함 -> 자동으로 링크 등록할 수 있도록 -->
+      <p>판매 상품 : {링크받아서 걸기}</p>
+      <hr>
+      <h3>썸네일 등록</h3>
+      <!-- 사진 등록 or 이 부분 빼고 나중에 화면 캡쳐로 대체 -->
+      <input type="file">
+
       <h3>방송 제목</h3>
       <el-input
-        type="text"
+        type="liveds"
         placeholder="방송 제목을 입력하세요"
-        v-model="title"
+        v-model="livetitle"
         maxlength="30"
         show-word-limit
         style="margin-bottom: 30px;"
@@ -21,29 +22,59 @@
       </el-input>
       <h3>방송 내용</h3>
       <el-input
-        type="textarea"
+        type="livedsarea"
         placeholder="방송 내용을 입력하세요"
-        v-model="text"
+        v-model="liveds"
         maxlength="100"
         show-word-limit
       >
       </el-input>
     </div>
-    
-    <el-button type="primary" round class="start-btn" @click="startLive">방송 시작하기</el-button>
+    <div class="start-btn">
+      <el-button type="primary" round @click="startlive">방송 시작하기</el-button>
+    </div>
     
   </div>
 </template>
 
 <script>
-// 필수항목 유효성 검사
+// 필수항목 유효성 검사 & 방송을 만든 사용자만 CRUD 가능 -> 로그인정보 받아서 제목 수정할 수 있도록 구성할것
+import { mapActions } from 'vuex'
+
+const live = 'live'
+
 export default {
   name: 'MakeBroadCast',
   data: function () {
     return {
-      title: '',
-      text: '',
+      livetitle: '',
+      liveds: '',
     }
+  },
+  methods : {
+    ...mapActions(live, ['startLive',]),
+    // 방송시작하기
+    startlive: function() {
+      if (this.livetitle.trim() && this.liveds.trim()) {
+        const params = {
+          livetitle: this.livetitle.trim(),
+          liveds: this.liveds.trim(),
+        }
+        this.startLive(params)
+        .then(() => {
+          // router 인자로 방송id 필요
+          this.$router.push({ name: 'LiveBroadpage' })
+        })
+        .catch(err => {
+          console.log(err + '방송만들기 에러')
+        })
+      } else if (this.livetitle.trim()) {
+        alert('내용을 입력해주세요')
+      } else {
+        alert('제목을 입력해주세요')
+      }
+    },
+
   },
 }
 </script>
@@ -53,9 +84,11 @@ export default {
   text-align: center;
 }
 .broad-box {
-  margin: 0 300px;
+  margin: 50px 300px 30px;
 }
 .start-btn {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  /* text-align: center; */
 }
 </style>
