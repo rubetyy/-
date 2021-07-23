@@ -1,47 +1,53 @@
 <template>
   <div id="livepage">
     <h1>LiveBroadpage</h1>
-    <el-row>
-      <el-button icon="el-icon-search" circle></el-button>
-      <el-button type="primary" icon="el-icon-edit" circle></el-button>
-      <el-button type="success" icon="el-icon-check" circle></el-button>
-      <el-button type="info" icon="el-icon-message" circle></el-button>
-      <el-button type="warning" icon="el-icon-star-off" circle></el-button>
-      <el-button type="danger" icon="el-icon-delete" circle></el-button>
-    </el-row>
+    <hr>
 
-    <br><br><br>
-    <el-button type="danger" round @click="getInfo">방송정보 get</el-button>
-
-    <div v-show="isLive">
-      <h3>"{{ data.userid }}"님의 방송</h3>
-      <h3>{{ data.livetitle }}</h3>
-      <p>{{ data.liveds }}</p>
+    {{ data }}
+    <!-- {{ data }} 바인딩 -->
+    <div>
+      <!-- <h2>{{ data.livetitle }}</h2> -->
+      <div>
+        <el-button icon="el-icon-user-solid" circle></el-button>
+        <!-- <span>{{ data.userid }} (아이디)</span> -->
+      </div>
+      <el-row>
+        <el-button type="primary" icon="el-icon-thumb">상품보기</el-button>
+        <el-button type="success" icon="el-icon-star-on">찜하기</el-button>
+        <el-button type="danger" icon="el-icon-close">방송종료</el-button>
+      </el-row>
     </div>
+
 
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+// 공통) 상품정보(상품상세페이지 링크 걸어야함), 판매자 프로필보기, *실시간 채팅(component), *방송화면(component)
+// 판매자 뷰) 방송제목 수정, 방송 종료
+// 구매자 뷰) 방송 나가기, 판매자 프로필보기
+
+import { mapActions } from 'vuex'
+const live = 'live'
 
 export default {
   name: 'LiveBroadpage',
   data: function () {
     return {
-      data: {},
-      isLive: false,
+      data: null,
     }
   },
-  methods: {
-    async getInfo() {
-      const url = 'https://874d0867-2828-4911-8e80-4e913dbf635d.mock.pstmn.io/live/1'  // 라이브방송 url
-      const res = await axios.get(url)
-      console.log(res.data)
+  created() {
+    const liveId = this.$route.params.id
+    this.getLiveInfo(liveId)
+    .then(res => {
+      console.log('여기여기')
       this.data = res.data
-      this.isLive = true
-    },
-  }
+    })
+  },
+  methods: {
+    ...mapActions(live, ['getLiveInfo']),
+  },
 
 }
 </script>

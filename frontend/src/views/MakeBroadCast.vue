@@ -6,27 +6,18 @@
       <!-- 상품상세페이지에서 링크 넘겨줘야함 -> 자동으로 링크 등록할 수 있도록 -->
       <p>판매 상품 : {링크받아서 걸기}</p>
       <hr>
-      <h3>썸네일 등록</h3>
+      <!-- <h3>썸네일 등록</h3> -->
       <!-- 사진 등록 or 이 부분 빼고 나중에 화면 캡쳐로 대체 -->
-      <input type="file">
+      <!-- <input type="file"> -->
 
       <h3>방송 제목</h3>
       <el-input
-        type="liveds"
+        type="text"
         placeholder="방송 제목을 입력하세요"
         v-model="livetitle"
         maxlength="30"
         show-word-limit
         style="margin-bottom: 30px;"
-      >
-      </el-input>
-      <h3>방송 내용</h3>
-      <el-input
-        type="livedsarea"
-        placeholder="방송 내용을 입력하세요"
-        v-model="liveds"
-        maxlength="100"
-        show-word-limit
       >
       </el-input>
     </div>
@@ -48,28 +39,26 @@ export default {
   data: function () {
     return {
       livetitle: '',
-      liveds: '',
+      userid: 'yeonji',
     }
   },
   methods : {
     ...mapActions(live, ['startLive',]),
     // 방송시작하기
     startlive: function() {
-      if (this.livetitle.trim() && this.liveds.trim()) {
+      if (this.livetitle.trim()) {
         const params = {
           livetitle: this.livetitle.trim(),
-          liveds: this.liveds.trim(),
+          userid: this.userid,  // userid인지 writer인지 하나 결정 후 로그인한 사용자 정보 store에서 받아와서 그걸로 넣을것
         }
         this.startLive(params)
-        .then(() => {
+        .then(res => {
           // router 인자로 방송id 필요
-          this.$router.push({ name: 'LiveBroadpage' })
+          this.$router.push({ name: 'LiveBroadpage', params: { id: res.data.id } })  // id 일단 임시 (DB/BE 확정후 고칠것)
         })
         .catch(err => {
           console.log(err + '방송만들기 에러')
         })
-      } else if (this.livetitle.trim()) {
-        alert('내용을 입력해주세요')
       } else {
         alert('제목을 입력해주세요')
       }
