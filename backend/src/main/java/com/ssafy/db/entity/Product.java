@@ -2,10 +2,8 @@ package com.ssafy.db.entity;
 
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.sql.Date;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +11,41 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Product extends BaseEntity{
+public class Product{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
+    private Long productId;
 
-    private String user_id;
-    private Integer live_id;
-    private Integer category_id;
-    private String p_title;
-    private String p_description;
-    private Integer p_price;
-    private Date p_created_at;
-    private Integer p_view_count;
-    private String p_is_sold;
-    private String p_live_status;
+    @Column(name = "user_id")
+    private String userId;
+
+    @Column(name = "live_id")
+    private Integer liveId;
+
+    @Column(name = "category_id")
+    private Integer categoryId;
+
+    @Column(name = "p_title")
+    private String title;
+
+    @Column(name = "p_description")
+    private String description;
+
+    @Column(name = "p_price")
+    private Integer price;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "view_count")
+    private Integer viewCount;
+
+    @Column(name = "is_sold")
+    private String isSold;
+
+    @Column(name = "live_status")
+    private String liveStatus;
 
     @OneToMany(
             mappedBy = "product",
