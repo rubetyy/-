@@ -15,6 +15,7 @@ node_modules/
 
 # Log files
 *.log
+backend/*.log
 
 # Package files
 *.jar
