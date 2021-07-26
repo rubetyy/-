@@ -5,6 +5,7 @@ import com.ssafy.api.request.UserUpdatePostReq;
 import com.ssafy.db.entity.QUser;
 import com.ssafy.db.entity.User;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,8 @@ public class UserRepositorySupport{
         return Optional.ofNullable(user);
     }
 
-    public long updateUser(UserUpdatePostReq user,String userId){
-        long a = jpaQueryFactory.update(qUser).set(qUser.department , user.getDepartment())
-                .set(qUser.position, user.getPosition())
+    public long updateUser(User user,String userId){
+        long a = jpaQueryFactory.update(qUser).set(qUser.user_nickname , user.getUser_nickname())
                 .where(qUser.userId.eq(userId)).execute();
         return a;
     }

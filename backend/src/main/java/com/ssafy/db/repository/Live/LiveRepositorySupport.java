@@ -22,16 +22,23 @@ public class LiveRepositorySupport {
     private JPAQueryFactory jpaQueryFactory;
     QLive qLive = QLive.live;
 
-    public Long endLive(String value){
-        Long a = jpaQueryFactory.update(qLive).set(qLive.liveon,1)
-                .set(qLive.live_fin_date, Timestamp.valueOf(LocalDateTime.now()))
-                .where(qLive.userid.eq(value)).execute();
-        return a;
+    public Live findByLiveId(int liveid){
+        Live live = jpaQueryFactory.select(qLive).from(qLive)
+                .where(qLive.live_pk.eq(Integer.valueOf(liveid))).fetchOne();
+
+        return live;
     }
 
+//    public Long endLive(String value){
+//        Long a = jpaQueryFactory.update(qLive).set(qLive.liveon,1)
+//                .set(qLive.live_fin_date, Timestamp.valueOf(LocalDateTime.now()))
+//                .where(qLive.userid.eq(value)).execute();
+//        return a;
+//    }
+
     public Long updatetitleLive(LiveUpdate_titlePatchReq liveUpdate_titlePatchReq){
-        Long a =  jpaQueryFactory.update(qLive).set(qLive.livetitle,liveUpdate_titlePatchReq.getLivetitle())
-                .where( qLive.id.eq( Long.valueOf(liveUpdate_titlePatchReq.getId()) ) ).execute();
+        Long a =  jpaQueryFactory.update(qLive).set(qLive.live_title,liveUpdate_titlePatchReq.getLivetitle())
+                .where( qLive.live_pk.eq( Integer.valueOf(liveUpdate_titlePatchReq.getId()) ) ).execute();
         return a;
     }
 

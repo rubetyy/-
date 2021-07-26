@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,14 +18,14 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-public class Live extends BaseEntity{
-    Long id;
-    @Column(name="userid") String userid;
-    String livetitle;
-    String liveds;
-    String liveimg;
-    String livewriter;
-    int liveon;
-    Date live_reg_date;
-    Date live_fin_date;
+public class Live {
+    @Id
+    @Column(name="live_pk")
+    int live_pk;
+    @Column(name="product_pk")
+    int product_pk;
+    @Column(name="live_title")
+    String live_title;
+    @Column(name="live_viewer_count")
+    int live_viewer_count;
 }

@@ -13,7 +13,7 @@ import com.querydsl.core.types.Path;
  * QLive is a Querydsl query type for Live
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QLive extends EntityPathBase<Live>{
+public class QLive{
 
     private static final long serialVersionUID = 846542478L;
 
@@ -22,17 +22,13 @@ public class QLive extends EntityPathBase<Live>{
     public final QBaseEntity _super = new QBaseEntity(this);
 
     //inherited
-    public final NumberPath<Long> liveid = _super.id;
+    public final NumberPath<Integer> live_pk = createNumber("live_pk",Integer.class);
 
-    public final StringPath livetitle = createString("livetitle");
+    public final NumberPath<Integer> product_pk = createNumber("product_pk",Integer.class);
 
-    public final StringPath liveds = createString("liveds");
+    public final StringPath live_title = createString("live_title");
 
-    public final StringPath liveimg = createString("liveimg");
-
-    public final StringPath livewriter = createString("livewriter");
-
-    public final StringPath userid = createString("userid");
+    public final NumberPath<Integer> live_viewer_count = createNumber("live_viewer_count",Integer.class);
 
     public QLive(String variable) {
         super(Live.class, forVariable(variable));
