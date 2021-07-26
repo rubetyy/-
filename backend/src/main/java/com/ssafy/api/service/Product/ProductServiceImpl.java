@@ -3,6 +3,7 @@ package com.ssafy.api.service.Product;
 import com.ssafy.api.request.ProductDeleteReq;
 import com.ssafy.api.request.ProductPatchReq;
 import com.ssafy.api.request.ProductRegisterPostReq;
+import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
@@ -10,9 +11,11 @@ import com.ssafy.db.repository.Image.ImageRepository;
 import com.ssafy.db.repository.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -27,12 +30,12 @@ public class ProductServiceImpl implements ProductService {
     public Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files) {
         Product product = new Product();
 
-        product.setP_title(productRegisterPostReq.getTitle());
-        product.setP_description(productRegisterPostReq.getDescription());
-        product.setCategory_id(productRegisterPostReq.getCategory());
-        product.setP_price(productRegisterPostReq.getPrice());
-        product.setP_is_sold(productRegisterPostReq.getIs_sold());
-        product.setP_live_status(productRegisterPostReq.getLive_status());
+        product.setTitle(productRegisterPostReq.getTitle());
+        product.setDescription(productRegisterPostReq.getDescription());
+        product.setCategoryId(productRegisterPostReq.getCategory());
+        product.setPrice(productRegisterPostReq.getPrice());
+        product.setIsSold(productRegisterPostReq.getIs_sold());
+        product.setLiveStatus(productRegisterPostReq.getLive_status());
 
         List<Image> images = fileHandlerService.upload(files);
 
@@ -46,9 +49,16 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public List<Product> getProducts(String productId) {
+    public List<Product> getAllProducts(Long productId) {
         return null;
+    }
+
+    @Override
+    public ProductResponseDto getProductByProductIdAndUserId(Long productId, String userId) {
+        Product product = productRepository.findByProductIdAndUserId(productId, userId).orElse(null);
+        return new ProductResponseDto(product);
     }
 
     @Override

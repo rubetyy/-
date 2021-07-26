@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.ProductDeleteReq;
 import com.ssafy.api.request.ProductRegisterPostReq;
 import com.ssafy.api.request.ProductPatchReq;
+import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Product.ProductService;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -36,10 +37,10 @@ public class ProductController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<? extends BaseResponseBody> getProducts(@PathVariable("productId") String productId){
-
-        return null;
+    @GetMapping()
+    public ResponseEntity<ProductResponseDto> getProducts(@RequestParam("productId") Long productId, @RequestParam("userId") String userId){
+        ProductResponseDto productResponseDto = productService.getProductByProductIdAndUserId(productId, userId);
+        return ResponseEntity.status(200).body(productResponseDto);
     }
 
     @PatchMapping()
