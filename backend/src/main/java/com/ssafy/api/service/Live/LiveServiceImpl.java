@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 /*
  *	방송 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -47,6 +49,16 @@ public class LiveServiceImpl implements LiveService {
 		Long a = liveRepositorySupport.updatetitleLive(liveUpdate_titlePatchReq);
 		return a;
 
+	}
+
+	@Override
+	public List<Live> selectall() {
+		return liveRepository.findAll();
+	}
+
+	@Override
+	public Optional<Live> selectOne(Long liveid) {
+		return liveRepository.findById(liveid);
 	}
 
 

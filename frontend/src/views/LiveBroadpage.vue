@@ -3,13 +3,13 @@
     <h1>LiveBroadpage</h1>
     <hr>
 
-    {{ data }}
+    
     <!-- {{ data }} 바인딩 -->
-    <div>
-      <!-- <h2>{{ data.livetitle }}</h2> -->
+    <div v-if="data">
+      <h2>{{ data.livetitle }}</h2>
       <div>
         <el-button icon="el-icon-user-solid" circle></el-button>
-        <!-- <span>{{ data.userid }} (아이디)</span> -->
+        <span>{{ data.userid }} (아이디)</span>
       </div>
       <el-row>
         <el-button type="primary" icon="el-icon-thumb">상품보기</el-button>
