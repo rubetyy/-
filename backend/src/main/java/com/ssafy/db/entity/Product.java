@@ -42,10 +42,10 @@ public class Product{
     private Integer viewCount;
 
     @Column(name = "is_sold")
-    private String isSold;
+    private Integer isSold;
 
     @Column(name = "live_status")
-    private String liveStatus;
+    private Integer liveStatus;
 
     @OneToMany(
             mappedBy = "product",

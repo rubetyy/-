@@ -16,8 +16,8 @@ public class ProductResponseDto {
     private Integer price;
     private LocalDateTime createdAt;
     private Integer viewCount;
-    private String isSold;
-    private String liveStatus;
+    private Integer isSold;
+    private Integer liveStatus;
 
     public ProductResponseDto(Product entity) {
         this.id = entity.getProductId();

@@ -15,8 +15,8 @@ public class ProductListResponseDto {
     private Integer price;
     private LocalDateTime createdAt;
     private Integer viewCount;
-    private String isSold;
-    private String liveStatus;
+    private Integer isSold;
+    private Integer liveStatus;
 
 
     public ProductListResponseDto(Product entity) {

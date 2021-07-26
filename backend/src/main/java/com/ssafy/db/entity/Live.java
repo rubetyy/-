@@ -21,11 +21,11 @@ import java.util.Date;
 public class Live {
     @Id
     @Column(name="live_pk")
-    int live_pk;
+    int livepk;
     @Column(name="product_pk")
-    int product_pk;
+    int productpk;
     @Column(name="live_title")
-    String live_title;
+    String livetitle;
     @Column(name="live_viewer_count")
-    int live_viewer_count;
+    int liveviewer_count;
 }

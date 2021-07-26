@@ -1,4 +1,4 @@
-package com.ssafy.api.request.Product;
+package com.ssafy.api.request.dto.Product;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
