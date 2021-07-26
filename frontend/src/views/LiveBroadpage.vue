@@ -6,10 +6,11 @@
     
     <!-- {{ data }} 바인딩 -->
     <div v-if="data">
-      <h2>{{ data.livetitle }}</h2>
+      <h2>{{ data.live_title }}</h2>
       <div>
         <el-button icon="el-icon-user-solid" circle></el-button>
-        <span>{{ data.userid }} (아이디)</span>
+        <!-- <span>{{ data.userid }} (아이디)</span> -->
+        <!-- 유저 누구인지 정보 받아야함!! -->
       </div>
       <el-row>
         <el-button type="primary" icon="el-icon-thumb">상품보기</el-button>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>실시간채팅</title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+
+    <!-- sockjs 및 stomp javascript 라이브러리 설치 -->
+    <!-- SockJS: Native WebSocket을 사용하려고하는 WebSocket Client. WebSocket을 지원하지 않는 구형 브라우저에 대체 옵션을 제공함. -->
+    <!-- STOMP JS: 자바 스크립트의 STOMP Client. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <!-- chat.js 코드 갖고 오는 부분 -->
+    <script src="/chat.js"></script>
+
+  </body>
+</html>
