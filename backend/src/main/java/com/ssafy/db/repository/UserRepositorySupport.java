@@ -35,7 +35,7 @@ public class UserRepositorySupport{
     }
 
     public long updateUser(User user,String userId){
-        long a = jpaQueryFactory.update(qUser).set(qUser.user_nickname , user.getUser_nickname())
+        long a = jpaQueryFactory.update(qUser).set(qUser.userNickname , user.getUserNickname())
                 .where(qUser.userId.eq(userId)).execute();
         return a;
     }

@@ -15,8 +15,8 @@ public class ProductListResponseDto {
     private Integer price;
     private LocalDateTime createdAt;
     private Integer viewCount;
-    private String isSold;
-    private String liveStatus;
+    private Integer isSold;
+    private Integer isLive;
 
 
     public ProductListResponseDto(Product entity) {
@@ -30,6 +30,6 @@ public class ProductListResponseDto {
         this.createdAt = entity.getCreatedAt();
         this.viewCount = entity.getViewCount();
         this.isSold = entity.getIsSold();
-        this.liveStatus = entity.getLiveStatus();
+        this.isLive = entity.getIsLive();
     }
 }

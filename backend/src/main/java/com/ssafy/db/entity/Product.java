@@ -1,51 +1,57 @@
 package com.ssafy.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Getter
 @Setter
+@Table(name="product")
 public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "product_pk")
     private Long productId;
 
-    @Column(name = "user_id")
+    @Column(name="user_id_seller")
     private String userId;
 
     @Column(name = "live_id")
     private Integer liveId;
 
-    @Column(name = "category_id")
+    @Column(name = "category_pk")
     private Integer categoryId;
 
-    @Column(name = "p_title")
+    @Column(name = "product_title")
     private String title;
 
-    @Column(name = "p_description")
+    @Column(name = "product_description")
     private String description;
 
-    @Column(name = "p_price")
+    @Column(name = "product_price")
     private Integer price;
 
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "product_created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "view_count")
+    @ColumnDefault("0")
+    @Column(name = "product_view_count")
     private Integer viewCount;
 
     @Column(name = "is_sold")
-    private String isSold;
+    private Integer isSold;
 
-    @Column(name = "live_status")
-    private String liveStatus;
+    @Column(name = "product_is_live")
+    private Integer isLive;
 
     @OneToMany(
             mappedBy = "product",
@@ -53,6 +59,19 @@ public class Product{
             orphanRemoval = true
     )
     private List<Image> image = new ArrayList<>();
+
+    @Builder
+    public Product(String userId, Integer liveId, Integer categoryId, String title, String description, Integer price, Integer viewCount, Integer isSold, Integer isLive) {
+        this.userId = userId;
+        this.liveId = liveId;
+        this.categoryId = categoryId;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.viewCount = viewCount;
+        this.isSold = isSold;
+        this.isLive = isLive;
+    }
 
     public void addImage(Image image){
         this.image.add(image);

@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
 		user.setUserId(userRegisterInfo.getUser_id());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getUser_password()));
-		user.setUser_nickname(userRegisterInfo.getUser_nickname());
-		user.setUser_create_at(LocalDateTime.now());
+		user.setUserNickname(userRegisterInfo.getUser_nickname());
+		user.setUserCreateAt(LocalDateTime.now());
 		return userRepository.save(user);
 	}
 

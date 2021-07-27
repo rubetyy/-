@@ -1,8 +1,8 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.ProductDeleteReq;
-import com.ssafy.api.request.ProductRegisterPostReq;
-import com.ssafy.api.request.ProductPatchReq;
+import com.ssafy.api.request.dto.Product.ProductDeleteReq;
+import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
+import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Product.ProductService;
@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
 import java.util.List;
 
 @Api(value = "상품관리 API", tags = {"Product"})

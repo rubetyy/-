@@ -3,13 +3,15 @@ package com.ssafy.db.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 유저 모델 정의.
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
     @Id
     @Column(name="user_id")
@@ -28,8 +31,15 @@ public class User {
     String password;
 
     @Column(name="user_nickname")
-    String user_nickname;
+    String userNickname;
 
     @Column(name="user_created_at")
-    LocalDateTime user_create_at;
+    LocalDateTime userCreateAt;
+
+    @Builder
+    public User(String userId, String password, String userNickname){
+        this.userId = userId;
+        this.password = password;
+        this.userNickname = userNickname;
+    }
 }

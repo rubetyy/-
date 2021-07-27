@@ -1,4 +1,4 @@
-package com.ssafy.api.request.Product;
+package com.ssafy.api.request.dto.Product;
 
 public class ProductDeleteReq {
 }
