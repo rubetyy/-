@@ -5,11 +5,10 @@ import Signup from '@/views/Signup.vue'
 import Login from '@/views/Login.vue'
 import Mypage from '@/views/Mypage.vue'
 import CategoryPage from '@/views/CategoryPage.vue'
-import LiveBroadpage from '@/views/LiveBroadpage.vue'
+import LivePage from '@/views/LivePage.vue'
 import ProductRegister from '@/views/ProductRegister.vue'
-import MakeBroadCast from '@/views/MakeBroadCast.vue'
+import LiveRegister from '@/views/LiveRegister.vue'
 import ProductDetail from '@/views/ProductDetail.vue'
-
 
 
 Vue.use(VueRouter)
@@ -41,9 +40,9 @@ const routes = [
     component: CategoryPage
   },
   {
-    path: '/livebroadpage',
-    name: 'LiveBroadpage',
-    component: LiveBroadpage
+    path: '/live/:id',
+    name: 'LivePage',
+    component: LivePage
   },
   {
     path: '/productregister',
@@ -51,9 +50,9 @@ const routes = [
     component: ProductRegister
   },
   {
-    path: '/makebroadcast',
-    name: 'MakeBroadCast',
-    component: MakeBroadCast
+    path: '/live/live-start',
+    name: 'LiveRegister',
+    component: LiveRegister
   },
   {
     path: '/productdetail',

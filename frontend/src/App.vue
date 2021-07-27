@@ -5,9 +5,8 @@
         <router-link :to="{name: 'CategoryPage'}">CategoryPage</router-link> |
       <!-- <div v-if="isLogged"> -->
         <router-link :to="{name: 'Mypage'}">Mypage</router-link> |
-        <router-link :to="{name: 'LiveBroadpage'}">LiveBroadpage</router-link> |
         <router-link :to="{name: 'ProductRegister'}">ProductRegister</router-link> |
-        <router-link :to="{name: 'MakeBroadCast'}">MakeBroadCast</router-link> |
+        <router-link :to="{name: 'LiveRegister'}">LiveRegister</router-link> |
         <router-link :to="{name: 'ProductDetail'}">ProductDetail</router-link> |
         <router-link to="#" @click.native="logout">Logout</router-link> |
       <!-- </div> -->
@@ -28,6 +27,7 @@ const userStore = 'userStore'
 
 export default {
   name: 'App',
+
   computed: {
     ...mapGetters(userStore,[
       'getToken'
@@ -36,6 +36,7 @@ export default {
       return this.getToken
     }
   },
+
   methods : {
     ...mapActions(userStore,[
       'LOGOUT'
@@ -44,12 +45,10 @@ export default {
       this.LOGOUT()
       .then(()=> {
         this.$router.push({name:"MainPage"})
-    })
-   }
+      })
+    }
   },
-
-  }
-
+}
 </script>
 
 <style>
@@ -57,7 +56,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
 }
 
