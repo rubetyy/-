@@ -2,9 +2,11 @@ package com.ssafy.api.controller;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.response.dto.User.LivewithUser;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Live;
+import com.ssafy.db.entity.User;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -71,8 +73,18 @@ public class LiveController {
 
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 		Tuple live = liveService.selectone(liveid);
+		Live l = live.get(0,Live.class);
+		User u = live.get(1, User.class);
+		LivewithUser res = new LivewithUser();
+		res.setLivepk(l.getLivepk());
+		res.setProductpk(l.getProductpk());
+		res.setLivetitle(l.getLivetitle());
+		res.setLiveviewercount(l.getLiveviewercount());
+		res.setUsernickname(u.getUserNickname());
+		res.setUserid(u.getUserId());
+		res.setUsercreatedat(u.getUserCreateAt());
 		if(live == null) System.out.println("xxxxx");
-		return new ResponseEntity<Tuple>(live, HttpStatus.OK);
+		return new ResponseEntity<LivewithUser>(res, HttpStatus.OK);
 	}
 
 //	@Transactional
@@ -112,7 +124,4 @@ public class LiveController {
 		System.out.println(a);
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
-
-
-
 }

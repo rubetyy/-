@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.db.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@ToString
 public class Live {
     @Id
     @Column(name="live_pk")
@@ -27,7 +29,8 @@ public class Live {
     @Column(name="live_title")
     String livetitle;
     @Column(name="live_viewer_count")
-    int liveviewer_count;
+    int liveviewercount;
     @Column(name="user_id")
     String userid;
+
 }
