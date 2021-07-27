@@ -1,8 +1,8 @@
 package com.ssafy.api.service.Product;
 
-import com.ssafy.api.request.ProductDeleteReq;
-import com.ssafy.api.request.ProductPatchReq;
-import com.ssafy.api.request.ProductRegisterPostReq;
+import com.ssafy.api.request.dto.Product.ProductDeleteReq;
+import com.ssafy.api.request.dto.Product.ProductPatchReq;
+import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -28,14 +27,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files) {
-        Product product = new Product();
 
-        product.setTitle(productRegisterPostReq.getTitle());
-        product.setDescription(productRegisterPostReq.getDescription());
-        product.setCategoryId(productRegisterPostReq.getCategory());
-        product.setPrice(productRegisterPostReq.getPrice());
-        product.setIsSold(productRegisterPostReq.getIs_sold());
-        product.setLiveStatus(productRegisterPostReq.getLive_status());
+        Product product = new Product()
+                .builder()
+                .userId(productRegisterPostReq.getUserId())
+                .title(productRegisterPostReq.getTitle())
+                .description(productRegisterPostReq.getDescription())
+                .categoryId(productRegisterPostReq.getCategory())
+                .price(productRegisterPostReq.getPrice())
+                .isSold(productRegisterPostReq.getIs_sold())
+                .isLive(productRegisterPostReq.getIs_live())
+                .build();
 
         List<Image> images = fileHandlerService.upload(files);
 

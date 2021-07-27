@@ -1,15 +1,13 @@
 package com.ssafy.api.service.Live;
 
-import com.ssafy.api.request.LiveRegisterPostReq;
-import com.ssafy.api.request.LiveUpdate_titlePatchReq;
+import com.querydsl.core.Tuple;
+import com.ssafy.api.request.LiveTitlePatchReq;
 import com.ssafy.db.entity.Live;
 import com.ssafy.db.repository.Live.LiveRepository;
 import com.ssafy.db.repository.Live.LiveRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /*
@@ -25,35 +23,30 @@ public class LiveServiceImpl implements LiveService {
 	LiveRepositorySupport liveRepositorySupport;
 	
 	@Override
-	public Live createLive(LiveRegisterPostReq liveRegisterInfo) {
+	public Live createLive(Live liveRegisterInfo) {
 		Live live = new Live();
-		live.setUserid(liveRegisterInfo.getUserid());
+		live.setProductpk(liveRegisterInfo.getProductpk());
 		live.setLivetitle(liveRegisterInfo.getLivetitle());
-		live.setLiveds(liveRegisterInfo.getLiveds());
-		live.setLiveimg(liveRegisterInfo.getLiveimg());
-		live.setLivewriter(liveRegisterInfo.getLivewriter());
-		live.setLive_reg_date(Timestamp.valueOf(LocalDateTime.now()));
-
-		return liveRepository.save(live);
+		live.setUserid(liveRegisterInfo.getUserid());
+		liveRepository.save(live);
+		live = liveRepositorySupport.findMaxIdx();
+		return live;
 	}
 
 	@Override
-	public Long endLive(String value) {
-		Long a = liveRepositorySupport.endLive(value);
+	public Long updatetitleLive(LiveTitlePatchReq liveTitlePatchReq) {
+		Long a = liveRepositorySupport.updatetitleLive(liveTitlePatchReq);
 		return a;
 	}
 
 	@Override
-	public Long updatetitleLive(LiveUpdate_titlePatchReq liveUpdate_titlePatchReq) {
-		Long a = liveRepositorySupport.updatetitleLive(liveUpdate_titlePatchReq);
-		return a;
-
+	public Tuple selectone(String liveid) {
+		return liveRepositorySupport.findByLiveId(Integer.valueOf(liveid));
 	}
 
 	@Override
 	public List<Live> selectall() {
 		return liveRepository.findAll();
 	}
-
 
 }

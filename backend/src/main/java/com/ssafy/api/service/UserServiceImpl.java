@@ -1,14 +1,15 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.UserUpdatePostReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.request.dto.User.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
+
+import java.time.LocalDateTime;
 
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -27,12 +28,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		User user = new User();
-		user.setUserId(userRegisterInfo.getId());
+		user.setUserId(userRegisterInfo.getUser_id());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
-		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
-		user.setName(userRegisterInfo.getName());
-		user.setDepartment(userRegisterInfo.getDepartment());
-		user.setPosition(userRegisterInfo.getPosition());
+		user.setPassword(passwordEncoder.encode(userRegisterInfo.getUser_password()));
+		user.setUserNickname(userRegisterInfo.getUser_nickname());
+		user.setUserCreateAt(LocalDateTime.now());
 		return userRepository.save(user);
 	}
 
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public long updateUser(UserUpdatePostReq userUpdatePostReq, String userId) {
+	public long updateUser(User userUpdatePostReq, String userId) {
 		return userRepositorySupport.updateUser(userUpdatePostReq, userId);
 	}
 

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ProductResponseDto {
-    private Long id;
+    private Long productId;
     private String userId;
     private Integer liveId;
     private Integer categoryId;
@@ -16,11 +16,11 @@ public class ProductResponseDto {
     private Integer price;
     private LocalDateTime createdAt;
     private Integer viewCount;
-    private String isSold;
-    private String liveStatus;
+    private Integer isSold;
+    private Integer isLive;
 
     public ProductResponseDto(Product entity) {
-        this.id = entity.getProductId();
+        this.productId = entity.getProductId();
         this.userId = entity.getUserId();
         this.liveId = entity.getLiveId();
         this.categoryId = entity.getCategoryId();
@@ -30,6 +30,6 @@ public class ProductResponseDto {
         this.createdAt = entity.getCreatedAt();
         this.viewCount = entity.getViewCount();
         this.isSold = entity.getIsSold();
-        this.liveStatus = entity.getLiveStatus();
+        this.isLive = entity.getIsLive();
     }
 }

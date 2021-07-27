@@ -9,27 +9,35 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name="file")
-public class Image extends BaseEntity{
+public class Image{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_pk")
     private Product product;
 
-    private String origin_file_name;
+    private String originFileName;
 
-    private String file_path;
+    private String filePath;
 
-    private Long file_size;
+    private Long fileSize;
 
     @Builder
-    public Image(String origin_file_name, String file_path, Long file_size){
-        this.origin_file_name = origin_file_name;
-        this.file_path = file_path;
-        this.file_size = file_size;
+    public Image(String originFileName, String filePath, Long fileSize){
+        this.originFileName = originFileName;
+        this.filePath = filePath;
+        this.fileSize = fileSize;
     }
-
+    //상품 정보 저장
     public void setProduct(Product product){
         this.product = product;
+        //상품에 현재 이미지가 존재하지 않는다면
+        if(!product.getImage().contains(this)){
+            //이미지 추가
+            product.getImage().add(this);
+        }
 
     }
 }

@@ -5,9 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.db.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,14 +19,18 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-public class Live extends BaseEntity{
-    Long id;
-    @Column(name="userid") String userid;
+@ToString
+public class Live {
+    @Id
+    @Column(name="live_pk")
+    int livepk;
+    @Column(name="product_pk")
+    int productpk;
+    @Column(name="live_title")
     String livetitle;
-    String liveds;
-    String liveimg;
-    String livewriter;
-    int liveon;
-    Date live_reg_date;
-    Date live_fin_date;
+    @Column(name="live_viewer_count")
+    int liveviewercount;
+    @Column(name="user_id")
+    String userid;
+
 }

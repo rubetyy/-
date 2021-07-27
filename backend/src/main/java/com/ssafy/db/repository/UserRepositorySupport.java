@@ -1,7 +1,6 @@
 package com.ssafy.db.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.api.request.UserUpdatePostReq;
 import com.ssafy.db.entity.QUser;
 import com.ssafy.db.entity.User;
 
@@ -33,9 +32,8 @@ public class UserRepositorySupport{
         return Optional.ofNullable(user);
     }
 
-    public long updateUser(UserUpdatePostReq user,String userId){
-        long a = jpaQueryFactory.update(qUser).set(qUser.department , user.getDepartment())
-                .set(qUser.position, user.getPosition())
+    public long updateUser(User user,String userId){
+        long a = jpaQueryFactory.update(qUser).set(qUser.userNickname , user.getUserNickname())
                 .where(qUser.userId.eq(userId)).execute();
         return a;
     }

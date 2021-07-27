@@ -1,7 +1,6 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.UserRegisterPostReq;
-import com.ssafy.api.request.UserUpdatePostReq;
+import com.ssafy.api.request.dto.User.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 
 /**
@@ -11,5 +10,5 @@ public interface UserService {
 	User createUser(UserRegisterPostReq userRegisterInfo);
 	User deleteUser(String userId);
 	User getUserByUserId(String userId);
-	long updateUser(UserUpdatePostReq userUpdatePostReq,String userId);
+	long updateUser(User userUpdatePostReq,String userId);
 }
