@@ -3,12 +3,10 @@ package com.ssafy.db.entity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
@@ -47,7 +45,7 @@ public class Product{
     @Column(name = "product_view_count")
     private Integer viewCount;
 
-    @Column(name = "is_sold")
+    @Column(name = "product_is_sold")
     private Integer isSold;
 
     @Column(name = "product_is_live")
