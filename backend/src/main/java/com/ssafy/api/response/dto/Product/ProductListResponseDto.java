@@ -9,7 +9,7 @@ public class ProductListResponseDto {
     private Long id;
     private String userId;
     private Integer liveId;
-    private Integer categoryId;
+    private Long categoryId;
     private String title;
     private String description;
     private Integer price;
