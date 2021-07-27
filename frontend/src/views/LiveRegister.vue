@@ -35,10 +35,10 @@
 // 필수항목 유효성 검사 & 방송을 만든 사용자만 CRUD 가능 -> 로그인정보 받아서 제목 수정할 수 있도록 구성할것
 import { mapActions } from 'vuex'
 
-const live = 'live'
+const liveStore = 'liveStore'
 
 export default {
-  name: 'MakeBroadCast',
+  name: 'LiveRegister',
   data: function () {
     return {
       live_title: '',
@@ -46,7 +46,7 @@ export default {
     }
   },
   methods : {
-    ...mapActions(live, ['startLive',]),
+    ...mapActions(liveStore, ['startLive',]),
     // 방송시작하기
     startlive: function() {
       if (this.live_title.trim()) {

@@ -1,6 +1,6 @@
 <template>
   <div id="livepage">
-    <h1>LiveBroadpage</h1>
+    <h1>LivePage</h1>
     <hr>
 
     
@@ -29,10 +29,10 @@
 // 구매자 뷰) 방송 나가기, 판매자 프로필보기
 
 import { mapActions } from 'vuex'
-const live = 'live'
+const liveStore = 'liveStore'
 
 export default {
-  name: 'LiveBroadpage',
+  name: 'LivePage',
   data: function () {
     return {
       data: null,
@@ -47,7 +47,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(live, ['getLiveInfo']),
+    ...mapActions(liveStore, ['getLiveInfo']),
   },
 
 }
