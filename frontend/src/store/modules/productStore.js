@@ -1,14 +1,14 @@
 import axios from 'axios'
 
-// const BASE_URL = process.env.BASE_URL
+const BASE_URL = process.env.VUE_APP_BASE_URL
 
 
 const productStore = {
   namespaced: true,
 
   state: {
-    productFile: [],
-    productList: [],  // 메인페이지 상품리스트
+    productFile: [], // 상품 단일 상세정보
+    productList: [], // 메인페이지 상품리스트
   },
 
   getters: {
@@ -22,7 +22,10 @@ const productStore = {
 
   mutations: {
     REGISTER(state, file) {
-      state.productFile = JSON.parse(file)
+      // state.productFile = JSON.parse(file)
+      state.productFile = file
+      console.log(state.productFile.get('title'))
+
     },
     SET_PRODUCT_LIST (state, data) {
       state.productList = data
@@ -32,8 +35,7 @@ const productStore = {
   actions: {
     // 제품등록
     async register({commit}, productFile) {
-      const REGISTER_URL = '/product/create'
-      // const data = JSON.stringify(productFile)
+      const REGISTER_URL = BASE_URL + '/product/create'
       let data = new FormData();
       if (productFile.images != null) {
         for (let i = 0; i < productFile.images.length; i++) {
@@ -49,7 +51,14 @@ const productStore = {
       data.append('live_status', productFile.live_status);
       data.append('user_id', productFile.user_id);
 
-      const response = await axios.post(REGISTER_URL, data)
+      const token =  localStorage.getItem('token')
+      const config ={
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+
+      const response = await axios.post(REGISTER_URL, data, config)
       console.log(response)
       // console.log(response.config.data)
       commit('REGISTER', response.config.data)

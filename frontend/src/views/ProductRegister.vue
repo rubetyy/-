@@ -67,14 +67,23 @@
 
   <div>
     카테고리
-    <b-form-select
+    <!-- <b-form-select
       v-model="productFile.category"
       :options="options"
       class="mb-3"
       value-field="item"
       text-field="name"
       disabled-field="notEnabled"
-    ></b-form-select>
+    ></b-form-select> -->
+
+
+    <select class="form-select" aria-label="Default select example" v-model="productFile.category">
+      <option value="1">의류</option>
+      <option value="2">음식</option>
+      <option value="3">전자제품</option>
+      <option value="4">기타</option>
+
+    </select>
 
     <div class="mt-3">선택된 카테고리: <strong>{{ productFile.category }}</strong></div>
     <br>

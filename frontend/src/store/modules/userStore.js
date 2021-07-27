@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // axios.defaults.baseURL = 'http://localhost:8080'
 // const url = BASE_URL + `주소/${변수}/`
-const BASE_URL = process.env.BASE_URL
+const BASE_URL = process.env.VUE_APP_BASE_URL
 
 const userStore = {
   namespaced: true,
@@ -38,7 +38,7 @@ const userStore = {
   },
   actions: {
     async login({commit}, credentials) {
-      const LOGIN_URL = BASE_URL + '/api/v1/auth/login/'
+      const LOGIN_URL = BASE_URL + '/auth/login/'
       const data = credentials
       const response = await axios.post(LOGIN_URL, data)
       // console.log(response)
@@ -57,7 +57,7 @@ const userStore = {
       },
       
     async signup({commit, dispatch}, credentials) {
-      const SIGNUP_URL = '/api/v1/users/'
+      const SIGNUP_URL = BASE_URL + '/users/join'
       const data = credentials
       const response = await axios.post(SIGNUP_URL, data)
       commit('SIGNUP', response.data)
