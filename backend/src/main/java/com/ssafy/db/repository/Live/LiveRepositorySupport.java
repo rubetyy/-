@@ -24,7 +24,7 @@ public class LiveRepositorySupport {
 
     public Live findByLiveId(int liveid){
         Live live = jpaQueryFactory.select(qLive).from(qLive)
-                .where(qLive.live_pk.eq(Integer.valueOf(liveid))).fetchOne();
+                .where(qLive.livepk.eq(Integer.valueOf(liveid))).fetchOne();
 
         return live;
     }
@@ -37,8 +37,8 @@ public class LiveRepositorySupport {
 //    }
 
     public Long updatetitleLive(LiveUpdate_titlePatchReq liveUpdate_titlePatchReq){
-        Long a =  jpaQueryFactory.update(qLive).set(qLive.live_title,liveUpdate_titlePatchReq.getLivetitle())
-                .where( qLive.live_pk.eq( Integer.valueOf(liveUpdate_titlePatchReq.getId()) ) ).execute();
+        Long a =  jpaQueryFactory.update(qLive).set(qLive.livetitle,liveUpdate_titlePatchReq.getLivetitle())
+                .where( qLive.livepk.eq( Integer.valueOf(liveUpdate_titlePatchReq.getId()) ) ).execute();
         return a;
     }
 

@@ -25,10 +25,10 @@ public class LiveServiceImpl implements LiveService {
 	@Override
 	public Live createLive(Live liveRegisterInfo) {
 		Live live = new Live();
-		live.setLive_pk(liveRegisterInfo.getLive_pk());
-		live.setProduct_pk(liveRegisterInfo.getProduct_pk());
-		live.setLive_title(liveRegisterInfo.getLive_title());
-		live.setLive_viewer_count(liveRegisterInfo.getLive_viewer_count());
+		live.setLivepk(liveRegisterInfo.getLivepk());
+		live.setProductpk(liveRegisterInfo.getProductpk());
+		live.setLivetitle(liveRegisterInfo.getLivetitle());
+		live.setLiveviewer_count(liveRegisterInfo.getLiveviewer_count());
 
 		return liveRepository.save(live);
 	}
