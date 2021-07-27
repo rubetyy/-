@@ -62,9 +62,9 @@ public class FileHandlerImpl implements FileHandlerService{
                 String newFileName = System.nanoTime() + originFileExtension;
                 //파일 생성 후 리스트에 추가
                 Image image = Image.builder()
-                        .origin_file_name(multipartFile.getOriginalFilename())
-                        .file_path(path + File.separator + newFileName)
-                        .file_size(multipartFile.getSize())
+                        .originFileName(multipartFile.getOriginalFilename())
+                        .filePath(path + File.separator + newFileName)
+                        .fileSize(multipartFile.getSize())
                         .build();
 
                 images.add(image);
