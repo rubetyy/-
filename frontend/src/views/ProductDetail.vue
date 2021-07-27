@@ -107,12 +107,12 @@ export default {
       this.sliding = false
     },
     ...mapActions(productStore,[
-    'PRODUCTDETAIL',
+    'productDetail',
     ]),
   },
   async created() {
     
-    this.PRODUCTDETAIL()
+    this.productDetail()
     console.log('dd')
     },
 }

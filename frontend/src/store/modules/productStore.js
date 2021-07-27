@@ -35,7 +35,7 @@ const productStore = {
 
   actions: {
     // 제품등록
-    async REGISTER({commit}, productFile) {
+    async register({commit}, productFile) {
       const REGISTER_URL = '/product/create'
       // const data = JSON.stringify(productFile)
       let data = new FormData();
@@ -60,7 +60,7 @@ const productStore = {
     },
 
     // 제품상세
-    async PRODUCTDETAIL({ commit }) {   
+    async productDetail({ commit }) {   
       // const MOIVE_URL = `/api/v1/movies/${movie_id}/`
       // localhost:8080/product?productId=9&userId=hyewon
       console.log('들어옴?')

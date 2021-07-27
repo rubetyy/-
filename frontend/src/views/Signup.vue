@@ -25,7 +25,7 @@
       <label for="position">position: </label>
       <input type="text" id='position' v-model='credentials.position'>
     </div>
-    <input type="submit" v-on:click='signup'>
+    <input type="submit" v-on:click='signupClick'>
   </div>
 </template>
 
@@ -50,10 +50,10 @@ export default {
   },
   methods : {
       ...mapActions(userStore,[
-        'SIGNUP'
+        'signup'
       ]),
-      signup: function() {
-        this.SIGNUP(this.credentials)
+      signupClick: function() {
+        this.signup(this.credentials)
         .then(()=> {
           this.$router.push({name:"MainPage"})
       })

@@ -100,7 +100,7 @@
   </div>
     <!-- <input type="submit" id="submit" value="전송" v-on:click='register'/> -->
 
-  <button v-on:click='register'>등록</button>
+  <button v-on:click='registerClick'>등록</button>
 
 <!-- </form> -->
   </div>
@@ -155,12 +155,12 @@ export default {
       
   methods: {
       ...mapActions(productStore,[
-          'REGISTER',
+          'register',
       ]),
-      register() {
+      registerClick() {
         this.productFile.user_id = this.userInfo
         // console.log(this.productFile.user_id)
-        this.REGISTER(this.productFile)
+        this.register(this.productFile)
 
 
       },
