@@ -37,11 +37,11 @@ const userStore = {
     },
   },
   actions: {
-    async LOGIN({commit}, credentials) {
+    async login({commit}, credentials) {
       const LOGIN_URL = BASE_URL + '/api/v1/auth/login/'
       const data = credentials
       const response = await axios.post(LOGIN_URL, data)
-      console.log(response)
+      // console.log(response)
       const token = response.data.accessToken
 
       localStorage.setItem('token', token)
@@ -49,20 +49,19 @@ const userStore = {
 
       commit('LOGIN', data)
       commit('LOGIN_CHECK', token)
-      // dispatch('AUTH_PROFILE')
       },
 
 
-      LOGOUT({commit}){
+      logout({commit}){
         commit('LOGOUT')
       },
       
-    async SIGNUP({commit, dispatch}, credentials) {
+    async signup({commit, dispatch}, credentials) {
       const SIGNUP_URL = '/api/v1/users/'
       const data = credentials
       const response = await axios.post(SIGNUP_URL, data)
       commit('SIGNUP', response.data)
-      dispatch('LOGIN', credentials)
+      dispatch('login', credentials)
     },
   }
 

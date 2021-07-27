@@ -10,7 +10,7 @@
         <label for="password">password: </label>
         <input type="password" id='password' v-model='credentials.password'>
       </div>
-      <input type="submit" v-on:click='login'>
+      <input type="submit" v-on:click='loginClick'>
     
   </div>
 </template>
@@ -33,10 +33,10 @@ export default {
   },
   methods: {
     ...mapActions(userStore, [
-      'LOGIN',
+      'login',
     ]),
-    login(){
-      this.LOGIN(this.credentials)
+    loginClick(){
+      this.login(this.credentials)
       .then(()=>{
         this.$router.push({name:"MainPage"})
       })
