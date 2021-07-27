@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.LiveUpdate_titlePatchReq;
+import com.querydsl.core.Tuple;
+import com.ssafy.api.request.LiveTitlePatchReq;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Live;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -70,8 +70,9 @@ public class LiveController {
 			@RequestBody @ApiParam(value="방송pk 정보", required = true) @PathVariable String liveid) {
 
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-		Live live = liveService.selectone(liveid);
-		return new ResponseEntity<Live>(live, HttpStatus.OK);
+		Tuple live = liveService.selectone(liveid);
+		if(live == null) System.out.println("xxxxx");
+		return new ResponseEntity<Tuple>(live, HttpStatus.OK);
 	}
 
 //	@Transactional
@@ -103,11 +104,11 @@ public class LiveController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<? extends BaseResponseBody> register(
-			@RequestBody @ApiParam(value="방송제목수정", required = true)LiveUpdate_titlePatchReq liveUpdate_titlePatchReq) {
+			@RequestBody @ApiParam(value="방송제목수정", required = true) LiveTitlePatchReq liveTitlePatchReq) {
 
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 //		System.out.println(userId);
-		long a = liveService.updatetitleLive(liveUpdate_titlePatchReq);
+		long a = liveService.updatetitleLive(liveTitlePatchReq);
 		System.out.println(a);
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}

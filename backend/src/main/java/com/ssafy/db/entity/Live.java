@@ -28,4 +28,6 @@ public class Live {
     String livetitle;
     @Column(name="live_viewer_count")
     int liveviewer_count;
+    @Column(name="user_id")
+    String userid;
 }

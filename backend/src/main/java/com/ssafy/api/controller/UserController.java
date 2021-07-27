@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.api.request.dto.User.UserRegisterPostReq;
-import com.ssafy.api.response.UserRes;
+import com.ssafy.api.response.dto.User.UserRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;

@@ -1,6 +1,7 @@
 package com.ssafy.api.service.Live;
 
-import com.ssafy.api.request.LiveUpdate_titlePatchReq;
+import com.querydsl.core.Tuple;
+import com.ssafy.api.request.LiveTitlePatchReq;
 import com.ssafy.db.entity.Live;
 import com.ssafy.db.repository.Live.LiveRepository;
 import com.ssafy.db.repository.Live.LiveRepositorySupport;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /*
  *	방송 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -25,23 +25,22 @@ public class LiveServiceImpl implements LiveService {
 	@Override
 	public Live createLive(Live liveRegisterInfo) {
 		Live live = new Live();
-		live.setLivepk(liveRegisterInfo.getLivepk());
 		live.setProductpk(liveRegisterInfo.getProductpk());
 		live.setLivetitle(liveRegisterInfo.getLivetitle());
-		live.setLiveviewer_count(liveRegisterInfo.getLiveviewer_count());
-
-		return liveRepository.save(live);
+		live.setUserid(liveRegisterInfo.getUserid());
+		liveRepository.save(live);
+		live = liveRepositorySupport.findMaxIdx();
+		return live;
 	}
 
 	@Override
-	public Long updatetitleLive(LiveUpdate_titlePatchReq liveUpdate_titlePatchReq) {
-		Long a = liveRepositorySupport.updatetitleLive(liveUpdate_titlePatchReq);
+	public Long updatetitleLive(LiveTitlePatchReq liveTitlePatchReq) {
+		Long a = liveRepositorySupport.updatetitleLive(liveTitlePatchReq);
 		return a;
-
 	}
 
 	@Override
-	public Live selectone(String liveid) {
+	public Tuple selectone(String liveid) {
 		return liveRepositorySupport.findByLiveId(Integer.valueOf(liveid));
 	}
 

@@ -1,4 +1,4 @@
-package com.ssafy.api.response;
+package com.ssafy.api.response.dto.User;
 
 import com.ssafy.common.model.response.BaseResponseBody;
 
@@ -24,4 +24,5 @@ public class UserLoginPostRes extends BaseResponseBody{
 		res.setAccessToken(accessToken);
 		return res;
 	}
+
 }
