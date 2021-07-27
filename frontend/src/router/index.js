@@ -41,7 +41,7 @@ const routes = [
     component: CategoryPage
   },
   {
-    path: '/livebroadpage',
+    path: '/live/:id',
     name: 'LiveBroadpage',
     component: LiveBroadpage
   },
@@ -51,7 +51,7 @@ const routes = [
     component: ProductRegister
   },
   {
-    path: '/makebroadcast',
+    path: '/live/live-start',
     name: 'MakeBroadCast',
     component: MakeBroadCast
   },

@@ -5,7 +5,7 @@
         <router-link :to="{name: 'CategoryPage'}">CategoryPage</router-link> |
       <!-- <div v-if="isLogged"> -->
         <router-link :to="{name: 'Mypage'}">Mypage</router-link> |
-        <router-link :to="{name: 'LiveBroadpage'}">LiveBroadpage</router-link> |
+        <!-- <router-link :to="{name: 'LiveBroadpage'}">LiveBroadpage</router-link> | -->
         <router-link :to="{name: 'ProductRegister'}">ProductRegister</router-link> |
         <router-link :to="{name: 'MakeBroadCast'}">MakeBroadCast</router-link> |
         <router-link :to="{name: 'ProductDetail'}">ProductDetail</router-link> |
