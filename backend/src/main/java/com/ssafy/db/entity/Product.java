@@ -1,13 +1,15 @@
 package com.ssafy.db.entity;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Getter
@@ -41,7 +43,6 @@ public class Product{
     @Column(name = "product_created_at")
     private LocalDateTime createdAt;
 
-    @ColumnDefault("0")
     @Column(name = "product_view_count")
     private Integer viewCount;
 
