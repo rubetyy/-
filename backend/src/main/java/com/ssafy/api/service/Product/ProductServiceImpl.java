@@ -53,8 +53,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Product> getAllProducts(Long productId) {
-        return null;
+    public List<Product> getAllProducts() {
+        List<Product> product = productRepository.findAll();
+        return product;
     }
 
     @Override
