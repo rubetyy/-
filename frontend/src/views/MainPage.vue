@@ -11,7 +11,7 @@ import LiveList from '@/components/MainPage/LiveList.vue'
 import ProductList from '@/components/MainPage/ProductList.vue'
 import { mapGetters } from 'vuex'
 
-const product = 'product'
+const productStore = 'productStore'
 
 export default {
   name: 'MainPage',
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     // slice(0,12) -> BE에서 처리
-    ...mapGetters(product, ['hotProductList',]),
+    ...mapGetters(productStore, ['hotProductList',]),
     hotProducts: function() {
       return this.hotProductList
     }

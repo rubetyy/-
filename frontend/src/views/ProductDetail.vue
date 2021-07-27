@@ -72,7 +72,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+
 const productStore = 'productStore'
 
 export default {
@@ -92,7 +93,7 @@ export default {
       return this.getProductFile
     },
     image() {
-      console.log(this.productFile)
+      // console.log(this.productFile)
       return this.productFile.thumbnail
     }
 
@@ -104,8 +105,16 @@ export default {
     },
     onSlideEnd() {
       this.sliding = false
-    }
-  }
+    },
+    ...mapActions(productStore,[
+    'productDetail',
+    ]),
+  },
+  async created() {
+    
+    this.productDetail()
+    console.log('dd')
+    },
 }
 </script>
 
