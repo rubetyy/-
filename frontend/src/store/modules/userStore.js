@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'http://localhost:8080'
 const userStore = {
   namespaced: true,
   state: {
-    credentials: localStorage.getItem('credentials') ? JSON.parse(localStorage.getItem('credentials')) : '',
+    credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',
     token: localStorage.getItem('token'),
 
   },
@@ -20,7 +20,10 @@ const userStore = {
     }
   },
   mutations: {
-    LOGIN(state, token){
+    LOGIN(state, data){
+      state.credentials = data
+    },
+    LOGIN_CHECK(state, token){
       state.token = token
     },
     LOGOUT(state){
@@ -35,20 +38,21 @@ const userStore = {
   },
   actions: {
     async LOGIN({commit}, credentials) {
-      console.log('1')
       const LOGIN_URL = '/api/v1/auth/login/'
       const data = credentials
       const response = await axios.post(LOGIN_URL, data)
-      // console.log(response)
-      console.log('2')
+      console.log(response)
       const token = response.data.accessToken
-      console.log(token)
+
       localStorage.setItem('token', token)
-      // localStorage.setItem('credentials', data)
-      console.log('3')
-      commit('LOGIN', token)
+      localStorage.setItem('credentials', data.id)
+
+      commit('LOGIN', data)
+      commit('LOGIN_CHECK', token)
       // dispatch('AUTH_PROFILE')
       },
+
+
       LOGOUT({commit}){
         commit('LOGOUT')
       },
