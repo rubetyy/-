@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-    <h1>Mypage</h1>
+    <h1>MyPage</h1>
     <hr>
 
     <div>
@@ -33,7 +33,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'Mypage',
+  name: 'MyPage',
 
   created: function () {
     console.log('created')
