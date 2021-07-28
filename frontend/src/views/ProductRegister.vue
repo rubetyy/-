@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>ProductRegister</h1>
+
     <!-- <div>
         <img src="../../../backend/images/20210723/498640179290400.png" alt="">
     </div> -->
@@ -82,7 +83,6 @@
       <option value="2">음식</option>
       <option value="3">전자제품</option>
       <option value="4">기타</option>
-
     </select>
 
     <div class="mt-3">선택된 카테고리: <strong>{{ productFile.category }}</strong></div>
@@ -166,10 +166,13 @@ export default {
       ...mapActions(productStore,[
           'register',
       ]),
-      registerClick() {
+      registerClick() { //등록버튼
         this.productFile.user_id = this.userInfo
         // console.log(this.productFile.user_id)
         this.register(this.productFile)
+        .then(()=>{
+            this.$router.push({name:"ProductDetail"})
+        })
 
 
       },
