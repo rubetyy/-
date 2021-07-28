@@ -11,11 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(value = "메인페이지 API", tags = {"Home"})
+@Api(value = "카테고리탭에 속하는 화면 API", tags = {"Category"})
 @RestController
 @RequestMapping("/home")
-public class HomeController {
+public class CategoryController {
+    
+    @Autowired
+    ProductService productService;
 
-
-
+    @GetMapping()
+    public List<ProductListResponseDto> getProductsByCategory(@RequestParam("categoryId") Long categoryId){
+        List<ProductListResponseDto> productsByCategory = productService.getProductsByCategory(categoryId);
+        return productsByCategory;
+    }
 }
