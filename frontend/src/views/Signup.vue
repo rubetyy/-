@@ -2,8 +2,8 @@
   <div>
     <h1>Signup</h1>
      <div>
-      <label for="name">name: </label>
-      <input type="text" name='name' v-model='credentials.name'>
+      <label for="nickname">nickname: </label>
+      <input type="text" userNickname='nickname' v-model='credentials.nickname'>
     </div>
     <div>
       <label for="id">id: </label>
@@ -41,10 +41,10 @@ export default {
       credentials: {
         id: null,
         password: null,
-        passwordConfirmation: null,
-        position: null,
-        department: null,
-        name: null,
+        // passwordConfirmation: null,
+        // position: null,
+        // department: null,
+        nickname: null,
       },
     }
   },

@@ -3,64 +3,56 @@
     <h1>ProductDetail</h1>
     {{ productFile }}
     {{ productFile.thumbnail }}
-    <div>
-     <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        :img-src= image
-      ></b-carousel-slide>
 
-      <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1>Hello world!</h1>
-      </b-carousel-slide>
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" class="btn btn-primary">Primary</button>
 
-      <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
-
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-        </p>
-      </b-carousel-slide>
-      </b-carousel>
-
+        <button type="button"  class="btn btn-primary" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../../../backend/images/20210727/865456997892800.png" class="d-block w-50" alt="">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>First slide label</h5>
+          <p>Some representative placeholder content for the first slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="#" class="d-block w-50" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Second slide label</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="#" class="d-block w-50" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>Some representative placeholder content for the third slide.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev btn btn-info" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next btn btn-info" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+    <!-- <div>
       <p class="mt-4">
         Slide #: {{ slide }}<br>
         Sliding: {{ sliding }}
       </p>     
+    </div> -->
+    <div>제목  
+      <h3>{{ productFile.title }}</h3>
     </div>
-    <div>제목  {{ productFile.title }} </div>
     <div>설명  {{ productFile.content }} </div>
     <div>상품 카테고리  {{ productFile.category }} </div>
     <div>가격  {{ productFile.price }} </div>
@@ -87,10 +79,10 @@ export default {
     },
   computed: {
     ...mapGetters(productStore,[
-      'getProductFile'
+      'getProductDetailFile'
     ]),
     productFile: function() {
-      return this.getProductFile
+      return this.getProductDetailFile
     },
     image() {
       // console.log(this.productFile)
@@ -100,12 +92,12 @@ export default {
   },
 
   methods: {
-    onSlideStart() {
-      this.sliding = true
-    },
-    onSlideEnd() {
-      this.sliding = false
-    },
+    // onSlideStart() {
+    //   this.sliding = true
+    // },
+    // onSlideEnd() {
+    //   this.sliding = false
+    // },
     ...mapActions(productStore,[
     'productDetail',
     ]),

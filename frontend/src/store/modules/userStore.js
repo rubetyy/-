@@ -57,7 +57,7 @@ const userStore = {
       },
       
     async signup({commit, dispatch}, credentials) {
-      const SIGNUP_URL = '/api/v1/users/'
+      const SIGNUP_URL = BASE_URL + '/users/join'
       const data = credentials
       const response = await axios.post(SIGNUP_URL, data)
       commit('SIGNUP', response.data)
