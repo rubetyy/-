@@ -9,7 +9,7 @@
 <script>
 import LiveList from '@/components/MainPage/LiveList.vue'
 import ProductList from '@/components/MainPage/ProductList.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 const productStore = 'productStore'
 
@@ -25,24 +25,26 @@ export default {
     }
   },
   computed: {
-    // slice(0,12) -> BE에서 처리
     ...mapGetters(productStore, ['hotProductList',]),
     hotProducts: function() {
       return this.hotProductList
     }
   },
   methods : {
+    ...mapActions(productStore, ['getProductList']),
 
   },
-  // created: function() {
-  //   this.$store.dispatch('getProductList')
-  //   .then(res => {
-  //     console.log(res)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // }
+  created: function() {
+    this.getProductList()
+    .then(res => {
+      console.log(res)
+      console.log('성공 created getProductList')
+    })
+    .catch(err => {
+      console.log(err)
+      console.log('에러 getProductList')
+    })
+  }
 }
 </script>
 
