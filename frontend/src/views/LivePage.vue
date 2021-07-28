@@ -3,22 +3,18 @@
     <h1>LivePage</h1>
     <hr>
 
-    
-    <!-- {{ data }} 바인딩 -->
     <div v-if="data">
-      <h2>{{ data.live_title }}</h2>
-      <div>
-        <el-button icon="el-icon-user-solid" circle></el-button>
-        <!-- <span>{{ data.userid }} (아이디)</span> -->
-        <!-- 유저 누구인지 정보 받아야함!! -->
-      </div>
-      <el-row>
-        <el-button type="primary" icon="el-icon-thumb">상품보기</el-button>
-        <el-button type="success" icon="el-icon-star-on">찜하기</el-button>
-        <el-button type="danger" icon="el-icon-close">방송종료</el-button>
-      </el-row>
-    </div>
+      <h3>방송제목: {{ data.livetitle }}</h3>
+      <p>userid: {{ data.userid }}</p>
+      <p>usernickname: {{ data.usernickname }}</p>
 
+      <div>
+        <button>상품보기</button>  <!-- productpk 로 연결하기 -->
+        <button>찜하기</button>
+        <button>방송종료</button>
+      </div>
+
+    </div>
 
   </div>
 </template>
@@ -42,7 +38,6 @@ export default {
     const liveId = this.$route.params.id
     this.getLiveInfo(liveId)
     .then(res => {
-      console.log('여기여기')
       this.data = res.data
     })
   },

@@ -7,7 +7,7 @@ const BASE_URL = process.env.VUE_APP_BASE_URL
 const userStore = {
   namespaced: true,
   state: {
-    credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',
+    credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',  // 로그인한 유저 아이디
     token: localStorage.getItem('token'),
 
   },
