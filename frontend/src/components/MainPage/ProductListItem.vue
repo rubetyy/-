@@ -10,7 +10,6 @@
       </div>
     </div>
 
-
     <!-- <el-col :span="4" class="card">
       <el-card :body-style="{ padding: '0px' }">
         <img :src="product.thumbnail" class="image">
