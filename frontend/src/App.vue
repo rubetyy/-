@@ -4,7 +4,7 @@
         <router-link :to="{name: 'MainPage'}">MainPage</router-link> |
         <router-link :to="{name: 'CategoryPage'}">CategoryPage</router-link> |
       <!-- <div v-if="isLogged"> -->
-        <router-link :to="{name: 'Mypage'}">Mypage</router-link> |
+        <router-link :to="{name: 'MyPage'}">MyPage</router-link> |
         <router-link :to="{name: 'ProductRegister'}">ProductRegister</router-link> |
         <router-link :to="{name: 'LiveRegister'}">LiveRegister</router-link> |
         <router-link :to="{name: 'ProductDetail'}">ProductDetail</router-link> |

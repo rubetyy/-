@@ -33,7 +33,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'Mypage',
+  name: 'MyPage',
 
   created: function () {
     console.log('created')
