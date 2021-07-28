@@ -1,9 +1,7 @@
 <template>
   <div>
     <h1>상품 리스트</h1>
-    <el-row class="p-box">
-      <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
-    </el-row>
+    <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
   </div>
 </template>
 

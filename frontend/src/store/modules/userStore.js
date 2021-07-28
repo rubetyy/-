@@ -2,12 +2,12 @@ import axios from 'axios'
 
 // axios.defaults.baseURL = 'http://localhost:8080'
 // const url = BASE_URL + `주소/${변수}/`
-const BASE_URL = process.env.BASE_URL
+const BASE_URL = process.env.VUE_APP_BASE_URL
 
 const userStore = {
   namespaced: true,
   state: {
-    credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',
+    credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',  // 로그인한 유저 아이디
     token: localStorage.getItem('token'),
 
   },
@@ -38,7 +38,7 @@ const userStore = {
   },
   actions: {
     async login({commit}, credentials) {
-      const LOGIN_URL = BASE_URL + '/api/v1/auth/login/'
+      const LOGIN_URL = BASE_URL + '/auth/login/'
       const data = credentials
       const response = await axios.post(LOGIN_URL, data)
       // console.log(response)
