@@ -21,23 +21,23 @@ import java.util.List;
 public class User {
     @Id
     @Column(name="user_id")
-    String userId;
+    String userid;
 
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name="user_password")
-    String password;
+    String userpassword;
 
     @Column(name="user_nickname")
-    String userNickname;
+    String usernickname;
 
     @Column(name="user_created_at")
     LocalDateTime userCreateAt;
 
     @Builder
-    public User(String userId, String password, String userNickname){
-        this.userId = userId;
-        this.password = password;
-        this.userNickname = userNickname;
+    public User(String id, String password, String nickname){
+        this.userid = id;
+        this.userpassword = password;
+        this.usernickname = nickname;
     }
 }

@@ -46,7 +46,7 @@ public class LiveServiceImpl implements LiveService {
 
 	@Override
 	public List<Live> selectall() {
-		return liveRepository.findAll();
+		return liveRepository.findTop12ByOrderByLiveviewercountDesc();
 	}
 
 }

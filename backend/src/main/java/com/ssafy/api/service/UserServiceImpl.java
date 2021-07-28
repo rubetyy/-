@@ -28,10 +28,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		User user = new User();
-		user.setUserId(userRegisterInfo.getUser_id());
+		user.setUserid(userRegisterInfo.getId());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
-		user.setPassword(passwordEncoder.encode(userRegisterInfo.getUser_password()));
-		user.setUserNickname(userRegisterInfo.getUser_nickname());
+		user.setUserpassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
+		user.setUsernickname(userRegisterInfo.getNickname());
 		user.setUserCreateAt(LocalDateTime.now());
 		return userRepository.save(user);
 	}

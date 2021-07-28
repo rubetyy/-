@@ -20,21 +20,21 @@ public class UserRepositorySupport{
 
     public Optional<User> findUserByUserId(String userId) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
-                .where(qUser.userId.eq(userId)).fetchOne();
+                .where(qUser.userid.eq(userId)).fetchOne();
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
     }
 
     public Optional<User> deleteUser(String userId){
         User user = jpaQueryFactory.select(qUser).from(qUser)
-                .where(qUser.userId.eq(userId)).fetchOne();
+                .where(qUser.userid.eq(userId)).fetchOne();
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
     }
 
     public long updateUser(User user,String userId){
-        long a = jpaQueryFactory.update(qUser).set(qUser.userNickname , user.getUserNickname())
-                .where(qUser.userId.eq(userId)).execute();
+        long a = jpaQueryFactory.update(qUser).set(qUser.usernickname , user.getUsernickname())
+                .where(qUser.userid.eq(userId)).execute();
         return a;
     }
 }

@@ -38,14 +38,13 @@ public class LiveController {
 	public ResponseEntity create(
 			@RequestBody @ApiParam(value="방송생성정보반환", required = true) Live registerInfo) {
 
-		//
 		Live live = liveService.createLive(registerInfo);
 
 		return new ResponseEntity<Live>(live,HttpStatus.OK);
 	}
 
 
-	@GetMapping("/live/main")
+	@GetMapping("/live/home")
 	@ApiOperation(value = "방송목록조회", notes = "main페이지 진입시 방송목록을 12개 반환한다.")
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
@@ -72,6 +71,7 @@ public class LiveController {
 			@RequestBody @ApiParam(value="방송pk 정보", required = true) @PathVariable String liveid) {
 
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
+		System.out.println("xx");
 		Tuple live = liveService.selectone(liveid);
 		Live l = live.get(0,Live.class);
 		User u = live.get(1, User.class);
@@ -80,8 +80,8 @@ public class LiveController {
 		res.setProductpk(l.getProductpk());
 		res.setLivetitle(l.getLivetitle());
 		res.setLiveviewercount(l.getLiveviewercount());
-		res.setUsernickname(u.getUserNickname());
-		res.setUserid(u.getUserId());
+		res.setUsernickname(u.getUsernickname());
+		res.setUserid(u.getUserid());
 		res.setUsercreatedat(u.getUserCreateAt());
 		if(live == null) System.out.println("xxxxx");
 		return new ResponseEntity<LivewithUser>(res, HttpStatus.OK);
