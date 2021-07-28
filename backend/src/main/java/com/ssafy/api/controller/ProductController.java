@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
+import com.ssafy.api.response.dto.Product.ProductListResponseDto;
 import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Product.ProductService;
@@ -32,20 +33,23 @@ public class ProductController {
     @PostMapping("/create")
     public ResponseEntity<? extends BaseResponseBody> registerProduct(
             @ModelAttribute ProductRegisterPostReq productRegisterPostReq,
-            @RequestParam("images") List<MultipartFile> images){
-/**
- * 토큰이 존재하는 경우 사용자 로그인 여부를 확인하여 상품 등록 dto에 넣어준다
- */
-//        //jwt 토큰을 받는다
-//        SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-//        if(Objects.isNull(userDetails)){
-//            throw new RuntimeException("토큰이 존재하지 않습니다.");
-//        }
-//
-//        String userId = userDetails.getUsername();
-//        //request dto에 사용자 아이디를 넣어주고
-//        productRegisterPostReq.setUserId(userId);
-//        //상품 생성 서비스에 넣어서 보낸다
+            @RequestParam("images") List<MultipartFile> images,
+            Authentication authentication){
+
+        /**
+         * 토큰이 존재하는 경우 사용자 로그인 여부를 확인하여 상품 등록 dto에 넣어준다
+         */
+        //jwt 토큰을 받는다
+        if(Objects.isNull(authentication)){
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "토큰이 존재하지 않습니다."));
+        }
+
+        SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+        String userId = userDetails.getUsername();
+        //request dto에 사용자 아이디를 넣어주고
+        productRegisterPostReq.setUserId(userId);
+        //상품 생성 서비스에 넣어서 보낸다
+
         Product product = productService.createProduct(productRegisterPostReq,images);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));

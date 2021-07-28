@@ -3,6 +3,7 @@ package com.ssafy.api.service.Product;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
+import com.ssafy.api.response.dto.Product.ProductListResponseDto;
 import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -51,11 +53,17 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
+    public List<ProductListResponseDto> getProductsByCategory(Long categoryId){
+        productRepository.findAllByCategoryId(categoryId);
+        return productRepository.findAllByCategoryId(categoryId).stream()
+                .map(ProductListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
     @Transactional(readOnly = true)
     @Override
-    public List<Product> getAllProducts() {
-        List<Product> product = productRepository.findAll();
-        return product;
+    public List<Product> getAllProducts(Long productId) {
+        return null;
     }
 
     @Override
