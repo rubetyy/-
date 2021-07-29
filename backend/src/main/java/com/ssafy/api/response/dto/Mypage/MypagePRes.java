@@ -1,4 +1,4 @@
-package com.ssafy.api.response.dto.User;
+package com.ssafy.api.response.dto.Mypage;
 
 import com.ssafy.db.entity.User;
 
@@ -12,14 +12,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@ApiModel("UserResponse")
-public class UserRes{
-	@ApiModelProperty(name="User ID")
-	String userId;
-	
-	public static UserRes of(User user) {
-		UserRes res = new UserRes();
-		res.setUserId(user.getUserid());
-		return res;
-	}
+@ApiModel("MypageProductResponse")
+public class MypagePRes {
+	@ApiModelProperty(name="Product PK")
+	Long productId;
+	String title;
 }

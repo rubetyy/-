@@ -23,10 +23,10 @@ public class LiveRepositorySupport {
     public Tuple findByLiveId(int liveid){
         Tuple live =  jpaQueryFactory.select(qLive,qUser)
                 .from(qLive)
-                .join(qUser).on(qLive.userid.eq(qUser.userId)).where(qLive.livepk.eq(liveid))
+                .join(qUser).on(qLive.userid.eq(qUser.userid)).where(qLive.livepk.eq(liveid))
                 .fetchOne();
         System.out.println(live.get(0,Live.class).getLivepk());
-        System.out.println(live.get(1,User.class).getUserId());
+        System.out.println(live.get(1,User.class).getUserid());
         return live;
     }
 

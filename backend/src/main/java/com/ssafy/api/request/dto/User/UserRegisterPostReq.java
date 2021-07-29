@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 @ApiModel("UserRegisterPostRequest")
 public class UserRegisterPostReq {
 	@ApiModelProperty(name="유저 ID", example="ssafy_web")
-	String user_id;
+	String id;
 	@ApiModelProperty(name="유저 Password", example="your_password")
-	String user_password;
+	String password;
 	@ApiModelProperty(name="유저 name")
-	String user_nickname;
+	String nickname;
 
 }

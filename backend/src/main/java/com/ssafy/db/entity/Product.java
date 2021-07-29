@@ -28,7 +28,7 @@ public class Product{
     private Integer liveId;
 
     @Column(name = "category_pk")
-    private Integer categoryId;
+    private Long categoryId;
 
     @Column(name = "product_title")
     private String title;
@@ -60,7 +60,7 @@ public class Product{
     private List<Image> image = new ArrayList<>();
 
     @Builder
-    public Product(String userId, Integer liveId, Integer categoryId, String title, String description, Integer price, Integer viewCount, Integer isSold, Integer isLive) {
+    public Product(String userId, Integer liveId, Long categoryId, String title, String description, Integer price, Integer viewCount, Integer isSold, Integer isLive) {
         this.userId = userId;
         this.liveId = liveId;
         this.categoryId = categoryId;
