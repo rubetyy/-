@@ -2,7 +2,7 @@
   <div>
     <h1>ProductDetail</h1>
     {{ productFile }}
-    {{ productFile.thumbnail }}
+    {{ productFile.images }}
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
@@ -53,13 +53,30 @@
     <div>제목  
       <h3>{{ productFile.title }}</h3>
     </div>
-    <div>설명  {{ productFile.content }} </div>
-    <div>상품 카테고리  {{ productFile.category }} </div>
+    <div>설명  {{ productFile.description }} </div>
+    <div>상품 카테고리  {{ productFile.categoryId }} </div>
     <div>가격  {{ productFile.price }} </div>
     <div>
       <button>수정</button>
       <button>삭제</button>
     </div>
+    <div class="container justify-content: center; flex-direction: column">
+      <section>
+        <p>케로셀 이미지</p>
+        <input type="checkbox" id="checkbox" checked class="inputbox">
+        <label for="checkbox" class="labelbox"><span class="spanbox"></span></label>
+      </section>
+      <section>프로필</section>
+      <section>
+        <h5 style="margin-top:0px">{{ productFile.title }}</h5>
+        <p>{{productFile.categoryId}} <time>{{createTime[0]}}</time> </p>
+        <div>
+          <p class="margin-top: 16px; margin-bottom: 16px">{{productFile.description}}></p>
+          <p>{{productFile.price}}</p>
+        </div>
+      </section>
+    </div>
+
   </div>
 </template>
 
@@ -87,8 +104,18 @@ export default {
     image() {
       // console.log(this.productFile)
       return this.productFile.thumbnail
+    },
+    createTime() {
+      var time = this.productFile.createdAt
+      let arr = time.split(' ');
+      console.log(arr)
+      let date = arr[0].split('-').reverse().join('-');
+      let tmArr = arr[1].split('.');
+      let tm = tmArr[0]
+      console.log(date)
+      console.log(tm)
+      return [date, tm]
     }
-
   },
 
   methods: {
@@ -111,5 +138,56 @@ export default {
 </script>
 
 <style scoped>
+.inputbox[type="checkbox"] {
+    position: absolute;
+    visibility: hidden;
+}
+.labelbox {
+    display: block;
+    position: absolute;
+    width: 60px;
+    height: 34px;
+    border-radius: 17px;
+    background-color: #ddd;
+    transition-duration: 0.2s;
+}
+.spanbox {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition-duration: 0.2s;
+}
+.labelbox:before,
+.labelbox:after{
+    position: absolute;
+    top: 0;
+    width: 34px;
+    font-size: 11px;
+    line-height: 34px;
+    color: #fff;
+    text-align: center;
+}
 
+.labelbox:before {
+    left: 0;
+    content: 'ON';
+}
+
+.labelbox:after {
+    right: 0;
+    content: 'OFF';
+}
+
+.inputbox:checked + label {
+    background-color: #00c73c;
+}
+
+.inputbox:checked + label span {
+    transform: translateX(26px);
+}
 </style>
