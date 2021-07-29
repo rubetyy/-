@@ -1,6 +1,7 @@
 package com.ssafy.db.repository.Mypage;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.response.dto.Mypage.MypagePRes;
 import com.ssafy.db.entity.*;
@@ -27,37 +28,20 @@ public class MypageRepositorySupport {
     public Map<String,Object> mypageinfo(String userid){
         Map<String,Object> res = new HashMap<String,Object>();
         //userinfo
-        User user = jpaQueryFactory.select(qUser).from(qUser)
+        User user = jpaQueryFactory.select(Projections.fields(User.class,qUser.userid,qUser.usernickname)).from(qUser)
                 .where(qUser.userid.eq(userid)).fetchOne();
-        Map<String,Object> u = new HashMap<>();
-        u.put("userid",user.getUserid());
-        u.put("usernickname",user.getUsernickname());
-        res.put("userinfo",u);
+//        System.out.println(user);
+        res.put("userinfo",user);
 
         //issold
-        List<Product> issold = (List<Product>)jpaQueryFactory.select(qProduct).from(qProduct)
-                .where(qProduct.isSold.eq(1),qProduct.userId.eq(userid)).fetch();
-        List<MypagePRes> issoldlist = new ArrayList<MypagePRes>();
-        System.out.println(issold.get(0));
-//        for(Product p : issold){
-//            MypagePRes pres = new MypagePRes();
-//            pres.setProductpk(p.getProductId());
-//            pres.setProducttitle(p.getTitle());
-//            issoldlist.add(pres);
-//        }
+        List<MypagePRes> issold = (List<MypagePRes>)jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.productId,qProduct.title))
+                .from(qProduct).where(qProduct.isSold.eq(1),qProduct.userId.eq(userid)).fetch();
         res.put("issold",issold);
 
         //soldout
-        List<Product> soldout =(List<Product>) jpaQueryFactory.select(qProduct).from(qProduct)
-                .where(qProduct.isSold.eq(0),qProduct.userId.eq(userid)).fetch();
-        List<MypagePRes> soldoutlist = new ArrayList<MypagePRes>();
-        for(Product p : soldout){
-            MypagePRes pres = new MypagePRes();
-            pres.setProductpk(p.getProductId());
-            pres.setProducttitle(p.getTitle());
-            soldoutlist.add(pres);
-        }
-        res.put("soldout",soldoutlist);
+        List<MypagePRes> soldout =(List<MypagePRes>) jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.productId,qProduct.title))
+                .from(qProduct).where(qProduct.isSold.eq(0),qProduct.userId.eq(userid)).fetch();
+        res.put("soldout",soldout);
 
         //orderlist
         List<Chatroom> orderlistc = (List<Chatroom>) jpaQueryFactory.select(qChatroom).from(qChatroom)
@@ -65,12 +49,9 @@ public class MypageRepositorySupport {
         List<MypagePRes> orderlist = new ArrayList<>();
         for(Chatroom c : orderlistc){
             Long pk = c.getProductpk();
-            Product order = jpaQueryFactory.select(qProduct).from(qProduct)
-                    .where(qProduct.productId.eq(pk)).fetchOne();
-            MypagePRes pres = new MypagePRes();
-            pres.setProductpk(order.getProductId());
-            pres.setProducttitle(order.getTitle());
-            orderlist.add(pres);
+            MypagePRes order = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.productId,qProduct.title))
+                    .from(qProduct).where(qProduct.productId.eq(pk)).fetchOne();
+            orderlist.add(order);
         }
         res.put("orderlist",orderlist);
 
@@ -80,12 +61,9 @@ public class MypageRepositorySupport {
         List<MypagePRes> wishlist = new ArrayList<>();
         for(Wish w : wishres){
             Long pk = w.getWishproductpk();
-            Product wish = jpaQueryFactory.select(qProduct).from(qProduct)
-                    .where(qProduct.productId.eq(pk)).fetchOne();
-            MypagePRes wishp = new MypagePRes();
-            wishp.setProductpk(wish.getProductId());
-            wishp.setProducttitle(wish.getTitle());
-            wishlist.add(wishp);
+            MypagePRes wish = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.productId,qProduct.title))
+                    .from(qProduct).where(qProduct.productId.eq(pk)).fetchOne();
+            wishlist.add(wish);
         }
         res.put("wishlist",wishlist);
 

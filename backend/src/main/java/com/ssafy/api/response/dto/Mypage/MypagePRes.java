@@ -15,6 +15,6 @@ import lombok.Setter;
 @ApiModel("MypageProductResponse")
 public class MypagePRes {
 	@ApiModelProperty(name="Product PK")
-	Long productpk;
-	String producttitle;
+	Long productId;
+	String title;
 }
