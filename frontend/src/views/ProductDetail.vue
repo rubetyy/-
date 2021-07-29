@@ -61,14 +61,31 @@
       <button>삭제</button>
     </div>
     <div class="container justify-content: center; flex-direction: column">
-      <section>
+      <section> 
         <p>케로셀 이미지</p>
-        <input type="checkbox" id="checkbox" checked class="inputbox">
-        <label for="checkbox" class="labelbox"><span class="spanbox"></span></label>
+        <br>
+        <div v-if="productFile.isLive == 0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+            <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+          </svg>
+          <p>Live중이 아닙니다</p>
+          <a v-if="productFile.userId == this.userId"  href="">방송시작하기</a>
+          <!-- <button @clickproductpk>방송 시작하기(pk보내기)</button> -->
+          <br>        
+        </div>
+
+        <div v-else>
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16" style="color: green">
+            <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+          </svg>
+          <p>Live중입니다</p>
+        <router-link :to="{name: 'LivePage', params: { id: productFile.liveId }}">라이브 방송 시청</router-link>
+          <br>
+        </div>  
       </section>
       <section>프로필</section>
       <section>
-        <h5 style="margin-top:0px">{{ productFile.title }}</h5>
+        <h5 style="margin-top:16px">{{ productFile.title }}</h5>
         <p>{{productFile.categoryId}} <time>{{createTime[0]}}</time> </p>
         <div>
           <p class="margin-top: 16px; margin-bottom: 16px">{{productFile.description}}></p>
@@ -91,7 +108,9 @@ export default {
       return {
         slide: 0,
         sliding: null,
-        thumbnail: []
+        thumbnail: [],
+        userId: localStorage.getItem('credentials'),
+        createTime: [],
       }
     },
   computed: {
@@ -105,17 +124,19 @@ export default {
       // console.log(this.productFile)
       return this.productFile.thumbnail
     },
-    createTime() {
-      var time = this.productFile.createdAt
-      let arr = time.split(' ');
-      console.log(arr)
-      let date = arr[0].split('-').reverse().join('-');
-      let tmArr = arr[1].split('.');
-      let tm = tmArr[0]
-      console.log(date)
-      console.log(tm)
-      return [date, tm]
-    }
+    // createTime() {
+    //   console.log(this.productFile)
+    //   var time = this.productFile.createdAt
+    //   console.log(time)
+    //   let arr = time.split(' ');
+    //   // console.log(arr)
+    //   let date = arr[0].split('-').reverse().join('-');
+    //   let tmArr = arr[1].split('.');
+    //   let tm = tmArr[0]
+    //   // console.log(date)
+    //   // console.log(tm)
+    //   return [date, tm]
+    // }
   },
 
   methods: {
@@ -132,62 +153,25 @@ export default {
   async created() {
     
     this.productDetail()
-    console.log('dd')
+    .then(()=>{
+          
+      console.log(this.productFile)
+      var time = this.productFile.createdAt
+      console.log(time)
+      let arr = time.split(' ');
+      // console.log(arr)
+      let date = arr[0].split('-').reverse().join('-');
+      let tmArr = arr[1].split('.');
+      let tm = tmArr[0]
+      // console.log(date)
+      // console.log(tm)
+      this.createTime = [date, tm]
+    
+    })
     },
 }
 </script>
 
 <style scoped>
-.inputbox[type="checkbox"] {
-    position: absolute;
-    visibility: hidden;
-}
-.labelbox {
-    display: block;
-    position: absolute;
-    width: 60px;
-    height: 34px;
-    border-radius: 17px;
-    background-color: #ddd;
-    transition-duration: 0.2s;
-}
-.spanbox {
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    z-index: 1;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: #fff;
-    transition-duration: 0.2s;
-}
-.labelbox:before,
-.labelbox:after{
-    position: absolute;
-    top: 0;
-    width: 34px;
-    font-size: 11px;
-    line-height: 34px;
-    color: #fff;
-    text-align: center;
-}
 
-.labelbox:before {
-    left: 0;
-    content: 'ON';
-}
-
-.labelbox:after {
-    right: 0;
-    content: 'OFF';
-}
-
-.inputbox:checked + label {
-    background-color: #00c73c;
-}
-
-.inputbox:checked + label span {
-    transform: translateX(26px);
-}
 </style>
