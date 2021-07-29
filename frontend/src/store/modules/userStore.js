@@ -6,11 +6,12 @@ const BASE_URL = process.env.VUE_APP_BASE_URL
 
 const userStore = {
   namespaced: true,
+
   state: {
     credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',  // 로그인한 유저 아이디
     token: localStorage.getItem('token'),
-
   },
+
   getters: {
     getUserInfo(state) {
       return state.credentials
@@ -19,6 +20,7 @@ const userStore = {
       return state.token
     }
   },
+
   mutations: {
     LOGIN(state, data){
       state.credentials = data
@@ -36,10 +38,12 @@ const userStore = {
       state.credentials = credentials
     },
   },
+
   actions: {
     async login({commit}, credentials) {
       const LOGIN_URL = BASE_URL + '/auth/login/'
       const data = credentials
+      
       const response = await axios.post(LOGIN_URL, data)
       // console.log(response)
       const token = response.data.accessToken
@@ -49,12 +53,11 @@ const userStore = {
 
       commit('LOGIN', data)
       commit('LOGIN_CHECK', token)
-      },
+    },
 
-
-      logout({commit}){
-        commit('LOGOUT')
-      },
+    logout({commit}){
+      commit('LOGOUT')
+    },
       
     async signup({commit, dispatch}, credentials) {
       const SIGNUP_URL = BASE_URL + '/users/join'
@@ -63,8 +66,17 @@ const userStore = {
       commit('SIGNUP', response.data)
       dispatch('login', credentials)
     },
-  }
 
+    async getMyPage(context, userId) {
+      // const url = BASE_URL + `/mypage/${userId}`
+      const url = BASE_URL + `/mypage/cse`
+
+      console.log(url, userId)
+      const result = await axios.get(url)
+
+      return result.data
+    },
+  }
 }
 
 export default userStore

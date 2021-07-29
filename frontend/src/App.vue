@@ -69,6 +69,24 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #ff8a3d;
+}
+
+@font-face {
+    font-family: 'BBTreeGB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+#app {
+  font-family: 'BBTreeGB';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+  color: #2c3e50;
 }
 </style>
