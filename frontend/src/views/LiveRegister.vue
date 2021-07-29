@@ -74,10 +74,6 @@ export default {
 </script>
 
 <style scoped>
-#header {
-  text-align: center;
-  font-family: 'netmarbleB';
-}
 .div-box {
   width: 800px;
   margin: 50px auto 80px;
