@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-    <h1>MyPage</h1>
+    <h1 id="header">MyPage</h1>
     <hr>
     {{myPageInfo}}
     <div>

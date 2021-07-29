@@ -2,30 +2,28 @@
   <div>
     <h1 id="header">방송 만들기</h1>
 
-    <div class="broad-box">
+    <div class="div-box">
       <!-- 상품상세페이지에서 링크(상품pk, 상품명, 이미지??, 유저id) 넘겨줘야함 -->
-      <span>판매 상품 : </span>
-      <a href="#">
-        상품 바로가기(네이버처럼 상품이미지+상품명 보이게 구성하고 싶음)
-      </a>
-      <hr>
-      <!-- <h3>썸네일 등록</h3> -->
-      <!-- 사진 등록 or 이 부분 빼고 나중에 화면 캡쳐로 대체 -->
-      <!-- <input type="file"> -->
+      <div style="margin-bottom: 30px;">
+        <span>판매 상품 : </span>
+        <a href="#">
+          상품 바로가기(네이버처럼 상품이미지+상품명 보이게 구성하고 싶음)
+        </a>
+      </div>
 
       <h3>방송 제목</h3>
       <input
         type="text"
         class="form-control"
-        placeholder="방송 제목을 입력하세요"
+        placeholder="방송 제목을 입력하세요 (50글자 이내)"
         v-model="livetitle"
-        maxlength="30"
+        maxlength="50"
         show-word-limit
         style="margin-bottom: 30px;"
       >
     </div>
-    <div class="start-btn">
-      <button class="btn btn-outline-primary" @click="startlive">방송 시작하기</button>
+    <div class="center-btn">
+      <button class="btn" @click="startlive">방송 시작하기</button>
     </div>
     
   </div>
@@ -78,13 +76,36 @@ export default {
 <style scoped>
 #header {
   text-align: center;
+  font-family: 'netmarbleB';
 }
-.broad-box {
-  margin: 50px 300px 30px;
+.div-box {
+  width: 800px;
+  margin: 50px auto 80px;
 }
-.start-btn {
+.center-btn {
   display: flex;
   justify-content: center;
-  /* text-align: center; */
+}
+button {
+  text-align: center;
+}
+button:hover {
+  background-color: #fff3eb;
+}
+.btn {
+  background-color: #ffeadc;
+  color: #ff6600;
+  border-radius: 38.5px;
+  padding: 10px 20px;
+}
+textarea:hover, textarea:active, textarea:focus,
+input:hover, input:active, input[type="text"]:focus,
+.uneditable-input:focus {
+  border-color: #f5f3f1;
+  box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 2px rgba(229, 103, 23, 0.6);
+  /* box-shadow: none; */
+}
+button:active, button:focus {
+  box-shadow: none;
 }
 </style>

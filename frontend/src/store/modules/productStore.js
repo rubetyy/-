@@ -74,6 +74,7 @@ const productStore = {
     async productDetail({ commit }) {   
       console.log('들어옴?')
       const PRODUCTDETAIL_URL = BASE_URL +  `/product?productId=23&userId=test-1`
+      console.log(PRODUCTDETAIL_URL)
       const response = await axios.get(PRODUCTDETAIL_URL)
       const data = response.data
       commit('PRODUUCT_DETAIL', data)
@@ -83,12 +84,11 @@ const productStore = {
       // return response
     },
 
-    // 전체 상품 조회하는 api용 url을 만들어야 할듯 -> 그렇게해서 조회수순으로 소팅하거나 백엔드에서 아예 소팅한걸 넘겨주던가
+    // 메인페이지 상품리스트
     getProductList: async function(context) {
-      const url = 'https://~~'  // 데이터 받아오는 용 api
+      const url = BASE_URL + '/home'  // 데이터 받아오는 url
       const res = await axios.get(url)
-      console.log(res)
-      context.commit('SET_PRODUCT_LIST', res.data)
+      context.commit('SET_PRODUCT_LIST', res.data.productList)
     }
   }
 }

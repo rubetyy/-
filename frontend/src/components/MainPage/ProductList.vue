@@ -10,18 +10,12 @@ import ProductListItem from '@/components/MainPage/ProductListItem.vue'
 
 export default {
   name: 'ProductList',
-  components: {
-    ProductListItem,
-  },
   props: {
     products: Array,
   },
-  data: function() {
-    return {
-
-    }
+  components: {
+    ProductListItem,
   },
-
 
 }
 </script>
