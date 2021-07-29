@@ -2,15 +2,16 @@ import axios from 'axios'
 
 // axios.defaults.baseURL = 'http://localhost:8080'
 // const url = BASE_URL + `주소/${변수}/`
-const BASE_URL = process.env.BASE_URL
+const BASE_URL = process.env.VUE_APP_BASE_URL
 
 const userStore = {
   namespaced: true,
-  state: {
-    credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',
-    token: localStorage.getItem('token'),
 
+  state: {
+    credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',  // 로그인한 유저 아이디
+    token: localStorage.getItem('token'),
   },
+
   getters: {
     getUserInfo(state) {
       return state.credentials
@@ -19,6 +20,7 @@ const userStore = {
       return state.token
     }
   },
+
   mutations: {
     LOGIN(state, data){
       state.credentials = data
@@ -36,10 +38,12 @@ const userStore = {
       state.credentials = credentials
     },
   },
+
   actions: {
     async login({commit}, credentials) {
-      const LOGIN_URL = BASE_URL + '/api/v1/auth/login/'
+      const LOGIN_URL = BASE_URL + '/auth/login/'
       const data = credentials
+      
       const response = await axios.post(LOGIN_URL, data)
       // console.log(response)
       const token = response.data.accessToken
@@ -49,22 +53,30 @@ const userStore = {
 
       commit('LOGIN', data)
       commit('LOGIN_CHECK', token)
-      },
+    },
 
-
-      logout({commit}){
-        commit('LOGOUT')
-      },
+    logout({commit}){
+      commit('LOGOUT')
+    },
       
     async signup({commit, dispatch}, credentials) {
-      const SIGNUP_URL = '/api/v1/users/'
+      const SIGNUP_URL = BASE_URL + '/users/join'
       const data = credentials
       const response = await axios.post(SIGNUP_URL, data)
       commit('SIGNUP', response.data)
       dispatch('login', credentials)
     },
-  }
 
+    async getMyPage(context, userId) {
+      // const url = BASE_URL + `/mypage/${userId}`
+      const url = BASE_URL + `/mypage/cse`
+      console.log(url, userId)
+
+      const result = await axios.get(url)
+
+      return result.data
+    },
+  }
 }
 
 export default userStore

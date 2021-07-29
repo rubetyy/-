@@ -9,6 +9,7 @@ import LivePage from '@/views/LivePage.vue'
 import ProductRegister from '@/views/ProductRegister.vue'
 import LiveRegister from '@/views/LiveRegister.vue'
 import ProductDetail from '@/views/ProductDetail.vue'
+import ChatRoom from '@/views/ChatRoom.vue'
 
 
 Vue.use(VueRouter)
@@ -58,6 +59,11 @@ const routes = [
     path: '/productdetail',
     name: 'ProductDetail',
     component: ProductDetail
+  },
+  {
+    path: '/chatroom/:user_id_buyer',
+    name: 'ChatRoom',
+    component: ChatRoom
   },
 ]
 

@@ -1,19 +1,15 @@
 <template>
-  <div>
+  <div class="col">
     <!-- 상품 이미지랑 제목만 보내는 걸로 -->
-    <el-col :span="4" class="card">
-      <el-card :body-style="{ padding: '0px' }">
-        <img :src="product.thumbnail" class="image">
-        <div class="p-con">
-          <span>{{ product.p_name }}</span>
-          <div>
-            <!-- 버튼 클릭시 상세페이지로 이동하도록 함수 작성하기 -->
-            <el-button type="text">상세페이지</el-button>
-          </div>
-        </div>
-      </el-card>
-    </el-col>
-
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3eBNF4vrGY7wZXQWf38XttL5wDckdUG-M4A&usqp=CAU" class="card-img-top" alt="...">
+      <!-- <img :src="product.thumbnail" class="image"> ↑임시주소 -->
+      <div class="card-body">
+        <h5>{{ product.title }}</h5>
+        <p>{{ product.description }}</p>
+        <a href="#">상품 보러가기</a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,17 +29,18 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  margin-left: 25px;
-  margin-right: 25px;
-}
-.image {
-  width: 100%;
-  display: block;
-}
-.p-con {
+.col {
+  flex: 0;
   text-align: center;
-  padding: 14px;
+}
+.card {
+  /* margin-right: 0; */
+  width: 14rem;
+}
+/* 카드 높이 어케 맞춤..............ㅠㅠ */
+.card-img-top {
+  height: 14rem;
+  /* overflow: hidden; */
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>CategoryPage</h1>
+    <h1 id="header">CategoryPage</h1>
   </div>
 </template>
 

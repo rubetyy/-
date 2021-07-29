@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <h1>상품 리스트</h1>
-    <el-row class="p-box">
-      <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
-    </el-row>
+  <div class="container">
+    <h1 id="header">상품 리스트</h1>
+      <div class="row">
+        <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
+      </div>
   </div>
 </template>
 
@@ -12,24 +12,26 @@ import ProductListItem from '@/components/MainPage/ProductListItem.vue'
 
 export default {
   name: 'ProductList',
-  components: {
-    ProductListItem,
-  },
   props: {
     products: Array,
   },
-  data: function() {
-    return {
-
-    }
+  components: {
+    ProductListItem,
   },
-
 
 }
 </script>
 
 <style scoped>
-.p-box {
-  margin: 0 60px;
+#header {
+  text-align: start;
+  margin-bottom: 2rem;
+}
+.row {
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  /* flex-wrap: nowrap; */
+  justify-content: center;
 }
 </style>
