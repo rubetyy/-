@@ -1,11 +1,11 @@
 <template>
   <div class='container'>
-    <h1>MyPage</h1>
+    <h1 id="header">MyPage</h1>
     <hr>
 
     <div>
       <h2>아이디: {{ userInfo }}</h2>
-      <h2>닉네임: </h2>
+      <h2>닉네임: 치킨 </h2>
     </div>
     <hr>
 

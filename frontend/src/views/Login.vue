@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Login</h1>
+    <h1 id="header">Login</h1>
       <div>
         <label for="id">id: </label>
         <input type="text" id='id' v-model='credentials.id'>
