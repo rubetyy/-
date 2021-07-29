@@ -72,13 +72,13 @@ const productStore = {
 
     // 제품상세
     async productDetail({ commit }) {   
-      console.log('들어옴?')
+      // console.log('들어옴?')
       const PRODUCTDETAIL_URL = BASE_URL +  `/product?productId=23&userId=test-1`
       console.log(PRODUCTDETAIL_URL)
       const response = await axios.get(PRODUCTDETAIL_URL)
       const data = response.data
       commit('PRODUUCT_DETAIL', data)
-      console.log(response,'res')
+      // console.log(response,'res')
       // const movieItem = response.data
       // commit('GET_MOVIE', movieItem)
       // return response
