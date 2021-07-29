@@ -10,6 +10,7 @@ import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -53,6 +54,5 @@ public class UserServiceImpl implements UserService {
 	public long updateUser(User userUpdatePostReq, String userId) {
 		return userRepositorySupport.updateUser(userUpdatePostReq, userId);
 	}
-
 
 }
