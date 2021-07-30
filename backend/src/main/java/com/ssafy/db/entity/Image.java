@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class Image{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Long imageId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "product_pk")
@@ -33,7 +34,7 @@ public class Image{
     //상품 정보 저장
     public void setProduct(Product product){
         this.product = product;
-        //상품에 현재 이미지가 존재하지 않는다면
+        //상품에 현재 이미지가 존재하지 않는다면 (무한루프 빠지지 않게 체크)
         if(!product.getImage().contains(this)){
             //이미지 추가
             product.getImage().add(this);

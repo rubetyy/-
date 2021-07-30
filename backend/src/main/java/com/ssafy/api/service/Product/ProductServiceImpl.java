@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,11 +54,12 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
-    public List<ProductListResponseDto> getProductsByCategory(Long categoryId){
-        productRepository.findAllByCategoryId(categoryId);
-        return productRepository.findAllByCategoryId(categoryId).stream()
-                .map(ProductListResponseDto::new)
-                .collect(Collectors.toList());
+    /**
+     * 카테고리에 속한 상품 전체 조회
+     * */
+    @Transactional(readOnly = true)
+    public List<Product> getProductsByCategory(Long categoryId){
+        return productRepository.findAllByCategoryId(categoryId);
     }
 
     @Transactional(readOnly = true)
@@ -68,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto getProductByProductIdAndUserId(Long productId, String userId) {
-        Product product = productRepository.findByProductIdAndUserId(productId, userId).orElse(null);
+        Product product = productRepository.findByIdAndUserId(productId, userId).orElse(null);
         return new ProductResponseDto(product);
     }
 
