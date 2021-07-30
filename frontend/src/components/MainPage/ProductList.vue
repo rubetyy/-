@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <h1 id="header">상품 리스트</h1>
       <div class="row">
         <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
