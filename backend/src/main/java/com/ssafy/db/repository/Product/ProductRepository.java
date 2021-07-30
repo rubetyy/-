@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    Optional<Product> findByProductIdAndUserId(Long productId, String userId);
+    Optional<Product> findByIdAndUserId(Long productId, String userId);
     List<Product> findAllByCategoryId(Long categoryId);
+
 
 }

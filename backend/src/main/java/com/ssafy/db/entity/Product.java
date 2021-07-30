@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
@@ -19,7 +20,7 @@ public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_pk")
-    private Long productId;
+    private Long id;
 
     @Column(name="user_id_seller")
     private String userId;
@@ -52,6 +53,7 @@ public class Product{
     @Column(name = "product_is_live")
     private Integer isLive;
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "product",
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, //상품삭제하면 상품이미지들도 같이 삭제된다
@@ -74,7 +76,7 @@ public class Product{
 
     public void addImage(Image image){
         this.image.add(image);
-        //상품등록시 이미지가 저장되어 있지 않은 경우
+        //상품등록시 이미지가 저장되어 있지 않은 경우 (무한루프 빠지지 않게 체크)
         if(image.getProduct() != this){
             image.setProduct(this);
         }

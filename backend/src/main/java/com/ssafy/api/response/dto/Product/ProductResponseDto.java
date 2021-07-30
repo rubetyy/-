@@ -20,7 +20,7 @@ public class ProductResponseDto {
     private Integer isLive;
 
     public ProductResponseDto(Product entity) {
-        this.productId = entity.getProductId();
+        this.productId = entity.getId();
         this.userId = entity.getUserId();
         this.liveId = entity.getLiveId();
         this.categoryId = entity.getCategoryId();

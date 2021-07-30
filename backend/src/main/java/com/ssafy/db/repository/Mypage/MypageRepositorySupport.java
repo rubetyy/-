@@ -34,12 +34,12 @@ public class MypageRepositorySupport {
         res.put("userinfo",user);
 
         //issold
-        List<MypagePRes> issold = (List<MypagePRes>)jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.productId,qProduct.title))
+        List<MypagePRes> issold = (List<MypagePRes>)jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
                 .from(qProduct).where(qProduct.isSold.eq(1),qProduct.userId.eq(userid)).fetch();
         res.put("issold",issold);
 
         //soldout
-        List<MypagePRes> soldout =(List<MypagePRes>) jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.productId,qProduct.title))
+        List<MypagePRes> soldout =(List<MypagePRes>) jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
                 .from(qProduct).where(qProduct.isSold.eq(0),qProduct.userId.eq(userid)).fetch();
         res.put("soldout",soldout);
 
@@ -49,8 +49,8 @@ public class MypageRepositorySupport {
         List<MypagePRes> orderlist = new ArrayList<>();
         for(Chatroom c : orderlistc){
             Long pk = c.getProductpk();
-            MypagePRes order = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.productId,qProduct.title))
-                    .from(qProduct).where(qProduct.productId.eq(pk)).fetchOne();
+            MypagePRes order = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
+                    .from(qProduct).where(qProduct.id.eq(pk)).fetchOne();
             orderlist.add(order);
         }
         res.put("orderlist",orderlist);
@@ -61,8 +61,8 @@ public class MypageRepositorySupport {
         List<MypagePRes> wishlist = new ArrayList<>();
         for(Wish w : wishres){
             Long pk = w.getWishproductpk();
-            MypagePRes wish = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.productId,qProduct.title))
-                    .from(qProduct).where(qProduct.productId.eq(pk)).fetchOne();
+            MypagePRes wish = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
+                    .from(qProduct).where(qProduct.id.eq(pk)).fetchOne();
             wishlist.add(wish);
         }
         res.put("wishlist",wishlist);
