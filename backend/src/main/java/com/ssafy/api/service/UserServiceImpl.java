@@ -11,6 +11,7 @@ import com.ssafy.db.repository.UserRepositorySupport;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -53,6 +54,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public long updateUser(User userUpdatePostReq, String userId) {
 		return userRepositorySupport.updateUser(userUpdatePostReq, userId);
+	}
+
+	@Override
+	public boolean check(String userId) {
+		Optional<User> u = userRepository.findById(userId);
+		System.out.println(u.toString());
+		if (u.toString().equals("Optional.empty")) return false;
+		return true;
 	}
 
 }

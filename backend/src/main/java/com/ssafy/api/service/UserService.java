@@ -13,5 +13,5 @@ public interface UserService {
 	User deleteUser(String userId);
 	User getUserByUserId(String userId);
 	long updateUser(User userUpdatePostReq,String userId);
-
+	boolean check(String userId);
 }
