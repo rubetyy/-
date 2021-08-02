@@ -68,6 +68,12 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<Product> getMainProducts(){
+        return productRepository.findTop12ByOrderByViewCountDesc();
+    }
+
     @Override
     public ProductResponseDto getProductByProductId(Long productId) {
         Product product = productRepository.findById(productId).orElse(null);

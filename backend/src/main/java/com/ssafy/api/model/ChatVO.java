@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatVO {
-    private String content;
     private String username;
-
+    private String content;
 }
