@@ -75,9 +75,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDto getProductByProductId(Long productId) {
+    public Product getProductByProductId(Long productId) {
         Product product = productRepository.findById(productId).orElse(null);
-        return new ProductResponseDto(product);
+        return product;
     }
 
     @Override

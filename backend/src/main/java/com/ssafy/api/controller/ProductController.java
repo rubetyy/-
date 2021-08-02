@@ -60,9 +60,9 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductResponseDto> getProducts(@PathVariable String productId){
-        ProductResponseDto productResponseDto = productService.getProductByProductId(Long.valueOf(productId));
-        return ResponseEntity.status(200).body(productResponseDto);
+    public ResponseEntity<Product> getProducts(@PathVariable String productId){
+        Product product = productService.getProductByProductId(Long.valueOf(productId));
+        return ResponseEntity.status(200).body(product);
     }
 
     @PatchMapping()

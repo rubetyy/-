@@ -15,7 +15,7 @@ public interface ProductService {
     List<Product> getAllProducts(Long productId);
     List<Product> getMainProducts();
     List<Product> getProductsByCategory(Long categoryId);
-    ProductResponseDto getProductByProductId(Long productId);
+    Product getProductByProductId(Long productId);
     long updateProduct(ProductPatchReq productPatchReq);
     long deleteProduct(ProductDeleteReq productDeleteReq);
 }
