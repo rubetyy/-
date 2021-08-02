@@ -14,7 +14,7 @@
       </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../../../backend/images/20210727/865456997892800.png" class="d-block w-100%; height=10px" alt="">
+        <img src="../../../backend/images/20210727/865456997892800.png" class="d-block" alt="">
         <div class="carousel-caption d-none d-md-block">
           <h5>First slide label</h5>
           <p>Some representative placeholder content for the first slide.</p>
