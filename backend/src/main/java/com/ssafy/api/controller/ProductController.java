@@ -55,9 +55,9 @@ public class ProductController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
-    @GetMapping()
-    public ResponseEntity<ProductResponseDto> getProducts(@RequestParam("productId") Long productId, @RequestParam("userId") String userId){
-        ProductResponseDto productResponseDto = productService.getProductByProductIdAndUserId(productId, userId);
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductResponseDto> getProducts(@PathVariable String productId){
+        ProductResponseDto productResponseDto = productService.getProductByProductId(Long.valueOf(productId));
         return ResponseEntity.status(200).body(productResponseDto);
     }
 

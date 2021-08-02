@@ -14,7 +14,7 @@ public interface ProductService {
     Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files);
     List<Product> getAllProducts(Long productId);
     List<Product> getProductsByCategory(Long categoryId);
-    ProductResponseDto getProductByProductIdAndUserId(Long productId, String userId);
+    ProductResponseDto getProductByProductId(Long productId);
     long updateProduct(ProductPatchReq productPatchReq);
     long deleteProduct(ProductDeleteReq productDeleteReq);
 }
