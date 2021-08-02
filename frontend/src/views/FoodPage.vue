@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1 id="header">기타</h1>
+    <h1 id="header">Food</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CpEtc',
+  name: 'Food'
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

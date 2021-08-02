@@ -17,6 +17,51 @@
       <!-- </div> -->
       
     </div>
+
+
+    <div id="nav">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <router-link :to="{name: 'MainPage'}" class="navbar-brand"><img src="https://pbs.twimg.com/profile_images/1313719004972769280/2dmnTxho_400x400.jpg" alt="" width="35" height="35" class="d-inline-block align-text-middle">홍당무 라이브</router-link>
+              <router-link :to="{name: 'ClothesPage'}" class="navbar-brand" >의류</router-link> 
+              <router-link :to="{name: 'FoodPage'}" class="navbar-brand" >음식</router-link> 
+              <router-link :to="{name: 'ElecPage'}" class="navbar-brand" >전자제품</router-link> 
+              <router-link :to="{name: 'EtcPage'}" class="navbar-brand" >기타</router-link> 
+  
+ 
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="제품을 검색하세요" aria-label="Search">
+              <button class="btn-o " type="submit">Search</button>
+            </form>
+              <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  마이페이지 예상
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><router-link :to="{name: 'ProductRegister'}" class="dropdown-item">상품 등록</router-link></li>
+                  <li><router-link :to="{name: 'LiveRegister'}" class="dropdown-item">LiveRegister</router-link></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">다른 구분할꺼 넣을꺼</a></li>
+                </ul>
+              </div>
+              <div v-if="isLogged">
+                <router-link to="#" @click.native="logoutClick" class="navbar-brand">로그아웃</router-link> 
+              </div>
+              <div v-else>
+                <router-link :to="{name: 'Signup'}" class="navbar-brand">회원가입</router-link> 
+                <router-link :to="{name: 'Login'}" class="navbar-brand">로그인</router-link> 
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+
+
     <div id="article">
       <router-view/> 
     </div>

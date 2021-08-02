@@ -68,6 +68,7 @@ export default {
     this.getMyPage(this.userId)
       .then(response => {
         this.myPageInfo = response
+        console.log(this.myPageInfo.soldout)
       })
       .catch(error => {
         console.log(error)
