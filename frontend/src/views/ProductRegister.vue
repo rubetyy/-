@@ -194,15 +194,13 @@ export default {
 </script>
 
 <style scoped>
- .product-register-form {
-    height: 800px;
-    background-color: #F9A77C;
-    padding: 40px;;
-    border-radius: 15px;
+.product-register-form {
+  padding: 40px;;
+  border-radius: 15px;
 }
-.image-container {
-    margin-top: 40px;
-    margin-bottom: 40px;
 
+.image-container {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 </style>
