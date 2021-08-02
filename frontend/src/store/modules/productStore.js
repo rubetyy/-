@@ -75,7 +75,8 @@ const productStore = {
     // 제품상세
     async productDetail({ commit }) {   
       // console.log('들어옴?')
-      const PRODUCTDETAIL_URL = BASE_URL +  `/product?productId=23&userId=test-1`
+      const PRODUCTDETAIL_URL = BASE_URL +  `/product/productId=23&userId=test-1`
+      // const PRODUCTDETAIL_URL = BASE_URL +  `/product/${productId}`
       console.log(PRODUCTDETAIL_URL)
       const response = await axios.get(PRODUCTDETAIL_URL)
       const data = response.data

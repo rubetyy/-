@@ -195,7 +195,7 @@ export default {
 
 <style scoped>
  .product-register-form {
-    height: 800px;
+    /* height: 800px; */
     background-color: #F9A77C;
     padding: 40px;;
     border-radius: 15px;
