@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>ProductDetail</h1>
+    <h1 id="header">제품 상세</h1>
     {{ productFile }}
     {{ productFile.images }}
 
@@ -14,21 +14,21 @@
       </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../../../backend/images/20210727/865456997892800.png" class="d-block w-50" alt="">
+        <img src="../../../backend/images/20210727/865456997892800.png" class="d-block w-100%; height=10px" alt="">
         <div class="carousel-caption d-none d-md-block">
           <h5>First slide label</h5>
           <p>Some representative placeholder content for the first slide.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="#" class="d-block w-50" alt="...">
+        <img src="../../../backend/images/20210801/288128738365100.png" class="d-block w-50" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>Second slide label</h5>
           <p>Some representative placeholder content for the second slide.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="#" class="d-block w-50" alt="...">
+        <img src="../../../backend/images/20210801/287594418705800.png" class="d-block w-50" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>Third slide label</h5>
           <p>Some representative placeholder content for the third slide.</p>
@@ -50,18 +50,21 @@
         Sliding: {{ sliding }}
       </p>     
     </div> -->
-    <div>제목  
-      <h3>{{ productFile.title }}</h3>
+    <div> 
+      <h3>제목: {{ productFile.title }}</h3>
     </div>
-    <div>설명  {{ productFile.description }} </div>
-    <div>상품 카테고리  {{ productFile.categoryId }} </div>
-    <div>가격  {{ productFile.price }} </div>
+    <div>제품 설명:   {{ productFile.description }} </div>
+    <div>상품 카테고리:   {{ productFile.categoryId }} </div>
+    <div>가격:  {{ productFile.price }} </div>
     <div>
       <button>수정</button>
       <button>삭제</button>
     </div>
     <div class="container justify-content: center; flex-direction: column">
-      <section> 
+      <section>
+        <div>
+
+        </div> 
         <p>케로셀 이미지</p>
         <br>
         <div v-if="productFile.isLive == 0">
@@ -99,7 +102,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
 const productStore = 'productStore'
 
 export default {
@@ -140,12 +142,6 @@ export default {
   },
 
   methods: {
-    // onSlideStart() {
-    //   this.sliding = true
-    // },
-    // onSlideEnd() {
-    //   this.sliding = false
-    // },
     ...mapActions(productStore,[
     'productDetail',
     ]),
@@ -167,11 +163,15 @@ export default {
       // console.log(tm)
       this.createTime = [date, tm]
     
-    })
+      })
     },
 }
+
 </script>
 
 <style scoped>
-
+#carouselExampleCaptions {
+  height: 100px;
+  position: relative;
+}
 </style>

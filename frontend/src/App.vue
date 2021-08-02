@@ -132,6 +132,7 @@ button {
   text-align: center;
   border: 0;
   outline: none;
+  font-weight: bold;
 }
 /* 버튼 가운데 정렬 */
 .center-btn {
