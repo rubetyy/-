@@ -2,14 +2,15 @@
   <div class='container'>
     <h1 id="header">MyPage</h1>
     <hr>
-    <!-- {{myPageInfo}} -->
 
-    <div v-if='myPageInfo' class='div-box'>
+    <div v-if='myPageInfo' class=''>
       <h2>아이디: {{myPageInfo.userinfo.userid}} </h2>
       <h2>닉네임: {{myPageInfo.userinfo.usernickname}}</h2>
       
+      {{myPageInfo}}
+
       <div class='center-btn'>
-        <button class='btn'>개인정보 수정</button>
+        <button class='button'>개인정보 수정</button>
       </div>
     </div>
     <hr>
@@ -42,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 const userStore = 'userStore'
 
 export default {
@@ -55,10 +56,6 @@ export default {
     }
   },
 
-  computed: {
-    ...mapGetters(userStore, ['getUserInfo']),
-  },
-
   methods: {
     ...mapActions(userStore, ['getMyPage']),
   },
@@ -68,7 +65,7 @@ export default {
     this.getMyPage(this.userId)
       .then(response => {
         this.myPageInfo = response
-        console.log(this.myPageInfo.soldout)
+        console.log(response)
       })
       .catch(error => {
         console.log(error)
@@ -78,39 +75,5 @@ export default {
 </script>
 
 <style scoped>
-#header {
-  text-align: center;
-  font-family: 'netmarbleB';
-}
-.div-box {
-  width: 800px;
-  margin: 50px auto 80px;
-}
-.center-btn {
-  display: flex;
-  justify-content: center;
-}
-button {
-  text-align: center;
-}
-button:hover {
-  background-color: #fff3eb;
-}
-.btn {
-  background-color: #ffeadc;
-  color: #ff6600;
-  border-radius: 38.5px;
-  padding: 10px 20px;
-}
-textarea:hover, textarea:active, textarea:focus,
-input:hover, input:active, input[type="text"]:focus,
-.uneditable-input:focus {
-  border-color: #f5f3f1;
-  box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 2px rgba(229, 103, 23, 0.6);
-  /* box-shadow: none; */
-}
-button:active, button:focus {
-  box-shadow: none;
-}
 
 </style>
