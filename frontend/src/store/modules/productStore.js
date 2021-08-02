@@ -45,8 +45,10 @@ const productStore = {
       let data = new FormData();
       if (productFile.images != null) {
         for (let i = 0; i < productFile.images.length; i++) {
-          const image = productFile.images[i];
-          data.append('images', image);
+          console.log(i,'i')
+          const images = productFile.images[i];
+          console.log(images,'images')
+          data.append('images', images);
         }
       }
       data.append('title', productFile.title);
@@ -63,7 +65,7 @@ const productStore = {
           Authorization: `Bearer ${token}`
         }
       }
-
+      console.log(data.images)
       const response = await axios.post(REGISTER_URL, data, config)
       console.log(response)
       // console.log(response.config.data)
