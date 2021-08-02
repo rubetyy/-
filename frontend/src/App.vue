@@ -93,6 +93,7 @@ export default {
 #article {
   padding-top: 48px;
   padding-bottom: 100px;
+  box-sizing: border-box;
 }
 
 /* article의 헤더 */
