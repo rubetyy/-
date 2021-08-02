@@ -13,6 +13,7 @@ import java.util.List;
 public interface ProductService {
     Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files);
     List<Product> getAllProducts(Long productId);
+    List<Product> getMainProducts();
     List<Product> getProductsByCategory(Long categoryId);
     ProductResponseDto getProductByProductId(Long productId);
     long updateProduct(ProductPatchReq productPatchReq);
