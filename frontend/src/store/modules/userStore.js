@@ -68,8 +68,7 @@ const userStore = {
     },
 
     async getMyPage(context, userId) {
-      // const url = BASE_URL + `/mypage/${userId}`
-      const url = BASE_URL + `/mypage/cse`
+      const url = BASE_URL + `/mypage/${userId}`
       console.log(url, userId)
 
       const result = await axios.get(url)
