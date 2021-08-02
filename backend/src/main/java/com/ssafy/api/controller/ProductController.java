@@ -3,8 +3,6 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
-import com.ssafy.api.response.dto.Product.ProductListResponseDto;
-import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Product.ProductService;
 import com.ssafy.common.auth.SsafyUserDetails;
@@ -61,7 +59,7 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     public ResponseEntity<Product> getProducts(@PathVariable String productId){
-        Product product = productService.getProductByProductId(Long.valueOf(productId));
+        Product product = productService.getProductByProductId(Long.valueOf(productId)); 
         return ResponseEntity.status(200).body(product);
     }
 
