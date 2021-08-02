@@ -1,6 +1,9 @@
 <template>
   <div>
 
+
+    <LiveChat />
+
     <div v-if="data">
       <h3>방송제목: {{ data.livetitle }}</h3>
       <p>userid: {{ data.userid }}</p>
@@ -30,12 +33,15 @@
 // 공통) 상품정보(상품상세페이지 링크 걸어야함), 판매자 프로필보기, *실시간 채팅(component), *방송화면(component)
 // 판매자 뷰) 방송제목 수정, 방송 종료
 // 구매자 뷰) 방송 나가기, 판매자 프로필보기, 찜하기는 상품상세에서??(네이버쇼핑라이브는 방송화면에서 찜버튼 있음)
-
+import LiveChat from '@/components/LivePage/LiveChat'
 import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
 
 export default {
   name: 'LivePage',
+  components: {
+    LiveChat,
+  },
   data: function () {
     return {
       data: null,

@@ -7,7 +7,7 @@
       <div style="margin-bottom: 30px;">
         <span>판매 상품 : </span>
         <a href="#">
-          상품 바로가기(네이버처럼 상품이미지+상품명 보이게 구성하고 싶음)
+          <i class="bi bi-arrow-up-right-square-fill"></i> {상품명}
         </a>
       </div>
 
@@ -74,6 +74,8 @@ export default {
 </script>
 
 <style scoped>
-
+i {
+  color:#ff8a3d;
+}
 
 </style>
