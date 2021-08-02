@@ -1,10 +1,7 @@
 <template>
   <div>
-    유저이름: 
-    <input type="text" v-model="username">
-    내용: 
     <input type="text" v-model="message" @keyup="sendMessage">
-    <button @click="sendMessage">채팅</button>
+    <button @click="clickMessage">채팅</button>
     <div v-for="(item, idx) in recvList" :key="idx">
       유저이름: {{ item.username }} | 내용: {{ item.content }}
     </div>
@@ -15,31 +12,38 @@
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
-import { mapGetters } from 'vuex'
-const userStore = 'userStore'
-
 export default {
   name: 'LiveChat',
   data() {
     return {
-      username: '',
+      username: '',//닉네임
       message: '',
       recvList: []
     }
   },
   created() {
+    this.username = JSON.parse(localStorage.getItem('userInfo')).nickname
     this.connect()
-  },
-  computed: {
-    ...mapGetters(userStore, ['getUserInfo']),
   },
   methods: {
     sendMessage (e) {
-      if(e.keyCode === 13 && this.username !== '' && this.message !== ''){
+      if(e.keyCode === 13 && this.username.trim() !== '' && this.message.trim() !== ''){
         this.send()
         this.message = ''
+      } else if (e.keyCode === 13 && this.username.trim() == '') {
+        alert('로그인 후 이용해주세요')
+        // 로그인 창으로 바로가기?
       }
-    },    
+    },
+    clickMessage() {
+      if(this.username.trim() !== '' && this.message.trim() !== ''){
+        this.send()
+        this.message = ''
+      } else if (this.username.trim() == '') {
+        alert('로그인 후 이용해주세요')
+        // 로그인 창으로 바로가기?
+      }
+    } ,  
     send() {
       if (this.stompClient && this.stompClient.connected) {
         const msg = { 
