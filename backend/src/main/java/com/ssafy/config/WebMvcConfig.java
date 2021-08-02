@@ -65,7 +65,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         loggingFilter.setIncludeQueryString(true);
         loggingFilter.setIncludePayload(true);
         loggingFilter.setIncludeHeaders(true);
-        loggingFilter.setMaxPayloadLength(64000);
+        loggingFilter.setMaxPayloadL(64000);
         return loggingFilter;
     }
 
