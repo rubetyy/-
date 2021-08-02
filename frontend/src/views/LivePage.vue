@@ -1,7 +1,5 @@
 <template>
-  <div id="livepage">
-    <h1>LivePage</h1>
-    <hr>
+  <div>
 
     <div v-if="data">
       <h3>방송제목: {{ data.livetitle }}</h3>
@@ -11,16 +9,16 @@
       <!-- 판매자 -->
       <div>
         <!-- productpk 로 연결하기 -->
-        <button class="btn btn-light"><i class="bi bi-cursor"></i> 상품보기</button>
-        <button class="btn btn-light"><i class="bi bi-heart-fill"></i> 방송제목 수정</button>
-        <button class="btn btn-light"><i class="bi bi-x-circle"></i> 방송종료</button>
+        <button class="btn-g"><i class="bi bi-cursor"></i> 상품보기</button>
+        <button class="btn-g"><i class="bi bi-heart-fill"></i> 방송제목 수정</button>
+        <button class="btn-g"><i class="bi bi-x-circle"></i> 방송종료</button>
       </div>
 
       <!-- 구매자 -->
       <div>
-        <button class="btn btn-light"><i class="bi bi-hand-index"></i> 상품보기</button>
-        <button class="btn btn-light"><i class="bi bi-heart-fill"></i> 찜하기</button>
-        <button class="btn btn-light"><i class="bi bi-x-lg"></i> 나가기</button>
+        <button class="btn-g"><i class="bi bi-hand-index"></i> 상품보기</button>
+        <button class="btn-g"><i class="bi bi-heart-fill"></i> 찜하기</button>
+        <button class="btn-g"><i class="bi bi-x-lg"></i> 나가기</button>
       </div>
 
     </div>
@@ -58,15 +56,6 @@ export default {
 </script>
 
 <style scoped>
-#livepage {
-  text-align: center;
-}
 
-.btn {
-  background-color: #f1f1f1;
-  /* color: #ff6600; */
-  border-radius: 38.5px;
-  padding: 8px 15px;
-  margin: 10px;
-}
+
 </style>

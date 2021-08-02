@@ -2,7 +2,7 @@
   <div>
     <h1 id="header">방송 만들기</h1>
 
-    <div class="div-box">
+    <div class="form-box">
       <!-- 상품상세페이지에서 링크(상품pk, 상품명, 이미지??, 유저id) 넘겨줘야함 -->
       <div style="margin-bottom: 30px;">
         <span>판매 상품 : </span>
@@ -23,7 +23,7 @@
       >
     </div>
     <div class="center-btn">
-      <button class="btn" @click="startlive">방송 시작하기</button>
+      <button class="btn-o" @click="startlive">방송 시작하기</button>
     </div>
     
   </div>
@@ -74,34 +74,6 @@ export default {
 </script>
 
 <style scoped>
-.div-box {
-  width: 800px;
-  margin: 50px auto 80px;
-}
-.center-btn {
-  display: flex;
-  justify-content: center;
-}
-button {
-  text-align: center;
-}
-button:hover {
-  background-color: #fff3eb;
-}
-.btn {
-  background-color: #ffeadc;
-  color: #ff6600;
-  border-radius: 38.5px;
-  padding: 10px 20px;
-}
-textarea:hover, textarea:active, textarea:focus,
-input:hover, input:active, input[type="text"]:focus,
-.uneditable-input:focus {
-  border-color: #f5f3f1;
-  box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 2px rgba(229, 103, 23, 0.6);
-  /* box-shadow: none; */
-}
-button:active, button:focus {
-  box-shadow: none;
-}
+
+
 </style>
