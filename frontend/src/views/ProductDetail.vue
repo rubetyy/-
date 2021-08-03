@@ -147,22 +147,15 @@ export default {
     ]),
   },
   async created() {
-    
-    this.productDetail()
+    this.productDetail(this.$route.params.product_pk)
     .then(()=>{
-          
-      console.log(this.productFile)
       var time = this.productFile.createdAt
-      console.log(time)
       let arr = time.split(' ');
-      // console.log(arr)
       let date = arr[0].split('-').reverse().join('-');
       let tmArr = arr[1].split('.');
       let tm = tmArr[0]
-      // console.log(date)
-      // console.log(tm)
+
       this.createTime = [date, tm]
-    
       })
     },
 }

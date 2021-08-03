@@ -7,7 +7,6 @@
         <router-link :to="{name: 'MyPage'}">마이페이지</router-link> |
         <router-link :to="{name: 'ProductRegister'}">상품 등록</router-link> |
         <router-link :to="{name: 'LiveRegister'}">LiveRegister</router-link> |
-        <router-link :to="{name: 'ProductDetail'}">ProductDetail</router-link> |
         <router-link to="#" @click.native="logoutClick">로그아웃</router-link> |
       <!-- </div> -->
 
@@ -39,7 +38,7 @@
             </form>
               <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  마이페이지 예상
+                  예상
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><router-link :to="{name: 'ProductRegister'}" class="dropdown-item">상품 등록</router-link></li>
@@ -49,6 +48,7 @@
                 </ul>
               </div>
               <div v-if="isLogged">
+                <router-link :to="{name: 'MyPage'}">마이페이지</router-link> |
                 <router-link to="#" @click.native="logoutClick" class="navbar-brand">로그아웃</router-link> 
               </div>
               <div v-else>

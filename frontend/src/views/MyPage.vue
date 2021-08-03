@@ -18,11 +18,13 @@
     <div class='d-flex justify-content-evenly'>
       <ul>
         <h2>판매중</h2>
-        <li v-for='product in myPageInfo.issold' :key='product.productpk'>{{product.producttitle}}</li>
+        <li v-for='product in myPageInfo.issold' :key='product.id'>{{product.title}}</li>
       </ul>
       <ul>
         <h2>판매완료</h2>
-        <li v-for='soldOut in myPageInfo.soldout' :key='soldOut.productpk'>{{soldOut.producttitle}}</li>
+        <li v-for='soldOut in myPageInfo.soldout' :key='soldOut.id'>
+          <router-link :to="`/productdetail/${soldOut.id}`">{{soldOut.title}}</router-link>
+        </li>
       </ul>
       <ul>
         <h2>구매완료</h2>
@@ -30,7 +32,9 @@
       </ul>
       <ul>
         <h2>찜</h2>
-        <li v-for='wishProduct in myPageInfo.wishlist' :key='wishProduct.productpk'>{{wishProduct.producttitle}}</li>
+        <li v-for='wishProduct in myPageInfo.wishlist' :key='wishProduct.id'>
+          <router-link :to="`/productdetail/${wishProduct.id}`">{{wishProduct.title}}</router-link>
+        </li>
       </ul>
       <ul>
         <h2>채팅</h2>
