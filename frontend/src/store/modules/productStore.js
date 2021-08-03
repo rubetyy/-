@@ -76,7 +76,7 @@ const productStore = {
     async productDetail({ commit }) {   
       // console.log('들어옴?')
       // const productId = 
-      const PRODUCTDETAIL_URL = BASE_URL +  `/product/productId=23&userId=test-1`
+      const PRODUCTDETAIL_URL = BASE_URL +  `/product/5`
       // const PRODUCTDETAIL_URL = BASE_URL +  `/product/${productId}`
       console.log(PRODUCTDETAIL_URL)
       const response = await axios.get(PRODUCTDETAIL_URL)
@@ -90,10 +90,10 @@ const productStore = {
 
     // 메인페이지 상품리스트
     getProductList: async function(context) {
-      const url = BASE_URL + '/home'  // 데이터 받아오는 url
+      const url = BASE_URL + '/product/main'  // 데이터 받아오는 url
       const res = await axios.get(url)
-      // context.commit('SET_PRODUCT_LIST', res.data.productList)
-      context.commit('SET_PRODUCT_LIST', res.data.liveList)  // 위에가 맞음!! 데이터확인용
+      context.commit('SET_PRODUCT_LIST', res.data.productList)
+      // context.commit('SET_PRODUCT_LIST', res.data.liveList)  // 위에가 맞음!! 데이터확인용/
     }
   }
 }
