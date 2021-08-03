@@ -46,7 +46,7 @@ export default {
     startlive: function() {
       if (this.livetitle.trim()) {
         const params = {
-          productpk: 14,  // ⚡상품 상세페이지에서 넘겨준 pk 담아서 보내기. 일단 임시로 지정함
+          productpk: 7,  // ⚡상품 상세페이지에서 넘겨준 pk 담아서 보내기. 일단 임시로 지정함
           livetitle: this.livetitle.trim(),
           userid: JSON.parse(localStorage.getItem('userInfo')).id,
         }
