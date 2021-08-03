@@ -1,70 +1,68 @@
 import axios from 'axios'
 
-// axios.defaults.baseURL = 'http://localhost:8080'
-// const url = BASE_URL + `주소/${변수}/`
+
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
 const userStore = {
   namespaced: true,
 
   state: {
-    credentials: localStorage.getItem('credentials') ? localStorage.getItem('credentials') : '',  // 로그인한 유저 아이디
+    userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,  // {id: 'hyewonTest', nickname: '혜원짱짱',} (현재 로그인한 유저정보)
     token: localStorage.getItem('token'),
   },
 
   getters: {
-    getUserInfo(state) {
-      return state.credentials
-    },
+    // getUserInfo(state) {
+    //   return state.userInfo
+    // },
     getToken(state) {
       return state.token
     }
   },
 
   mutations: {
-    LOGIN(state, data){
-      state.credentials = data
-    },
+    // LOGIN(state, data){
+    //   state.userInfo.id = data.id
+    //   state.userInfo.nickname = data.nickname
+    // },
     LOGIN_CHECK(state, token){
       state.token = token
     },
     LOGOUT(state){
-      state.credentials = {}
       state.token = ''
+      localStorage.removeItem('userInfo')
       localStorage.removeItem('token')
-      localStorage.removeItem('credentials')
-    },
-    SIGNUP(state, credentials) {
-      state.credentials = credentials
+      // state.userInfo.id = null
+      // state.userInfo.nickname = null
     },
   },
 
   actions: {
     async login({commit}, credentials) {
       const LOGIN_URL = BASE_URL + '/auth/login/'
-      const data = credentials
-      
-      const response = await axios.post(LOGIN_URL, data)
-      // console.log(response)
-      const token = response.data.accessToken
-
+      const res = await axios.post(LOGIN_URL, credentials)
+      const token = res.data.accessToken
       localStorage.setItem('token', token)
-      localStorage.setItem('credentials', data.id)
 
-      commit('LOGIN', data)
+      const data = {id: credentials.id, nickname: res.data.nickname,}
+      const data2 = JSON.stringify(data) 
+      localStorage.setItem('userInfo', data2)
+      // commit('LOGIN', data)
       commit('LOGIN_CHECK', token)
     },
 
     logout({commit}){
       commit('LOGOUT')
     },
-      
-    async signup({commit, dispatch}, credentials) {
+
+    async signup({dispatch}, credentials) {
       const SIGNUP_URL = BASE_URL + '/users/join'
-      const data = credentials
-      const response = await axios.post(SIGNUP_URL, data)
-      commit('SIGNUP', response.data)
-      dispatch('login', credentials)
+      const res = await axios.post(SIGNUP_URL, credentials)
+      if (res.data.statusCode === 200) {
+        dispatch('login', credentials)
+      } else {
+        throw new Error(res.status)
+      }
     },
 
     async getMyPage(context, userId) {
@@ -72,6 +70,7 @@ const userStore = {
       console.log(url, userId)
 
       const result = await axios.get(url)
+      console.log(result)
 
       return result.data
     },

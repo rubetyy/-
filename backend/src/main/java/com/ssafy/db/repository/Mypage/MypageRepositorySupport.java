@@ -69,7 +69,7 @@ public class MypageRepositorySupport {
 
         //chatlist
         List<Chatroom> chatres = (List<Chatroom>) jpaQueryFactory.select(qChatroom).from(qChatroom)
-                .where(qChatroom.useridbuyer.eq(userid)).fetch();
+                .where(qChatroom.useridseller.eq(userid)).fetch();
         res.put("chatlist",chatres);
         return res;
     }

@@ -33,4 +33,7 @@ public class Chatroom {
 
     @Column(name="chat_room_is_buyer")
     Long buy;
+
+    @Column(name="user_id_seller")
+    String useridseller;
 }
