@@ -85,8 +85,7 @@ const productStore = {
     getProductList: async function(context) {
       const url = BASE_URL + '/home'  // 데이터 받아오는 url
       const res = await axios.get(url)
-      // context.commit('SET_PRODUCT_LIST', res.data.productList)
-      context.commit('SET_PRODUCT_LIST', res.data.liveList)  // 위에가 맞음!! 데이터확인용
+      context.commit('SET_PRODUCT_LIST', res.data.productList)
     }
   }
 }

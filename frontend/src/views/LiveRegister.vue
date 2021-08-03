@@ -3,11 +3,11 @@
     <h1 id="header">방송 만들기</h1>
 
     <div class="form-box">
-      <!-- 상품상세페이지에서 링크(상품pk, 상품명, 이미지??, 유저id) 넘겨줘야함 -->
+      <!-- ⚡상품상세페이지에서 링크(상품pk(필수!!), 상품명, 이미지(가능하면)) 넘겨줘야함 -->
       <div style="margin-bottom: 30px;">
         <span>판매 상품 : </span>
         <a href="#">
-          상품 바로가기(네이버처럼 상품이미지+상품명 보이게 구성하고 싶음)
+          <i class="bi bi-arrow-up-right-square-fill"></i> {상품명}
         </a>
       </div>
 
@@ -31,10 +31,8 @@
 
 <script>
 // 필수항목 유효성 검사 & 방송을 만든 사용자만 CRUD 가능 -> 로그인정보 받아서 제목 수정할 수 있도록 구성할것
-import { mapActions, mapGetters } from 'vuex'
-
+import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
-const userStore = 'userStore'
 
 export default {
   name: 'LiveRegister',
@@ -43,23 +41,18 @@ export default {
       livetitle: '',
     } 
   },
-  computed: {
-    ...mapGetters(userStore, ['getUserInfo']),
-  },
   methods : {
     ...mapActions(liveStore, ['startLive']),
-    // 방송시작하기
     startlive: function() {
       if (this.livetitle.trim()) {
         const params = {
-          productpk: 14,  // 상품 상세페이지에서 넘겨준 pk 담아서 보내기. 일단 임시로 지정함
+          productpk: 14,  // ⚡상품 상세페이지에서 넘겨준 pk 담아서 보내기. 일단 임시로 지정함
           livetitle: this.livetitle.trim(),
-          userid: this.getUserInfo,
+          userid: JSON.parse(localStorage.getItem('userInfo')).id,
         }
         this.startLive(params)
         .then(res => {
-          // router 인자로 liveid 필요
-          this.$router.push({ name: 'LivePage', params: { id: res.livepk } })  // id 일단 임시 (백엔드 확정되면 고칠것)
+          this.$router.push({ name: 'LivePage', params: { id: res.livepk } })
         })
         .catch(err => {
           console.log(err + '방송만들기 에러')
@@ -74,5 +67,8 @@ export default {
 </script>
 
 <style scoped>
+i {
+  color:#ff8a3d;
+}
 
 </style>
