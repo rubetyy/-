@@ -19,8 +19,13 @@
       </ul>
       <ul>
         <h2>판매완료</h2>
+<<<<<<< HEAD
         <li v-for='soldout in myPageInfo.soldout' :key='soldout.id'>
           <router-link :to="`/product/${soldout.id}`">{{soldout.title}}</router-link>
+=======
+        <li v-for='soldOut in myPageInfo.soldout' :key='soldOut.id'>
+          <router-link :to="`/product/${soldOut.id}`">{{soldOut.title}}</router-link>
+>>>>>>> 123e6007be1ec6866a5c82029fd01c7f6b8d371e
         </li>
       </ul>
       <ul>
@@ -30,7 +35,7 @@
       <ul>
         <h2>찜</h2>
         <li v-for='wishProduct in myPageInfo.wishlist' :key='wishProduct.id'>
-          <router-link :to="`/productdetail/${wishProduct.id}`">{{wishProduct.title}}</router-link>
+          <router-link :to="`/product/${wishProduct.id}`">{{wishProduct.title}}</router-link>
         </li>
       </ul>
       <ul>
