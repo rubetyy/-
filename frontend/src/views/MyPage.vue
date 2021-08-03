@@ -61,10 +61,6 @@ export default {
   },
 
   async created() {
-    console.log(this.$route)
-    this.userId = JSON.parse(localStorage.getItem('userInfo')).id
-    console.log(this.userId)
-
     this.getMyPage(this.userId)
       .then(response => {
         this.myPageInfo = response
