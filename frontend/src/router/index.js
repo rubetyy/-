@@ -36,12 +36,12 @@ const routes = [
     component: Login
   },
   {
-    path: '/mypage',
+    path: '/mypage/:userid',
     name: 'MyPage',
     component: MyPage
   },
   {
-    path: '/categorypage',
+    path: '/categorypage',//보류
     name: 'CategoryPage',
     component: CategoryPage
   },
@@ -61,7 +61,7 @@ const routes = [
     component: LiveRegister
   },
   {
-    path: '/productdetail/:product_pk',
+    path: '/product/:product_pk',
     name: 'ProductDetail',
     component: ProductDetail
   },
