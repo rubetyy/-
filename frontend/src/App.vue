@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
+        {{typeof(this.userId.id)}}
         <router-link :to="{name: 'MainPage'}">홍당무 라이브</router-link> |
         <router-link :to="{name: 'CategoryPage'}">의류, 음식, 전자제품, 기타</router-link> |
 
       <div v-if="isLogged">
-        <router-link :to="{name: 'MyPage'}">마이페이지</router-link> |
+        <router-link :to="{name: 'MyPage'}">마이페이지</router-link>
         <router-link :to="{name: 'ProductRegister'}">상품 등록</router-link> |
         <router-link :to="{name: 'LiveRegister'}">LiveRegister</router-link> |
         <router-link to="#" @click.native="logoutClick">로그아웃</router-link> |
@@ -75,7 +76,12 @@ const userStore = 'userStore'
 
 export default {
   name: 'App',
-
+  data: function () {
+    return {
+      userId: ''
+    }
+  },
+  
   computed: {
     ...mapGetters(userStore,[
       'getToken'
@@ -96,6 +102,10 @@ export default {
       })
     }
   },
+  created (){
+    this.userId =  JSON.parse(localStorage.getItem('userInfo'))
+    console.log(this.userId)
+  }
 }
 </script>
 

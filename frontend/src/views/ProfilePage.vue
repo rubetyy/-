@@ -65,7 +65,7 @@ export default {
 
   async created() {
     console.log(this.$route)
-    this.userId = JSON.parse(localStorage.getItem('userInfo')).id
+    this.userId = this.$route.params.userid
     console.log(this.userId)
 
     this.getMyPage(this.userId)
