@@ -59,7 +59,7 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     public ResponseEntity<Product> getProducts(@PathVariable String productId){
-        Product product = productService.getProductByProductId(Long.valueOf(productId)); 
+        Product product = productService.getProductByProductId(Long.valueOf(productId));
         return ResponseEntity.status(200).body(product);
     }
 
