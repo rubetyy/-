@@ -3,8 +3,6 @@ package com.ssafy.api.service.Product;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
-import com.ssafy.api.response.dto.Product.ProductListResponseDto;
-import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.db.entity.Product;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +13,7 @@ public interface ProductService {
     List<Product> getAllProducts(Long productId);
     List<Product> getMainProducts();
     List<Product> getProductsByCategory(Long categoryId);
-    ProductResponseDto getProductByProductId(Long productId);
+    Product getProductByProductId(Long productId);
     long updateProduct(ProductPatchReq productPatchReq);
     long deleteProduct(ProductDeleteReq productDeleteReq);
 }
