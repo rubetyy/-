@@ -4,8 +4,8 @@
         {{this.userId.id}}
         {{this.userId.nickname}}
     <br>
-    {{ productFile }}
-    {{ productFile.images }}
+    <!-- {{ productFile }}
+    {{ productFile.images }} -->
 <!-- ../../../backend/images/20210727/865456997892800.png -->
 
 
@@ -63,12 +63,11 @@
           </svg>
           <p>Live중이 아닙니다</p>
           <div v-if="productFile.userId == this.userId.id"  >
-            <router-link :to="{name: 'LiveRegister'}">방송시작하기</router-link>
             <button>수정</button>
             <button>삭제</button>
           </div>
           
-          <!-- <button @clickproductpk>방송 시작하기(pk보내기)</button> -->
+          <button @click="makelive">방송 시작하기</button>
           <br>        
         </div>
 
@@ -84,19 +83,13 @@
 
     </div>
 
-
-
-
-     
-
-   
-
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
+const liveStore = 'liveStore'
 
 export default {
   name: 'ProductDetail',
@@ -135,6 +128,15 @@ export default {
     ...mapActions(productStore,[
     'productDetail',
     ]),
+    ...mapActions(liveStore, ['makeLive']),
+    makelive: function () {
+      const data = {
+        produckPk: this.productFile.id,
+        productTitle: this.productFile.title,
+      }
+      this.makeLive(data)
+      this.$router.push({ name: 'LiveRegister' })
+    },
   },
   async created() {
     this.productDetail(this.$route.params.product_pk)
