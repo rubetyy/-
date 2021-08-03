@@ -1,14 +1,11 @@
 <template>
   <div class='container'>
-    <h1 id="header">MyPage</h1>
+    <h1 id="header"></h1>
     <hr>
 
     <div v-if='myPageInfo' class=''>
       <h2>아이디: {{myPageInfo.userinfo.userid}} </h2>
       <h2>닉네임: {{myPageInfo.userinfo.usernickname}}</h2>
-      
-      {{myPageInfo}}
-
       <div class='center-btn'>
         <button class='button'>개인정보 수정</button>
       </div>
@@ -22,8 +19,8 @@
       </ul>
       <ul>
         <h2>판매완료</h2>
-        <li v-for='soldOut in myPageInfo.soldout' :key='soldOut.id'>
-          <router-link :to="`/productdetail/${soldOut.id}`">{{soldOut.title}}</router-link>
+        <li v-for='soldout in myPageInfo.soldout' :key='soldout.id'>
+          <router-link :to="`/product/${soldout.id}`">{{soldout.title}}</router-link>
         </li>
       </ul>
       <ul>
@@ -38,8 +35,8 @@
       </ul>
       <ul>
         <h2>채팅</h2>
-          <li v-for='chatRoom in myPageInfo.chatlist' :key='chatRoom.chatroompk'>
-            <router-link :to="`/chatroom/${chatRoom.user_id_buyer}`">{{chatRoom.user_id_buyer}}</router-link>
+          <li v-for='chatroom in myPageInfo.chatlist' :key='chatroom.chatroompk'>
+            <router-link :to="`/chatroom/${chatroom.useridbuyer}`">{{chatroom.useridbuyer}}</router-link>
           </li>
       </ul>
     </div>
@@ -55,7 +52,7 @@ export default {
 
   data: function () {
     return {
-      userId: '',
+      userId: JSON.parse(localStorage.getItem('userInfo')).id,
       myPageInfo: '',
     }
   },
@@ -64,9 +61,6 @@ export default {
   },
 
   async created() {
-    this.userId = JSON.parse(localStorage.getItem('userInfo')).id
-    console.log(this.userId)
-
     this.getMyPage(this.userId)
       .then(response => {
         this.myPageInfo = response
