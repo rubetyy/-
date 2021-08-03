@@ -31,10 +31,8 @@
 
 <script>
 // 필수항목 유효성 검사 & 방송을 만든 사용자만 CRUD 가능 -> 로그인정보 받아서 제목 수정할 수 있도록 구성할것
-import { mapActions, mapGetters } from 'vuex'
-
+import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
-const userStore = 'userStore'
 
 export default {
   name: 'LiveRegister',
@@ -43,9 +41,6 @@ export default {
       livetitle: '',
     } 
   },
-  computed: {
-    ...mapGetters(userStore, ['getUserInfo']),
-  },
   methods : {
     ...mapActions(liveStore, ['startLive']),
     startlive: function() {
@@ -53,7 +48,7 @@ export default {
         const params = {
           productpk: 14,  // ⚡상품 상세페이지에서 넘겨준 pk 담아서 보내기. 일단 임시로 지정함
           livetitle: this.livetitle.trim(),
-          userid: this.getUserInfo,
+          userid: JSON.parse(localStorage.getItem('userInfo')).id,
         }
         this.startLive(params)
         .then(res => {

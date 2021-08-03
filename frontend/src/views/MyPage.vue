@@ -55,17 +55,17 @@ export default {
       myPageInfo: '',
     }
   },
-
   methods: {
     ...mapActions(userStore, ['getMyPage']),
   },
 
   async created() {
-    this.userId = localStorage.getItem('credentials')
+    this.userId = JSON.parse(localStorage.getItem('userInfo')).id
+    console.log(this.userId)
+
     this.getMyPage(this.userId)
       .then(response => {
         this.myPageInfo = response
-        console.log(response)
       })
       .catch(error => {
         console.log(error)
