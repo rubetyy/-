@@ -7,7 +7,9 @@
       <div class="card-body">
         <h5>{{ product.title }}</h5>
         <p>{{ product.description }}</p>
-        <a href="#">상품 보러가기</a>
+        <router-link :to="`/product/${product.id}`">상품 보러가기</router-link>
+
+        <!-- <a href="#">상품 보러가기</a> -->
       </div>
     </div>
   </div>
@@ -36,6 +38,8 @@ export default {
 .card {
   /* margin-right: 0; */
   width: 14rem;
+  height: 400px;
+  margin-top: 50px;
 }
 /* 카드 높이 어케 맞춤..............ㅠㅠ */
 .card-img-top {

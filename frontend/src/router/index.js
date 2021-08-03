@@ -4,6 +4,8 @@ import MainPage from '../views/MainPage.vue'
 import Signup from '@/views/Signup.vue'
 import Login from '@/views/Login.vue'
 import MyPage from '@/views/MyPage.vue'
+import ProfilePage from '@/views/ProfilePage.vue'
+
 import CategoryPage from '@/views/CategoryPage.vue'
 import LivePage from '@/views/LivePage.vue'
 import ProductRegister from '@/views/ProductRegister.vue'
@@ -41,7 +43,12 @@ const routes = [
     component: MyPage
   },
   {
-    path: '/categorypage',//보류
+    path: '/profilepage/:userid',
+    name: 'ProfilePage',
+    component: ProfilePage
+  },
+  {
+    path: '/categorypage',
     name: 'CategoryPage',
     component: CategoryPage
   },
