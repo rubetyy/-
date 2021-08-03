@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1 id="header">제품 상세</h1>
+        {{this.userId.id}}
+        {{this.userId.nickname}}
+    <br>
     {{ productFile }}
     {{ productFile.images }}
 <!-- ../../../backend/images/20210727/865456997892800.png -->
@@ -34,19 +37,23 @@
         </button>
       </div>
 
-
-      <div> 
-        <h3>제목: {{ productFile.title }}</h3>
+      <div class="content">
+        <div>
+          <router-link :to="{name: 'ProfilePage', params: {userid: productFile.userId}}">닉네임들어갈곳</router-link>
+        </div>
+        <div class="content-title"> 
+          <h3>{{ productFile.title }}</h3>
+        </div>
+        
+        <div class="content-sub">
+          {{this.category[productFile.categoryId]}} /
+          게시 시간: <time>{{createTime[0]}}</time>
+        </div>
+        <div> 
+          <h5>가격:  {{ productFile.price }}원 </h5>
+        </div>
+          <div>제품 설명:   {{ productFile.description }} </div>
       </div>
-      <div>제품 설명:   {{ productFile.description }} </div>
-      <div>상품 카테고리:   {{ productFile.categoryId }} </div>
-      <div>게시 시간: {{productFile.categoryId}} <time>{{createTime[0]}}</time> </div>
-      <div>가격:  {{ productFile.price }} </div>
-
-    </div>
-
-
-
       <section>
         <br>
         <!-- 라이브 유무 버튼 -->
@@ -55,8 +62,8 @@
             <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
           </svg>
           <p>Live중이 아닙니다</p>
-          <div v-if="productFile.userId == this.userId"  >
-            <a href="">방송시작하기</a>  
+          <div v-if="productFile.userId == this.userId.id"  >
+            <router-link :to="{name: 'LiveRegister'}">방송시작하기</router-link>
             <button>수정</button>
             <button>삭제</button>
           </div>
@@ -70,10 +77,16 @@
             <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
           </svg>
           <p>Live중입니다</p>
-        <router-link :to="{name: 'LivePage', params: { id: productFile.liveId }}">라이브 방송 시청</router-link>
+          <router-link :to="{name: 'LivePage', params: { id: productFile.id }}">라이브 방송 시청</router-link>
           <br>
         </div>  
       </section>
+
+    </div>
+
+
+
+
      
 
    
@@ -92,8 +105,17 @@ export default {
         slide: 0,
         sliding: null,
         thumbnail: [],
-        userId: localStorage.getItem('credentials'),
+        userId: {
+          id: JSON.parse(localStorage.getItem('userInfo')).id,
+          nickname:JSON.parse(localStorage.getItem('userInfo')).nickname,
+        },
         createTime: [],
+        category: {
+          '1' : '의류',
+          '2' : '음식',
+          '3' : '전자제품',
+          '4' : '기타',
+        }
       }
     },
   computed: {
@@ -104,22 +126,9 @@ export default {
       return this.getProductDetailFile
     },
     image() {
-      // console.log(this.productFile)
       return this.productFile.thumbnail
     },
-    // createTime() {
-    //   console.log(this.productFile)
-    //   var time = this.productFile.createdAt
-    //   console.log(time)
-    //   let arr = time.split(' ');
-    //   // console.log(arr)
-    //   let date = arr[0].split('-').reverse().join('-');
-    //   let tmArr = arr[1].split('.');
-    //   let tm = tmArr[0]
-    //   // console.log(date)
-    //   // console.log(tm)
-    //   return [date, tm]
-    // }
+
   },
 
   methods: {
@@ -148,9 +157,19 @@ export default {
   height: 100px;
   position: relative;
 }
-/* img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-} */
+.content {
+  margin-top: 50px;
+  padding: 20px;;
+}
+.content > div {
+  margin-bottom: 30px;
+}
+/* .content-title {
+  margin-bottom: 30px;
+
+}*/
+
+.content-sub {
+  color: grey;
+}
 </style>
