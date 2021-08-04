@@ -2,6 +2,7 @@ package com.ssafy.db.repository.Product;
 
 import com.ssafy.db.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,5 +12,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByCategoryId(Long categoryId);
     List<Product> findTop12ByOrderByViewCountDesc();
     Product findTop1ByOrderByIdDesc();
-
 }

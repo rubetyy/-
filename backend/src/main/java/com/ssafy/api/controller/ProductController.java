@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
@@ -140,9 +141,18 @@ public class ProductController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity getUserInfo() {
-        List<Product> l = productService.getMainProducts();
+        Map<String,Object> res = new HashMap<>();
+        List<Tuple> l = productService.getMainProducts();
+        int cnt = 0;
+        List<Image> il = new ArrayList<>();
+        for(Tuple t : l){
+            Image image = t.get(0,Image.class);
+            il.add(image);
+        }
+        res.put("liveList",null);
+        res.put("productList",il);
 
-        return new ResponseEntity<List<Product>>(l, HttpStatus.OK);
+        return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }
 
 
