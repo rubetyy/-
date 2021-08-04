@@ -65,9 +65,9 @@ const productStore = {
           Authorization: `Bearer ${token}`
         }
       }
-      console.log(data.images)
+      console.log(data.images,'data.image')
       const response = await axios.post(REGISTER_URL, data, config)
-      console.log(response)
+      console.log(response,'ressponse')
       // console.log(response.config.data)
       commit('REGISTER', response.config.data)
     },
@@ -85,7 +85,8 @@ const productStore = {
     getProductList: async function(context) {
       const url = BASE_URL + '/product/main'  // 데이터 받아오는 url
       const res = await axios.get(url)
-      context.commit('SET_PRODUCT_LIST', res.data.productList)
+      console.log(res.data)
+      context.commit('SET_PRODUCT_LIST', res.data)
     }
   }
 }

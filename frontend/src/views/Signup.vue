@@ -64,7 +64,6 @@ div{
 } */
 .signup-form {
   height: 700px;
-  background-color:#F9A77C;
   padding: 40px;;
   text-align: center;
   border-radius: 15px;
