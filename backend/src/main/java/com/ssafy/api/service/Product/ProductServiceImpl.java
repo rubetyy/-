@@ -47,7 +47,9 @@ public class ProductServiceImpl implements ProductService {
             }
         }
 
-        return productRepository.save(product);
+        productRepository.save(product);
+
+        return productRepository.findTop1ByOrderByIdDesc();
     }
 
     /**
