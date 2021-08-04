@@ -4,6 +4,7 @@
 
     <LiveChat />
 
+    {{ isSeller }}
     <div v-if="data">
       <h3>{{ data.livetitle }}</h3>
       {{ data }}
@@ -62,8 +63,7 @@ export default {
   },
   methods: {
     ...mapActions(liveStore, ['getLiveInfo']),
-
-
+    
     goProduct: function () {
       // window.open("https://google.com", "_blank");
       console.log(this.data.productpk)

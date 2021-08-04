@@ -37,12 +37,8 @@ export default {
   created: function() {
     this.getProductList()
     .then(()=>{
-      console.log('성공 created getProductList')
+      console.log('성공 getProductList')
     })
-    // .then(res => {
-    //   console.log(res)
-    //   console.log('성공 created getProductList')
-    // })
     .catch(err => {
       console.log(err)
       console.log('에러 getProductList')
