@@ -65,9 +65,9 @@ const productStore = {
           Authorization: `Bearer ${token}`
         }
       }
-      console.log(data.images)
+      console.log(data.images,'data.image')
       const response = await axios.post(REGISTER_URL, data, config)
-      console.log(response)
+      console.log(response,'ressponse')
       // console.log(response.config.data)
       commit('REGISTER', response.config.data)
     },
