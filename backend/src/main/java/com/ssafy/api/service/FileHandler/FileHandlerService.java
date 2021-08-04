@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface FileHandlerService {
     public List<Image> upload(List<MultipartFile> file);
-    public void download(String filename);
+    public List<Image> download(Long productId);
     public void deleteFile();
 }
