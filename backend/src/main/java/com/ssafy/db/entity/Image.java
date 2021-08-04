@@ -19,6 +19,7 @@ public class Image{
     @JoinColumn(name = "product_pk")
     private Product product;
 
+    @Column(name = "origin_file_name")
     private String originFileName;
 
     private String filePath;

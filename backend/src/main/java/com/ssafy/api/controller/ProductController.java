@@ -7,20 +7,27 @@ import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Product.ProductService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Objects;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.*;
 
 @Api(value = "상품관리 API", tags = {"Product"})
 @RestController
@@ -33,7 +40,7 @@ public class ProductController {
     FileHandlerService fileHandlerService;
 
     @PostMapping("/create")
-    public ResponseEntity<? extends BaseResponseBody> registerProduct(
+    public ResponseEntity registerProduct(
             @ModelAttribute ProductRegisterPostReq productRegisterPostReq,
             @RequestParam("images") List<MultipartFile> images,
             Authentication authentication){
@@ -54,13 +61,54 @@ public class ProductController {
 
         Product product = productService.createProduct(productRegisterPostReq,images);
 
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        return new ResponseEntity(product,HttpStatus.OK);
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProducts(@PathVariable String productId){
-        Product product = productService.getProductByProductId(Long.valueOf(productId));
-        return ResponseEntity.status(200).body(product);
+    public ResponseEntity getProducts(@PathVariable String productId, HttpServletResponse response) throws IOException {
+//        Product product = productService.getProductByProductId(Long.valueOf(productId));
+//        List<Resource> images = fileHandlerService.download(Long.valueOf(productId));
+        List<Image> images = fileHandlerService.download(Long.valueOf(productId));
+//        Resource r = images.get(0);
+//        String contentType = "image/png";
+
+//        System.out.println(images.toString());
+
+
+        String absolutePath = new File("").getAbsolutePath() + File.separator;
+        List<String> imagelist = new ArrayList<String>();
+        for(Image i : images){
+                String filePath = absolutePath + i.getFilePath();
+
+                i.setFilePath(filePath);
+//            HttpServletResponse res = response;
+////            res.reset();
+//            OutputStream out = res.getOutputStream();
+//            res.setHeader("Cache-Control","no-cache");
+//            String downFile = absolutePath + i.getFilePath();
+//            File file = new File(downFile);
+//            res.addHeader("Content-disposition","attachment; fileName = " + i.getOriginFileName() + ".png");
+//            res.setContentType(contentType);
+//            FileInputStream in = new FileInputStream(file);
+//            byte[] buffer = new byte[1024 * 8];
+//
+//            while(true){
+//                int count = in.read(buffer);
+//                if(count == -1) break;
+//                out.write(buffer, 0 ,count);
+//            }
+//            in.close();
+//            out.close();
+        }
+
+
+
+        Map<String,Object> res = new HashMap<String,Object>();
+//        res.put("productInfo",product);
+        res.put("images",images);
+        return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
+//        return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
+//                .body(res);
     }
 
     @PatchMapping()
