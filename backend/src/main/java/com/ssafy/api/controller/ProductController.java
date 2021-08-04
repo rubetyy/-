@@ -5,10 +5,13 @@ import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Product.ProductService;
+import com.ssafy.api.service.UserService;
+import com.ssafy.api.service.UserServiceImpl;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
+import com.ssafy.db.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -38,6 +41,9 @@ public class ProductController {
     ProductService productService;
     @Autowired
     FileHandlerService fileHandlerService;
+
+    @Autowired
+    UserService userService;
 
     @PostMapping("/create")
     public ResponseEntity registerProduct(
@@ -77,10 +83,13 @@ public class ProductController {
 
         String absolutePath = new File("").getAbsolutePath() + File.separator;
         List<String> imagelist = new ArrayList<String>();
+        String nickname = null;
         for(Image i : images){
                 String filePath = absolutePath + i.getFilePath();
 
                 i.setFilePath(filePath);
+                User u = userService.getUserByUserId(i.getProduct().getUserId());
+                nickname = u.getUsernickname();
 //            HttpServletResponse res = response;
 ////            res.reset();
 //            OutputStream out = res.getOutputStream();
@@ -105,6 +114,7 @@ public class ProductController {
 
         Map<String,Object> res = new HashMap<String,Object>();
 //        res.put("productInfo",product);
+        res.put("usernickname",nickname);
         res.put("images",images);
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
 //        return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
