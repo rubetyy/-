@@ -28,20 +28,18 @@ const liveStore = {
       context.commit('REMOVE_P_INFO')
       return res.data
     },
-    getLiveInfo: async function (liveId) {
+    getLiveInfo: async function (context, liveId) {
       const url = BASE_URL + `/live/${liveId}`
+      console.log(liveId)
       const res = await axios.get(url)
       if (res.status === 200) {
-        console.log('111')
         return res
       } else {
-        console.log('222')
         throw new Error(res.status)
       }
     },
     makeLive(context, data) {
       context.commit('SET_P_INFO', data)
-      console.log(data)
     },
   }
 }

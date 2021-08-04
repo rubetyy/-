@@ -6,7 +6,7 @@
       <div style="margin-bottom: 30px;">
         <span>판매 상품 : </span>
         <a href="#">
-          <i class="bi bi-arrow-up-right-square-fill"></i> {{ data.productTitle }}
+          <i class="bi bi-arrow-up-right-square-fill"></i> {{ pinfo.productTitle }}
         </a>
       </div>
 
@@ -38,11 +38,11 @@ export default {
   data: function () {
     return {
       livetitle: '',
-      data: {},
+      pinfo: {},
     } 
   },
   created() {
-    this.data = this.getProductInfo()
+    this.pinfo = this.getProductInfo()
   },
   methods : {
     ...mapGetters(liveStore, ['getProductInfo',]),
@@ -51,7 +51,7 @@ export default {
     startlive: function() {
       if (this.livetitle.trim()) {
         const params = {
-          productpk: this.data.produckPk,
+          productpk: this.pinfo.productPk,
           livetitle: this.livetitle.trim(),
           userid: JSON.parse(localStorage.getItem('userInfo')).id,
         }

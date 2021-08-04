@@ -55,8 +55,6 @@ export default {
     const liveId = this.$route.params.id
     this.getLiveInfo(liveId)
     .then(res => {
-      console.log(res)
-      console.log('확인확인')
       this.data = res.data
       if (this.data.userid  === JSON.parse(localStorage.getItem('userInfo')).id) {
         this.isSeller = true

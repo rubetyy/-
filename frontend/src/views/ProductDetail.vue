@@ -131,7 +131,7 @@ export default {
     ...mapActions(liveStore, ['makeLive']),
     makelive: function () {
       const data = {
-        produckPk: this.productFile.id,
+        productPk: this.productFile.id,
         productTitle: this.productFile.title,
       }
       this.makeLive(data)
