@@ -1,15 +1,12 @@
 package com.ssafy.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.*;
-import org.checkerframework.checker.units.qual.C;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 /**
  * 유저 모델 정의.

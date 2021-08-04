@@ -1,16 +1,9 @@
 package com.ssafy.api.service.Mypage;
 
-import com.ssafy.api.request.dto.User.UserRegisterPostReq;
-import com.ssafy.api.service.UserService;
-import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.Mypage.MypageRepositorySupport;
-import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.UserRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 /**

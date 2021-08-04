@@ -1,8 +1,5 @@
 package com.ssafy.api.service.Mypage;
 
-import com.ssafy.api.request.dto.User.UserRegisterPostReq;
-import com.ssafy.db.entity.User;
-
 import java.util.Map;
 
 /**

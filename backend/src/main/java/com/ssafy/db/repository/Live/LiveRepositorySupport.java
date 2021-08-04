@@ -1,14 +1,12 @@
 package com.ssafy.db.repository.Live;
 
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.LiveTitlePatchReq;
 import com.ssafy.db.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import static java.time.LocalTime.now;
 
 /**
  * 유저 모델 관련 디비 쿼리 생성을 위한 구현 정의.

@@ -4,7 +4,6 @@ import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
-import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
 import org.springframework.web.multipart.MultipartFile;
 

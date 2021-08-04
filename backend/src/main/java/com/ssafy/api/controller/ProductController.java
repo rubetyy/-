@@ -73,53 +73,21 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     public ResponseEntity getProducts(@PathVariable String productId, HttpServletResponse response) throws IOException {
-//        Product product = productService.getProductByProductId(Long.valueOf(productId));
-//        List<Resource> images = fileHandlerService.download(Long.valueOf(productId));
         List<Image> images = fileHandlerService.download(Long.valueOf(productId));
-//        Resource r = images.get(0);
-//        String contentType = "image/png";
-
-//        System.out.println(images.toString());
 
 
         String absolutePath = new File("").getAbsolutePath() + File.separator;
         List<String> imagelist = new ArrayList<String>();
         String nickname = null;
         for(Image i : images){
-                String filePath = absolutePath + i.getFilePath();
-
-                i.setFilePath(filePath);
                 User u = userService.getUserByUserId(i.getProduct().getUserId());
                 nickname = u.getUsernickname();
-//            HttpServletResponse res = response;
-////            res.reset();
-//            OutputStream out = res.getOutputStream();
-//            res.setHeader("Cache-Control","no-cache");
-//            String downFile = absolutePath + i.getFilePath();
-//            File file = new File(downFile);
-//            res.addHeader("Content-disposition","attachment; fileName = " + i.getOriginFileName() + ".png");
-//            res.setContentType(contentType);
-//            FileInputStream in = new FileInputStream(file);
-//            byte[] buffer = new byte[1024 * 8];
-//
-//            while(true){
-//                int count = in.read(buffer);
-//                if(count == -1) break;
-//                out.write(buffer, 0 ,count);
-//            }
-//            in.close();
-//            out.close();
         }
 
-
-
         Map<String,Object> res = new HashMap<String,Object>();
-//        res.put("productInfo",product);
         res.put("usernickname",nickname);
         res.put("images",images);
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
-//        return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-//                .body(res);
     }
 
     @PatchMapping()

@@ -1,14 +1,10 @@
 package com.ssafy.db.repository;
 
-import com.querydsl.core.Tuple;
-import com.querydsl.jpa.impl.JPAQuery;
+
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.api.response.dto.Mypage.MypagePRes;
 import com.ssafy.db.entity.*;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
