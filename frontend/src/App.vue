@@ -1,28 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
-        <router-link :to="{name: 'MainPage'}">홍당무 라이브</router-link> |
-        <router-link :to="{name: 'CategoryPage'}">의류, 음식, 전자제품, 기타</router-link> |
-
-      <div v-if="isLogged">
-        <router-link :to="{name: 'MyPage'}">마이페이지</router-link> |
-        <router-link :to="{name: 'ProductRegister'}">상품 등록</router-link> |
-        <router-link :to="{name: 'LiveRegister'}">LiveRegister</router-link> |
-        <router-link to="#" @click.native="logoutClick">로그아웃</router-link> |
-      </div>
-
-      <div v-else>
-        <router-link :to="{name: 'Signup'}">회원가입</router-link> |
-        <router-link :to="{name: 'Login'}">로그인</router-link> |
-      </div>
-      
-    </div>
-
 
     <div id="nav">
-      <nav class="navbar navbar-expand navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <router-link :to="{name: 'MainPage'}" class="navbar-brand"><img src="https://pbs.twimg.com/profile_images/1313719004972769280/2dmnTxho_400x400.jpg" alt="" width="35" height="35" class="d-inline-block align-text-middle">홍당무 라이브</router-link>
@@ -30,42 +14,46 @@
               <router-link :to="{name: 'FoodPage'}" class="navbar-brand" >음식</router-link> 
               <router-link :to="{name: 'ElecPage'}" class="navbar-brand" >전자제품</router-link> 
               <router-link :to="{name: 'EtcPage'}" class="navbar-brand" >기타</router-link> 
-  
- 
             </ul>
+
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="제품을 검색하세요" aria-label="Search">
               <button class="btn-o " type="submit">Search</button>
             </form>
-              <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  예상
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><router-link :to="{name: 'ProductRegister'}" class="dropdown-item">상품 등록</router-link></li>
-                  <li><router-link :to="{name: 'LiveRegister'}" class="dropdown-item">LiveRegister</router-link></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">다른 구분할꺼 넣을꺼</a></li>
-                </ul>
-              </div>
-              <div v-if="isLogged">
-                <router-link :to="{name: 'MyPage'}">마이페이지</router-link> |
-                <router-link to="#" @click.native="logoutClick" class="navbar-brand">로그아웃</router-link> 
-              </div>
-              <div v-else>
-                <router-link :to="{name: 'Signup'}" class="navbar-brand">회원가입</router-link> 
-                <router-link :to="{name: 'Login'}" class="navbar-brand">로그인</router-link> 
+
+            <div class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                예상
+              </a>
+              
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><router-link :to="{name: 'ProductRegister'}" class="dropdown-item">상품 등록</router-link></li>
+                <li><router-link :to="{name: 'LiveRegister'}" class="dropdown-item">LiveRegister</router-link></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">다른 구분할꺼 넣을꺼</a></li>
+              </ul>
+            </div>
+              
+            <div v-if="isLogged">
+              <router-link :to="{name: 'MyPage'}">마이페이지</router-link> |
+              <router-link to="#" @click.native="logoutClick" class="navbar-brand">로그아웃</router-link> 
+            </div>
+            <div v-else>
+              <router-link :to="{name: 'Signup'}" class="navbar-brand">회원가입</router-link> 
+              <router-link :to="{name: 'Login'}" class="navbar-brand">로그인</router-link> 
             </div>
           </div>
         </div>
       </nav>
-
     </div>
-
 
     <div id="article">
       <router-view/> 
     </div>
+
+    <footer class='navbar navbar-light bg-light'>
+      <p>© 2018 Gandalf</p>
+    </footer>
   </div>
 </template>
 
@@ -76,13 +64,19 @@ const userStore = 'userStore'
 export default {
   name: 'App',
 
+  data: function () {
+    return {
+      userId: ''
+    }
+  },
+  
   computed: {
     ...mapGetters(userStore,[
       'getToken'
     ]),
     isLogged: function(){
       return this.getToken
-    }
+    },
   },
 
   methods : {
@@ -94,8 +88,13 @@ export default {
       .then(()=> {
         this.$router.push({name:"MainPage"})
       })
-    }
+    },
   },
+
+  created (){
+    this.userId =  JSON.parse(localStorage.getItem('userInfo'))
+    console.log(this.userId)
+  }
 }
 </script>
 
@@ -212,5 +211,4 @@ button {
   background-color: #f8f8f8;
   color: #333;
 }
-
 </style>

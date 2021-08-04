@@ -3,11 +3,10 @@
     <h1 id="header">방송 만들기</h1>
 
     <div class="form-box">
-      <!-- ⚡상품상세페이지에서 링크(상품pk(필수!!), 상품명, 이미지(가능하면)) 넘겨줘야함 -->
       <div style="margin-bottom: 30px;">
         <span>판매 상품 : </span>
         <a href="#">
-          <i class="bi bi-arrow-up-right-square-fill"></i> {상품명}
+          <i class="bi bi-arrow-up-right-square-fill"></i> {{ pinfo.productTitle }}
         </a>
       </div>
 
@@ -31,7 +30,7 @@
 
 <script>
 // 필수항목 유효성 검사 & 방송을 만든 사용자만 CRUD 가능 -> 로그인정보 받아서 제목 수정할 수 있도록 구성할것
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 const liveStore = 'liveStore'
 
 export default {
@@ -39,19 +38,28 @@ export default {
   data: function () {
     return {
       livetitle: '',
+      pinfo: {},
     } 
   },
+  created() {
+    this.pinfo = this.getProductInfo()
+  },
   methods : {
+    ...mapGetters(liveStore, ['getProductInfo',]),
+
     ...mapActions(liveStore, ['startLive']),
     startlive: function() {
       if (this.livetitle.trim()) {
         const params = {
-          productpk: 14,  // ⚡상품 상세페이지에서 넘겨준 pk 담아서 보내기. 일단 임시로 지정함
+          productpk: this.pinfo.productPk,
           livetitle: this.livetitle.trim(),
           userid: JSON.parse(localStorage.getItem('userInfo')).id,
         }
+        console.log(params, typeof(params))
         this.startLive(params)
         .then(res => {
+          console.log(res.livepk)
+          console.log('라이브레지스터')
           this.$router.push({ name: 'LivePage', params: { id: res.livepk } })
         })
         .catch(err => {
