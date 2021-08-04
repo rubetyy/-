@@ -3,6 +3,52 @@
     <!-- <div>
         <img src="../../../backend/images/20210723/498640179290400.png" alt="">
     </div> -->
+
+    <div>
+      <label for="file"  style="display:block" >
+        <div class="img-box">
+
+          <div v-if = "!files3.length">
+            <p style="font-size:25px;">No images</p>
+          </div>
+
+          <div v-else>
+            <!-- <div v-for="(file,idx) in filesPreview" :key="idx"> -->
+              <!-- {{file}} -->
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div v-if="this.filesPreview.length === 1" class="carousel-inner" style="width:80%; height:500px; margin:auto; ">
+                  <div v-for="(file,idx) in filesPreview" :key="idx" class="carousel-item" :class="checkActive"> 
+                    <img :src="file" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <div v-else class="carousel-inner" style="width:80%; height:500px; margin:auto; ">
+                  <div v-for="(file,idx) in filesPreview" :key="idx" class="carousel-item" :class="checkActive"> 
+                    <img :src="filesPreview[idx]" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev btn-o" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" style="color: red;" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              <!-- <img :src="file" alt=""> -->
+            </div>
+          <!-- </div> -->
+          
+        </div>
+        </label>
+      <input type="file" id="file" multiple="multiple" accept=".gif, .jpg, .png" @change="upload" >
+    </div>
+
     <div class="form-box product-register-form">
         <h1 id="header">상품 등록</h1>
         <div class= "image-container">
@@ -16,7 +62,6 @@
                 <div v-for="(file, index) in files" :key="index" class="file-preview-wrapper">
                     <div class="file-close-button" @click="fileDeleteButton" :name="file.number">
                         <h5>이미지 미리보기 x</h5>
-                        
                     </div>
                     <img :src="file.preview" style="width:50%"/>
                 </div>
@@ -25,7 +70,7 @@
                     <input type="file" id="file" ref="files" @change="imageAddUpload" multiple />
                 </div>
             </div>
-            <button class="btn btn-outline-secondary" type="button" id="file" v-on:click='thumbnailupload'>이미지등록</button>
+            <button style="float: right;" class="btn btn-outline-secondary btn-g" type="button" id="file" v-on:click='thumbnailupload'>이미지등록</button>
         </div>
 
   <br>
@@ -67,7 +112,7 @@
     <br>
   </div>
 
-  <button v-on:click='registerClick'>등록</button>
+  <button class="btn-o" style="display: block; margin: auto; width:100px;" v-on:click='registerClick'>등록</button>
   </div>
 
 </div>
@@ -108,7 +153,9 @@ export default {
               live_status: '',
               user_id: ''
              
-          }
+          },
+          checkActive: 'active',
+          
       }
   },
 
@@ -116,6 +163,10 @@ export default {
       ...mapGetters(userStore,{
           userInfo: 'getUserInfo'
       }),
+      image() {
+        return `${this.files3[0].name}`
+    },
+
     },
       
   methods: {
@@ -123,10 +174,14 @@ export default {
           'register',
       ]),
       registerClick() { //등록버튼
-        this.productFile.user_id = this.userInfo
+        console.log(JSON.parse(localStorage.getItem('userInfo')).id,'userId')
+        this.productFile.user_id = JSON.parse(localStorage.getItem('userInfo')).id
+        // this.productFile.user_id = this.userInfo
         this.register(this.productFile)
         .then(()=>{
-            this.$router.push({name:"ProductDetail"})
+          console.log(this.productFile)
+          //이때 다시 받아와라?
+          this.$router.push({name:"ProductDetail" , params: { product_pk: this.productFile.id}})
         })
       },
 
@@ -147,6 +202,7 @@ export default {
                 {
                     //실제 파일
                     file: this.$refs.files.files[i],
+
                     //이미지 프리뷰
                     preview: URL.createObjectURL(this.$refs.files.files[i]),
                    
@@ -189,6 +245,29 @@ export default {
           const name = e.target.getAttribute('name');
           this.files = this.files.filter(data => data.number !== Number(name));
       },
+      ///////////
+      upload(e) {
+ 
+
+        // console.log(e.target.files)
+        this.files3.push(e.target.files[0])
+        // console.log(this.files3)
+
+        const objectURL = window.URL.createObjectURL(e.target.files[0])
+        // console.log(objectURL)
+        this.filesPreview.push(objectURL)
+        // console.log(this.files3.length,'files3')
+        console.log(this.filesPreview.length,'filesPreview')
+
+        // 1. filesPreview 길이가 1 이상이 되면 클래스를 비워줌
+        if (this.filesPreview.length > 1) {
+          this.checkActive = null
+          console.log(this.checkActive,'ca')
+        }
+        // 2. watch로 변환하는거 추적
+
+
+      }
   }  
 }
 </script>
@@ -203,4 +282,20 @@ export default {
   margin-top: 40px;
   margin-bottom: 40px;
 }
+input, select{
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}
+
+.img-box{
+  width: 400px;
+  height: 300px;
+  border: 3px solid grey; ;
+  border-radius: 4px ;
+  text-align: center;
+
+}
+
 </style>
