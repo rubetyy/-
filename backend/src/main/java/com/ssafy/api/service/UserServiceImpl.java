@@ -35,7 +35,9 @@ public class UserServiceImpl implements UserService {
 		user.setUserpassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setUsernickname(userRegisterInfo.getNickname());
 		user.setUserCreateAt(LocalDateTime.now());
-		return userRepository.save(user);
+		userRepository.save(user);
+		user = userRepositorySupport.findMaxIdx();
+		return user;
 	}
 
 	@Override
@@ -59,7 +61,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean check(String userId) {
 		Optional<User> u = userRepository.findById(userId);
-		System.out.println(u.toString());
 		if (u.toString().equals("Optional.empty")) return false;
 		return true;
 	}
