@@ -10,7 +10,6 @@ import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Optional;
 
 /**
