@@ -1,8 +1,6 @@
 package com.ssafy.api.service.FileHandler;
 
-import com.ssafy.api.request.ImageRegister;
 import com.ssafy.db.entity.Image;
-import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

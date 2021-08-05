@@ -1,5 +1,6 @@
 package com.ssafy.api.service.Product;
 
+import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
@@ -7,6 +8,7 @@ import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
 import com.ssafy.db.repository.Image.ImageRepository;
+import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import com.ssafy.db.repository.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
     private ImageRepository fileRepository;
     @Autowired
     private FileHandlerService fileHandlerService;
+    @Autowired
+    private ImageRepositorySupport fileRepositorySupport;
 
     @Override
     public Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files) {
@@ -68,8 +72,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Product> getMainProducts(){
-        return productRepository.findTop12ByOrderByViewCountDesc();
+    public List<Tuple> getMainProducts(){
+        return fileRepositorySupport.findMain();
     }
 
     @Override

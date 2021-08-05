@@ -1,12 +1,10 @@
 package com.ssafy.db.repository.Mypage;
 
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.response.dto.Mypage.MypagePRes;
 import com.ssafy.db.entity.*;
 
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

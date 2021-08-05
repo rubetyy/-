@@ -4,7 +4,6 @@ import com.ssafy.db.entity.Image;
 import com.ssafy.db.repository.Image.ImageRepository;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,13 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service("fileHandlerService")
 public class FileHandlerImpl implements FileHandlerService{
@@ -95,24 +91,7 @@ public class FileHandlerImpl implements FileHandlerService{
 
     @Override
     public List<Image> download(Long productId) {
-        List<Resource> l = new ArrayList<Resource>();
-//        try{
-//            List<Image> images = fileRepository.findAllByProductId(productId);
-//            String absolutePath = new File("").getAbsolutePath() + File.separator;
-//
-//            for(Image i : images){
-//                Path filePath = Paths.get(absolutePath + i.getFilePath());
-//                Resource resource  = new UrlResource(filePath.toUri());
-//                if(resource.exists()){
-//                    l.add(resource);
-//                }
-//            }
-//
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
         List<Image> images = fileRepository.findAllByProductId(productId);
-
         return images;
     }
 
