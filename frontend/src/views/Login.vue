@@ -58,10 +58,12 @@ div{
   box-sizing: border-box;
 }
 .login-form {
- height: 500px;
- padding: 40px;;
- text-align: center;
- border-radius: 15px;
+  height: 500px;
+  padding: 40px;;
+  text-align: center;
+  border-radius: 15px;
+  background-color: #F9A77C;
+
 }
 .input-form {
   margin: 50px;

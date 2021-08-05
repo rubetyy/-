@@ -76,5 +76,8 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  position:relative;
 
+}
 </style>
