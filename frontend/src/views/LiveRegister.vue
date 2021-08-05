@@ -5,9 +5,9 @@
     <div class="form-box">
       <div style="margin-bottom: 30px;">
         <span>판매 상품 : </span>
-        <a href="#">
-          <i class="bi bi-arrow-up-right-square-fill"></i> {{ pinfo.productTitle }}
-        </a>
+        <router-link :to="{name: 'ProductDetail', params: { product_pk: pinfo.productPk }}">
+          {{ pinfo.productTitle }} <i class="bi bi-arrow-up-right-square-fill"></i>
+        </router-link>
       </div>
 
       <h3>방송 제목</h3>
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-// 필수항목 유효성 검사 & 방송을 만든 사용자만 CRUD 가능 -> 로그인정보 받아서 제목 수정할 수 있도록 구성할것
 import { mapActions, mapGetters } from 'vuex'
 const liveStore = 'liveStore'
 

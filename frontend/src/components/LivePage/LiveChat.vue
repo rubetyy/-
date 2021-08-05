@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <input type="text" v-model="message" @keyup="sendMessage">
-    <button @click="clickMessage">채팅</button>
-    <div v-for="(item, idx) in recvList" :key="idx">
-      유저이름: {{ item.username }} | 내용: {{ item.content }}
+  <div id="livechat">
+    <div class="chatlog">
+      <div v-for="(item, idx) in recvList" :key="idx">
+        {{ item.username }}: {{ item.content }}
+      </div>
+    </div>
+    <div class="send">
+      <input type="text" class="form-control" v-model="message" @keyup="sendMessage">
+      <button class="btn-g-sm" @click="clickMessage">보내기</button>
     </div>
   </div>
 </template>
@@ -11,6 +15,8 @@
 <script>
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
+
+const BASE_URL = process.env.VUE_APP_BASE_URL
 
 export default {
   name: 'LiveChat',
@@ -55,7 +61,7 @@ export default {
       }
     },    
     connect() {
-      const serverURL = "http://localhost:8080"
+      const serverURL = BASE_URL + '/ws'
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
       this.stompClient.debug = function (){};
@@ -77,3 +83,45 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#livechat {
+  width: 380px;
+  float: right;
+  border-radius: 5px;
+  background-color: #fff3eb;
+}
+input:hover, input:active, input[type="text"]:focus,
+.uneditable-input:focus {
+  border-color: #ffeadc;
+  box-shadow: none;
+}
+.chatlog {
+  height:450px;
+  overflow:auto;
+  margin: 10px 20px;
+}
+.form-control {
+  width: 80%;
+  display: inline-block;
+  margin-right: 0;
+  border: 1px solid #ffeadc;
+  border-radius: 5px 0 0 5px;
+  border-right: none;
+  /* outline: none; */
+}
+.send {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+.btn-g-sm {
+  border: 1px solid #ffeadc;
+  background: #ffdfc8;
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+  border-radius: 0 5px 5px 0;
+  padding: 6px 8px;
+  font-weight: 400;
+}
+</style>
