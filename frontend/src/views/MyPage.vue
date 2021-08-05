@@ -3,6 +3,8 @@
     <h1 id="header"></h1>
     <hr>
 
+    {{myPageInfo}}
+
     <div v-if='myPageInfo' class=''>
       <h2>아이디: {{myPageInfo.userinfo.userid}} </h2>
       <h2>닉네임: {{myPageInfo.userinfo.usernickname}}</h2>
@@ -12,7 +14,9 @@
     <div class='d-flex justify-content-evenly'>
       <ul>
         <h2>판매중</h2>
-        <li v-for='product in myPageInfo.issold' :key='product.id'>{{product.title}}</li>
+        <li v-for='product in myPageInfo.issold' :key='product.id'>
+          <router-link :to="`/product/${product.id}`">{{product.title}}</router-link>
+        </li>
       </ul>
       <ul>
         <h2>판매완료</h2>
@@ -22,7 +26,9 @@
       </ul>
       <ul>
         <h2>구매완료</h2>
-        <li v-for='orderProduct in myPageInfo.orderlist' :key='orderProduct.productpk'>{{orderProduct.producttitle}}</li>
+        <li v-for='orderProduct in myPageInfo.orderlist' :key='orderProduct.productpk'>
+          <router-link :to="`/product/${orderProduct.id}`">{{orderProduct.title}}</router-link>
+        </li>
       </ul>
       <ul>
         <h2>찜</h2>

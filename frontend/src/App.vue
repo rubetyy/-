@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
 
     <div id="nav">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,7 +28,6 @@
               
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><router-link :to="{name: 'ProductRegister'}" class="dropdown-item">상품 등록</router-link></li>
-                <li><router-link :to="{name: 'LiveRegister'}" class="dropdown-item">LiveRegister</router-link></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">다른 구분할꺼 넣을꺼</a></li>
               </ul>
@@ -51,8 +50,8 @@
       <router-view/> 
     </div>
 
-    <footer class='navbar navbar-light bg-light'>
-      <p>© 2018 Gandalf</p>
+    <footer class='bg-light'>
+      © 2021 광주3팀 서울광주롱디팀
     </footer>
   </div>
 </template>
@@ -110,7 +109,7 @@ export default {
     font-style: normal;
 }
 
-#app {
+/* #app {
   font-family: 'Noto Sans KR';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -118,11 +117,10 @@ export default {
   max-width: 1200px;
   min-width: 400px;
   margin: 0 auto;
-}
+} */
 
 /* 임시 네비게이션 바 (추후 변경예정) */
 #nav {
-  padding-top: 20px;
   font-family: 'netmarbleB';
   font-size: 20px;
 }
@@ -133,12 +131,32 @@ export default {
 #nav a.router-link-exact-active {
   color: #ff8a3d;
 }
+.container-fluid {
+  padding-inline: 100px;
+}
+
+footer {
+  /* position: absolute; */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
 /* 컨텐츠 내부 (개발하기 편하게 일단 위아래 여백 뒀습니다) */
 #article {
+  font-family: 'Noto Sans KR';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #1e1e1e;
   padding-top: 48px;
   padding-bottom: 100px;
   box-sizing: border-box;
+  max-width: 1200px;
+  min-width: 400px;
+  margin: 0 auto;
 }
 
 /* article의 헤더 */
