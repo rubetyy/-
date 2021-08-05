@@ -59,8 +59,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean check(String userId) {
-		Optional<User> u = userRepository.findById(userId);
+		Optional<User> u = userRepository.findByUserid(userId);
+		System.out.println(u.toString());
 		if (u.toString().equals("Optional.empty")) return false;
+		return true;
+	}
+
+	@Override
+	public boolean checkNickname(String userNickname) {
+		Optional<User> u = userRepository.findByUsernickname(userNickname);
+		if(u.toString().equals("Optional.empty")) return false;
 		return true;
 	}
 
