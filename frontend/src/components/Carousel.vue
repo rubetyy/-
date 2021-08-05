@@ -3,12 +3,13 @@
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
       <b-carousel-slide>
+        {{file}}
         <template #img>
           <img
             class="d-block img-fluid w-100"
             width="1024"
             height="480"
-            :src="file"
+            :src="`http://i5c103.p.ssafy.io/${file}`"
             alt="image slot"
           >
         </template>
