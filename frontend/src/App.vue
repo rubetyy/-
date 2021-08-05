@@ -51,8 +51,8 @@
       <router-view/> 
     </div>
 
-    <footer class='navbar navbar-light bg-light'>
-      <p>© 2018 Gandalf</p>
+    <footer class='navbar navbar-light bg-light' style="display: flex; justify-content: center;">
+      <p>홍당무 라이브 채고~</p>
     </footer>
   </div>
 </template>
