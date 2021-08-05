@@ -166,10 +166,21 @@ export default {
           'register',
       ]),
       registerClick() { //등록버튼
-        console.log(JSON.parse(localStorage.getItem('userInfo')).id,'userId')
+        // console.log(JSON.parse(localStorage.getItem('userInfo')).id,'userId')
         this.productFile.user_id = JSON.parse(localStorage.getItem('userInfo')).id
         // this.productFile.user_id = this.userInfo
-        this.register(this.productFile)
+        console.log(this.productFile.images.length)
+        if (this.productFile.images.length == 0) {
+          alert('사진을 등록해주세요')
+        }
+        else if (this.productFile.title  =='' || this.productFile.category =='' ||
+          this.productFile.description =='' || this.productFile.price =='' 
+        ) {
+          alert('빈칸을 다 채워주세요')
+        } else{
+
+          
+          this.register(this.productFile)
         .then(()=>{
           console.log(this.productFile,'detail보내기전')
           //이때 다시 받아와라? store에서 id값 가져올수있나?
@@ -177,9 +188,10 @@ export default {
           const product_pk = this.productInfo.id
           this.$router.push({name:"ProductDetail" , params: { product_pk: product_pk}})
         })
+        }
       },
       fileDeleteButton(e) {
-          const name = e.target.getAttribute('name');
+        const name = e.target.getAttribute('name');
           this.files = this.files.filter(data => data.number !== Number(name));
       },
       ///////////
