@@ -28,7 +28,7 @@ const productStore = {
     REGISTER(state, file) { //제품등록
       // state.productFile = JSON.parse(file)
       state.productFile = file
-      console.log(state.productFile.get('title'))
+      // console.log(state.productFile.get('title'))
     },
     SET_PRODUCT_LIST (state, data) {
       state.productList = data
@@ -69,7 +69,7 @@ const productStore = {
       const response = await axios.post(REGISTER_URL, data, config)
       console.log(response,'ressponse')
       // console.log(response.config.data)
-      commit('REGISTER', response.config.data)
+      commit('REGISTER', response.data)
     },
 
     // 제품상세
