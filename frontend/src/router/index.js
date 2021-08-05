@@ -65,7 +65,7 @@ const routes = [
   {
     path: '/live/live-start',
     name: 'LiveRegister',
-    component: LiveRegister
+    component: LiveRegister,
   },
   {
     path: '/product/:product_pk',

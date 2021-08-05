@@ -60,7 +60,6 @@ export default {
           console.log(res.livepk)
           console.log('라이브레지스터')
           this.$router.push({ name: 'LivePage', params: { id: res.livepk } })
-          // <router-link :to="{ name: 'LivePage', params: { id: res.livepk } }"></router-link>
         })
         .catch(err => {
           console.log(err + '방송만들기 에러')
