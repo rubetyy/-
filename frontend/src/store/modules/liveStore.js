@@ -25,16 +25,29 @@ const liveStore = {
     startLive: async function (context, params) {
       const url = BASE_URL + '/live/live-start'
       const res = await axios.post(url, params)
-      context.commit('REMOVE_P_INFO')
-      return res.data
+      if (res.status === 200) {
+        console.log('스타트라이브 에러')
+        context.commit('REMOVE_P_INFO')
+        console.log(res)
+        return res.data
+      } else {
+        console.log('스타트라이브 에러')
+        console.log(res.status)
+        console.log(res)
+        throw new Error(res.status)
+      }
     },
     getLiveInfo: async function (context, liveId) {
       const url = BASE_URL + `/live/${liveId}`
       console.log(liveId)
       const res = await axios.get(url)
       if (res.status === 200) {
+        console.log('겟라이브인포 성공')
         return res
       } else {
+        console.log(res.status)
+        console.log(res)
+        console.log('겟라이브인포 에러')
         throw new Error(res.status)
       }
     },

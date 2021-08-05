@@ -1,15 +1,13 @@
 <template>
   <div class="col">
-    <!-- 상품 이미지랑 제목만 보내는 걸로 -->
-    <div class="card">
-      <router-link :to="`/product/${product.product.id}`">
+    <router-link :to="`/product/${product.product.id}`">
+      <div class="card">
         <img :src="`http://i5c103.p.ssafy.io/${image}`" class="card-img-top" alt="...">
-        <!-- <img :src="product.thumbnail" class="image"> ↑임시주소 -->
         <div class="card-body">
           <h5>{{ product.product.title }}</h5>
         </div>
-      </router-link>
-    </div>
+      </div>
+    </router-link>
   </div>
 </template>
 
