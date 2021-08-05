@@ -45,7 +45,7 @@ export default {
   /* overflow: hidden; */
 }
 a:active, a:hover {
-  color:#1e1e1e;
-  background-color:transparent;
+  color:#1e1e1e !important;
+  background-color:transparent !important;
 }
 </style>

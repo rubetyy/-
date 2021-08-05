@@ -176,18 +176,18 @@ footer {
   background: #ffeadc;
 }
 a {
-  color: #1e1e1e; 
-  text-decoration:none;
+  color: #1e1e1e !important;
+  text-decoration:none !important;
 }
 a:active, a:hover {
-  color:#ff6600;
-  background-color:transparent;
+  color:#ff6600 !important;
+  background-color:transparent !important;
 }
 textarea:hover, textarea:active, textarea:focus,
 input:hover, input:active, input[type="text"]:focus,
 .uneditable-input:focus {
-  border-color: #e2e2e2;
-  box-shadow: 0 0 5px #fc9652c4;
+  border-color: #e2e2e2 !important;
+  box-shadow: 0 0 5px #fc9652c4 !important;
 }
 button:active, button:focus {
   box-shadow: none;
