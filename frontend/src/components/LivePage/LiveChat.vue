@@ -16,6 +16,8 @@
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
+const BASE_URL = process.env.VUE_APP_BASE_URL
+
 export default {
   name: 'LiveChat',
   data() {
@@ -59,7 +61,7 @@ export default {
       }
     },    
     connect() {
-      const serverURL = "http://localhost:8080"
+      const serverURL = BASE_URL + '/ws'
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
       this.stompClient.debug = function (){};
