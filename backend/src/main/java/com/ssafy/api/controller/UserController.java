@@ -69,14 +69,43 @@ public class UserController {
 			}
 			으로 헤더에 전송한다. in postman
 		 */
-
+		System.out.println(userId);
 		boolean check = userService.check(userId);
 		String res = "회원가입 가능합니다.";
 		if(check) {
 			res = "이미존재하는 아이디 입니다.";
-			return new ResponseEntity<String>(res,HttpStatus.OK);
+			return new ResponseEntity(1,HttpStatus.OK);
 		}
-		return new ResponseEntity(res,HttpStatus.OK);
+		return new ResponseEntity(0,HttpStatus.OK);
+	}
+
+	@GetMapping("/checknickname/{userNickname}")
+	@ApiOperation(value = "아이디 중복검사", notes = "아이디 중복검사시행")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity checkNickname(@PathVariable String userNickname){
+		/*
+		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
+		 * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
+		 */
+		/*
+		토큰이 존재하는 경우 {
+			Authorization : Bearer + 토큰 값
+			}
+			으로 헤더에 전송한다. in postman
+		 */
+
+		boolean check = userService.checkNickname(userNickname);
+		String res = "회원가입 가능합니다.";
+		if(check) {
+			res = "이미존재하는 아이디 입니다.";
+			return new ResponseEntity(1,HttpStatus.OK);
+		}
+		return new ResponseEntity(0,HttpStatus.OK);
 	}
 
 	@GetMapping("/me")
