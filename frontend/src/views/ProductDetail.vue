@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1 id="header">제품 상세</h1>
-        {{this.userId.id}}
-        {{this.userId.nickname}}
+        <!-- {{this.userId.id}}
+        {{this.userId.nickname}} -->
     <br>
-    {{ this.thumbnail }}
+    <!-- {{ this.thumbnail }} -->
     <!-- {{ productFile.images }}  -->
     <div>
     <div>
@@ -109,7 +109,8 @@ export default {
         thumbnail: [],
         userId: {
           id: '',
-          nickname:JSON.parse(localStorage.getItem('userInfo')).nickname,
+          nickname: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).nickname : null,
+
         },
         createTime: '',
         category: {
