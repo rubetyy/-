@@ -1,119 +1,96 @@
 <template>
   <div>
-
-    <!-- <div>
-      <label for="file"  style="display:block" >
-        <div class="img-box">
-
-          <div v-if = "!files3.length">
-            <p style="font-size:25px;">No images</p>
-          </div>
-
-          <div v-else >
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              :interval="4000"
-              controls
-              indicators
-              background="#ababab"
-              img-width="1024"
-              img-height="480"
-              style="text-shadow: 1px 1px 2px #333;"
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <Carousel v-for="(file,idx) in filesPreview" :key="idx" :file="file"/>
-            </b-carousel>
-
-          </div>
-          
-        </div>
-        </label>
-      <input type="file" id="file" multiple="multiple" accept=".gif, .jpg, .png" @change="upload" >
-    </div> -->
-
-    <div class="form-box product-register-form">
+    <div v-if="isLogged" class="form-box product-register-form">
       <h1 id="header">상품 등록</h1>
         <div class= "image-container">
           <label for="file"  style="display:block" >
-        <div class="img-box">
+          <div class="img-box">
 
-          <div v-if = "!files3.length">
-            <p style="font-size:25px;">No images</p>
+            <div v-if = "!files3.length">
+              <p style="font-size:25px;">사진을 업로드 해주세요</p>
+            </div>
+
+            <div v-else>
+              <b-carousel
+                id="carousel-1"
+                v-model="slide"
+                :interval="4000"
+                controls
+                indicators
+                background="#ababab"
+                img-width="1024"
+                img-height="480"
+                style="text-shadow: 1px 1px 2px #333;"
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+              >
+                <CarouselLocal v-for="(file,idx) in filesPreview" :key="idx" :file="file"/>
+              </b-carousel>
+            </div>
+            
           </div>
-
-          <div v-else >
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              :interval="4000"
-              controls
-              indicators
-              background="#ababab"
-              img-width="1024"
-              img-height="480"
-              style="text-shadow: 1px 1px 2px #333;"
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <Carousel v-for="(file,idx) in filesPreview" :key="idx" :file="file"/>
-            </b-carousel>
-
-          </div>
-          
-        </div>
-        </label>
+          </label>
           <input type="file" id="file" multiple="multiple" accept=".gif, .jpg, .png" @change="upload" >
+          <button class="btn-g" style="float:right;" @click="onDelete">삭제</button>
         </div>
 
-  <br>
-  <div>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control"  aria-describedby="button-addon2" placeholder="제목" v-model='productFile.title'>
+      <br>
+      <div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control"  aria-describedby="button-addon2" placeholder="제목" v-model='productFile.title'>
+        </div>
+        <br>
+      </div>
+
+      <div>
+        <p>카테고리</p>
+        <select class="form-select" aria-label="Default select example" placeholder="제목" v-model="productFile.category">
+          <option value="1">의류</option>
+          <option value="2">음식</option>
+          <option value="3">전자제품</option>
+          <option value="4">기타</option>
+        </select>
+
+        <div class="mt-3">선택된 카테고리: <strong>{{ productFile.category }}</strong></div>
+        <br>
+      </div>
+
+      <div>
+        
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="productFile.description"></textarea>
+          <label for="floatingTextarea2">제품설명</label>
+        </div>  
+        <br>
+      </div>
+
+      <div>
+      
+        <div class="input-group">
+          <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="가격" v-model='productFile.price'>
+          <span class="input-group-text">{{productFile.price}}원</span>
+        </div>
+        <br>
+      </div>
+
+      <button class="btn-o" style="display: block; margin: auto; width:100px;" v-on:click='registerClick'>등록</button>
     </div>
-    <br>
-  </div>
+    <Modal v-else @close="showModal = false">
+      <h3 slot="header">
+        알림!
+        <i class="fas fa-time closeModalBtn" @click="showModal=false"></i>
+        </h3>
+        <div slot="body" style="text-align:center">로그인 하세요</div>
 
-  <div>
-    <p>카테고리</p>
-    <select class="form-select" aria-label="Default select example" placeholder="제목" v-model="productFile.category">
-      <option value="1">의류</option>
-      <option value="2">음식</option>
-      <option value="3">전자제품</option>
-      <option value="4">기타</option>
-    </select>
-
-    <div class="mt-3">선택된 카테고리: <strong>{{ productFile.category }}</strong></div>
-    <br>
-  </div>
-
-  <div>
-    
-    <div class="form-floating">
-      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="productFile.description"></textarea>
-      <label for="floatingTextarea2">제품설명</label>
-    </div>  
-    <br>
-  </div>
-
-  <div>
-  
-    <div class="input-group">
-      <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="가격" v-model='productFile.price'>
-      <span class="input-group-text">{{productFile.price}}원</span>
-    </div>
-    <br>
-  </div>
-
-  <button class="btn-o" style="display: block; margin: auto; width:100px;" v-on:click='registerClick'>등록</button>
-  </div>
+    </Modal>
 
 </div>
 </template>
 
 <script>
-import Carousel from '@/components/Carousel'
+import Modal from '@/components/Modal'
+
+import CarouselLocal from '@/components/CarouselLocal'
 
 import { mapActions, mapGetters } from 'vuex'
 
@@ -125,7 +102,8 @@ export default {
   name: 'ProductRegister',
 
   components: {
-    Carousel,
+    CarouselLocal,
+    Modal,
   },
 
   data() {
@@ -157,7 +135,9 @@ export default {
           },
           checkActive: 'active',
           slide: 0,
-          sliding: null
+          sliding: null,
+
+          showModal: false,
           
       }
   },
@@ -171,7 +151,13 @@ export default {
     },
     ...mapGetters(productStore,{
       productInfo: 'getProductFile'
-    })
+    }),
+    ...mapGetters(userStore,[
+      'getToken'
+      ]),
+      isLogged: function(){
+        return this.getToken
+    },
 
     },
       
@@ -180,10 +166,21 @@ export default {
           'register',
       ]),
       registerClick() { //등록버튼
-        console.log(JSON.parse(localStorage.getItem('userInfo')).id,'userId')
+        // console.log(JSON.parse(localStorage.getItem('userInfo')).id,'userId')
         this.productFile.user_id = JSON.parse(localStorage.getItem('userInfo')).id
         // this.productFile.user_id = this.userInfo
-        this.register(this.productFile)
+        console.log(this.productFile.images.length)
+        if (this.productFile.images.length == 0) {
+          alert('사진을 등록해주세요')
+        }
+        else if (this.productFile.title  =='' || this.productFile.category =='' ||
+          this.productFile.description =='' || this.productFile.price =='' 
+        ) {
+          alert('빈칸을 다 채워주세요')
+        } else{
+
+          
+          this.register(this.productFile)
         .then(()=>{
           console.log(this.productFile,'detail보내기전')
           //이때 다시 받아와라? store에서 id값 가져올수있나?
@@ -191,9 +188,10 @@ export default {
           const product_pk = this.productInfo.id
           this.$router.push({name:"ProductDetail" , params: { product_pk: product_pk}})
         })
+        }
       },
       fileDeleteButton(e) {
-          const name = e.target.getAttribute('name');
+        const name = e.target.getAttribute('name');
           this.files = this.files.filter(data => data.number !== Number(name));
       },
       ///////////
@@ -223,6 +221,12 @@ export default {
       onSlideEnd() {
         this.sliding = false
       },
+
+      onDelete() {
+        this.files3 = []
+        this.productFile.images = []
+        this.filesPreview = []
+      }
   }  
 }
 </script>
@@ -235,8 +239,8 @@ export default {
 
 .image-container {
   margin-top: 40px;
-  margin-bottom: 40px;
-  height: 500px;
+  margin-bottom: 0px;
+  height: 100%;
 }
 input, select{
   padding: 15px;
@@ -247,11 +251,12 @@ input, select{
 
 .img-box{
   width: 100%;
-  height: 100%;
+  height: 350px;
   border: 3px solid grey; ;
   border-radius: 4px ;
   text-align: center;
-
+  overflow: hidden;
 }
+
 
 </style>
