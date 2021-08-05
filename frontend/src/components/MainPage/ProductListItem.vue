@@ -2,7 +2,6 @@
   <div class="col">
     <!-- 상품 이미지랑 제목만 보내는 걸로 -->
     <div class="card">
-      {{this.product.filePath}}
       <router-link :to="`/product/${product.product.id}`">
         <img :src="`http://i5c103.p.ssafy.io/${image}`" class="card-img-top" alt="...">
         <!-- <img :src="product.thumbnail" class="image"> ↑임시주소 -->

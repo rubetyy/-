@@ -4,34 +4,34 @@
       <h1 id="header">상품 등록</h1>
         <div class= "image-container">
           <label for="file"  style="display:block" >
-        <div class="img-box">
+          <div class="img-box">
 
-          <div v-if = "!files3.length">
-            <p style="font-size:25px;">No images</p>
+            <div v-if = "!files3.length">
+              <p style="font-size:25px;">사진을 업로드 해주세요</p>
+            </div>
+
+            <div v-else>
+              <b-carousel
+                id="carousel-1"
+                v-model="slide"
+                :interval="4000"
+                controls
+                indicators
+                background="#ababab"
+                img-width="1024"
+                img-height="480"
+                style="text-shadow: 1px 1px 2px #333;"
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+              >
+                <CarouselLocal v-for="(file,idx) in filesPreview" :key="idx" :file="file"/>
+              </b-carousel>
+            </div>
+            
           </div>
-
-          <div v-else >
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              :interval="4000"
-              controls
-              indicators
-              background="#ababab"
-              img-width="1024"
-              img-height="480"
-              style="text-shadow: 1px 1px 2px #333;"
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <Carousel v-for="(file,idx) in filesPreview" :key="idx" :file="file"/>
-            </b-carousel>
-
-          </div>
-          
-        </div>
-        </label>
+          </label>
           <input type="file" id="file" multiple="multiple" accept=".gif, .jpg, .png" @change="upload" >
+          <button class="btn-g" style="float:right;" @click="onDelete">삭제</button>
         </div>
 
       <br>
@@ -90,7 +90,7 @@
 <script>
 import Modal from '@/components/Modal'
 
-import Carousel from '@/components/Carousel'
+import CarouselLocal from '@/components/CarouselLocal'
 
 import { mapActions, mapGetters } from 'vuex'
 
@@ -102,7 +102,7 @@ export default {
   name: 'ProductRegister',
 
   components: {
-    Carousel,
+    CarouselLocal,
     Modal,
   },
 
@@ -221,6 +221,12 @@ export default {
       onSlideEnd() {
         this.sliding = false
       },
+
+      onDelete() {
+        this.files3 = []
+        this.productFile.images = []
+        this.filesPreview = []
+      }
   }  
 }
 </script>
@@ -233,8 +239,8 @@ export default {
 
 .image-container {
   margin-top: 40px;
-  margin-bottom: 40px;
-  height: 500px;
+  margin-bottom: 0px;
+  height: 100%;
 }
 input, select{
   padding: 15px;
@@ -245,11 +251,12 @@ input, select{
 
 .img-box{
   width: 100%;
-  height: 100%;
+  height: 350px;
   border: 3px solid grey; ;
   border-radius: 4px ;
   text-align: center;
-
+  overflow: hidden;
 }
+
 
 </style>
