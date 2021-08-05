@@ -10,7 +10,7 @@
             class="d-block img-fluid w-100"
             width="1024"
             height="480"
-            :src="`http://i5c103.p.ssafy.io/${file}`"
+            :src="file"
             alt="image slot"
           >
         </template>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'Carousel',
+  name: 'CarouselLocal',
   props: {
   file: {
     type: String,

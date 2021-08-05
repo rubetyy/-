@@ -43,18 +43,15 @@ const userStore = {
       const res = await axios.post(LOGIN_URL, credentials)
       const token = res.data.accessToken
       localStorage.setItem('token', token)
-
       const data = {id: credentials.id, nickname: res.data.nickname,}
       const data2 = JSON.stringify(data) 
       localStorage.setItem('userInfo', data2)
       // commit('LOGIN', data)
       commit('LOGIN_CHECK', token)
     },
-
     logout({commit}){
       commit('LOGOUT')
     },
-
     async signup({dispatch}, credentials) {
       const SIGNUP_URL = BASE_URL + '/users/join'
       const res = await axios.post(SIGNUP_URL, credentials)
@@ -64,15 +61,25 @@ const userStore = {
         throw new Error(res.status)
       }
     },
-
     async getMyPage(context, userId) {
       const url = BASE_URL + `/mypage/${userId}`
       console.log(url, userId)
-
       const result = await axios.get(url)
       console.log(result)
-
       return result.data
+    },
+    // 닉네임 아직 구현 전. 구현 후 테스트 필수
+    async checkNickname (context, nickname) {
+      const url = BASE_URL + `/users/check/${nickname}`
+      const res = await axios.get(url)
+      return res.data
+    },
+    async checkUserid (context, userId) {
+      const url = BASE_URL + `/users/check/${userId}`
+      console.log(url)
+      const res = await axios.get(url)
+      console.log(res)
+      return res.data
     },
   }
 }
