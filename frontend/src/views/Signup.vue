@@ -67,6 +67,8 @@ div{
   padding: 40px;;
   text-align: center;
   border-radius: 15px;
+   background-color: #F9A77C;
+
 }
 .input-form {
   margin: 50px;
