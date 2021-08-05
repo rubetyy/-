@@ -1,39 +1,6 @@
 <template>
   <div>
-
-    <!-- <div>
-      <label for="file"  style="display:block" >
-        <div class="img-box">
-
-          <div v-if = "!files3.length">
-            <p style="font-size:25px;">No images</p>
-          </div>
-
-          <div v-else >
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              :interval="4000"
-              controls
-              indicators
-              background="#ababab"
-              img-width="1024"
-              img-height="480"
-              style="text-shadow: 1px 1px 2px #333;"
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <Carousel v-for="(file,idx) in filesPreview" :key="idx" :file="file"/>
-            </b-carousel>
-
-          </div>
-          
-        </div>
-        </label>
-      <input type="file" id="file" multiple="multiple" accept=".gif, .jpg, .png" @change="upload" >
-    </div> -->
-
-    <div class="form-box product-register-form">
+    <div v-if="isLogged" class="form-box product-register-form">
       <h1 id="header">상품 등록</h1>
         <div class= "image-container">
           <label for="file"  style="display:block" >
@@ -67,52 +34,62 @@
           <input type="file" id="file" multiple="multiple" accept=".gif, .jpg, .png" @change="upload" >
         </div>
 
-  <br>
-  <div>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control"  aria-describedby="button-addon2" placeholder="제목" v-model='productFile.title'>
+      <br>
+      <div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control"  aria-describedby="button-addon2" placeholder="제목" v-model='productFile.title'>
+        </div>
+        <br>
+      </div>
+
+      <div>
+        <p>카테고리</p>
+        <select class="form-select" aria-label="Default select example" placeholder="제목" v-model="productFile.category">
+          <option value="1">의류</option>
+          <option value="2">음식</option>
+          <option value="3">전자제품</option>
+          <option value="4">기타</option>
+        </select>
+
+        <div class="mt-3">선택된 카테고리: <strong>{{ productFile.category }}</strong></div>
+        <br>
+      </div>
+
+      <div>
+        
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="productFile.description"></textarea>
+          <label for="floatingTextarea2">제품설명</label>
+        </div>  
+        <br>
+      </div>
+
+      <div>
+      
+        <div class="input-group">
+          <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="가격" v-model='productFile.price'>
+          <span class="input-group-text">{{productFile.price}}원</span>
+        </div>
+        <br>
+      </div>
+
+      <button class="btn-o" style="display: block; margin: auto; width:100px;" v-on:click='registerClick'>등록</button>
     </div>
-    <br>
-  </div>
+    <Modal v-else @close="showModal = false">
+      <h3 slot="header">
+        알림!
+        <i class="fas fa-time closeModalBtn" @click="showModal=false"></i>
+        </h3>
+        <div slot="body" style="text-align:center">로그인 하세요</div>
 
-  <div>
-    <p>카테고리</p>
-    <select class="form-select" aria-label="Default select example" placeholder="제목" v-model="productFile.category">
-      <option value="1">의류</option>
-      <option value="2">음식</option>
-      <option value="3">전자제품</option>
-      <option value="4">기타</option>
-    </select>
-
-    <div class="mt-3">선택된 카테고리: <strong>{{ productFile.category }}</strong></div>
-    <br>
-  </div>
-
-  <div>
-    
-    <div class="form-floating">
-      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="productFile.description"></textarea>
-      <label for="floatingTextarea2">제품설명</label>
-    </div>  
-    <br>
-  </div>
-
-  <div>
-  
-    <div class="input-group">
-      <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="가격" v-model='productFile.price'>
-      <span class="input-group-text">{{productFile.price}}원</span>
-    </div>
-    <br>
-  </div>
-
-  <button class="btn-o" style="display: block; margin: auto; width:100px;" v-on:click='registerClick'>등록</button>
-  </div>
+    </Modal>
 
 </div>
 </template>
 
 <script>
+import Modal from '@/components/Modal'
+
 import Carousel from '@/components/Carousel'
 
 import { mapActions, mapGetters } from 'vuex'
@@ -126,6 +103,7 @@ export default {
 
   components: {
     Carousel,
+    Modal,
   },
 
   data() {
@@ -157,7 +135,9 @@ export default {
           },
           checkActive: 'active',
           slide: 0,
-          sliding: null
+          sliding: null,
+
+          showModal: false,
           
       }
   },
@@ -171,7 +151,13 @@ export default {
     },
     ...mapGetters(productStore,{
       productInfo: 'getProductFile'
-    })
+    }),
+    ...mapGetters(userStore,[
+      'getToken'
+      ]),
+      isLogged: function(){
+        return this.getToken
+    },
 
     },
       
