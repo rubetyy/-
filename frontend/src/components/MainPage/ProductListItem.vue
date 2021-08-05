@@ -44,5 +44,8 @@ export default {
   height: 14rem;
   /* overflow: hidden; */
 }
-
+a:active, a:hover {
+  color:#1e1e1e;
+  background-color:transparent;
+}
 </style>
