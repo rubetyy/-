@@ -16,12 +16,12 @@
               <router-link :to="{name: 'EtcPage'}" class="navbar-brand" >기타</router-link> 
             </ul>
 
-            <form class="d-flex">
+            <form class="d-flex me-5">
               <input class="form-control me-2" type="search" placeholder="제품을 검색하세요" aria-label="Search">
               <button class="btn-o " type="submit">Search</button>
             </form>
 
-            <div class="nav-item dropdown">
+            <!-- <div class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 예상
               </a>
@@ -31,10 +31,11 @@
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">다른 구분할꺼 넣을꺼</a></li>
               </ul>
-            </div>
+            </div> -->
               
             <div v-if="isLogged">
-              <router-link :to="{name: 'MyPage'}">마이페이지</router-link> |
+              <router-link :to="{name: 'ProductRegister'}" class="navbar-brand">상품 등록</router-link>
+              <router-link :to="{name: 'MyPage'}" class="navbar-brand" >마이페이지</router-link> 
               <router-link to="#" @click.native="logoutClick" class="navbar-brand">로그아웃</router-link> 
             </div>
             <div v-else>
@@ -176,18 +177,18 @@ footer {
   background: #ffeadc;
 }
 a {
-  color: #1e1e1e !important;
-  text-decoration:none !important;
+  color: #1e1e1e;
+  text-decoration:none;
 }
 a:active, a:hover {
-  color:#ff6600 !important;
-  background-color:transparent !important;
+  color:#ff6600;
+  background-color:transparent;
 }
 textarea:hover, textarea:active, textarea:focus,
 input:hover, input:active, input[type="text"]:focus,
 .uneditable-input:focus {
-  border-color: #e2e2e2 !important;
-  box-shadow: 0 0 5px #fc9652c4 !important;
+  border-color: #e2e2e2;
+  box-shadow: 0 0 5px #fc9652c4;
 }
 button:active, button:focus {
   box-shadow: none;
