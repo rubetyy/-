@@ -205,7 +205,7 @@ export default {
         this.filesPreview.push(objectURL)
         // console.log(this.files3.length,'files3')
         console.log(this.filesPreview.length,'filesPreview')
-
+        e.target.value = '' // 같은거 될수있게
         // 1. filesPreview 길이가 1 이상이 되면 클래스를 비워줌
         if (this.filesPreview.length > 1) {
           this.checkActive = null
