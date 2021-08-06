@@ -36,9 +36,8 @@ export default {
   },
   created: function() {
     this.getProductList()
-    .then(res => {
-      console.log(res)
-      console.log('성공 created getProductList')
+    .then(()=>{
+      console.log('성공 getProductList')
     })
     .catch(err => {
       console.log(err)

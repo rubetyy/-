@@ -1,7 +1,10 @@
 package com.ssafy.api.service.FileHandler;
 
 import com.ssafy.db.entity.Image;
+import com.ssafy.db.repository.Image.ImageRepository;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +18,9 @@ import java.util.List;
 
 @Service("fileHandlerService")
 public class FileHandlerImpl implements FileHandlerService{
+
+    @Autowired
+    ImageRepository fileRepository;
 
     @Override
     @Transactional
@@ -84,8 +90,9 @@ public class FileHandlerImpl implements FileHandlerService{
     }
 
     @Override
-    public void download(String filename) {
-
+    public List<Image> download(Long productId) {
+        List<Image> images = fileRepository.findAllByProductId(productId);
+        return images;
     }
 
     @Override

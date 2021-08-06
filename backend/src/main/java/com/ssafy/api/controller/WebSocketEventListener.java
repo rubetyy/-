@@ -1,6 +1,6 @@
 package com.ssafy.api.controller;
 import com.ssafy.api.model.MessageType;
-import com.ssafy.api.model.ChatMessage;
+import com.ssafy.api.model.ChatVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,10 @@ public class WebSocketEventListener {
         if(username != null) {
             logger.info("User Disconnected : " + username);
 
-            ChatMessage chatMessage = new ChatMessage();
-            chatMessage.setType(MessageType.LEAVE);
-            chatMessage.setSender(username);
+            ChatVO chatVO = new ChatVO();
+            System.out.println();
 
-            messagingTemplate.convertAndSend("/topic/public", chatMessage);
+            messagingTemplate.convertAndSend("/topic/public", chatVO);
         }
     }
 }

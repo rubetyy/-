@@ -5,6 +5,7 @@ import com.ssafy.api.request.LiveTitlePatchReq;
 import com.ssafy.db.entity.Live;
 import com.ssafy.db.repository.Live.LiveRepository;
 import com.ssafy.db.repository.Live.LiveRepositorySupport;
+import com.ssafy.db.repository.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class LiveServiceImpl implements LiveService {
 
 	@Autowired
 	LiveRepositorySupport liveRepositorySupport;
+
+	@Autowired
+	ProductRepository productRepository;
 	
 	@Override
 	public Live createLive(Live liveRegisterInfo) {
@@ -30,6 +34,7 @@ public class LiveServiceImpl implements LiveService {
 		live.setUserid(liveRegisterInfo.getUserid());
 		liveRepository.save(live);
 		live = liveRepositorySupport.findMaxIdx();
+
 		return live;
 	}
 

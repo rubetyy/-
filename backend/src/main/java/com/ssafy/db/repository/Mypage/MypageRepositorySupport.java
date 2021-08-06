@@ -1,12 +1,10 @@
 package com.ssafy.db.repository.Mypage;
 
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.response.dto.Mypage.MypagePRes;
 import com.ssafy.db.entity.*;
 
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,12 +33,12 @@ public class MypageRepositorySupport {
 
         //issold
         List<MypagePRes> issold = (List<MypagePRes>)jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
-                .from(qProduct).where(qProduct.isSold.eq(1),qProduct.userId.eq(userid)).fetch();
+                .from(qProduct).where(qProduct.isSold.eq(0),qProduct.userId.eq(userid)).fetch();
         res.put("issold",issold);
 
         //soldout
         List<MypagePRes> soldout =(List<MypagePRes>) jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
-                .from(qProduct).where(qProduct.isSold.eq(0),qProduct.userId.eq(userid)).fetch();
+                .from(qProduct).where(qProduct.isSold.eq(1),qProduct.userId.eq(userid)).fetch();
         res.put("soldout",soldout);
 
         //orderlist
@@ -69,7 +67,7 @@ public class MypageRepositorySupport {
 
         //chatlist
         List<Chatroom> chatres = (List<Chatroom>) jpaQueryFactory.select(qChatroom).from(qChatroom)
-                .where(qChatroom.useridbuyer.eq(userid)).fetch();
+                .where(qChatroom.useridseller.eq(userid).or(qChatroom.useridbuyer.eq(userid))).fetch();
         res.put("chatlist",chatres);
         return res;
     }
