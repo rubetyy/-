@@ -39,8 +39,8 @@ const liveStore = {
     },
     getLiveInfo: async function (context, liveId) {
       const url = BASE_URL + `/live/${liveId}`
-      console.log(liveId)
       const res = await axios.get(url)
+      console.log(res)
       if (res.status === 200) {
         console.log('겟라이브인포 성공')
         return res
