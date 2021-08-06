@@ -18,10 +18,10 @@
               :interval="4000"
               controls
               indicators
-              background="#ababab"
+              background=white
               img-width="1024"
               img-height="480"
-              style="text-shadow: 1px 1px 2px #333;"
+              style="text-shadow: 1px 1px 2px #ff8a3d;"
               @sliding-start="onSlideStart"
               @sliding-end="onSlideEnd"
             >
@@ -108,7 +108,7 @@ export default {
         sliding: null,
         thumbnail: [],
         userId: {
-          id: '',
+          id: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
           nickname: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).nickname : null,
 
         },
@@ -163,7 +163,7 @@ export default {
   async created() {
     this.productDetail(this.$route.params.product_pk)
     .then(()=>{
-      this.userId.id = this.productFile.images[0].product.userId
+      // this.userId.id = this.productFile.images[0].product.userId
       for (let idx = 0; idx < this.productFile.images.length; idx++) {
         this.thumbnail.push(this.productFile.images[idx].filePath)
         }
@@ -242,4 +242,5 @@ export default {
   padding: 30px;
   border-bottom: 1.5px solid #e9ecef;
 }
+
 </style>
