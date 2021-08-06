@@ -3,7 +3,7 @@
     <h1 id="header"></h1>
     <hr>
 
-    {{myPageInfo}}
+    <!-- {{myPageInfo}} -->
 
     <div v-if='myPageInfo' class=''>
       <h2>아이디: {{myPageInfo.userinfo.userid}} </h2>

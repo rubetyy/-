@@ -18,10 +18,10 @@
               :interval="4000"
               controls
               indicators
-              background="#ababab"
+              background=white
               img-width="1024"
               img-height="480"
-              style="text-shadow: 1px 1px 2px #333;"
+              style="text-shadow: 1px 1px 2px #ff8a3d;"
               @sliding-start="onSlideStart"
               @sliding-end="onSlideEnd"
             >
@@ -66,7 +66,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16" style="color: green">
                   <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
                 </svg>
-                <router-link :to="{name: 'LivePage', params: { id: productFile.images[0].product.id }}">라이브 방송 시청</router-link>
+                <router-link :to="{name: 'LivePage', params: { id: productFile.images[0].product.liveId }}">라이브 방송 시청</router-link>
                 <br>
               </div>  
             </section>
@@ -108,7 +108,7 @@ export default {
         sliding: null,
         thumbnail: [],
         userId: {
-          id: '',
+          id: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
           nickname: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).nickname : null,
 
         },
@@ -163,7 +163,7 @@ export default {
   async created() {
     this.productDetail(this.$route.params.product_pk)
     .then(()=>{
-      this.userId.id = this.productFile.images[0].product.userId
+      // this.userId.id = this.productFile.images[0].product.userId
       for (let idx = 0; idx < this.productFile.images.length; idx++) {
         this.thumbnail.push(this.productFile.images[idx].filePath)
         }
@@ -242,4 +242,5 @@ export default {
   padding: 30px;
   border-bottom: 1.5px solid #e9ecef;
 }
+
 </style>

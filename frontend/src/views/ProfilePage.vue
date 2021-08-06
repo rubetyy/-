@@ -7,7 +7,7 @@
       <h2>아이디: {{myPageInfo.userinfo.userid}} </h2>
       <h2>닉네임: {{myPageInfo.userinfo.usernickname}}</h2>
       
-      {{myPageInfo}}
+      <!-- {{myPageInfo}} -->
 
       <div class='center-btn'>
         <button class='button'>개인정보 수정</button>
