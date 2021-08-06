@@ -5,9 +5,9 @@
       
       <!-- :src="`http://i5c103.p.ssafy.io/${file}` -->
       <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
+        <template #img >
+          <img 
+            class="d-block w-70 m-auto"
             width="1024"
             height="480"
             :src="`http://i5c103.p.ssafy.io/${file}`"
@@ -31,6 +31,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

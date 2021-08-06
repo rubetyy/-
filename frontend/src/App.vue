@@ -9,7 +9,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <router-link :to="{name: 'MainPage'}" class="navbar-brand"><img src="https://pbs.twimg.com/profile_images/1313719004972769280/2dmnTxho_400x400.jpg" alt="" width="35" height="35" class="d-inline-block align-text-middle">홍당무 라이브</router-link>
+              <router-link :to="{name: 'MainPage'}" class="navbar-brand"><img src="./assets/logo.png" alt="" width="35" height="35" class="d-inline-block align-text-middle">홍당무 라이브</router-link>
               <router-link :to="{name: 'ClothesPage'}" class="navbar-brand" >의류</router-link> 
               <router-link :to="{name: 'FoodPage'}" class="navbar-brand" >음식</router-link> 
               <router-link :to="{name: 'ElecPage'}" class="navbar-brand" >전자제품</router-link> 
