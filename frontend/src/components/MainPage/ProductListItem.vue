@@ -1,15 +1,13 @@
 <template>
   <div class="col">
-    <!-- 상품 이미지랑 제목만 보내는 걸로 -->
-    <div class="card">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3eBNF4vrGY7wZXQWf38XttL5wDckdUG-M4A&usqp=CAU" class="card-img-top" alt="...">
-      <!-- <img :src="product.thumbnail" class="image"> ↑임시주소 -->
-      <div class="card-body">
-        <h5>{{ product.title }}</h5>
-        <p>{{ product.description }}</p>
-        <a href="#">상품 보러가기</a>
+    <router-link :to="`/product/${product.product.id}`">
+      <div class="card">
+        <img :src="`http://i5c103.p.ssafy.io/${image}`" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5>{{ product.product.title }}</h5>
+        </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -21,9 +19,14 @@ export default {
   },
   data: function() {
     return {
-
+      
     }
   },
+  computed: {
+    image() {
+      return this.product.filePath
+    }
+  }
 
 }
 </script>
@@ -36,11 +39,16 @@ export default {
 .card {
   /* margin-right: 0; */
   width: 14rem;
+  /* height: 400px; */
+  margin-top: 50px;
 }
-/* 카드 높이 어케 맞춤..............ㅠㅠ */
+
 .card-img-top {
   height: 14rem;
   /* overflow: hidden; */
 }
-
+a:active, a:hover {
+  color:#1e1e1e !important;
+  background-color:transparent !important;
+}
 </style>

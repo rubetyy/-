@@ -1,44 +1,49 @@
 <template>
   <div>
 
-    <div v-if="data">
-      <h3>방송제목: {{ data.livetitle }}</h3>
-      <p>userid: {{ data.userid }}</p>
-      <p>usernickname: {{ data.usernickname }}</p>
-
-      <!-- 판매자 -->
-      <div>
-        <!-- productpk 로 연결하기 -->
-        <button class="btn-g"><i class="bi bi-cursor"></i> 상품보기</button>
-        <button class="btn-g"><i class="bi bi-heart-fill"></i> 방송제목 수정</button>
-        <button class="btn-g"><i class="bi bi-x-circle"></i> 방송종료</button>
-      </div>
-
-      <!-- 구매자 -->
-      <div>
-        <button class="btn-g"><i class="bi bi-hand-index"></i> 상품보기</button>
-        <button class="btn-g"><i class="bi bi-heart-fill"></i> 찜하기</button>
-        <button class="btn-g"><i class="bi bi-x-lg"></i> 나가기</button>
-      </div>
-
+    <div id="livevideo">
+      비디오 자리
     </div>
+    <LiveChat />
+
+    <div v-if="data">
+      <div class="title">
+        <h2 class="inline">{{ data.livetitle }}</h2>
+        <router-link :to="{ name: 'ProfilePage', params: { userid: data.userid } }">
+          {{ data.usernickname }}
+        </router-link>
+      </div>
+    </div>
+
+      <div class="center-btn">
+        <button class="btn-g" @click="goProduct">상품보기</button>
+        <div v-if="isSeller" class="inline">
+          <!-- productpk 로 연결하기 -->
+          <button class="btn-g"><i class="bi bi-x-circle"></i> 방송종료</button>
+        </div>
+        <div v-else class="inline">
+          <button class="btn-g"><i class="bi bi-heart-fill"></i> 찜하기</button>
+          <button class="btn-g"><i class="bi bi-x-lg"></i> 나가기</button>
+        </div>
+      </div>
 
   </div>
 </template>
 
 <script>
-// 공통) 상품정보(상품상세페이지 링크 걸어야함), 판매자 프로필보기, *실시간 채팅(component), *방송화면(component)
-// 판매자 뷰) 방송제목 수정, 방송 종료
-// 구매자 뷰) 방송 나가기, 판매자 프로필보기, 찜하기는 상품상세에서??(네이버쇼핑라이브는 방송화면에서 찜버튼 있음)
-
+import LiveChat from '@/components/LivePage/LiveChat'
 import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
 
 export default {
   name: 'LivePage',
+  components: {
+    LiveChat,
+  },
   data: function () {
     return {
       data: null,
+      isSeller: false,
     }
   },
   created() {
@@ -46,16 +51,46 @@ export default {
     this.getLiveInfo(liveId)
     .then(res => {
       this.data = res.data
+      if (this.data.userid  === JSON.parse(localStorage.getItem('userInfo')).id) {
+        this.isSeller = true
+      }
     })
   },
   methods: {
     ...mapActions(liveStore, ['getLiveInfo']),
+    
+    goProduct: function () {
+      // window.open("https://google.com", "_blank");
+      console.log(this.data.productpk)
+      this.$router.push({ name: 'ProductDetail', params: { product_pk: this.data.productpk } })
+    }
+
   },
 
 }
 </script>
 
 <style scoped>
-
-
+#livevideo {
+  width: 722px;
+  height: 541px;
+  border: 1px solid red;
+  display: inline-block;
+}
+.inline {
+  display: inline-block;
+}
+.title {
+  width: 700px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-g {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 6px 20px;
+}
 </style>

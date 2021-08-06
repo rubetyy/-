@@ -1,23 +1,21 @@
 package com.ssafy.api.service.Product;
 
+import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
-import com.ssafy.api.response.dto.Product.ProductListResponseDto;
-import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
 import com.ssafy.db.repository.Image.ImageRepository;
+import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import com.ssafy.db.repository.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -27,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
     private ImageRepository fileRepository;
     @Autowired
     private FileHandlerService fileHandlerService;
+    @Autowired
+    private ImageRepositorySupport fileRepositorySupport;
 
     @Override
     public Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files) {
@@ -51,7 +51,9 @@ public class ProductServiceImpl implements ProductService {
             }
         }
 
-        return productRepository.save(product);
+        productRepository.save(product);
+
+        return productRepository.findTop1ByOrderByIdDesc();
     }
 
     /**
@@ -68,10 +70,16 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public ProductResponseDto getProductByProductIdAndUserId(Long productId, String userId) {
-        Product product = productRepository.findByIdAndUserId(productId, userId).orElse(null);
-        return new ProductResponseDto(product);
+    public List<Tuple> getMainProducts(){
+        return fileRepositorySupport.findMain();
+    }
+
+    @Override
+    public Product getProductByProductId(Long productId) {
+        Product product = productRepository.findById(productId).orElse(null);
+        return product;
     }
 
     @Override

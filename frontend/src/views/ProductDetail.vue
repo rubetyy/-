@@ -1,116 +1,124 @@
 <template>
   <div>
-    <h1>ProductDetail</h1>
-    {{ productFile }}
-    {{ productFile.images }}
-
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" class="btn btn-primary">Primary</button>
-
-        <button type="button"  class="btn btn-primary" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="../../../backend/images/20210727/865456997892800.png" class="d-block w-50" alt="">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="#" class="d-block w-50" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Some representative placeholder content for the second slide.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="#" class="d-block w-50" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Some representative placeholder content for the third slide.</p>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev btn btn-info" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next btn btn-info" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-    <!-- <div>
-      <p class="mt-4">
-        Slide #: {{ slide }}<br>
-        Sliding: {{ sliding }}
-      </p>     
-    </div> -->
-    <div>제목  
-      <h3>{{ productFile.title }}</h3>
-    </div>
-    <div>설명  {{ productFile.description }} </div>
-    <div>상품 카테고리  {{ productFile.categoryId }} </div>
-    <div>가격  {{ productFile.price }} </div>
+    <h1 id="header">제품 상세</h1>
+        <!-- {{this.userId.id}}
+        {{this.userId.nickname}} -->
+    <br>
+    <!-- {{ this.thumbnail }} -->
+    <!-- {{ productFile.images }}  -->
     <div>
-      <button>수정</button>
-      <button>삭제</button>
-    </div>
-    <div class="container justify-content: center; flex-direction: column">
-      <section> 
-        <p>케로셀 이미지</p>
-        <br>
-        <div v-if="productFile.isLive == 0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
-            <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
-          </svg>
-          <p>Live중이 아닙니다</p>
-          <a v-if="productFile.userId == this.userId"  href="">방송시작하기</a>
-          <!-- <button @clickproductpk>방송 시작하기(pk보내기)</button> -->
-          <br>        
-        </div>
+    <div>
+        <div class="img-box">
 
-        <div v-else>
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16" style="color: green">
-            <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
-          </svg>
-          <p>Live중입니다</p>
-        <router-link :to="{name: 'LivePage', params: { id: productFile.liveId }}">라이브 방송 시청</router-link>
-          <br>
-        </div>  
-      </section>
-      <section>프로필</section>
-      <section>
-        <h5 style="margin-top:16px">{{ productFile.title }}</h5>
-        <p>{{productFile.categoryId}} <time>{{createTime[0]}}</time> </p>
-        <div>
-          <p class="margin-top: 16px; margin-bottom: 16px">{{productFile.description}}></p>
-          <p>{{productFile.price}}</p>
+
+          <div >
+            <b-carousel
+              id="carousel-1"
+              v-model="slide"
+              :interval="4000"
+              controls
+              indicators
+              background=white
+              img-width="1024"
+              img-height="480"
+              style="text-shadow: 1px 1px 2px #ff8a3d;"
+              @sliding-start="onSlideStart"
+              @sliding-end="onSlideEnd"
+            >
+              <Carousel v-for="(file,idx) in thumbnail" :key="idx" :file="file"/>
+            </b-carousel>
+
+          </div>
+          
         </div>
-      </section>
     </div>
 
+      <div v-if="productFile" class="content">
+  
+          <div style="font-size: 20px;  padding: 30px;">
+            <router-link :to="{name: 'ProfilePage', params: {userid: productFile.images[0].product.userId}}">{{productFile.usernickname}}</router-link>
+          </div>
+          <div class="content-title"> 
+            <p>{{ productFile.images[0].product.title }}</p>
+
+            <section>
+              <!-- 라이브 유무 버튼 -->
+              <div v-if="productFile.images[0].product.isLive == 0">
+                <p class="live-text">Live중이 아닙니다</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                  <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+                </svg>
+
+                <div v-if="productFile.images[0].product.userId == this.userId.id">
+                  <button class="btn-o" @click="makelive">방송 시작하기</button>
+                  <!-- <button class="btn-o">
+                    <router-link :to="{name: 'LiveRegister'}">방송시작하기</router-link>
+                  </button> -->
+                  <button class="btn-o">수정</button>
+                  <button class="btn-o">삭제</button>
+                </div>
+                
+                <br>        
+              </div>
+
+              <div v-else>
+                <p>Live중입니다</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16" style="color: green">
+                  <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+                </svg>
+                <router-link :to="{name: 'LivePage', params: { id: productFile.images[0].product.liveId }}">라이브 방송 시청</router-link>
+                <br>
+              </div>  
+            </section>
+          </div>
+
+          
+        <div class="content-content">
+          <div class="content-sub">
+            {{this.category[productFile.images[0].product.categoryId]}} /
+            <time>{{createTime}}</time>
+          </div>
+          <div> 
+            <p style="font-size: 20px; margin-bottom:70px;">가격: {{ productFile.images[0].product.price }}원</p>
+          </div>
+          <div style="font-size: 25px; ">제품 설명: {{ productFile.images[0].product.description }} </div>
+        </div>
+      </div>
+      
+
+    </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import Carousel from '@/components/Carousel'
 
+import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
+const liveStore = 'liveStore'
 
 export default {
   name: 'ProductDetail',
+  components: {
+    Carousel,
+  },
   data() {
       return {
         slide: 0,
         sliding: null,
         thumbnail: [],
-        userId: localStorage.getItem('credentials'),
-        createTime: [],
+        userId: {
+          id: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
+          nickname: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).nickname : null,
+
+        },
+        createTime: '',
+        category: {
+          '1' : '의류',
+          '2' : '음식',
+          '3' : '전자제품',
+          '4' : '기타',
+        },
       }
     },
   computed: {
@@ -120,58 +128,119 @@ export default {
     productFile: function() {
       return this.getProductDetailFile
     },
-    image() {
-      // console.log(this.productFile)
-      return this.productFile.thumbnail
-    },
-    // createTime() {
-    //   console.log(this.productFile)
-    //   var time = this.productFile.createdAt
-    //   console.log(time)
-    //   let arr = time.split(' ');
-    //   // console.log(arr)
-    //   let date = arr[0].split('-').reverse().join('-');
-    //   let tmArr = arr[1].split('.');
-    //   let tm = tmArr[0]
-    //   // console.log(date)
-    //   // console.log(tm)
-    //   return [date, tm]
-    // }
+    // image() {
+    //   for (let idx = 0; idx < array.length; idx++) {
+    //     let images = this.productFile.images[idx].filePath
+        
+    //   }
+    //     return images
+    // },
+
   },
 
   methods: {
-    // onSlideStart() {
-    //   this.sliding = true
-    // },
-    // onSlideEnd() {
-    //   this.sliding = false
-    // },
     ...mapActions(productStore,[
     'productDetail',
     ]),
+    ...mapActions(liveStore, ['makeLive']),
+    makelive: function () {
+      const data = {
+        productPk: this.productFile.images[0].product.id,
+        productTitle: this.productFile.images[0].product.title,
+      }
+      this.makeLive(data)
+      this.$router.push({ name: 'LiveRegister' })
+    },
+      onSlideStart() {
+        this.sliding = true
+      },
+      onSlideEnd() {
+        this.sliding = false
+      },
   },
+
+
   async created() {
-    
-    this.productDetail()
+    this.productDetail(this.$route.params.product_pk)
     .then(()=>{
-          
-      console.log(this.productFile)
-      var time = this.productFile.createdAt
-      console.log(time)
-      let arr = time.split(' ');
-      // console.log(arr)
-      let date = arr[0].split('-').reverse().join('-');
-      let tmArr = arr[1].split('.');
-      let tm = tmArr[0]
-      // console.log(date)
-      // console.log(tm)
-      this.createTime = [date, tm]
-    
-    })
+      // this.userId.id = this.productFile.images[0].product.userId
+      for (let idx = 0; idx < this.productFile.images.length; idx++) {
+        this.thumbnail.push(this.productFile.images[idx].filePath)
+        }
+
+      })
+      .then(()=>{
+        var time = this.productFile.images[0].product.createdAt
+        const today = new Date();
+        const timeValue = new Date(time);
+
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60)
+        if (betweenTime < 1) return  this.createTime = '방금전'
+        if (betweenTime < 60) {
+          return this.createTime = `${betweenTime}분전`
+        }
+
+        const betweenTimeHour = Math.floor(betweenTime / 60)
+        if (betweenTimeHour < 24) {
+          return this.createTime = `${betweenTimeHour}시간전`
+        }
+
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24)
+        if (betweenTimeDay < 365) {
+          return this.createTime = `${betweenTimeDay}일전`
+        }
+
+        
+        return  this.createTime = `${Math.floor(betweenTimeDay / 365)}년전`
+
+
+       })
     },
 }
+
 </script>
 
 <style scoped>
+#carouselExampleCaptions {
+  height: 100px;
+  position: relative;
+}
+.content {
+  margin-top: 50px;
+  padding: 20px;;
+  /* display: flex; */
+}
+.content > div {
+  margin-bottom: 30px;
+}
+.content-title {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1.5px solid #e9ecef;
+}
+.content-title > p {
+ font-size: 40px;
+ line-height: 1.6;
+ letter-spacing: -0.6px;
+}
+
+.content-sub {
+  color: grey;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.live-text {
+  text-align: center;
+  display:inline-block;
+  margin-right: 20px;  
+  margin-left: 10px;
+  font-weight: bold;
+}
+.content-content {
+  padding: 30px;
+  border-bottom: 1.5px solid #e9ecef;
+}
 
 </style>

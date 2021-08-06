@@ -1,24 +1,37 @@
 package com.ssafy.api.controller;
 
+import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
-import com.ssafy.api.response.dto.Product.ProductListResponseDto;
-import com.ssafy.api.response.dto.Product.ProductResponseDto;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Product.ProductService;
+import com.ssafy.api.service.UserService;
+import com.ssafy.api.service.UserServiceImpl;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
+import com.ssafy.db.entity.User;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Objects;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.*;
 
 @Api(value = "상품관리 API", tags = {"Product"})
 @RestController
@@ -30,8 +43,11 @@ public class ProductController {
     @Autowired
     FileHandlerService fileHandlerService;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("/create")
-    public ResponseEntity<? extends BaseResponseBody> registerProduct(
+    public ResponseEntity registerProduct(
             @ModelAttribute ProductRegisterPostReq productRegisterPostReq,
             @RequestParam("images") List<MultipartFile> images,
             Authentication authentication){
@@ -52,13 +68,26 @@ public class ProductController {
 
         Product product = productService.createProduct(productRegisterPostReq,images);
 
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        return new ResponseEntity(product,HttpStatus.OK);
     }
 
-    @GetMapping()
-    public ResponseEntity<ProductResponseDto> getProducts(@RequestParam("productId") Long productId, @RequestParam("userId") String userId){
-        ProductResponseDto productResponseDto = productService.getProductByProductIdAndUserId(productId, userId);
-        return ResponseEntity.status(200).body(productResponseDto);
+    @GetMapping("/{productId}")
+    public ResponseEntity getProducts(@PathVariable String productId, HttpServletResponse response) throws IOException {
+        List<Image> images = fileHandlerService.download(Long.valueOf(productId));
+
+
+        String absolutePath = new File("").getAbsolutePath() + File.separator;
+        List<String> imagelist = new ArrayList<String>();
+        String nickname = null;
+        for(Image i : images){
+                User u = userService.getUserByUserId(i.getProduct().getUserId());
+                nickname = u.getUsernickname();
+        }
+
+        Map<String,Object> res = new HashMap<String,Object>();
+        res.put("usernickname",nickname);
+        res.put("images",images);
+        return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
     }
 
     @PatchMapping()
@@ -70,6 +99,30 @@ public class ProductController {
     public ResponseEntity<? extends BaseResponseBody> deleteProduct(@RequestBody ProductDeleteReq productDeleteReq){
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
+
+    @GetMapping("/main")
+    @ApiOperation(value = "상품 리스트 조회", notes = "메인페이지에서 상품정보 12개 조회.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity getUserInfo() {
+        Map<String,Object> res = new HashMap<>();
+        List<Tuple> l = productService.getMainProducts();
+        int cnt = 0;
+        List<Image> il = new ArrayList<>();
+        for(Tuple t : l){
+            Image image = t.get(0,Image.class);
+            il.add(image);
+        }
+        res.put("liveList",null);
+        res.put("productList",il);
+
+        return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
+    }
+
 
 
 }

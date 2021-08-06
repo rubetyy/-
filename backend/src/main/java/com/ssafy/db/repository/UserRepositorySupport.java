@@ -1,17 +1,10 @@
 package com.ssafy.db.repository;
 
-import com.querydsl.core.Tuple;
-import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.api.response.dto.Mypage.MypagePRes;
-import com.ssafy.db.entity.Product;
-import com.ssafy.db.entity.QProduct;
-import com.ssafy.db.entity.QUser;
-import com.ssafy.db.entity.User;
 
-import java.awt.*;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.db.entity.*;
+
 import java.util.*;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -44,6 +37,11 @@ public class UserRepositorySupport{
         long a = jpaQueryFactory.update(qUser).set(qUser.usernickname , user.getUsernickname())
                 .where(qUser.userid.eq(userId)).execute();
         return a;
+    }
+
+    public User findMaxIdx(){
+        User user = jpaQueryFactory.select(qUser).from(qUser).orderBy(qUser.userCreateAt.desc()).fetchFirst();
+        return user;
     }
 
 
