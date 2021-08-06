@@ -7,13 +7,13 @@
     <LiveChat />
 
     <div v-if="data">
-
       <div class="title">
         <h2 class="inline">{{ data.livetitle }}</h2>
         <router-link :to="{ name: 'ProfilePage', params: { userid: data.userid } }">
           {{ data.usernickname }}
         </router-link>
       </div>
+    </div>
 
       <div class="center-btn">
         <button class="btn-g" @click="goProduct">상품보기</button>
@@ -26,9 +26,6 @@
           <button class="btn-g"><i class="bi bi-x-lg"></i> 나가기</button>
         </div>
       </div>
-
-    </div>
-
 
   </div>
 </template>
