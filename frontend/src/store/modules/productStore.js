@@ -9,7 +9,8 @@ const productStore = {
   state: {
     productFile: [], // 등록 시 상품 단일 상세정보
     productList: [], // 메인페이지 상품리스트
-    productDetailFile: [] // 상품 단일 상세정보 담는 곳
+    productDetailFile: [], // 상품 단일 상세정보 담는 곳
+    CPList: [],
   },
 
   getters: {
@@ -21,7 +22,10 @@ const productStore = {
     },
     getProductDetailFile(state) {
       return state.productDetailFile
-    }
+    },
+    CPList (state) {
+      return state.CPList
+    },
   },
 
   mutations: {
@@ -35,7 +39,10 @@ const productStore = {
     },
     PRODUUCT_DETAIL(state, data) {
       state.productDetailFile = data
-    }
+    },
+    SET_CP_LIST (state, data) {
+      state.CPList = data
+    },
   },
 
   actions: {
@@ -83,11 +90,17 @@ const productStore = {
 
     // 메인페이지 상품리스트
     getProductList: async function(context) {
-      const url = BASE_URL + '/product/main'  // 데이터 받아오는 url
+      const url = BASE_URL + '/product/main'
       const res = await axios.get(url)
-      console.log(res.data.productList)
       context.commit('SET_PRODUCT_LIST', res.data.productList)
-    }
+    },
+    // 카테고리 상품리스트
+    getCPList: async function(context, categoryId) {
+      const url = BASE_URL + `/category/${categoryId}`
+      const res = await axios.get(url)
+      // res data 정렬 기준 무엇? id 오름차순? 조회수?
+      context.commit('SET_CP_LIST', res.data.productList)
+    },
   }
 }
 
