@@ -1,10 +1,5 @@
 <template>
   <div class='container'>
-    <h1 id="header"></h1>
-    <hr>
-
-    <!-- {{myPageInfo}} -->
-
     <div v-if='myPageInfo' class=''>
       <h2>아이디: {{myPageInfo.userinfo.userid}} </h2>
       <h2>닉네임: {{myPageInfo.userinfo.usernickname}}</h2>
@@ -39,7 +34,14 @@
       <ul>
         <h2>채팅</h2>
           <li v-for='chatroom in myPageInfo.chatlist' :key='chatroom.chatroompk'>
-            <router-link :to="`/chatroom/${chatroom.useridbuyer}`">{{chatroom.useridbuyer}}</router-link>
+            <!-- 로그인한 사용자가 판매자라면 -->
+            <span v-if='userId==chatroom.useridseller'>
+              <router-link :to="`/chatroom/${chatroom.useridbuyer}`">{{chatroom.useridbuyer}}</router-link>
+            </span>
+            <!-- 로그인한 사람이 구매자라면 -->
+            <span v-else>
+              <router-link :to="`/chatroom/${chatroom.useridseller}`">{{chatroom.useridseller}}</router-link>
+            </span>
           </li>
       </ul>
     </div>
@@ -55,7 +57,8 @@ export default {
 
   data: function () {
     return {
-      userId: JSON.parse(localStorage.getItem('userInfo')).id,
+      // userId: JSON.parse(localStorage.getItem('userInfo')).id,
+      userId: this.$route.params.userid,
       myPageInfo: '',
     }
   },
