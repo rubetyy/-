@@ -1,12 +1,12 @@
 <template>
   <div>
-
     <div id="nav">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <router-link :to="{name: 'MainPage'}" class="navbar-brand"><img src="./assets/logo.png" alt="" width="35" height="35" class="d-inline-block align-text-middle">홍당무 라이브</router-link>
@@ -16,10 +16,10 @@
               <router-link :to="{name: 'EtcPage'}" class="navbar-brand" >기타</router-link> 
             </ul>
 
-            <form class="d-flex me-5">
+            <div class="d-flex me-5">
               <input class="form-control me-2" type="search" placeholder="제품을 검색하세요" aria-label="Search">
               <button class="btn-o " type="submit">Search</button>
-            </form>
+            </div>
 
             <!-- <div class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,7 +35,7 @@
               
             <div v-if="isLogged">
               <router-link :to="{name: 'ProductRegister'}" class="navbar-brand">상품 등록</router-link>
-              <router-link :to="{name: 'MyPage'}" class="navbar-brand" >마이페이지</router-link> 
+              <router-link :to="{name: 'MyPage', params: {userid: userId.id}}" class="navbar-brand" >마이페이지</router-link> 
               <router-link to="#" @click.native="logoutClick" class="navbar-brand">로그아웃</router-link> 
             </div>
             <div v-else>
@@ -92,7 +92,7 @@ export default {
   },
 
   created (){
-    this.userId =  JSON.parse(localStorage.getItem('userInfo'))
+    this.userId = JSON.parse(localStorage.getItem('userInfo'))
     console.log(this.userId)
   }
 }
