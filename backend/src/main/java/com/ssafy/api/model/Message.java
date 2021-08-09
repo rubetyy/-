@@ -7,7 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatVO {
-    private String username;
+public class Message {
+    private String sender;
     private String content;
+    private MessageType type;
+
+    public enum MessageType{
+        CHAT,LEAVE,JOIN
+    };
 }
