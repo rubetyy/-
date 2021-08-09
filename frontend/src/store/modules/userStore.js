@@ -39,7 +39,7 @@ const userStore = {
 
   actions: {
     async login({commit}, credentials) {
-      const LOGIN_URL = BASE_URL + '/auth/login/'
+      const LOGIN_URL = BASE_URL + '/auth/login'
       const res = await axios.post(LOGIN_URL, credentials)
       const token = res.data.accessToken
       localStorage.setItem('token', token)
@@ -68,17 +68,15 @@ const userStore = {
       console.log(result)
       return result.data
     },
-    // 닉네임 아직 구현 전. 구현 후 테스트 필수
     async checkNickname (context, nickname) {
-      const url = BASE_URL + `/users/check/${nickname}`
+      const url = BASE_URL + `/users/checknickname/${nickname}`
+      console.log(url)
       const res = await axios.get(url)
       return res.data
     },
     async checkUserid (context, userId) {
       const url = BASE_URL + `/users/check/${userId}`
-      console.log(url)
       const res = await axios.get(url)
-      console.log(res)
       return res.data
     },
   }

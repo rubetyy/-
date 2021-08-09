@@ -62,8 +62,7 @@ export default {
       if (this.credentials.nickname.trim()) {
         this.checkNickname(this.credentials.nickname)
         .then((res) => {
-          // true, 1 -> 회원가입 가능 / false,0 -> 중복
-          if (res) {
+          if (res === 0) {
             this.v.nickname = true
             alert('회원가입 가능합니다')
           } else {
@@ -80,8 +79,8 @@ export default {
       if (this.credentials.id.trim()) {
         this.checkUserid(this.credentials.id)
         .then((res) => {
-          // true, 1 -> 회원가입 가능 / false,0 -> 중복
-          if (res) {
+          // 0 -> 없는 아이디 / 1 -> 중복, 이미 있는 아이디
+          if (res === 0) {
             this.v.id = true
             alert('회원가입 가능합니다')
           } else {

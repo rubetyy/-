@@ -12,11 +12,6 @@ import ProductRegister from '@/views/ProductRegister.vue'
 import LiveRegister from '@/views/LiveRegister.vue'
 import ProductDetail from '@/views/ProductDetail.vue'
 import ChatRoom from '@/views/ChatRoom.vue'
-/// 카테고리
-import ClothesPage from '@/views/ClothesPage.vue'
-import FoodPage from '@/views/FoodPage.vue'
-import ElecPage from '@/views/ElecPage.vue'
-import EtcPage from '@/views/EtcPage.vue'
 
 
 Vue.use(VueRouter)
@@ -48,7 +43,7 @@ const routes = [
     component: ProfilePage
   },
   {
-    path: '/categorypage',
+    path: '/category/:categoryId',
     name: 'CategoryPage',
     component: CategoryPage
   },
@@ -76,26 +71,6 @@ const routes = [
     path: '/chatroom/:user_id_buyer',
     name: 'ChatRoom',
     component: ChatRoom
-  },
-  {
-    path: '/category/home?categoryId=1',
-    name: 'ClothesPage',
-    component: ClothesPage
-  },
-  {
-    path: '/category/home?categoryId=2',
-    name: 'FoodPage',
-    component: FoodPage
-  },
-  {
-    path: '/category/home?categoryId=3',
-    name: 'ElecPage',
-    component: ElecPage
-  },
-  {
-    path: '/category/home?categoryId=4',
-    name: 'EtcPage',
-    component: EtcPage
   },
 ]
 
