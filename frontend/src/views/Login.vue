@@ -41,7 +41,7 @@ export default {
     loginClick(){
       this.login(this.credentials)
       .then(()=>{
-        this.$router.push({name:"MainPage"})
+        this.$router.replace({name:"MainPage"})
       })
     }
 
