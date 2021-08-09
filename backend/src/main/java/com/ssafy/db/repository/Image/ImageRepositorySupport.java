@@ -27,5 +27,12 @@ public class ImageRepositorySupport {
         return l;
     }
 
+    public List<Tuple> findAllByCategoryId(Long categoryId){
+        List<Tuple> l = jpaQueryFactory.select(qImage,qProduct).from(qImage)
+                .join(qProduct).on(qProduct.id.eq(qImage.product.id))
+                .where(qProduct.categoryId.eq(categoryId)).distinct().orderBy(qProduct.viewCount.desc()).limit(12).fetch();
+        return l;
+    }
+
 
 }
