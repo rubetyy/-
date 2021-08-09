@@ -1,5 +1,4 @@
 package com.ssafy.api.controller;
-import com.ssafy.api.model.MessageType;
 import com.ssafy.api.model.ChatVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -71,19 +72,17 @@ public class ProductController {
         return new ResponseEntity(product,HttpStatus.OK);
     }
 
+    @Transactional//조회수 1증가 (update실행)
     @GetMapping("/{productId}")
-    public ResponseEntity getProducts(@PathVariable String productId, HttpServletResponse response) throws IOException {
+    public ResponseEntity getProducts(@PathVariable String productId) {
         List<Image> images = fileHandlerService.download(Long.valueOf(productId));
 
-
-        String absolutePath = new File("").getAbsolutePath() + File.separator;
-        List<String> imagelist = new ArrayList<String>();
         String nickname = null;
         for(Image i : images){
                 User u = userService.getUserByUserId(i.getProduct().getUserId());
                 nickname = u.getUsernickname();
         }
-
+        productService.addViewCount(Long.valueOf(productId));
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);

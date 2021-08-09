@@ -10,6 +10,7 @@ import com.ssafy.db.entity.Product;
 import com.ssafy.db.repository.Image.ImageRepository;
 import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import com.ssafy.db.repository.Product.ProductRepository;
+import com.ssafy.db.repository.Product.ProductRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,8 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ProductRepositorySupport productRepositorySupport;
     @Autowired
     private ImageRepository fileRepository;
     @Autowired
@@ -60,8 +63,8 @@ public class ProductServiceImpl implements ProductService {
      * 카테고리에 속한 상품 전체 조회
      * */
     @Transactional(readOnly = true)
-    public List<Product> getProductsByCategory(Long categoryId){
-        return productRepository.findAllByCategoryId(categoryId);
+    public List<Tuple> getProductsByCategory(Long categoryId){
+        return fileRepositorySupport.findAllByCategoryId(categoryId);
     }
 
     @Transactional(readOnly = true)
@@ -80,6 +83,11 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductByProductId(Long productId) {
         Product product = productRepository.findById(productId).orElse(null);
         return product;
+    }
+
+    @Override
+    public void addViewCount(Long productId) {
+        productRepositorySupport.addViewCount(productId);
     }
 
     @Override
