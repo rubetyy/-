@@ -1,5 +1,6 @@
 <template>
   <div id="livechat">
+    {{ this.roomId }}
     <div class="chatlog">
       <div v-for="(item, idx) in messages" :key="idx">
         {{ item.username }}: {{ item.content }}
@@ -15,7 +16,6 @@
 <script>
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
-import axios from 'axios'
 
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
@@ -27,13 +27,11 @@ export default {
       message: '',
       messages: [],
       roomId: '',
-      room: {},
     }
   },
   created() {
     this.username = JSON.parse(localStorage.getItem('userInfo')).nickname
     this.roomId = localStorage.getItem('wschat.roomId')
-    this.findRoom()
     this.connect()
   },
   methods: {
@@ -63,38 +61,37 @@ export default {
           sender: this.username,
           message: this.message 
         }
-        this.stompClient.debug = function (){}  //do nothing
-        this.stompClient.send("/pub/chat/message", {}, JSON.stringify(msg))
+        // this.stompClient.debug = function (){}  //do nothing
+        this.stompClient.send("/chat/message", JSON.stringify(msg), {})
+        console.log('샌드!!!!!!!!!!!!')
+        console.log(msg)
       }
     },    
     connect() {
       const serverURL = BASE_URL + '/ws'
       let socket = new SockJS(serverURL)
       this.stompClient = Stomp.over(socket)
-      this.stompClient.debug = function (){}
+      // this.stompClient.debug = function (){}
       this.stompClient.connect(
         {},
         () => {
           this.connected = true
-          this.stompClient.debug = function (){}
+          console.log(`연결: ${this.connected}`)
+          console.log(this.roomId)
+          // this.stompClient.debug = function (){}
           this.stompClient.subscribe(`/sub/chat/room/${this.roomId}`, res => {
-            console.log(res)
+            console.log('서브스크!!!!!!!!')
             // this.messages.push(JSON.parse(res.body))
             const recv = JSON.parse(res.body)
+            console.log(`리시브!!!!-${recv}`)
             this.recvMessage(recv)
           })
-          this.stompClient.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', roomId:this.roomId, sender:this.username}))
         },
         error => {
           console.log('소켓 연결 실패', error)
           this.connected = false
         }
       )
-    },
-    findRoom() {
-      const url = BASE_URL+`/chat/room/${this.roomId}`
-      axios.get(url)
-      .then(res => { this.room = res.data })
     },
     recvMessage(recv) {
         this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message})

@@ -68,7 +68,6 @@ export default {
         alert('방송 제목을 입력해주세요')
       }
     },
-
   },
 }
 </script>
