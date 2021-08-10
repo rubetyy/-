@@ -5,16 +5,16 @@
       <div>
         <!-- <label for="nickname">nickname: </label> -->
         <input type="text" userNickname='nickname' class="input-form" placeholder="Nickname" v-model='credentials.nickname'>
-        <button @click="checknickname">중복검사</button>
+        <button class="btn-g" @click="checknickname">중복검사</button>
       </div>
       <div>
         <!-- <label for="id">id: </label> -->
         <input type="text" id='id' class="input-form" placeholder="ID" v-model='credentials.id'>
-        <button @click="checkid">중복검사</button>
+        <button  class="btn-g" @click="checkid">중복검사</button>
       </div>
       <div>
         <!-- <label for="password">password: </label> -->
-        <input type="password" id='password' class="input-form" placeholder="Password" v-model='credentials.password'>
+        <input type="password" id='password' class="input-form" placeholder="Password" v-model='credentials.password' style="margin-right:149.2px">
       </div>
       <button class="btn-g" v-on:click='signupClick'>회원가입</button>
     </div>
@@ -64,7 +64,7 @@ export default {
         .then((res) => {
           if (res === 0) {
             this.v.nickname = true
-            alert('회원가입 가능합니다')
+            alert('사용가능한 닉네임입니다')
           } else {
             alert('이미 존재하는 닉네임입니다')
           }
@@ -82,7 +82,7 @@ export default {
           // 0 -> 없는 아이디 / 1 -> 중복, 이미 있는 아이디
           if (res === 0) {
             this.v.id = true
-            alert('회원가입 가능합니다')
+            alert('사용가능한 아이디입니다')
           } else {
             alert('이미 존재하는 아이디입니다')
           }
@@ -109,9 +109,9 @@ div{
 .signup-form {
   height: 700px;
   padding: 40px;;
-  text-align: center;
+  text-align: left;
   border-radius: 15px;
-   background-color: #F9A77C;
+  background-color: #F9A77C;
 
 }
 .input-form {

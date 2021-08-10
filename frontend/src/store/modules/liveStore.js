@@ -6,12 +6,17 @@ const liveStore = {
   namespaced: true,
   state: {
     productInfo: null,
+    liveList: [],
+
 
   },
   getters: {
     getProductInfo(state) {
       return state.productInfo
-    }
+    },
+    nowLiveList: function (state) {
+      return state.liveList
+    },
   },
   mutations: {
     SET_P_INFO(state, data) {
@@ -19,6 +24,9 @@ const liveStore = {
     },
     REMOVE_P_INFO(state) {
       state.productInfo = null
+    },
+    SET_LIVE_LIST (state, data) {
+      state.liveList = data
     },
   },
   actions: {
@@ -53,6 +61,13 @@ const liveStore = {
     },
     makeLive(context, data) {
       context.commit('SET_P_INFO', data)
+    },
+    // 메인페이지 라이브리스트
+    async getLiveList(context) {
+      const url = BASE_URL + '/product/main'
+      const res = await axios.get(url)
+      console.log(res.data)
+      context.commit('SET_LIVE_LIST', res.data.liveList)
     },
   }
 }
