@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LiveList />
+    <LiveList :lives="nowLives"/>
     <hr>
     <ProductList :products="hotProducts" />
   </div>
@@ -12,6 +12,7 @@ import ProductList from '@/components/MainPage/ProductList.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 const productStore = 'productStore'
+const liveStore = 'liveStore'
 
 export default {
   name: 'MainPage',
@@ -28,13 +29,19 @@ export default {
     ...mapGetters(productStore, ['hotProductList',]),
     hotProducts: function() {
       return this.hotProductList
-    }
+    },
+    ...mapGetters(liveStore, ['nowLiveList',]),
+    nowLives: function() {
+      return this.hotLiveList
+    },
   },
   methods : {
     ...mapActions(productStore, ['getProductList']),
+    ...mapActions(liveStore,['getLiveList'])
 
   },
   created: function() {
+    this.getLiveList()
     this.getProductList()
     .then(()=>{
       console.log('성공 getProductList')
