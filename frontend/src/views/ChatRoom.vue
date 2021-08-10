@@ -1,14 +1,26 @@
 <template>
   <div class='container'>
     <h1 id='header'>
-      {{this.$route.params.userid}}님이랑 나눈 대화
+      {{ this.receiver }}님이랑 나눈 대화
     </h1>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'ChatRoom',
+  name: 'ChatRoom',
+  data() {
+    return {
+      receiver: this.$route.params.userid,
+      sender: '',
+      message: '',
+      messages: [],
+      roomId: '',
+    }
+  },
+  created() {
+    
+  }
 }
 </script>
 

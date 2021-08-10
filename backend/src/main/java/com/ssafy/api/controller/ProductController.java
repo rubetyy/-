@@ -1,10 +1,12 @@
 package com.ssafy.api.controller;
 
 import com.querydsl.core.Tuple;
+import com.ssafy.api.request.dto.Live.LiveMainDto;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
+import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.api.service.Product.ProductService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.api.service.UserServiceImpl;
@@ -43,6 +45,8 @@ public class ProductController {
     ProductService productService;
     @Autowired
     FileHandlerService fileHandlerService;
+    @Autowired
+    LiveService liveService;
 
     @Autowired
     UserService userService;
@@ -128,11 +132,20 @@ public class ProductController {
             Image image = t.get(0,Image.class);
             il.add(image);
         }
-        res.put("liveList",null);
+        //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
+
+        List<LiveMainDto> liveman = liveService.selectMain();
+
+        res.put("liveList",liveman);
         res.put("productList",il);
 
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }
+
+
+
+
+
 
 
 

@@ -33,7 +33,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/mypage/:userid',
+    path: '/mypage',
     name: 'MyPage',
     component: MyPage
   },
