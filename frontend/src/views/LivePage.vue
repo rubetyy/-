@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div id="livevideo">
       비디오 자리
     </div>
@@ -48,6 +47,7 @@ export default {
   },
   created() {
     const liveId = this.$route.params.id
+    localStorage.setItem('wschat.roomId',liveId)
     this.getLiveInfo(liveId)
     .then(res => {
       this.data = res.data
@@ -55,6 +55,7 @@ export default {
         this.isSeller = true
       }
     })
+
   },
   methods: {
     ...mapActions(liveStore, ['getLiveInfo']),
@@ -63,7 +64,7 @@ export default {
       // window.open("https://google.com", "_blank");
       console.log(this.data.productpk)
       this.$router.push({ name: 'ProductDetail', params: { product_pk: this.data.productpk } })
-    }
+    },
 
   },
 
