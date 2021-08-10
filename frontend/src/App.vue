@@ -35,7 +35,7 @@
               
             <div v-if="isLogged">
               <router-link :to="{name: 'ProductRegister'}" class="navbar-brand">상품 등록</router-link>
-              <router-link :to="{name: 'MyPage', params: {userid: userId.id}}" class="navbar-brand" >마이페이지</router-link> 
+              <router-link :to="{name: 'MyPage'}" class="navbar-brand" >마이페이지</router-link> 
               <router-link to="#" @click.native="logoutClick" class="navbar-brand">로그아웃</router-link> 
             </div>
             <div v-else>
