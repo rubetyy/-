@@ -32,5 +32,7 @@ export default {
 </script>
 
 <style>
-
+.sr-only {
+  display: none !important;
+}
 </style>
