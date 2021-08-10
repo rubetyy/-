@@ -68,7 +68,7 @@ const routes = [
     component: ProductDetail
   },
   {
-    path: '/chatroom/:user_id_buyer',
+    path: '/chatroom/:userid',
     name: 'ChatRoom',
     component: ChatRoom
   },
