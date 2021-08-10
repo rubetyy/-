@@ -1,41 +1,7 @@
 <template>
   <div>
-    <h1 id="header">제품 상세</h1>
-    
-        <!-- {{this.userId.id}}
-        {{this.userId.nickname}} -->
-    <br>
-    <!-- {{ this.thumbnail }} -->
-    <div>
-
-      <!-- {{ productFile.images[0] }}  -->
-      <!-- {{productFile}} -->
-    </div>
-    <div>
-      <div>
-        <div class="img-box">
-
-          <b-carousel
-            id="carousel-1"
-            v-model="slide"
-            :interval="4000"
-            controls
-            indicators
-            background=white
-            img-width="1024"
-
-            style="text-shadow: 1px 1px 2px #ff8a3d;"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-          >
-            <Carousel v-for="(file,idx) in thumbnail" :key="idx" :file="file"/>
-          </b-carousel>
-      
-
-        </div>
-      </div>
-      <!-- <ProductDetailList v-bind:productFile="productFile"/> -->
-      <div v-if="productFile.images[0]" class="content">
+    <!-- {{this.productFile}} -->
+          <div v-if="productFile.images[0]" class="content">
   
           <div style="font-size: 20px;  padding: 30px;">
             <router-link :to="{name: 'ProfilePage', params: {userid: productFile.images[0].product.userId}}">{{productFile.usernickname}}</router-link>
@@ -49,6 +15,7 @@
             <p>{{ productFile.images[0].product.title }}</p>
 
             <section>
+              <!-- 라이브 유무 버튼 -->
               <div v-if="productFile.images[0].product.isLive == 0">
                 <p class="live-text">Live중이 아닙니다</p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
@@ -87,64 +54,39 @@
           <div style="font-size: 25px; ">제품 설명: {{ productFile.images[0].product.description }} </div>
         </div>
       </div>
-      
-
-    </div>
   </div>
 </template>
 
 <script>
-import Carousel from '@/components/Carousel'
-// import ProductDetailList from '@/components/ProductDetailList'
-
-import { mapActions, mapGetters } from 'vuex'
-const productStore = 'productStore'
+import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
+const productStore = 'productStore'
 
 export default {
-  name: 'ProductDetail',
-  components: {
-    Carousel,
-    // ProductDetailList
+  name: "ProductDetaillist",
+  props: {
+    productFile :{
+      type: Object
+    }
   },
   data() {
-      return {
-        slide: 0,
-        sliding: null,
+    return {
         thumbnail: [],
         userId: {
           id: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
           nickname: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).nickname : null,
-
-        },
-        createTime: '',
-        category: {
-          '1' : '의류',
-          '2' : '음식',
-          '3' : '전자제품',
-          '4' : '기타',
-        },
-      }
-    },
-  computed: {
-    ...mapGetters(productStore,[
-      'getProductDetailFile'
-    ]),
-    productFile: function() {
-      return this.getProductDetailFile
-    },
-    // image() {
-    //   for (let idx = 0; idx < array.length; idx++) {
-    //     let images = this.productFile.images[idx].filePath
-        
-    //   }
-    //     return images
-    // },
-
+        },      
+       createTime: '',        
+      category: {
+        '1' : '의류',
+        '2' : '음식',
+        '3' : '전자제품',
+        '4' : '기타',
+        },        
+    }
   },
-
   methods: {
-    ...mapActions(productStore,[
+        ...mapActions(productStore,[
     'productDetail',
     ]),
     ...mapActions(liveStore, ['makeLive']),
@@ -156,29 +98,14 @@ export default {
       this.makeLive(data)
       this.$router.push({ name: 'LiveRegister' })
     },
-      onSlideStart() {
-        this.sliding = true
-      },
-      onSlideEnd() {
-        this.sliding = false
-      },
       chat() {
         this.$router.push({name:"ChatRoom", params: { user_id_buyer: this.productFile.images[0].product.userId }})
-
       }
+    
   },
+   async created() {
 
-
-  async created() {
-    this.productDetail(this.$route.params.product_pk)
-    .then(()=>{
-      // this.userId.id = this.productFile.images[0].product.userId
-      for (let idx = 0; idx < this.productFile.images.length; idx++) {
-        this.thumbnail.push(this.productFile.images[idx].filePath)
-        }
-
-      })
-      .then(()=>{
+ 
         var time = this.productFile.images[0].product.createdAt
         const today = new Date();
         const timeValue = new Date(time);
@@ -203,10 +130,10 @@ export default {
         return  this.createTime = `${Math.floor(betweenTimeDay / 365)}년전`
 
 
-       })
+     
     },
-}
 
+}
 </script>
 
 <style scoped>
