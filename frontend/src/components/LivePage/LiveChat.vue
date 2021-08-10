@@ -1,9 +1,8 @@
 <template>
   <div id="livechat">
-    {{ this.roomId }}
     <div class="chatlog">
       <div v-for="(item, idx) in messages" :key="idx">
-        {{ item.username }}: {{ item.content }}
+        {{ item.sender }}: {{ item.message }}
       </div>
     </div>
     <div class="send">
@@ -23,68 +22,58 @@ export default {
   name: 'LiveChat',
   data() {
     return {
-      username: '',//닉네임
+      sender: '', //닉네임
       message: '',
       messages: [],
       roomId: '',
     }
   },
   created() {
-    this.username = JSON.parse(localStorage.getItem('userInfo')).nickname
+    this.sender = JSON.parse(localStorage.getItem('userInfo')).nickname
     this.roomId = localStorage.getItem('wschat.roomId')
     this.connect()
   },
   methods: {
     sendMessage (e) {
-      if(e.keyCode === 13 && this.username.trim() !== '' && this.message.trim() !== ''){
+      if(e.keyCode === 13 && this.sender.trim() !== '' && this.message.trim() !== ''){
         this.send()
         this.message = ''
-      } else if (e.keyCode === 13 && this.username.trim() == '') {
+      } else if (e.keyCode === 13 && this.sender.trim() == '') {
         alert('로그인 후 이용해주세요')
-        // 로그인 창으로 바로가기?
       }
     },
     clickMessage() {
-      if(this.username.trim() !== '' && this.message.trim() !== ''){
+      if(this.sender.trim() !== '' && this.message.trim() !== ''){
         this.send()
         this.message = ''
-      } else if (this.username.trim() == '') {
+      } else if (this.sender.trim() == '') {
         alert('로그인 후 이용해주세요')
-        // 로그인 창으로 바로가기?
       }
-    } ,  
+    },
     send() {
       if (this.stompClient && this.stompClient.connected) {
         const msg = {
           type:'TALK',
           roomId:this.roomId,
-          sender: this.username,
+          sender: this.sender,
           message: this.message 
         }
-        // this.stompClient.debug = function (){}  //do nothing
-        this.stompClient.send("/chat/message", JSON.stringify(msg), {})
-        console.log('샌드!!!!!!!!!!!!')
-        console.log(msg)
+        this.stompClient.debug = function (){}  //do nothing
+        this.stompClient.send("/pub/chat/message", JSON.stringify(msg), {})
       }
     },    
     connect() {
       const serverURL = BASE_URL + '/ws'
       let socket = new SockJS(serverURL)
       this.stompClient = Stomp.over(socket)
-      // this.stompClient.debug = function (){}
+      this.stompClient.debug = function (){}
       this.stompClient.connect(
         {},
         () => {
           this.connected = true
-          console.log(`연결: ${this.connected}`)
-          console.log(this.roomId)
-          // this.stompClient.debug = function (){}
+          this.stompClient.debug = function (){}
           this.stompClient.subscribe(`/sub/chat/room/${this.roomId}`, res => {
-            console.log('서브스크!!!!!!!!')
-            // this.messages.push(JSON.parse(res.body))
-            const recv = JSON.parse(res.body)
-            console.log(`리시브!!!!-${recv}`)
-            this.recvMessage(recv)
+            this.messages.push(JSON.parse(res.body))
           })
         },
         error => {
@@ -92,9 +81,6 @@ export default {
           this.connected = false
         }
       )
-    },
-    recvMessage(recv) {
-        this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message})
     },
   }
 }
