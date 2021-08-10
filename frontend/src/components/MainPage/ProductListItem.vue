@@ -1,10 +1,10 @@
 <template>
   <div class="col">
-    <router-link :to="`/product/${product.product.id}`">
+    <router-link :to="{name: 'ProductDetail', params: {product_pk: product.product.id}}">
       <div class="card">
-        <img :src="`http://i5c103.p.ssafy.io/${image}`" class="card-img-top" alt="...">
+        <img :src="`http://i5c103.p.ssafy.io:8080/${image}`" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5>{{ product.product.title }}</h5>
+          <a>{{ product.product.title }}</a>
         </div>
       </div>
     </router-link>
