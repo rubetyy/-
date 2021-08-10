@@ -33,6 +33,7 @@ public class LiveServiceImpl implements LiveService {
 		live.setLivetitle(liveRegisterInfo.getLivetitle());
 		live.setUserid(liveRegisterInfo.getUserid());
 		liveRepository.save(live);
+
 		live = liveRepositorySupport.findMaxIdx();
 
 		return live;

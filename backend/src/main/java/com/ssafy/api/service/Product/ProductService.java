@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ProductService {
     Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files);
-    List<Product> getAllProducts(Long productId);
+    List<Tuple> getSearchProducts(String search);
     List<Tuple> getMainProducts();
     List<Tuple> getProductsByCategory(Long categoryId);
     Product getProductByProductId(Long productId);
