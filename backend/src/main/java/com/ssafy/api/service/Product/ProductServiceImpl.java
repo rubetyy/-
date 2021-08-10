@@ -91,6 +91,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public long soldProduct(String productId) {
+        Long a = productRepositorySupport.soldProduct(Long.valueOf(productId));
+        return 0;
+    }
+
+    @Override
     public long updateProduct(ProductPatchReq productPatchReq) {
         return 0;
     }

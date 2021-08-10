@@ -7,6 +7,7 @@ import com.ssafy.db.entity.Live;
 import com.ssafy.db.repository.Live.LiveRepository;
 import com.ssafy.db.repository.Live.LiveRepositorySupport;
 import com.ssafy.db.repository.Product.ProductRepository;
+import com.ssafy.db.repository.Product.ProductRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class LiveServiceImpl implements LiveService {
 
 	@Autowired
 	ProductRepository productRepository;
+
+	@Autowired
+	ProductRepositorySupport productRepositorySupport;
 	
 	@Override
 	public Live createLive(Live liveRegisterInfo) {
@@ -36,8 +40,16 @@ public class LiveServiceImpl implements LiveService {
 		liveRepository.save(live);
 
 		live = liveRepositorySupport.findMaxIdx();
+		//라이브 시작시 Product테이블에 업데이트함
+		productRepositorySupport.setLivepk(live.getLivepk(),live.getProductpk());
 
 		return live;
+	}
+
+	@Override
+	public Long endLive(String value) {
+		productRepositorySupport.endLive(Long.valueOf(value));
+		return liveRepositorySupport.endLive(Long.valueOf(value));
 	}
 
 	@Override

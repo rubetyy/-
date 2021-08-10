@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface LiveService {
 	Live createLive(Live liveRegisterPostReq);
-//	Long endLive(String value);
+	Long endLive(String value);
 	Long updatetitleLive(LiveTitlePatchReq liveTitlePatchReq);
 	Tuple selectone(String liveid);
 	List<LiveMainDto> selectMain();

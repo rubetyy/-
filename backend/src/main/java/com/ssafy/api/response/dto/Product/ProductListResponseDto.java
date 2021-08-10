@@ -12,7 +12,7 @@ import java.util.Set;
 public class ProductListResponseDto {
     private Long productId;
     private String userId;
-    private Integer liveId;
+    private Long liveId;
     private Long categoryId;
     private String title;
     private String description;
@@ -20,7 +20,7 @@ public class ProductListResponseDto {
     private LocalDateTime createdAt;
     private Integer viewCount;
     private Integer isSold;
-    private Integer isLive;
+    private Long isLive;
     private Image thumbnail;
 
 
