@@ -57,8 +57,7 @@ export default {
 
   data: function () {
     return {
-      // userId: JSON.parse(localStorage.getItem('userInfo')).id,
-      userId: this.$route.params.userid,
+      userId: JSON.parse(localStorage.getItem('userInfo')).id,
       myPageInfo: '',
     }
   },

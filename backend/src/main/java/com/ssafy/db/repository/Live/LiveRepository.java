@@ -13,5 +13,5 @@ import java.util.List;
 public interface LiveRepository extends JpaRepository<Live, Integer> {
     // 아래와 같이, Query Method 인터페이스(반환값, 메소드명, 인자) 정의를 하면 자동으로 Query Method 구현됨.
 //    Optional<Live> findByUserId(String userId);
-    List<Live> findTop12ByOrderByLiveviewercountDesc();
+//    List<Live> findTop12ByOrderByLiveviewercountDesc();
 }

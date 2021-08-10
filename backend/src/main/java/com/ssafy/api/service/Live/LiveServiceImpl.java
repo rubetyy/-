@@ -2,6 +2,7 @@ package com.ssafy.api.service.Live;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveMainDto;
 import com.ssafy.db.entity.Live;
 import com.ssafy.db.repository.Live.LiveRepository;
 import com.ssafy.db.repository.Live.LiveRepositorySupport;
@@ -47,12 +48,12 @@ public class LiveServiceImpl implements LiveService {
 
 	@Override
 	public Tuple selectone(String liveid) {
-		return liveRepositorySupport.findByLiveId(Integer.valueOf(liveid));
+		return liveRepositorySupport.findByLiveId(Long.valueOf(liveid));
 	}
 
 	@Override
-	public List<Live> selectall() {
-		return liveRepository.findTop12ByOrderByLiveviewercountDesc();
+	public List<LiveMainDto> selectMain() {
+		return liveRepositorySupport.selectMain();
 	}
 
 }

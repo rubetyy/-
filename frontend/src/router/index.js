@@ -33,7 +33,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/mypage/:userid',
+    path: '/mypage',
     name: 'MyPage',
     component: MyPage
   },
@@ -55,7 +55,8 @@ const routes = [
   {
     path: '/productregister',
     name: 'ProductRegister',
-    component: ProductRegister
+    component: ProductRegister,
+
   },
   {
     path: '/live/live-start',
@@ -65,10 +66,11 @@ const routes = [
   {
     path: '/product/:product_pk',
     name: 'ProductDetail',
-    component: ProductDetail
+    component: ProductDetail,
+    
   },
   {
-    path: '/chatroom/:user_id_buyer',
+    path: '/chatroom/:userid',
     name: 'ChatRoom',
     component: ChatRoom
   },

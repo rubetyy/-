@@ -18,14 +18,16 @@ import javax.persistence.Id;
 public class Live {
     @Id
     @Column(name="live_pk")
-    int livepk;
+    Long livepk;
     @Column(name="product_pk")
-    int productpk;
+    Long productpk;
     @Column(name="live_title")
     String livetitle;
     @Column(name="live_viewer_count")
-    int liveviewercount;
+    Long liveviewercount;
     @Column(name="user_id")
     String userid;
+    @Column(name="is_live")
+    Long islive;
 
 }

@@ -4,13 +4,13 @@
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
       
       <!-- :src="`http://i5c103.p.ssafy.io/${file}` -->
-      <b-carousel-slide>
+      <b-carousel-slide class="max-size">
         <template #img >
           <img 
             class="d-block w-70 m-auto"
             width="1024"
-            height="480"
-            :src="`http://i5c103.p.ssafy.io/${file}`"
+
+            :src="`http://i5c103.p.ssafy.io:8080/${file}`"
             alt="image slot"
           >
         </template>
@@ -31,6 +31,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.sr-only {
+  display: none !important;
+}
+.max-size {
+  max-height: 700px;
+}
 
 </style>
