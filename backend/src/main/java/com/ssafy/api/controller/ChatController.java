@@ -11,11 +11,11 @@ import org.springframework.stereotype.Controller;
 public class ChatController {
     private final SimpMessageSendingOperations messagingTemplate;
 
-    @MessageMapping("/chat/message")
+    @MessageMapping("/livechat/message")
     public void message(ChatMessage message) {
         if (ChatMessage.MessageType.ENTER.equals(message.getType()))
             message.setMessage(message.getSender() + "님이 입장하셨습니다.");
-        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+        messagingTemplate.convertAndSend("/sub/livechat/room/" + message.getRoomId(), message);
     }
 //    @MessageMapping("/chat.sendMessage")
 //    @SendTo("/topic/public")
