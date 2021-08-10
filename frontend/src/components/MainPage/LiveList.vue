@@ -1,20 +1,24 @@
 <template>
   <div>
     <h1 id='header'>라이브 리스트</h1>
+    <!-- {{lives}} -->
+    <CarouselList :lives="lives"/>
+
   </div>
 </template>
 
 <script>
 // import LiveListItem from '@/components/MainPage/LiveListItem.vue'
+import CarouselList from '@/components/CarouselList.vue'
 
 export default {
   name: 'LiveList',
   props: {
   lives: Array,
 },
-  // components: {
-  //   LiveListItem,
-  // },
+  components: {
+    CarouselList,
+  },
   data() {
     return {
       slide: 0,

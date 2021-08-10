@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- {{nowLives}} -->
     <LiveList :lives="nowLives"/>
     <hr>
     <ProductList :products="hotProducts" />
@@ -30,9 +31,10 @@ export default {
     hotProducts: function() {
       return this.hotProductList
     },
-    ...mapGetters(liveStore, ['nowLiveList',]),
+    ...mapGetters(liveStore, ['getLiveProductInfo',]),
     nowLives: function() {
-      return this.hotLiveList
+      // console.log(this.getLiveProductInfo,'getLiveProductInfo')
+      return this.getLiveProductInfo
     },
   },
   methods : {
