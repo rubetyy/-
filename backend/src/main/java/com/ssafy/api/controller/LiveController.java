@@ -39,7 +39,6 @@ public class LiveController {
 			@RequestBody @ApiParam(value="방송생성정보반환", required = true) Live registerInfo) {
 
 		Live live = liveService.createLive(registerInfo);
-
 		return new ResponseEntity<Live>(live,HttpStatus.OK);
 	}
 

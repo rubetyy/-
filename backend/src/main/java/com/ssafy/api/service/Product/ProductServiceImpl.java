@@ -69,8 +69,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Product> getAllProducts(Long productId) {
-        return null;
+    public List<Tuple> getSearchProducts(String search) {
+        return productRepositorySupport.searchProduct(search);
     }
 
     @Transactional(readOnly = true)

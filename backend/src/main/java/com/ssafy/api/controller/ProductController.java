@@ -47,6 +47,18 @@ public class ProductController {
     @Autowired
     UserService userService;
 
+    @GetMapping("/search/{search}")
+    public ResponseEntity searchProduct(@PathVariable String search){
+        List<Tuple> l = productService.getSearchProducts(search);
+        List<Product> pl = new ArrayList<>();
+        Map<Long,Object> imap = new HashMap<>();
+        for(Tuple t : l){
+            Image i = t.get(1,Image.class);
+            imap.put(i.getProduct().getId(),i);
+        }
+        return new ResponseEntity(imap,HttpStatus.OK);
+    }
+
     @PostMapping("/create")
     public ResponseEntity registerProduct(
             @ModelAttribute ProductRegisterPostReq productRegisterPostReq,
@@ -107,7 +119,7 @@ public class ProductController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity getUserInfo() {
+    public ResponseEntity getMainInfo() {
         Map<String,Object> res = new HashMap<>();
         List<Tuple> l = productService.getMainProducts();
         int cnt = 0;
