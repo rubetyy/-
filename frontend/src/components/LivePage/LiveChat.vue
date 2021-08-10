@@ -59,7 +59,7 @@ export default {
           message: this.message 
         }
         this.stompClient.debug = function (){}  //do nothing
-        this.stompClient.send("/pub/chat/message", JSON.stringify(msg), {})
+        this.stompClient.send("/pub/livechat/message", JSON.stringify(msg), {})
       }
     },    
     connect() {
@@ -72,7 +72,7 @@ export default {
         () => {
           this.connected = true
           this.stompClient.debug = function (){}
-          this.stompClient.subscribe(`/sub/chat/room/${this.roomId}`, res => {
+          this.stompClient.subscribe(`/sub/livechat/room/${this.roomId}`, res => {
             this.messages.push(JSON.parse(res.body))
           })
         },
