@@ -3,9 +3,13 @@ package com.ssafy.db.repository.Live;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveMainDto;
 import com.ssafy.db.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -17,8 +21,9 @@ public class LiveRepositorySupport {
     private JPAQueryFactory jpaQueryFactory;
     QLive qLive = QLive.live;
     QUser qUser = QUser.user;
+    QImage qImage = QImage.image;
 
-    public Tuple findByLiveId(int liveid){
+    public Tuple findByLiveId(Long liveid){
         Tuple live =  jpaQueryFactory.select(qLive,qUser)
                 .from(qLive)
                 .join(qUser).on(qLive.userid.eq(qUser.userid)).where(qLive.livepk.eq(liveid))
@@ -44,6 +49,19 @@ public class LiveRepositorySupport {
         Long a =  jpaQueryFactory.update(qLive).set(qLive.livetitle, liveTitlePatchReq.getLivetitle())
                 .where( qLive.livepk.eq( liveTitlePatchReq.getLivepk() ) ).execute();
         return a;
+    }
+
+    public List<LiveMainDto> selectMain(){
+        List<Live> l = jpaQueryFactory.select(qLive).from(qLive)
+                .where(qLive.islive.eq(Long.valueOf(1)))
+                .orderBy(qLive.liveviewercount.desc()).limit(12).fetch();
+        List<LiveMainDto> res = new LinkedList<>();
+        for(Live i : l){
+            String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)
+                    .where(qImage.product.id.eq(i.getProductpk())).fetchFirst();
+            res.add(new LiveMainDto(i,filepath));
+        }
+        return res;
     }
 
 }

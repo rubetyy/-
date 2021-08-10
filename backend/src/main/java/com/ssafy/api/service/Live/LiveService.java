@@ -2,6 +2,7 @@ package com.ssafy.api.service.Live;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveMainDto;
 import com.ssafy.db.entity.Live;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface LiveService {
 //	Long endLive(String value);
 	Long updatetitleLive(LiveTitlePatchReq liveTitlePatchReq);
 	Tuple selectone(String liveid);
-	List<Live> selectall();
+	List<LiveMainDto> selectMain();
 }
