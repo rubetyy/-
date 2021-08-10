@@ -15,11 +15,10 @@ public class ChatController {
     public void message(ChatMessage message) {
         if (ChatMessage.MessageType.ENTER.equals(message.getType()))
             message.setMessage(message.getSender() + "님이 입장하셨습니다.");
-        System.out.println("연지연지");
-        System.out.println("연지연지");
-        System.out.println("연지연지");
-        System.out.println("연지연지");
-        System.out.println("연지연지");
+        System.out.println("yeonji");
+        System.out.println("yeonji");
+        System.out.println("yeonji");
+        System.out.println("yeonji");
         System.out.println("연지연지");
         System.out.println("연지연지");
         System.out.println("연지연지");
