@@ -5,8 +5,30 @@
 </template>
 
 <script>
+// import LiveListItem from '@/components/MainPage/LiveListItem.vue'
+
 export default {
   name: 'LiveList',
+  props: {
+  lives: Array,
+},
+  // components: {
+  //   LiveListItem,
+  // },
+  data() {
+    return {
+      slide: 0,
+      sliding: null,
+    }
+  },
+    methods: {
+  onSlideStart() {
+    this.sliding = true
+  },
+  onSlideEnd() {
+    this.sliding = false
+  },
+  }
 }
 </script>
 

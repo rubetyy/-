@@ -2,6 +2,7 @@
   <div>
     <h1 id="header">상품 리스트</h1>
       <div class="row">
+        <!-- <CarouselList/> -->
         <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
       </div>
   </div>
@@ -9,6 +10,7 @@
 
 <script>
 import ProductListItem from '@/components/MainPage/ProductListItem.vue'
+// import CarouselList from '@/components/CarouselList.vue'
 
 export default {
   name: 'ProductList',
@@ -17,6 +19,8 @@ export default {
   },
   components: {
     ProductListItem,
+    // CarouselList,
+
   },
 
 }

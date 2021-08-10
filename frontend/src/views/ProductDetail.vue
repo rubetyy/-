@@ -163,7 +163,7 @@ export default {
         this.sliding = false
       },
       chat() {
-        this.$router.push({name:"ChatRoom", params: { user_id_buyer: this.productFile.images[0].product.userId }})
+        this.$router.push({name:"ChatRoom", params: { userid: this.productFile.images[0].product.userId }})
 
       }
   },
