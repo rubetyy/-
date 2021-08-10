@@ -15,7 +15,7 @@ import javax.persistence.Column;
 @ApiModel("LiveUpdate_titlePatchRequest")
 public class LiveTitlePatchReq {
 	@ApiModelProperty(name="방송 PK")
-	int livepk;
+	Long livepk;
 	@ApiModelProperty(name="방송 title")
 	String livetitle;
 }
