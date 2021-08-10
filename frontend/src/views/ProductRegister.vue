@@ -201,7 +201,7 @@ export default {
         this.productFile.images = this.files3
         console.log(this.productFile.images,'이미지확인')
         const objectURL = window.URL.createObjectURL(e.target.files[0])
-        // console.log(objectURL)
+        console.log(objectURL,'url확인')
         this.filesPreview.push(objectURL)
         // console.log(this.files3.length,'files3')
         console.log(this.filesPreview.length,'filesPreview')
