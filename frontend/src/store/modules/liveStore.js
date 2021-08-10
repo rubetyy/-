@@ -14,7 +14,7 @@ const liveStore = {
     getProductInfo(state) {
       return state.productInfo
     },
-    nowLiveList: function (state) {
+    getLiveProductInfo (state) {
       return state.liveList
     },
   },
@@ -27,6 +27,7 @@ const liveStore = {
     },
     SET_LIVE_LIST (state, data) {
       state.liveList = data
+      // console.log(state.liveList,'state')
     },
   },
   actions: {
@@ -66,7 +67,7 @@ const liveStore = {
     async getLiveList(context) {
       const url = BASE_URL + '/product/main'
       const res = await axios.get(url)
-      console.log(res.data)
+      console.log(res.data.liveList)
       context.commit('SET_LIVE_LIST', res.data.liveList)
     },
   }
