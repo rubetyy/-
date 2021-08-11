@@ -1,18 +1,19 @@
 <template>
   <div>
-    <div id="livevideo">
-      <LiveVideo :liveInfo="data" />
-    </div>
-    <LiveChat />
-
-    <div v-if="data">
-      <div class="title">
-        <h2 class="inline">{{ data.livetitle }}</h2>
-        <router-link :to="{ name: 'ProfilePage', params: { userid: data.userid } }">
-          {{ data.usernickname }}
-        </router-link>
+    <!-- <div v-if="isLive"> -->
+      <div id="livevideo">
+        <LiveVideo :liveInfo="data" :isSeller="isSeller" />
       </div>
-    </div>
+      <LiveChat />
+
+      <div v-if="data">
+        <div class="title">
+          <h2 class="inline">{{ data.livetitle }}</h2>
+          <router-link :to="{ name: 'ProfilePage', params: { userid: data.userid } }">
+            {{ data.usernickname }}
+          </router-link>
+        </div>
+      </div>
 
       <div class="center-btn">
         <button class="btn-g" @click="goProduct">상품보기</button>
@@ -25,13 +26,22 @@
           <button class="btn-g"><i class="bi bi-x-lg"></i> 나가기</button>
         </div>
       </div>
+    <!-- </div> -->
 
+    <!-- <Modal v-else @close="showModal=false">
+      <h3 slot="header">
+        알림!
+        <i class="fas fa-time closeModalBtn" @click="showModal=false"></i>
+        </h3>
+        <div slot="body" style="text-align:center">현재 방송중이 아닙니다</div>
+    </Modal> -->
   </div>
 </template>
 
 <script>
 import LiveVideo from '@/components/LivePage/LiveVideo'
 import LiveChat from '@/components/LivePage/LiveChat'
+// import Modal from '@/components/Modal'
 
 import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
@@ -41,11 +51,14 @@ export default {
   components: {
     LiveVideo,
     LiveChat,
+    // Modal,
   },
   data: function () {
     return {
       data: null,
       isSeller: false,
+      // isLive: true,
+      // showModal: false,
     }
   },
   created() {
