@@ -4,11 +4,12 @@
 		<!-- test -->
 		<div>
 		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
-		💛💛 liveInfo: {{ liveInfo }} 💛💛
+		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
+		<!-- 💛💛 liveInfo: {{ liveInfo }} 💛💛 -->
 		</div>
 
 		<!-- 방이 안만들어졌을때 나오는 화면 -->
-		<div id="join" v-if="!session">
+		<!-- <div id="join" v-if="!session">
 			<div id="join-dialog" class="jumbotron vertical-center">
 				<div class="form-group">
 					<p class="text-center">
@@ -16,14 +17,10 @@
 					</p>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- 방이 만들어졌을 때 나오는 화면 -->
-		<div id="session" v-if="session">
-			<div id="session-header">
-				<input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" @click="leaveSession" value="Leave session">
-			</div>
-			
+		<div id="session">
 			<!-- 클릭 화면, 디폴트는 내 화면 (판매자) -->
 			<div id="main-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
@@ -36,6 +33,9 @@
 				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
 			</div> -->
 		
+			<div v-if="isSeller">
+				<button class="btn btn-large btn-danger" @click="leaveSession">Leave session</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -55,6 +55,7 @@ export default {
 	name: 'App',
 	props: {
 		liveInfo: Object,
+		isSeller: Boolean,
 	},
 	components: {
 		UserVideo,
@@ -71,7 +72,9 @@ export default {
 			myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
 		}
 	},
-
+	created() {
+		this.joinSession()
+	},
 	methods: {
 		// 세션 가입 -> created (판매자인 경우에만)
 		joinSession () {

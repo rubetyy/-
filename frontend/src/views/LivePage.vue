@@ -2,7 +2,7 @@
   <div>
     <!-- <div v-if="isLive"> -->
       <div id="livevideo">
-        <LiveVideo :liveInfo="data" />
+        <LiveVideo :liveInfo="data" :isSeller="isSeller" />
       </div>
       <LiveChat />
 

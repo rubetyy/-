@@ -40,7 +40,7 @@ export default {
       message: '',
       messages: [],
       roomId: '',
-      isLive: false,
+      isLive: true,  // 방송종료시 false
       showModal: false,
     }
   },
