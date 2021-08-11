@@ -48,6 +48,7 @@ public class ProductRepositorySupport {
         return a;
     }
 
+    //product table is live 0,
     public Long endLive(int liveId){
         Long a = jpaQueryFactory.update(qProduct).set(qProduct.isLive,0)
                 .set(qProduct.liveId,-1)

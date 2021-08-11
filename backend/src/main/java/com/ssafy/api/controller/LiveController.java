@@ -78,7 +78,7 @@ public class LiveController {
 
 	//방송 종료
 	@Transactional
-	@GetMapping(value="/live/end/{liveid}")
+	@DeleteMapping(value="/live/end/{liveid}")
 	@ApiOperation(value = "방송종료", notes = "회원수정을 진행.")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "성공"),
