@@ -11,16 +11,6 @@
 		<div id="join" v-if="!session">
 			<div id="join-dialog" class="jumbotron vertical-center">
 				<div class="form-group">
-<<<<<<< HEAD
-					<p>
-						<label>Participant: {{this.myUserName}}</label>
-						<!-- <input v-model="myUserName" class="form-control" type="text" required> -->
-					</p>
-					<p>
-						<label>Session: {{liveData.livetitle}}</label>
-						<!-- <input v-model="mySessionId" class="form-control" type="text" required> -->
-					</p>
-=======
 					<!-- <p>
 						<label>Participant</label>
 						<input v-model="myUserName" class="form-control" type="text" required>
@@ -29,7 +19,6 @@
 						<label>Session</label>
 						<input v-model="mySessionId" class="form-control" type="text" required>
 					</p> -->
->>>>>>> ce1bc9d6253be395e4b677659b743f37b80b7f69
 					<p class="text-center">
 						<button class="btn btn-lg btn-success" @click="joinSession()">Join!</button>
 					</p>
@@ -48,26 +37,12 @@
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
 
-<<<<<<< HEAD
-			<!-- <div id="video-container" class="col-md-6"> -->
-				<!-- 내 화면 -->
-				<!-- <user-video :stream-manager="publisher" @click.native="updateMainVideoStreamManager(publisher)"/> -->
-				<!-- 나를 제외한 다른 사람들 화면 -->
-				<!-- <user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click.native="updateMainVideoStreamManager(sub)"/> -->
-				
-				<!-- 방장한테 참가자1 화면이 보인다. 이것만 해결하면 끝 -->
-				<!-- 음 뭔가 랜덤으로 출력되는 느낌 -->
-
-				<!-- <user-video :stream-manager="subscribers[0]" />		 -->
-			<!-- </div> -->
-=======
 			<div id="video-container" class="col-md-6">
 				내 화면 (판매자)
 				<user-video :stream-manager="publisher"/>
 				나를 제외한 다른 사람들 화면 (구매자 == 안보이도록)
 				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
 			</div>
->>>>>>> ce1bc9d6253be395e4b677659b743f37b80b7f69
 		
 		</div>
 	</div>
@@ -94,15 +69,6 @@ export default {
 	components: {
 		UserVideo,
 	},
-<<<<<<< HEAD
-	props: {
-		liveData: {
-			type: Object
-		},
-	},
-
-=======
->>>>>>> ce1bc9d6253be395e4b677659b743f37b80b7f69
 	data () {
 		return {
 			OV: undefined,
@@ -112,14 +78,7 @@ export default {
 			subscribers: [],
 
 			mySessionId: String(localStorage.getItem('wschat.roomId')),
-<<<<<<< HEAD
-			// mySessionId: 'SessionA',
-			myUserName: JSON.parse(localStorage.getItem('userInfo')).nickname,
-			// myUserName: 'Participant' + Math.floor(Math.random() * 100),
-
-=======
 			myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
->>>>>>> ce1bc9d6253be395e4b677659b743f37b80b7f69
 		}
 	},
 

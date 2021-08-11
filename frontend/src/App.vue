@@ -17,8 +17,8 @@
             </ul>
 
             <div class="d-flex me-5">
-              <input class="form-control me-2" type="search" placeholder="제품을 검색하세요" aria-label="Search">
-              <button class="btn-o " type="submit">Search</button>
+              <input class="form-control me-2" type="search" placeholder="제품을 검색하세요" aria-label="Search" v-model="keyword"  @keyup.enter="search">
+              <button class="btn-o " type="submit" @click="search">Search</button>
             </div>
 
             <!-- <div class="nav-item dropdown">
@@ -59,13 +59,16 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 const userStore = 'userStore'
+const productStore = 'productStore'
 
 export default {
   name: 'App',
 
   data: function () {
     return {
-      userId: ''
+      userId: '',
+      keyword: '',
+
     }
   },
   
@@ -88,6 +91,12 @@ export default {
         this.$router.push({name:"MainPage"})
       })
     },
+        ...mapActions(productStore,[
+      'getSearch'
+    ]),
+    search() {
+      this.getSearch(this.keyword)
+    }
   },
 
   created (){

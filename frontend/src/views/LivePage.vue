@@ -1,11 +1,7 @@
 <template>
   <div>
     <div id="livevideo">
-<<<<<<< HEAD
-      <LiveVideo :liveData='data' />
-=======
       <LiveVideo :liveInfo="data" />
->>>>>>> ce1bc9d6253be395e4b677659b743f37b80b7f69
     </div>
     <LiveChat />
 

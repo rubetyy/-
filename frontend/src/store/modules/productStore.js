@@ -101,6 +101,14 @@ const productStore = {
       // res data 정렬 기준 무엇? id 오름차순? 조회수?
       context.commit('SET_CP_LIST', res.data.productList)
     },
+    // 상품검색
+    async getSearch(context, search) {
+      const url = BASE_URL + `/search/${search}`
+      console.log(search)
+      const res = await axios.get(url)
+      console.log(res)
+      // context.commit('SET_SEARCH_LIST', res.data.productList)
+    },
   }
 }
 

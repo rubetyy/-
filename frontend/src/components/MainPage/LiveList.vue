@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1 id='header'>라이브 리스트</h1>
-    <!-- {{lives}} -->
     <CarouselList :lives="lives"/>
 
   </div>

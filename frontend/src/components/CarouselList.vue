@@ -1,19 +1,18 @@
 
-<template>
+<template v-if="lives">
 <!-- Slider main container -->
 <div class="swiper-container">
   <!-- Additional required wrapper -->
   <!-- {{lives[0]}} -->
   <div class="swiper-wrapper">
     <!-- Slides -->
-    
     <div class="swiper-slide" v-for="(live, idx) in lives" :key="idx" :live="live"> 
       <img :src="`http://i5c103.p.ssafy.io:8080/${live.filepath}`"  alt="" style="width:100%; height:90%;">
       <p>{{live.livetitle}}
       <router-link :to="{name: 'LivePage', params: { id: live.livepk }}">라이브 방송 시청</router-link>
       </p>
-
     </div>
+
     <!-- <div class="swiper-slide">Slide 2</div>
     <div class="swiper-slide">Slide 3</div>
     <div class="swiper-slide">Slide 4</div>
@@ -61,29 +60,31 @@ export default {
   },
   mounted() {
     const swiper = new Swiper('.swiper-container', {
+         observer: true,
+            observeParents: true,
     // Optional parameters
     direction: 'horizontal',
     loop: true,
     slidesPerView: 4,
     spaceBetween: 50,
-    // breakpoints: {
-    //   1024: {
-    //     slidesPerView: 4,
-    //     spaceBetween: 40
-    //   },
-    //   768: {
-    //     slidesPerView: 3,
-    //     spaceBetween: 30
-    //   },
-    //   640: {
-    //     slidesPerView: 2,
-    //     spaceBetween: 20
-    //   },
-    //   320: {
-    //     slidesPerView: 1,
-    //     spaceBetween: 10
-    //   }
-    // },
+    breakpoints: {
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 40
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      },
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20
+      },
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10
+      }
+    },
     // If we need pagination
     pagination: {
       el: '.swiper-pagination',
