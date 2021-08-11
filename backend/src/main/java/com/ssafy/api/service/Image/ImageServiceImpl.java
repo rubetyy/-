@@ -17,7 +17,7 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<ImageResponseDto> findAllByProduct(Long productId) {
+    public List<ImageResponseDto> findAllByProduct(int productId) {
         return imageRepository.findAllByProductId(productId)
                 .stream()
                 .map(ImageResponseDto::new)

@@ -90,7 +90,7 @@ public class FileHandlerImpl implements FileHandlerService{
     }
 
     @Override
-    public List<Image> download(Long productId) {
+    public List<Image> download(int productId) {
         List<Image> images = fileRepository.findAllByProductId(productId);
         return images;
     }
