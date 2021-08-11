@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="livevideo">
-      비디오 자리
+      <LiveVideo :live-data='data' />
     </div>
     <LiveChat />
 
@@ -31,6 +31,8 @@
 
 <script>
 import LiveChat from '@/components/LivePage/LiveChat'
+import LiveVideo from '@/components/LivePage/LiveVideo'
+
 import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
 
@@ -38,6 +40,7 @@ export default {
   name: 'LivePage',
   components: {
     LiveChat,
+    LiveVideo,
   },
   data: function () {
     return {
