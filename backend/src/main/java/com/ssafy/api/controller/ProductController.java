@@ -99,7 +99,7 @@ public class ProductController {
     @Transactional//조회수 1증가 (update실행)
     @GetMapping("/{productId}")
     public ResponseEntity getProducts(@PathVariable String productId) {
-        List<Image> images = fileHandlerService.download(Long.valueOf(productId));
+        List<Image> images = fileHandlerService.download(Integer.valueOf(productId));
 
         String nickname = null;
         for(Image i : images){
