@@ -22,7 +22,7 @@ public class ProductRepositorySupport {
     QProduct qProduct = QProduct.product;
     QImage qImage = QImage.image;
 
-    public void addViewCount(Long productId){
+    public void addViewCount(int productId){
         Product p = jpaQueryFactory.select(qProduct).from(qProduct).where(qProduct.id.eq(productId)).fetchOne();
         Integer viewCount = p.getViewCount();
         long a = jpaQueryFactory.update(qProduct).set(qProduct.viewCount,viewCount+1).where(qProduct.id.eq(productId)).execute();
@@ -35,22 +35,22 @@ public class ProductRepositorySupport {
         return l;
     }
 
-    public Long setLivepk(Long liveid,Long productpk){
+    public Long setLivepk(int liveid,int productpk){
         //라이브 시작시 Product table에 live id업데이트, isLive 1값으로 업데이트
-        Long a = jpaQueryFactory.update(qProduct).set(qProduct.isLive,1L)
+        Long a = jpaQueryFactory.update(qProduct).set(qProduct.isLive,1)
                 .set(qProduct.liveId,liveid).where(qProduct.id.eq(productpk)).execute();
         return a;
     }
 
-    public Long soldProduct(Long productId){
+    public Long soldProduct(int productId){
         Long a = jpaQueryFactory.update(qProduct).set(qProduct.isSold,1)
                 .where(qProduct.id.eq(productId)).execute();
         return a;
     }
 
-    public Long endLive(Long liveId){
-        Long a = jpaQueryFactory.update(qProduct).set(qProduct.isLive,0L)
-                .set(qProduct.liveId,-1L)
+    public Long endLive(int liveId){
+        Long a = jpaQueryFactory.update(qProduct).set(qProduct.isLive,0)
+                .set(qProduct.liveId,-1)
                 .where(qProduct.liveId.eq(liveId)).execute();
         return a;
     }

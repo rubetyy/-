@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -18,16 +19,16 @@ import javax.persistence.Id;
 public class Live {
     @Id
     @Column(name="live_pk")
-    Long livepk;
+    int livepk;
     @Column(name="product_pk")
-    Long productpk;
+    Integer productpk;
     @Column(name="live_title")
     String livetitle;
     @Column(name="live_viewer_count")
-    Long liveviewercount;
+    Integer liveviewercount;
     @Column(name="user_id")
     String userid;
     @Column(name="is_live")
-    Long islive;
+    Integer islive;
 
 }

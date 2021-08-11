@@ -10,17 +10,17 @@ import java.util.Set;
 
 @Getter
 public class ProductListResponseDto {
-    private Long productId;
+    private Integer productId;
     private String userId;
-    private Long liveId;
-    private Long categoryId;
+    private Integer liveId;
+    private Integer categoryId;
     private String title;
     private String description;
     private Integer price;
     private LocalDateTime createdAt;
     private Integer viewCount;
     private Integer isSold;
-    private Long isLive;
+    private Integer isLive;
     private Image thumbnail;
 
 

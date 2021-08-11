@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
      * 카테고리에 속한 상품 전체 조회
      * */
     @Transactional(readOnly = true)
-    public List<Tuple> getProductsByCategory(Long categoryId){
+    public List<Tuple> getProductsByCategory(int categoryId){
         return fileRepositorySupport.findAllByCategoryId(categoryId);
     }
 
@@ -80,19 +80,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductByProductId(Long productId) {
-        Product product = productRepository.findById(productId).orElse(null);
+    public Product getProductByProductId(int productId) {
+        Long id = Long.valueOf(productId);
+        Product product = productRepository.findById(id).orElse(null);
         return product;
     }
 
     @Override
-    public void addViewCount(Long productId) {
+    public void addViewCount(int productId) {
         productRepositorySupport.addViewCount(productId);
     }
 
     @Override
     public long soldProduct(String productId) {
-        Long a = productRepositorySupport.soldProduct(Long.valueOf(productId));
+        Long a = productRepositorySupport.soldProduct(Integer.valueOf(productId));
         return 0;
     }
 

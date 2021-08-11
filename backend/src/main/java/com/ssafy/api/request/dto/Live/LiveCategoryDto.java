@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 
 @Data
-public class LiveMainDto {
+public class LiveCategoryDto {
     @Id
     @Column(name="live_pk")
     Integer livepk;
@@ -20,7 +20,7 @@ public class LiveMainDto {
     @Column(name="user_id")
     String userid;
     String filepath;
-    public LiveMainDto(Live l, String filepath){
+    public LiveCategoryDto(Live l, String filepath){
         this.livepk = l.getLivepk();
         this.productpk = l.getProductpk();
         this.livetitle = l.getLivetitle();
