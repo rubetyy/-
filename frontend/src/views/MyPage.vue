@@ -34,6 +34,10 @@
       <ul>
         <h2>채팅</h2>
           <li v-for='chatroom in myPageInfo.chatlist' :key='chatroom.chatroompk'>
+            
+<!-- 닉네임으로 바꾸기 -->
+<!-- {{chatroom}} -->
+            
             <!-- 로그인한 사용자가 판매자라면 -->
             <span v-if='userId==chatroom.useridseller'>
               <router-link :to="`/chatroom/${chatroom.useridbuyer}`">{{chatroom.useridbuyer}}</router-link>
