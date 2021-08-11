@@ -89,14 +89,10 @@
 
 <script>
 import Modal from '@/components/Modal'
-
 import CarouselLocal from '@/components/CarouselLocal'
-
 import { mapActions, mapGetters } from 'vuex'
-
 const productStore = 'productStore'
 const userStore = 'userStore'
-
 
 export default {
   name: 'ProductRegister',
