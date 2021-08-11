@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class ImageResponseDto {
-    private Long imageId;
+    private Integer imageId;
 
     public ImageResponseDto(Image entity){
         this.imageId = entity.getImageId();
