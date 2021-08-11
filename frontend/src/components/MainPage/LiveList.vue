@@ -1,7 +1,12 @@
 <template>
   <div>
     <h1 id='header'>라이브 리스트</h1>
-    <CarouselList :lives="lives"/>
+    <div v-if="lives.length">
+      <CarouselList :lives="lives"/>
+    </div>
+    <div v-else>
+      현재 방송중인 상품이 없습니다
+    </div>
 
   </div>
 </template>

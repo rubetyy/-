@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{categoryLiveProducts}}
     <LiveList :lives="categoryLiveProducts"/>
     <hr>
     <ProductList :products="categoryProducts" />
