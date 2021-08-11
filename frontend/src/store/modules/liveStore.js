@@ -35,7 +35,7 @@ const liveStore = {
       const url = BASE_URL + '/live/live-start'
       const res = await axios.post(url, params)
       if (res.status === 200) {
-        console.log('스타트라이브 에러')
+        console.log('스타트라이브 성공')
         context.commit('REMOVE_P_INFO')
         console.log(res)
         return res.data

@@ -1,24 +1,16 @@
 <template>
-	<div id="main-container" class="container">
+	<div>
 
 		<!-- test -->
-		<!-- <div>
+		<div>
 		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
 		💛💛 liveInfo: {{ liveInfo }} 💛💛
-		</div> -->
+		</div>
 
 		<!-- 방이 안만들어졌을때 나오는 화면 -->
 		<div id="join" v-if="!session">
 			<div id="join-dialog" class="jumbotron vertical-center">
 				<div class="form-group">
-					<!-- <p>
-						<label>Participant</label>
-						<input v-model="myUserName" class="form-control" type="text" required>
-					</p>
-					<p>
-						<label>Session</label>
-						<input v-model="mySessionId" class="form-control" type="text" required>
-					</p> -->
 					<p class="text-center">
 						<button class="btn btn-lg btn-success" @click="joinSession()">Join!</button>
 					</p>
@@ -37,12 +29,12 @@
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
 
-			<div id="video-container" class="col-md-6">
+			<!-- <div id="video-container" class="col-md-6">
 				내 화면 (판매자)
 				<user-video :stream-manager="publisher"/>
 				나를 제외한 다른 사람들 화면 (구매자 == 안보이도록)
 				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
-			</div>
+			</div> -->
 		
 		</div>
 	</div>
@@ -149,7 +141,7 @@ export default {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
 			if (this.session) this.session.disconnect();
 			// 판매자일때만 방송 종료 요청
-			
+
 
 			this.session = undefined;
 			this.mainStreamManager = undefined;
