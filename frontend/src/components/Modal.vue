@@ -37,11 +37,6 @@ export default {
   props: {
     fct: Function,
   },
-  methods: {
-    goLogin() {
-      this.$router.push({name:"Login"})
-    }
-  }
 }
 </script>
 
