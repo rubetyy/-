@@ -1,20 +1,24 @@
 <template>
 	<div id="main-container" class="container">
-		
+
+		<!-- test -->
+		<!-- <div>
+		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
+		💛💛 liveInfo: {{ liveInfo }} 💛💛
+		</div> -->
+
 		<!-- 방이 안만들어졌을때 나오는 화면 -->
 		<div id="join" v-if="!session">
-			<div id="img-div"><img src="resources/images/openvidu_grey_bg_transp_cropped.png" /></div>
 			<div id="join-dialog" class="jumbotron vertical-center">
-				<h1>Join a video session</h1>
 				<div class="form-group">
-					<p>
+					<!-- <p>
 						<label>Participant</label>
 						<input v-model="myUserName" class="form-control" type="text" required>
 					</p>
 					<p>
 						<label>Session</label>
 						<input v-model="mySessionId" class="form-control" type="text" required>
-					</p>
+					</p> -->
 					<p class="text-center">
 						<button class="btn btn-lg btn-success" @click="joinSession()">Join!</button>
 					</p>
@@ -25,25 +29,19 @@
 		<!-- 방이 만들어졌을 때 나오는 화면 -->
 		<div id="session" v-if="session">
 			<div id="session-header">
-				<h1 id="session-title">{{ mySessionId }}</h1>
 				<input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" @click="leaveSession" value="Leave session">
 			</div>
 			
-			<!-- 클릭 화면, 디폴트는 내 화면 -->
+			<!-- 클릭 화면, 디폴트는 내 화면 (판매자) -->
 			<div id="main-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
 
 			<div id="video-container" class="col-md-6">
-				<!-- 내 화면 -->
-				<user-video :stream-manager="publisher" @click.native="updateMainVideoStreamManager(publisher)"/>
-				<!-- 나를 제외한 다른 사람들 화면 -->
-				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click.native="updateMainVideoStreamManager(sub)"/>
-				
-				<!-- 방장한테 참가자1 화면이 보인다. 이것만 해결하면 끝 -->
-				<!-- 음 뭔가 랜덤으로 출력되는 느낌 -->
-
-				<!-- <user-video :stream-manager="subscribers[0]" />		 -->
+				내 화면 (판매자)
+				<user-video :stream-manager="publisher"/>
+				나를 제외한 다른 사람들 화면 (구매자 == 안보이도록)
+				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
 			</div>
 		
 		</div>
@@ -63,11 +61,12 @@ const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
 	name: 'App',
-
+	props: {
+		liveInfo: Object,
+	},
 	components: {
 		UserVideo,
 	},
-
 	data () {
 		return {
 			OV: undefined,
@@ -76,12 +75,13 @@ export default {
 			publisher: undefined,
 			subscribers: [],
 
-			mySessionId: 'SessionA',
-			myUserName: 'Participant' + Math.floor(Math.random() * 100),
+			mySessionId: String(localStorage.getItem('wschat.roomId')),
+			myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
 		}
 	},
 
 	methods: {
+		// 세션 가입 -> created (판매자인 경우에만)
 		joinSession () {
 			// --- Get an OpenVidu object ---
 			this.OV = new OpenVidu();
@@ -120,26 +120,25 @@ export default {
 
 						// --- Get your own camera stream with the desired properties ---
 
-						let publisher = this.OV.initPublisher(undefined, {
-							audioSource: undefined, // The source of audio. If undefined default microphone
-							videoSource: undefined, // The source of video. If undefined default webcam
-							publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
-							publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-							resolution: '640x480',  // The resolution of your video
-							frameRate: 30,			// The frame rate of your video
-							insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
-							mirror: false       	// Whether to mirror your local video or not
-						});
-
-						this.mainStreamManager = publisher;
-						this.publisher = publisher;
-
-						// --- Publish your stream ---
-
-						this.session.publish(this.publisher);
+						// 판매자인 경우에만 mainStreamManager 등록
+						if (this.liveInfo.userid === this.myUserName) {
+							let publisher = this.OV.initPublisher(undefined, {
+								audioSource: undefined, // The source of audio. If undefined default microphone
+								videoSource: undefined, // The source of video. If undefined default webcam
+								publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
+								publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
+								resolution: '640x480',  // The resolution of your video
+								frameRate: 30,			// The frame rate of your video
+								insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
+								mirror: false       	// Whether to mirror your local video or not
+							});
+	
+							this.mainStreamManager = publisher;
+							this.session.publish(this.mainStreamManager);
+						}
 					})
 					.catch(error => {
-						console.log('There was an error connecting to the session:', error.code, error.message);
+						console.log('세션 연결 중 에러발생:', error.code, error.message);
 					});
 			});
 
@@ -149,6 +148,8 @@ export default {
 		leaveSession () {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
 			if (this.session) this.session.disconnect();
+			// 판매자일때만 방송 종료 요청
+			
 
 			this.session = undefined;
 			this.mainStreamManager = undefined;
@@ -157,11 +158,6 @@ export default {
 			this.OV = undefined;
 
 			window.removeEventListener('beforeunload', this.leaveSession);
-		},
-
-		updateMainVideoStreamManager (stream) {
-			if (this.mainStreamManager === stream) return;
-			this.mainStreamManager = stream;
 		},
 
 		/**

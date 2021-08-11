@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="livevideo">
-      <LiveVideo :live-data='data' />
+      <LiveVideo :liveInfo="data" />
     </div>
     <LiveChat />
 
@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import LiveChat from '@/components/LivePage/LiveChat'
 import LiveVideo from '@/components/LivePage/LiveVideo'
+import LiveChat from '@/components/LivePage/LiveChat'
 
 import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
@@ -39,8 +39,8 @@ const liveStore = 'liveStore'
 export default {
   name: 'LivePage',
   components: {
-    LiveChat,
     LiveVideo,
+    LiveChat,
   },
   data: function () {
     return {
@@ -64,13 +64,9 @@ export default {
     ...mapActions(liveStore, ['getLiveInfo']),
     
     goProduct: function () {
-      // window.open("https://google.com", "_blank");
-      console.log(this.data.productpk)
       this.$router.push({ name: 'ProductDetail', params: { product_pk: this.data.productpk } })
     },
-
   },
-
 }
 </script>
 
