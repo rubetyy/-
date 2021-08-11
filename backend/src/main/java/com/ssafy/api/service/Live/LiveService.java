@@ -2,6 +2,7 @@ package com.ssafy.api.service.Live;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveCategoryDto;
 import com.ssafy.api.request.dto.Live.LiveMainDto;
 import com.ssafy.db.entity.Live;
 
@@ -16,4 +17,5 @@ public interface LiveService {
 	Long updatetitleLive(LiveTitlePatchReq liveTitlePatchReq);
 	Tuple selectone(String liveid);
 	List<LiveMainDto> selectMain();
+	List<LiveCategoryDto> getLiveByCategory(Long categoryid);
 }

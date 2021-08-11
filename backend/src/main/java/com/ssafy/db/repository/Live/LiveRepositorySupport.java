@@ -3,6 +3,7 @@ package com.ssafy.db.repository.Live;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveCategoryDto;
 import com.ssafy.api.request.dto.Live.LiveMainDto;
 import com.ssafy.db.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,21 @@ public class LiveRepositorySupport {
                     .where(qImage.product.id.eq(i.getProductpk())).fetchFirst();
             res.add(new LiveMainDto(i,filepath));
         }
+        return res;
+    }
+
+    public List<LiveCategoryDto> getLiveByCategoryId(Long categoryid){
+        List<Tuple> l = jpaQueryFactory.select(qLive,qProduct).from(qLive)
+                .join(qProduct).on(qProduct.id.eq(qLive.productpk))
+                .where(qProduct.isSold.eq(0),qProduct.categoryId.eq(categoryid)).fetch();
+        List<LiveCategoryDto> res = new LinkedList<>();
+        for(Tuple t : l){
+            Live live = t.get(0,Live.class);
+            String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)
+                    .where(qImage.product.id.eq(live.getProductpk())).fetchFirst();
+            res.add(new LiveCategoryDto(live,filepath));
+        }
+
         return res;
     }
 

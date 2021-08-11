@@ -22,17 +22,17 @@ public class ImageRepositorySupport {
     public List<Tuple> findMain() {
         List<Tuple> l = jpaQueryFactory.select(qImage,qProduct).from(qImage)
                 .join(qProduct).on(qProduct.id.eq(qImage.product.id))
+                .where(qProduct.isSold.eq(0))
                 .distinct().orderBy(qProduct.viewCount.desc()).limit(12).fetch();
-
         return l;
     }
 
     public List<Tuple> findAllByCategoryId(Long categoryId){
         List<Tuple> l = jpaQueryFactory.select(qImage,qProduct).from(qImage)
                 .join(qProduct).on(qProduct.id.eq(qImage.product.id))
-                .where(qProduct.categoryId.eq(categoryId)).distinct().orderBy(qProduct.viewCount.desc()).limit(12).fetch();
+                .where(qProduct.categoryId.eq(categoryId),qProduct.isSold.eq(0))
+                .distinct().orderBy(qProduct.viewCount.desc()).limit(12).fetch();
         return l;
     }
-
 
 }

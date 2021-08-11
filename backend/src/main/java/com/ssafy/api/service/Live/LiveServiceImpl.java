@@ -2,6 +2,7 @@ package com.ssafy.api.service.Live;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveCategoryDto;
 import com.ssafy.api.request.dto.Live.LiveMainDto;
 import com.ssafy.db.entity.Live;
 import com.ssafy.db.repository.Live.LiveRepository;
@@ -66,6 +67,12 @@ public class LiveServiceImpl implements LiveService {
 	@Override
 	public List<LiveMainDto> selectMain() {
 		return liveRepositorySupport.selectMain();
+	}
+
+	@Override
+	public List<LiveCategoryDto> getLiveByCategory(Long categoryid) {
+		List<LiveCategoryDto> t = liveRepositorySupport.getLiveByCategoryId(categoryid);
+		return t;
 	}
 
 }
