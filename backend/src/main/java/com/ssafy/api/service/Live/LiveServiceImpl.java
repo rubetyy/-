@@ -38,6 +38,7 @@ public class LiveServiceImpl implements LiveService {
 		live.setProductpk(liveRegisterInfo.getProductpk());
 		live.setLivetitle(liveRegisterInfo.getLivetitle());
 		live.setUserid(liveRegisterInfo.getUserid());
+		live.setIslive(1);//라이브중임을 db에 1로 저장
 		liveRepository.save(live);
 
 		live = liveRepositorySupport.findMaxIdx();
