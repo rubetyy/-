@@ -9,6 +9,14 @@
       <input type="text" class="form-control" v-model="message" @keyup="sendMessage">
       <button class="btn-g-sm" @click="clickMessage">보내기</button>
     </div>
+
+    <Modal v-if="!isLive" @close="showModal=false" :fct="goMain">
+      <h3 slot="header">
+        알림!
+      </h3>
+      <div slot="body" style="text-align:center">방송이 종료되었습니다</div>
+    </Modal>
+
   </div>
 </template>
 
@@ -16,16 +24,24 @@
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
+import Modal from '@/components/Modal'
+
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
 export default {
   name: 'LiveChat',
+  components: {
+    Modal,
+  },
+
   data() {
     return {
       sender: '', //닉네임
       message: '',
       messages: [],
       roomId: '',
+      isLive: false,
+      showModal: false,
     }
   },
   created() {
@@ -81,6 +97,9 @@ export default {
           this.connected = false
         }
       )
+    },
+    goMain() {
+      this.$router.push({name:"MainPage"})
     },
   }
 }
