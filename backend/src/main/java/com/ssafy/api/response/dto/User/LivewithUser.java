@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class LivewithUser {
-    Long livepk;
-    Long productpk;
+    Integer livepk;
+    Integer productpk;
     String livetitle;
-    Long liveviewercount;
+    Integer liveviewercount;
     String userid;
     String usernickname;
     LocalDateTime usercreatedat;

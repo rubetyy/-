@@ -43,10 +43,10 @@ public class MypageRepositorySupport {
 
         //orderlist
         List<Chatroom> orderlistc = (List<Chatroom>) jpaQueryFactory.select(qChatroom).from(qChatroom)
-                .where(qChatroom.useridbuyer.eq(userid),qChatroom.buy.eq(Long.valueOf(1))).fetch();
+                .where(qChatroom.useridbuyer.eq(userid),qChatroom.buy.eq(1)).fetch();
         List<MypagePRes> orderlist = new ArrayList<>();
         for(Chatroom c : orderlistc){
-            Long pk = c.getProductpk();
+            int pk = c.getProductpk();
             MypagePRes order = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
                     .from(qProduct).where(qProduct.id.eq(pk)).fetchOne();
             orderlist.add(order);
@@ -58,7 +58,7 @@ public class MypageRepositorySupport {
                 .where(qWish.useridbuyer.eq(userid)).fetch();
         List<MypagePRes> wishlist = new ArrayList<>();
         for(Wish w : wishres){
-            Long pk = w.getWishproductpk();
+            int pk = w.getWishproductpk();
             MypagePRes wish = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
                     .from(qProduct).where(qProduct.id.eq(pk)).fetchOne();
             wishlist.add(wish);
