@@ -47,8 +47,8 @@ public class LiveRepositorySupport {
         Long a = jpaQueryFactory.delete(qLive)
                 .where(qLive.livepk.eq(value)).execute();
         //Product 테이블에 isLive 0값으로 update
-        Long b = jpaQueryFactory.update(qProduct).set(qProduct.isLive,0)
-                .where(qProduct.liveId.eq(value)).execute();
+//        Long b = jpaQueryFactory.update(qProduct).set(qProduct.isLive,0)
+//                .where(qProduct.liveId.eq(value)).execute();
         return a;
     }
 

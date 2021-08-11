@@ -1,5 +1,5 @@
 package com.ssafy.api.controller;
-import com.ssafy.api.model.ChatMessage;
+import com.ssafy.api.request.dto.Chat.ChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
