@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="livevideo">
-      비디오 자리
+      <LiveVideo :liveInfo="data" />
     </div>
     <LiveChat />
 
@@ -30,13 +30,16 @@
 </template>
 
 <script>
+import LiveVideo from '@/components/LivePage/LiveVideo'
 import LiveChat from '@/components/LivePage/LiveChat'
+
 import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
 
 export default {
   name: 'LivePage',
   components: {
+    LiveVideo,
     LiveChat,
   },
   data: function () {
@@ -61,13 +64,9 @@ export default {
     ...mapActions(liveStore, ['getLiveInfo']),
     
     goProduct: function () {
-      // window.open("https://google.com", "_blank");
-      console.log(this.data.productpk)
       this.$router.push({ name: 'ProductDetail', params: { product_pk: this.data.productpk } })
     },
-
   },
-
 }
 </script>
 
