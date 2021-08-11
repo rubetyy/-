@@ -17,10 +17,9 @@
               </slot>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-foo">
               <slot name="footer">
-                
-                <button class="btn-o btn-center" @click="goLogin">
+                <button class="btn-o" @click="fct">
                   OK
                 </button>
               </slot>
@@ -35,16 +34,9 @@
 <script>
 export default {
   name: 'Modal',
-  data() {
-    return {
-
-    }
+  props: {
+    fct: Function,
   },
-  methods: {
-    goLogin() {
-      this.$router.push({name:"Login"})
-    }
-  }
 }
 </script>
 
@@ -81,7 +73,6 @@ export default {
 .modal-header h3 {
   margin-top: 0;
   color: #F9A77C;
- 
 }
 
 .modal-body {
@@ -92,12 +83,15 @@ export default {
   display: block;
   margin: auto;
 }
-.btn-center {
+/* .btn-center {
   margin: auto;
-}
-.modal-footer {
-  display: inline-block;
-  margin: auto;
+} */
+.modal-foo {
+  display: flex;
+  padding-top: 1.4rem;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #dee2e6;
 }
 
 /*

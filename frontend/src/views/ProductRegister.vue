@@ -75,13 +75,12 @@
 
       <button class="btn-o" style="display: block; margin: auto; width:100px;" v-on:click='registerClick'>등록</button>
     </div>
-    <Modal v-else @close="showModal = false">
+    <Modal v-else @close="showModal=false" :fct="goLogin">
       <h3 slot="header">
         알림!
         <i class="fas fa-time closeModalBtn" @click="showModal=false"></i>
         </h3>
         <div slot="body" style="text-align:center">로그인 하세요</div>
-
     </Modal>
 
 </div>
@@ -222,7 +221,10 @@ export default {
         this.files3 = []
         this.productFile.images = []
         this.filesPreview = []
-      }
+      },
+      goLogin() {
+      this.$router.push({name:"Login"})
+      },
   }  
 }
 </script>

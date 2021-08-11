@@ -1,49 +1,41 @@
 <template>
-	<div id="main-container" class="container">
+	<div>
 
 		<!-- test -->
-		<!-- <div>
+		<div>
 		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
-		💛💛 liveInfo: {{ liveInfo }} 💛💛
-		</div> -->
+		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
+		<!-- 💛💛 liveInfo: {{ liveInfo }} 💛💛 -->
+		</div>
 
 		<!-- 방이 안만들어졌을때 나오는 화면 -->
-		<div id="join" v-if="!session">
+		<!-- <div id="join" v-if="!session">
 			<div id="join-dialog" class="jumbotron vertical-center">
 				<div class="form-group">
-					<!-- <p>
-						<label>Participant</label>
-						<input v-model="myUserName" class="form-control" type="text" required>
-					</p>
-					<p>
-						<label>Session</label>
-						<input v-model="mySessionId" class="form-control" type="text" required>
-					</p> -->
 					<p class="text-center">
 						<button class="btn btn-lg btn-success" @click="joinSession()">Join!</button>
 					</p>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- 방이 만들어졌을 때 나오는 화면 -->
-		<div id="session" v-if="session">
-			<div id="session-header">
-				<input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" @click="leaveSession" value="Leave session">
-			</div>
-			
+		<div id="session">
 			<!-- 클릭 화면, 디폴트는 내 화면 (판매자) -->
 			<div id="main-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
 
-			<div id="video-container" class="col-md-6">
+			<!-- <div id="video-container" class="col-md-6">
 				내 화면 (판매자)
 				<user-video :stream-manager="publisher"/>
 				나를 제외한 다른 사람들 화면 (구매자 == 안보이도록)
 				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
-			</div>
+			</div> -->
 		
+			<div v-if="isSeller">
+				<button class="btn btn-large btn-danger" @click="leaveSession">Leave session</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -65,6 +57,7 @@ export default {
 	name: 'App',
 	props: {
 		liveInfo: Object,
+		isSeller: Boolean,
 	},
 	components: {
 		UserVideo,
@@ -81,7 +74,9 @@ export default {
 			myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
 		}
 	},
-
+	created() {
+		this.joinSession()
+	},
 	methods: {
 		// 세션 가입 -> created (판매자인 경우에만)
 		joinSession () {
@@ -151,7 +146,7 @@ export default {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
 			if (this.session) this.session.disconnect();
 			// 판매자일때만 방송 종료 요청
-			
+
 
 			this.session = undefined;
 			this.mainStreamManager = undefined;
