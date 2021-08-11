@@ -26,7 +26,7 @@ public class Product{
     private String userId;
 
     @Column(name = "live_id")
-    private Integer liveId;
+    private Long liveId;
 
     @Column(name = "category_pk")
     private Long categoryId;
@@ -51,7 +51,7 @@ public class Product{
     private Integer isSold;
 
     @Column(name = "product_is_live")
-    private Integer isLive;
+    private Long isLive;
 
     @JsonIgnore
     @OneToMany(
@@ -62,7 +62,7 @@ public class Product{
     private List<Image> image = new ArrayList<>();
 
     @Builder
-    public Product(String userId, Integer liveId, Long categoryId, String title, String description, Integer price, Integer viewCount, Integer isSold, Integer isLive) {
+    public Product(String userId, Long liveId, Long categoryId, String title, String description, Integer price, Integer viewCount, Integer isSold, Long isLive) {
         this.userId = userId;
         this.liveId = liveId;
         this.categoryId = categoryId;

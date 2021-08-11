@@ -8,6 +8,8 @@ import com.ssafy.db.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class LiveRepositorySupport {
     QLive qLive = QLive.live;
     QUser qUser = QUser.user;
     QImage qImage = QImage.image;
+    QProduct qProduct = QProduct.product;
 
     public Tuple findByLiveId(Long liveid){
         Tuple live =  jpaQueryFactory.select(qLive,qUser)
@@ -38,12 +41,15 @@ public class LiveRepositorySupport {
         return live;
     }
 
-//    public Long endLive(String value){
-//        Long a = jpaQueryFactory.update(qLive).set(qLive.liveon,1)
-//                .set(qLive.live_fin_date, Timestamp.valueOf(LocalDateTime.now()))
-//                .where(qLive.userid.eq(value)).execute();
-//        return a;
-//    }
+    public Long endLive(Long value){
+        //Live테이블에 islive0값으로 update
+        Long a = jpaQueryFactory.update(qLive).set(qLive.islive,0L)
+                .where(qLive.livepk.eq(value)).execute();
+        //Product 테이블에 isLive 0값으로 update
+        Long b = jpaQueryFactory.update(qProduct).set(qProduct.isLive,0L)
+                .where(qProduct.liveId.eq(value)).execute();
+        return a;
+    }
 
     public Long updatetitleLive(LiveTitlePatchReq liveTitlePatchReq){
         Long a =  jpaQueryFactory.update(qLive).set(qLive.livetitle, liveTitlePatchReq.getLivetitle())

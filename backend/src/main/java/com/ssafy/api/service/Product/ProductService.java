@@ -16,6 +16,7 @@ public interface ProductService {
     List<Tuple> getProductsByCategory(Long categoryId);
     Product getProductByProductId(Long productId);
     void addViewCount(Long productId);
+    long soldProduct(String productId);
     long updateProduct(ProductPatchReq productPatchReq);
     long deleteProduct(ProductDeleteReq productDeleteReq);
 }
