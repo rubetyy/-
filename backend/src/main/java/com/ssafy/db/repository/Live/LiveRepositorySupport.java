@@ -28,13 +28,13 @@ public class LiveRepositorySupport {
     QProduct qProduct = QProduct.product;
 
     public Tuple findByLiveId(int liveid){
-        Tuple live =  jpaQueryFactory.select(qLive,qUser)
-                .from(qLive)
-                .join(qUser).on(qLive.userid.eq(qUser.userid)).where(qLive.livepk.eq(liveid))
-                .fetchOne();
-        System.out.println(live.get(0,Live.class).getLivepk());
-        System.out.println(live.get(1,User.class).getUserid());
-        return live;
+            Tuple live =  jpaQueryFactory.select(qLive,qUser)
+                    .from(qLive)
+                    .join(qUser).on(qLive.userid.eq(qUser.userid)).where(qLive.livepk.eq(liveid))
+                    .fetchOne();
+            System.out.println(live.get(0,Live.class).getLivepk());
+            System.out.println(live.get(1,User.class).getUserid());
+            return live;
     }
 
     public Live findMaxIdx(){
@@ -44,7 +44,7 @@ public class LiveRepositorySupport {
 
     public Long endLive(int value){
         //Live테이블에 islive0값으로 update
-        Long a = jpaQueryFactory.update(qLive).set(qLive.islive,0)
+        Long a = jpaQueryFactory.delete(qLive)
                 .where(qLive.livepk.eq(value)).execute();
         //Product 테이블에 isLive 0값으로 update
         Long b = jpaQueryFactory.update(qProduct).set(qProduct.isLive,0)

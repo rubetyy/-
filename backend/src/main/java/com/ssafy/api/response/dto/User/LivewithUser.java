@@ -12,6 +12,7 @@ public class LivewithUser {
     Integer productpk;
     String livetitle;
     Integer liveviewercount;
+    Integer islive;
     String userid;
     String usernickname;
     LocalDateTime usercreatedat;
