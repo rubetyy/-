@@ -15,15 +15,14 @@ public class ChatController {
 
     @MessageMapping("/livechat/message")
     public void message(ChatMessage message) {
-        if (ChatMessage.MessageType.ENTER.equals(message.getType()))
-            message.setMessage(message.getSender() + "님이 입장하셨습니다.");
+        if (ChatMessage.MessageType.LEAVE.equals(message.getType()))
+            message.setMessage(message.getSender() + "방송이 종료되었습니다.");
+        if (ChatMessage.MessageType.ONE.equals(message.getType())) {
+            //채팅 db에 저장
+
+        }
         messagingTemplate.convertAndSend("/sub/livechat/room/" + message.getRoomId(), message);
     }
 
-    @PostMapping("/livechat/create")
-    public ResponseEntity createChatroom(){
-
-        return null;
-    }
 
 }

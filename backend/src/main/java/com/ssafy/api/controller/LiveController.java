@@ -32,6 +32,7 @@ public class LiveController {
 	@Autowired
 	LiveService liveService;
 
+	@Transactional
 	@PostMapping("/live/live-start")
 	@ApiOperation(value = "방송생성 후 정보반환", notes = "방송 생성정보를 반환한다.")
 	@ApiResponses({

@@ -55,7 +55,7 @@ public class ProductController {
     public ResponseEntity searchProduct(@PathVariable String search){
         List<Tuple> l = productService.getSearchProducts(search);
         List<Product> pl = new ArrayList<>();
-        Map<Long,Object> imap = new HashMap<>();
+        Map<Integer,Object> imap = new HashMap<>();
         for(Tuple t : l){
             Image i = t.get(1,Image.class);
             imap.put(i.getProduct().getId(),i);
@@ -106,7 +106,7 @@ public class ProductController {
                 User u = userService.getUserByUserId(i.getProduct().getUserId());
                 nickname = u.getUsernickname();
         }
-        productService.addViewCount(Long.valueOf(productId));
+        productService.addViewCount(Integer.valueOf(productId));
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);

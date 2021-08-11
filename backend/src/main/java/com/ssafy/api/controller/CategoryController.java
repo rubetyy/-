@@ -35,8 +35,8 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 리스트 조회", notes = "카테고리페이지에서 상품정보 12개 조회.")
     public ResponseEntity getCategoryProducts(@PathVariable String Id) {
         Map<String,Object> res = new HashMap<>();
-        List<Tuple> l = productService.getProductsByCategory(Long.valueOf(Id));
-        List<LiveCategoryDto> ll = liveService.getLiveByCategory(Long.valueOf(Id));
+        List<Tuple> l = productService.getProductsByCategory(Integer.valueOf(Id));
+        List<LiveCategoryDto> ll = liveService.getLiveByCategory(Integer.valueOf(Id));
         int cnt = 0;
         List<Image> il = new ArrayList<>();
         for(Tuple t : l){

@@ -49,8 +49,8 @@ public class LiveServiceImpl implements LiveService {
 
 	@Override
 	public Long endLive(String value) {
-		productRepositorySupport.endLive(Long.valueOf(value));
-		return liveRepositorySupport.endLive(Long.valueOf(value));
+		productRepositorySupport.endLive(Integer.valueOf(value));
+		return liveRepositorySupport.endLive(Integer.valueOf(value));
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class LiveServiceImpl implements LiveService {
 
 	@Override
 	public Tuple selectone(String liveid) {
-		return liveRepositorySupport.findByLiveId(Long.valueOf(liveid));
+		return liveRepositorySupport.findByLiveId(Integer.valueOf(liveid));
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class LiveServiceImpl implements LiveService {
 	}
 
 	@Override
-	public List<LiveCategoryDto> getLiveByCategory(Long categoryid) {
+	public List<LiveCategoryDto> getLiveByCategory(int categoryid) {
 		List<LiveCategoryDto> t = liveRepositorySupport.getLiveByCategoryId(categoryid);
 		return t;
 	}

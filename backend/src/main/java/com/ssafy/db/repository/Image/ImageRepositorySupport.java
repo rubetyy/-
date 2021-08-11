@@ -27,7 +27,7 @@ public class ImageRepositorySupport {
         return l;
     }
 
-    public List<Tuple> findAllByCategoryId(Long categoryId){
+    public List<Tuple> findAllByCategoryId(int categoryId){
         List<Tuple> l = jpaQueryFactory.select(qImage,qProduct).from(qImage)
                 .join(qProduct).on(qProduct.id.eq(qImage.product.id))
                 .where(qProduct.categoryId.eq(categoryId),qProduct.isSold.eq(0))

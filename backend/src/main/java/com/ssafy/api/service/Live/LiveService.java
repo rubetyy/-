@@ -17,5 +17,5 @@ public interface LiveService {
 	Long updatetitleLive(LiveTitlePatchReq liveTitlePatchReq);
 	Tuple selectone(String liveid);
 	List<LiveMainDto> selectMain();
-	List<LiveCategoryDto> getLiveByCategory(Long categoryid);
+	List<LiveCategoryDto> getLiveByCategory(int categoryid);
 }
