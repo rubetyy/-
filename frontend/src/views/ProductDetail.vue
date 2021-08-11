@@ -40,11 +40,17 @@
           <div style="font-size: 20px;  padding: 30px;">
             <router-link :to="{name: 'ProfilePage', params: {userid: productFile.images[0].product.userId}}">{{productFile.usernickname}}</router-link>
           </div>
+
           <div class="content-sold" >
             <p v-if=" productFile.images[0].product.isSold == 1">판매완료</p>
             <p v-else style="display: inline-block; margin-right: 30px">판매중</p>
-            <button class="btn-o" @click="chat">1:1 채팅하기</button>
+
+            <!-- 로그인한사람과 판매자가 다를 때에만 채팅버튼 보이기 -->
+            <div v-if='userId.id != productFile.images[0].product.userId'>
+              <button class="btn-o" @click="chat">1:1 채팅하기</button>
+            </div>
           </div>
+
           <div class="content-title"> 
             <p>{{ productFile.images[0].product.title }}</p>
 
