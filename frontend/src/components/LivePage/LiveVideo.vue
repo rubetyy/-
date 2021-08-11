@@ -219,15 +219,6 @@ export default {
 		...mapActions(liveStore, ['getLiveInfo']),
 	},
 
-	created() {
-		const liveId = localStorage.getItem('wschat.roomId')
-		this.getLiveInfo(liveId)
-		.then((res) => {
-			
-			console.log(res,'dddd')
-			this.mySessionId = String(this.liveData.livepk)
-			this.myUserName = JSON.parse(localStorage.getItem('userInfo').nickname)
-		})
-	}
+
 }
 </script>
