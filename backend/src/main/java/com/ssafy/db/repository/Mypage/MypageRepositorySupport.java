@@ -2,6 +2,7 @@ package com.ssafy.db.repository.Mypage;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.api.response.dto.Mypage.MypageChatList;
 import com.ssafy.api.response.dto.Mypage.MypagePRes;
 import com.ssafy.db.entity.*;
 
@@ -68,7 +69,18 @@ public class MypageRepositorySupport {
         //chatlist
         List<Chatroom> chatres = (List<Chatroom>) jpaQueryFactory.select(qChatroom).from(qChatroom)
                 .where(qChatroom.useridseller.eq(userid).or(qChatroom.useridbuyer.eq(userid))).fetch();
-        res.put("chatlist",chatres);
+        List<MypageChatList> chatlist = new LinkedList<>();
+        for(Chatroom c : chatres){
+            String buyernickname = jpaQueryFactory.select(qUser.usernickname).from(qUser)
+                    .where(qUser.userid.eq(c.getUseridbuyer())).fetchOne();
+            String sellernickname = jpaQueryFactory.select(qUser.usernickname).from(qUser)
+                    .where(qUser.userid.eq(c.getUseridseller())).fetchFirst();
+            MypageChatList mypageChat = new MypageChatList(c);
+            mypageChat.setBuyernickname(buyernickname);
+            mypageChat.setSellernickname(sellernickname);
+            chatlist.add(mypageChat);
+        }
+        res.put("chatlist",chatlist);
         return res;
     }
 }
