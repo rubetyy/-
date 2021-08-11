@@ -50,7 +50,7 @@ public class ProductController {
 
     @Autowired
     UserService userService;
-
+    //검색기능
     @GetMapping("/search/{search}")
     public ResponseEntity searchProduct(@PathVariable String search){
         List<Tuple> l = productService.getSearchProducts(search);
@@ -61,6 +61,14 @@ public class ProductController {
             imap.put(i.getProduct().getId(),i);
         }
         return new ResponseEntity(imap,HttpStatus.OK);
+    }
+
+    //물건 판매 처리
+    @Transactional
+    @GetMapping("/sold/{productId}")
+    public ResponseEntity soldProduct(@PathVariable String productId){
+        Long a = productService.soldProduct(productId);
+        return new ResponseEntity(a,HttpStatus.OK);
     }
 
     @PostMapping("/create")
@@ -141,12 +149,5 @@ public class ProductController {
 
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }
-
-
-
-
-
-
-
 
 }
