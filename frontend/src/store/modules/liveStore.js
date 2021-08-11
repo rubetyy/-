@@ -7,6 +7,7 @@ const liveStore = {
   state: {
     productInfo: null,
     liveList: [],
+    CPLiveList: [],
 
 
   },
@@ -16,6 +17,9 @@ const liveStore = {
     },
     getLiveProductInfo (state) {
       return state.liveList
+    },
+    CPLiveList (state) {
+      return state.CPLiveList
     },
   },
   mutations: {
@@ -28,6 +32,9 @@ const liveStore = {
     SET_LIVE_LIST (state, data) {
       state.liveList = data
       // console.log(state.liveList,'state')
+    },
+    SET_CP_LIVE_LIST (state, data) {
+      state.CPLiveList = data
     },
   },
   actions: {
@@ -69,6 +76,13 @@ const liveStore = {
       const res = await axios.get(url)
       console.log(res.data.liveList)
       context.commit('SET_LIVE_LIST', res.data.liveList)
+    },
+    //카테고리 라이브리스트
+    getCPLiveList: async function(context, categoryId) {
+      const url = BASE_URL + `/category/${categoryId}`
+      const res = await axios.get(url)
+      // res data 정렬 기준 무엇? id 오름차순? 조회수?
+      context.commit('SET_CP_LIVE_LIST', res.data.liveList)
     },
   }
 }
