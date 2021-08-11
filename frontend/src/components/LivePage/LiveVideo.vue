@@ -8,12 +8,12 @@
 				<h1>Join a video session</h1>
 				<div class="form-group">
 					<p>
-						<label>Participant</label>
-						<input v-model="myUserName" class="form-control" type="text" required>
+						<label>Participant: {{this.myUserName}}</label>
+						<!-- <input v-model="myUserName" class="form-control" type="text" required> -->
 					</p>
 					<p>
-						<label>Session</label>
-						<input v-model="mySessionId" class="form-control" type="text" required>
+						<label>Session: {{liveData.livetitle}}</label>
+						<!-- <input v-model="mySessionId" class="form-control" type="text" required> -->
 					</p>
 					<p class="text-center">
 						<button class="btn btn-lg btn-success" @click="joinSession()">Join!</button>
@@ -34,17 +34,17 @@
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
 
-			<div id="video-container" class="col-md-6">
+			<!-- <div id="video-container" class="col-md-6"> -->
 				<!-- 내 화면 -->
-				<user-video :stream-manager="publisher" @click.native="updateMainVideoStreamManager(publisher)"/>
+				<!-- <user-video :stream-manager="publisher" @click.native="updateMainVideoStreamManager(publisher)"/> -->
 				<!-- 나를 제외한 다른 사람들 화면 -->
-				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click.native="updateMainVideoStreamManager(sub)"/>
+				<!-- <user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click.native="updateMainVideoStreamManager(sub)"/> -->
 				
 				<!-- 방장한테 참가자1 화면이 보인다. 이것만 해결하면 끝 -->
 				<!-- 음 뭔가 랜덤으로 출력되는 느낌 -->
 
 				<!-- <user-video :stream-manager="subscribers[0]" />		 -->
-			</div>
+			<!-- </div> -->
 		
 		</div>
 	</div>
@@ -54,6 +54,8 @@
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from '@/components/LivePage/UserVideo';
+import { mapActions } from 'vuex';
+const liveStore = 'liveStore'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -67,6 +69,11 @@ export default {
 	components: {
 		UserVideo,
 	},
+	props: {
+		liveData: {
+			type: Object
+		},
+	},
 
 	data () {
 		return {
@@ -76,8 +83,11 @@ export default {
 			publisher: undefined,
 			subscribers: [],
 
-			mySessionId: 'SessionA',
-			myUserName: 'Participant' + Math.floor(Math.random() * 100),
+			mySessionId: String(localStorage.getItem('wschat.roomId')),
+			// mySessionId: 'SessionA',
+			myUserName: JSON.parse(localStorage.getItem('userInfo')).nickname,
+			// myUserName: 'Participant' + Math.floor(Math.random() * 100),
+
 		}
 	},
 
@@ -223,6 +233,18 @@ export default {
 					.catch(error => reject(error.response));
 			});
 		},
+		...mapActions(liveStore, ['getLiveInfo']),
+	},
+
+	created() {
+		const liveId = localStorage.getItem('wschat.roomId')
+		this.getLiveInfo(liveId)
+		.then((res) => {
+			
+			console.log(res,'dddd')
+			this.mySessionId = String(this.liveData.livepk)
+			this.myUserName = JSON.parse(localStorage.getItem('userInfo').nickname)
+		})
 	}
 }
 </script>

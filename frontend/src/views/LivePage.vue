@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="livevideo">
-      <LiveVideo :live-data='data' />
+      <LiveVideo :liveData='data' />
     </div>
     <LiveChat />
 
