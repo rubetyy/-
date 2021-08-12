@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.dto.Chat.ChatMessage;
+import com.ssafy.api.response.dto.Chatroom.ChatroomResponseDto;
 import com.ssafy.api.service.Chat.ChatServiceImpl;
 import com.ssafy.db.entity.Chatroom;
 import com.ssafy.db.entity.Message;
@@ -25,6 +26,7 @@ public class ChatController {
     private final SimpMessageSendingOperations messagingTemplate;
     @Autowired
     private ChatServiceImpl chatService;
+
     //실시간 채팅
     @MessageMapping("/livechat/message")
     public void message(ChatMessage message) {
@@ -50,7 +52,7 @@ public class ChatController {
     @PostMapping("/chat/start")
     public ResponseEntity createChat(@RequestBody Chatroom chatroom){
         //채팅방 생성 Service 호출
-        Chatroom chatr = chatService.createChat(chatroom);
+        ChatroomResponseDto chatr = chatService.createChat(chatroom);
         return new ResponseEntity(chatr, HttpStatus.OK);
     }
 

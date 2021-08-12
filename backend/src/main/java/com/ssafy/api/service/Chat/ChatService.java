@@ -2,6 +2,7 @@ package com.ssafy.api.service.Chat;
 
 
 import com.ssafy.api.request.dto.Chat.ChatMessage;
+import com.ssafy.api.response.dto.Chatroom.ChatroomResponseDto;
 import com.ssafy.db.entity.Chatroom;
 import com.ssafy.db.entity.Message;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 public interface ChatService {
-    public Chatroom createChat(Chatroom chatroom);
+    public ChatroomResponseDto createChat(Chatroom chatroom);
     public Message talk(ChatMessage chatMessage);
     public List<Message> selectAllChat(int chatroompk);
 
