@@ -13,7 +13,7 @@ import java.util.List;
 public class ChatMessageRepositorySupport {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
-    QMessage qMessage = QMessage.message;
+    QMessage qMessage = QMessage.message1;
 
     public List<Message> selectAllChat(int chatroompk){
         return jpaQueryFactory.select(qMessage).from(qMessage)

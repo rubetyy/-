@@ -48,15 +48,14 @@ public class ProductController {
         String search = searchReq.getSearch();
         List<LiveSearchDto> ll = liveService.getSearchLives(search);
         List<Tuple> l = productService.getSearchProducts(search);
-        List<Product> pl = new ArrayList<>();
-        Map<Integer,Object> imap = new HashMap<>();
+        List<Image> il = new LinkedList<>();
         Map<String,Object> res = new HashMap<>();
         for(Tuple t : l){
             Image i = t.get(1,Image.class);
-            imap.put(i.getProduct().getId(),i);
+            il.add(i);
         }
         res.put("liveList",ll);
-        res.put("productList",imap);
+        res.put("productList",il);
         return new ResponseEntity(res,HttpStatus.OK);
     }
 
