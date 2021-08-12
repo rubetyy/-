@@ -44,8 +44,7 @@ export default {
   name: 'ChatRoom',
   data() {
     return {
-      receiver: this.$route.params.nickname,
-      sender: JSON.parse(localStorage.getItem('userInfo')).nickname,
+      receiver: this.$route.query.nickname,
       message: '',
       messages: [],
       roomId: this.$route.params.pk,
@@ -77,9 +76,9 @@ export default {
     send() {
       if (this.stompClient && this.stompClient.connected) {
         const msg = {
-          type:'TALK',// ONE 으로 바꾸기
+          type:'ONE',// ONE 으로 바꾸기
           roomId:this.roomId,
-          sender: this.sender, // userid
+          sender: this.nowUser,
           message: this.message 
         }
         this.stompClient.debug = function (){}  //do nothing
@@ -107,10 +106,18 @@ export default {
       )
     },
     getMsg() {
-      const url = BASE_URL + `/chatroom/${this.roomId}`
-      axios.get(url)
+      const url = BASE_URL + `/chatroom/`
+      const data = {
+        chatroompk: this.roomId,
+        userid: JSON.parse(localStorage.getItem('userInfo')).id,
+      }
+      axios.post(url, data)
       .then(res => {
         this.previousMsg = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+        alert('권한이 없습니다')
       })
     },
   }
