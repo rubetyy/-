@@ -125,4 +125,9 @@ public class ProductServiceImpl implements ProductService {
     public long deleteWishProduct(int wishproductid) {
         return wishRepositorySupport.deleteWishProduct(wishproductid);
     }
+
+    @Override
+    public boolean findWish(int productId, String userid) {
+        return wishRepositorySupport.findWish(productId,userid);
+    }
 }

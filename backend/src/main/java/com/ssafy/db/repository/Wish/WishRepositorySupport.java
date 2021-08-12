@@ -2,10 +2,7 @@ package com.ssafy.db.repository.Wish;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.db.entity.QProduct;
-import com.ssafy.db.entity.QUser;
-import com.ssafy.db.entity.QWish;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +21,13 @@ public class WishRepositorySupport {
         long a = jpaQueryFactory.delete(qWish).where(qWish.wishproductpk.eq(wishproductid))
                 .execute();
         return a;
+    }
+
+    public boolean findWish(int productId, String userid){
+        Wish wish = jpaQueryFactory.select(qWish).from(qWish).where(qWish.productpk.eq(productId),qWish.useridbuyer.eq(userid))
+                .fetchFirst();
+        if(wish == null) return false;
+        return true;
     }
 
 
