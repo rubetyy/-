@@ -25,7 +25,7 @@ public class Message {
     @Column(name = "chat_room_pk")
     int roomId;
 
-    @Column(name = "user_id_sender")
+    @Column(name = "sender_nickname")
     String sender;
 
     @Column(name = "chat_message_content")
