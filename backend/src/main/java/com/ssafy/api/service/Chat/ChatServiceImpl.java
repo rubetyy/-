@@ -1,6 +1,7 @@
 package com.ssafy.api.service.Chat;
 
 import com.ssafy.api.request.dto.Chat.ChatMessage;
+import com.ssafy.api.response.dto.Chatroom.ChatroomResponseDto;
 import com.ssafy.db.entity.Chatroom;
 import com.ssafy.db.entity.Message;
 import com.ssafy.db.repository.Chatmessage.ChatMessageRepository;
@@ -29,7 +30,7 @@ public class ChatServiceImpl implements ChatService {
 	ChatMessageRepositorySupport chatMessageRepositorySupport;
 
 	@Override
-	public Chatroom createChat(Chatroom chatroom) {
+	public ChatroomResponseDto createChat(Chatroom chatroom) {
 		chatRoomRepository.save(chatroom);
 		return chatRoomRepositorySupport.findMaxidx();
 	}
