@@ -34,7 +34,7 @@
 			</div> -->
 		
 			<div v-if="isSeller">
-				<button class="btn btn-large btn-danger" @click="leaveSession">Leave session</button>
+				<button v-if="session" class="btn btn-large btn-danger" @click="leaveSession">Leave session</button>
 			</div>
 			<div v-else>
 				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>

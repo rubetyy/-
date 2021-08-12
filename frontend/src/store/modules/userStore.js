@@ -85,7 +85,12 @@ const userStore = {
       const url = BASE_URL + '/product/wish'
       const res = await axios.post(url, data)
       console.log(res,'like')
-
+    },
+    // 찜하기 취소
+    async dislike(context, data) {
+      const url = BASE_URL + '/product/wish/${data}'
+      const res = await axios.delete(url, data)
+      console.log(res,'dislike')
     },
   }
 }

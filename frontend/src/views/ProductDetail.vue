@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 id="header">제품 상세</h1>
-    
+    {{this.likeFlag}}
         <!-- {{this.userId.id}}
         {{this.userId.nickname}} -->
     <br>
@@ -48,12 +48,21 @@
             <!-- 로그인한사람과 판매자가 다를 때에만 채팅버튼 보이기 -->
             <div v-if='userId.id != productFile.images[0].product.userId'>
               <button class="btn-o" @click="chat">1:1 채팅하기</button>
+           
+                <button v-if="productFile.wish==true" class="btn-o" @click="likeProduct">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                  </svg>
+                </button>
+           
 
-              <button class="btn-o" @click="likeProduct">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg>
-              </button>
+           
+                <button v-else  class="btn-o" @click="dislikeProduct">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                </button>              
+          
             </div>
 
           </div>
@@ -138,7 +147,7 @@ export default {
           '3' : '전자제품',
           '4' : '기타',
         },
-        likeFlag: Boolean,
+        likeFlag: false,
       }
     },
   computed: {
@@ -181,25 +190,41 @@ export default {
         this.$router.push({name:"ChatRoom", params: { userid: this.productFile.images[0].product.userId }})
       },
     ...mapActions(userStore,[
-    'like',
+    'like','dislike'
     ]),
     likeProduct() { // 찜하기
-      const id  = this.userId.id
-      const p_pk = this.productFile.images[0].product.id
+      const useridbuyer  = this.userId.id
+      const productpk = this.productFile.images[0].product.id
       const data = {
-        'id' : id,
-        'p_pk' : p_pk,
+        'useridbuyer' : useridbuyer,
+        'productpk' : productpk,
       }
       this.like(data)
       .then(()=>{
-        this.likeFlag = true
+        this.productFile.wish = true
+      })
+    },
+    ...mapActions(userStore,[
+    'dislike',
+    ]),
+    dislikeProduct() {
+      const productpk = this.productFile.images[0].product.id
+      this.dislike(productpk)
+        .then(()=>{
+        this.productFile.wish = false
       })
     }
   },
 
 
   async created() {
-    this.productDetail(this.$route.params.product_pk)
+    const userid = this.userId.id
+    const productpk = this.$route.params.product_pk
+    const data = {
+      'userid': userid,
+      'productpk': productpk,
+    }
+    this.productDetail(data)
     .then(()=>{
       // this.userId.id = this.productFile.images[0].product.userId
       for (let idx = 0; idx < this.productFile.images.length; idx++) {
