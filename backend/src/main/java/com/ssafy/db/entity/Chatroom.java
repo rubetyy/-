@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class Chatroom {
     @Id
     @Column(name="chat_room_pk")
-    Integer chatroompk;
+    int chatroompk;
 
     @Column(name="product_pk")
     Integer productpk;
@@ -29,7 +29,7 @@ public class Chatroom {
     String useridbuyer;
 
     @Column(name="chat_room_is_buyer")
-    Integer buy;
+    int buy;
 
     @Column(name="user_id_seller")
     String useridseller;
