@@ -22,4 +22,5 @@ public interface ProductService {
     long deleteProduct(ProductDeleteReq productDeleteReq);
     void addWishProduct(ProductWishReq wishReq);
     long deleteWishProduct(int wishproductid);
+    boolean findWish(int productId, String userid);
 }
