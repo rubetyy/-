@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.ssafy.api.request.dto.Product.ProductWishReq;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 public class Wish {
     @Id
     @Column(name="wish_product_pk")
-    Integer wishproductpk;
+    int wishproductpk;
 
     @Column(name="product_pk")
     Integer productpk;
@@ -30,4 +31,8 @@ public class Wish {
     @Column(name="user_id_buyer")
     String useridbuyer;
 
+    public Wish(ProductWishReq wishReq){
+        this.productpk = wishReq.getProductpk();
+        this.useridbuyer = wishReq.getUseridbuyer();
+    }
 }
