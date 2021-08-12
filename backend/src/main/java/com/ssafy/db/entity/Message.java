@@ -4,7 +4,6 @@ import com.ssafy.api.request.dto.Chat.ChatMessage;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +28,7 @@ public class Message {
     String sender;
 
     @Column(name = "chat_message_content")
-    String content;
+    String message;
 
     @Column(name = "chat_message_created_at")
     LocalDateTime now;
@@ -37,8 +36,7 @@ public class Message {
     public Message(ChatMessage message){
         this.roomId = Integer.valueOf(message.getRoomId());
         this.sender = message.getSender();
-        this.content = message.getMessage();
+        this.message = message.getMessage();
         this.now = LocalDateTime.now();
-
     }
 }

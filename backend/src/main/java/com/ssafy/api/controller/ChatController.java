@@ -48,16 +48,17 @@ public class ChatController {
     }
 
     //채팅방 생성 채팅방 pk리턴해줌
-    @PostMapping("/chat/start")
+    @PostMapping("/chatroom/start")
     public ResponseEntity createChat(@RequestBody Chatroom chatroom){
         //채팅방 생성 Service 호출
         ChatroomResponseDto chatr = chatService.createChat(chatroom);
         return new ResponseEntity(chatr, HttpStatus.OK);
     }
 
-    @GetMapping("/chat/{chatroompk}")
+    @GetMapping("/chatroom/{chatroompk}")
     public ResponseEntity selectAllChat(@PathVariable String chatroompk){
         List<Message> ml = chatService.selectAllChat(Integer.valueOf(chatroompk));
+
         if(ml == null) return new ResponseEntity("대화내용이 없습니다.",HttpStatus.OK);
         return new ResponseEntity(ml,HttpStatus.OK);
     }
