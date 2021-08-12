@@ -48,7 +48,14 @@
             <!-- 로그인한사람과 판매자가 다를 때에만 채팅버튼 보이기 -->
             <div v-if='userId.id != productFile.images[0].product.userId'>
               <button class="btn-o" @click="chat">1:1 채팅하기</button>
+
+              <button class="btn-o" @click="likeProduct">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                </svg>
+              </button>
             </div>
+
           </div>
 
           <div class="content-title"> 
@@ -106,6 +113,7 @@ import Carousel from '@/components/Carousel'
 import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
 const liveStore = 'liveStore'
+const userStore = 'userStore'
 
 export default {
   name: 'ProductDetail',
@@ -130,6 +138,7 @@ export default {
           '3' : '전자제품',
           '4' : '기타',
         },
+        likeFlag: Boolean,
       }
     },
   computed: {
@@ -170,8 +179,22 @@ export default {
       },
       chat() {
         this.$router.push({name:"ChatRoom", params: { userid: this.productFile.images[0].product.userId }})
-
+      },
+    ...mapActions(userStore,[
+    'like',
+    ]),
+    likeProduct() { // 찜하기
+      const id  = this.userId.id
+      const p_pk = this.productFile.images[0].product.id
+      const data = {
+        'id' : id,
+        'p_pk' : p_pk,
       }
+      this.like(data)
+      .then(()=>{
+        this.likeFlag = true
+      })
+    }
   },
 
 
