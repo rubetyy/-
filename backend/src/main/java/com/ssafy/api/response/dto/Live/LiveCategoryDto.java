@@ -1,4 +1,4 @@
-package com.ssafy.api.request.dto.Live;
+package com.ssafy.api.response.dto.Live;
 
 import com.ssafy.db.entity.Live;
 import lombok.Data;
