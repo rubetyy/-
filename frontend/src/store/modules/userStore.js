@@ -17,7 +17,7 @@ const userStore = {
     // },
     getToken(state) {
       return state.token
-    }
+    },
   },
 
   mutations: {
@@ -77,6 +77,11 @@ const userStore = {
     async checkUserid (context, userId) {
       const url = BASE_URL + `/users/check/${userId}`
       const res = await axios.get(url)
+      return res.data
+    },
+    async startChat (context, params) {
+      const url = BASE_URL + `/chat/start`
+      const res = await axios.post(url, params)
       return res.data
     },
   }

@@ -9,7 +9,7 @@
     <div>
 
       <!-- {{ productFile.images[0] }}  -->
-      <!-- {{productFile}} -->
+      {{productFile}}
     </div>
     <div>
       <div>
@@ -47,7 +47,7 @@
 
             <!-- 로그인한사람과 판매자가 다를 때에만 채팅버튼 보이기 -->
             <div v-if='userId.id != productFile.images[0].product.userId'>
-              <button class="btn-o" @click="chat">1:1 채팅하기</button>
+              <button class="btn-o" @click="startchat">1:1 채팅하기</button>
             </div>
           </div>
 
@@ -106,6 +106,7 @@ import Carousel from '@/components/Carousel'
 import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
 const liveStore = 'liveStore'
+const userStore = 'userStore'
 
 export default {
   name: 'ProductDetail',
@@ -168,9 +169,17 @@ export default {
       onSlideEnd() {
         this.sliding = false
       },
-      chat() {
-        this.$router.push({name:"ChatRoom", params: { userid: this.productFile.images[0].product.userId }})
-
+      ...mapActions(userStore, ['startChat']),
+      startchat: function() {
+        const params = {
+          productpk: this.productFile.images[0].product.id,
+          useridbuyer: JSON.parse(localStorage.getItem('userInfo')).id,
+          useridseller: this.productFile.images[0].product.userId,
+        }
+        this.startChat(params)
+        .then(res => {
+          this.$router.push({name: 'ChatRoom', params: {pk: res.chatroompk, nickname: res.sellernickname }})
+        })
       }
   },
 
