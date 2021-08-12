@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.dto.Chat.ChatMessage;
 import com.ssafy.api.service.Chat.ChatServiceImpl;
 import com.ssafy.db.entity.Chatroom;
+import com.ssafy.db.entity.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,8 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -46,6 +52,13 @@ public class ChatController {
         //채팅방 생성 Service 호출
         Chatroom chatr = chatService.createChat(chatroom);
         return new ResponseEntity(chatr, HttpStatus.OK);
+    }
+
+    @GetMapping("/chat/{chatroompk}")
+    public ResponseEntity selectAllChat(@PathVariable String chatroompk){
+        List<Message> ml = chatService.selectAllChat(Integer.valueOf(chatroompk));
+        if(ml == null) return new ResponseEntity("대화내용이 없습니다.",HttpStatus.OK);
+        return new ResponseEntity(ml,HttpStatus.OK);
     }
 
 }

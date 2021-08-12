@@ -20,10 +20,10 @@ import java.time.LocalDateTime;
 public class Message {
     @Id
     @Column(name = "chat_message_pk")
-    Integer id;
+    int id;
 
     @Column(name = "chat_room_pk")
-    Integer roomId;
+    int roomId;
 
     @Column(name = "user_id_sender")
     String sender;
