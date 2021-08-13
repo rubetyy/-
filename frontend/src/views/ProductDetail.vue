@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 id="header">제품 상세</h1>
-    {{this.productFile.wish.flag}}
+    <!-- {{this.productFile.wish.wishproductpk}} -->
         <!-- {{this.userId.id}}
         {{this.userId.nickname}} -->
     <br>
@@ -42,28 +42,32 @@
           </div>
 
           <div class="content-sold" >
-            <p v-if=" productFile.images[0].product.isSold == 1">판매완료</p>
-            <p v-else style="display: inline-block; margin-right: 30px; color:#ff8a3d ">판매중</p>
+            <div v-if=" productFile.images[0].product.isSold == 1" style="display: flex;">
+              <p >판매완료</p>
+              <p style="color: grey;">조회수: {{productFile.images[0].product.viewCount}}</p>
+            </div>
+            <div v-else style="display: flex; padding:10px;" >
+              <p style="display: inline-block; margin-right: 30px; color:#ff8a3d;" >판매중</p>
+              <p style="color: grey;">조회수: {{productFile.images[0].product.viewCount}}</p>
+            </div>
 
             <!-- 로그인한사람과 판매자가 다를 때에만 채팅버튼 보이기 -->
             <div v-if='userId.id != productFile.images[0].product.userId'>
-              <button class="btn-o" @click="startchat">1:1 채팅하기</button>
+              <button class="btn-o btn-chat" @click="startchat">1:1 채팅하기</button>
            
                 <button v-if="productFile.wish.flag==true" class="btn-o" @click="dislikeProduct">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                  </svg>
+                  </svg> 찜하기 취소
                 </button>
           
                 <button v-else  class="btn-o" @click="likeProduct">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                     <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
+                  </svg> 찜하기
                 </button>              
           
             </div>
-
-          <p>조회수: {{productFile.images[0].product.viewCount}}</p>
           </div>
 
           <div class="content-title"> 
@@ -221,7 +225,8 @@ export default {
     'dislike',
     ]),
     dislikeProduct() {
-      const wishproductpk = this.productFile.images[0].product.wish.wishproductPk
+      const wishproductpk = this.productFile.wish.wishproductpk
+      console.log(wishproductpk)
       this.dislike(wishproductpk)
         .then(()=>{
         this.productFile.wish.flag = false
@@ -328,5 +333,9 @@ export default {
 
 #carousel-1 {
   max-height: 700px;
+}
+
+.btn-chat {
+  margin-right: 20px;
 }
 </style>
