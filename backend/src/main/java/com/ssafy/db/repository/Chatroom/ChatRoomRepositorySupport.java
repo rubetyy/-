@@ -1,6 +1,7 @@
 package com.ssafy.db.repository.Chatroom;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.api.request.dto.Chat.ChatRoomReq;
 import com.ssafy.api.response.dto.Chatroom.ChatroomResponseDto;
 import com.ssafy.db.entity.Chatroom;
 import com.ssafy.db.entity.QChatroom;
@@ -24,6 +25,30 @@ public class ChatRoomRepositorySupport {
                 .where(qUser.userid.eq(c.getUseridseller())).fetchFirst();
         return new ChatroomResponseDto(c,buyernickname,sellernickname);
     }
+
+    public ChatroomResponseDto findChat(Chatroom chatroom){
+        Chatroom c = jpaQueryFactory.select(qChatroom).from(qChatroom)
+                .where(qChatroom.useridbuyer.eq(chatroom.getUseridbuyer()),qChatroom.useridseller.eq(chatroom.getUseridseller()))
+                .fetchFirst();
+        if(c == null) return null;
+        else{
+            String buyernickname = jpaQueryFactory.select(qUser.usernickname).from(qUser)
+                    .where(qUser.userid.eq(c.getUseridbuyer())).fetchFirst();
+            String sellernickname = jpaQueryFactory.select(qUser.usernickname).from(qUser)
+                    .where(qUser.userid.eq(c.getUseridseller())).fetchFirst();
+            return new ChatroomResponseDto(c,buyernickname,sellernickname);
+        }
+    }
+
+    public boolean check(ChatRoomReq chatRoomReq){
+        Chatroom c = jpaQueryFactory.select(qChatroom).from(qChatroom)
+                .where(qChatroom.chatroompk.eq(chatRoomReq.getChatroompk())).fetchFirst();
+        boolean flag = false;
+        if(c.getUseridbuyer().equals(chatRoomReq.getUserid())) flag = true;
+        if(c.getUseridseller().equals(chatRoomReq.getUserid())) flag = true;
+        return flag;
+    }
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.ssafy.api.service.Chat;
 
 import com.ssafy.api.request.dto.Chat.ChatMessage;
+import com.ssafy.api.request.dto.Chat.ChatRoomReq;
 import com.ssafy.api.response.dto.Chatroom.ChatroomResponseDto;
 import com.ssafy.db.entity.Chatroom;
 import com.ssafy.db.entity.Message;
@@ -44,5 +45,15 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public List<Message> selectAllChat(int chatroompk) {
 		return chatMessageRepositorySupport.selectAllChat(chatroompk);
+	}
+
+	@Override
+	public ChatroomResponseDto findChat(Chatroom chatroom) {
+		return chatRoomRepositorySupport.findChat(chatroom);
+	}
+
+	@Override
+	public boolean check(ChatRoomReq chatRoomReq) {
+		return chatRoomRepositorySupport.check(chatRoomReq);
 	}
 }
