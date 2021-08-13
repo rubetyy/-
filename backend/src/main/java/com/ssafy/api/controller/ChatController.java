@@ -4,6 +4,8 @@ import com.ssafy.api.request.dto.Chat.ChatMessage;
 import com.ssafy.api.request.dto.Chat.ChatRoomReq;
 import com.ssafy.api.response.dto.Chatroom.ChatroomResponseDto;
 import com.ssafy.api.service.Chat.ChatServiceImpl;
+import com.ssafy.api.service.Live.LiveServiceImpl;
+import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Chatroom;
 import com.ssafy.db.entity.Message;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,14 +29,15 @@ public class ChatController {
     private final SimpMessageSendingOperations messagingTemplate;
     @Autowired
     private ChatServiceImpl chatService;
+    @Autowired
+    private LiveServiceImpl liveService;
 
     //실시간 채팅
     @MessageMapping("/livechat/message")
     public void message(ChatMessage message) {
         //방송종료 메소드 수행
-        if (ChatMessage.MessageType.LEAVE.equals(message.getType()))
+        if ( ChatMessage.MessageType.LEAVE.equals(message.getType()) )
             message.setMessage("");//flag값 리턴?
-
         messagingTemplate.convertAndSend("/sub/livechat/room/" + message.getRoomId(), message);
     }
 
@@ -50,6 +51,20 @@ public class ChatController {
         messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
 
     }
+    //방송 종료
+    @Transactional
+    @DeleteMapping(value="/live/end/{liveid}")
+    public ResponseEntity<? extends BaseResponseBody> endLive(
+            @PathVariable String liveid) {
+        //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
+        long a = liveService.endLive(liveid);
+        //message 보내기(웹소켓)
+        ChatMessage message = new ChatMessage();
+        message.setType(ChatMessage.MessageType.LEAVE);
+        messagingTemplate.convertAndSend("/sub/livechat/room" + liveid,message);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
 
     //채팅방 생성 채팅방 pk리턴해줌
     @PostMapping("/chatroom/start")

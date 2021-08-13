@@ -44,7 +44,7 @@ public class LiveRepositorySupport {
 
     public Long endLive(int value){
         //Live테이블에 islive0값으로 update
-        Long a = jpaQueryFactory.delete(qLive)
+        Long a = jpaQueryFactory.update(qLive).set(qLive.islive,0)
                 .where(qLive.livepk.eq(value)).execute();
         //Product 테이블에 isLive 0값으로 update
 //        Long b = jpaQueryFactory.update(qProduct).set(qProduct.isLive,0)
@@ -73,7 +73,8 @@ public class LiveRepositorySupport {
 
     public List<LiveSearchDto> getSearchLives(String search){
         List<Live> l = jpaQueryFactory.select(qLive).from(qLive)
-                .where(qLive.livetitle.contains(search)).fetch();
+                .where(qLive.livetitle.contains(search))
+                .orderBy(qLive.liveviewercount.desc()).fetch();
         List<LiveSearchDto> res = new LinkedList();
         for(Live li : l){
             String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)

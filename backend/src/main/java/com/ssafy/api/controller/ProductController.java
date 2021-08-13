@@ -102,18 +102,26 @@ public class ProductController {
                 nickname = u.getUsernickname();
         }
         productService.addViewCount(Integer.valueOf(productId));
-        Wish w = productService.findWish(productId,detailReq.getUserid());
-
-        ProductWishRes wishRes = new ProductWishRes();
-        if(w == null) wishRes.setFlag(false);
-        else {
-            wishRes.setWishproductpk(w.getWishproductpk());
-            wishRes.setFlag(true);
-        }
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);
+        //err
+        ProductWishRes wishRes = new ProductWishRes();
         res.put("wish",wishRes);
+        if(detailReq.getUserid() != null){
+            Wish w = productService.findWish(productId,detailReq.getUserid());
+
+
+            if(w == null) wishRes.setFlag(false);
+            else {
+                wishRes.setWishproductpk(w.getWishproductpk());
+                wishRes.setFlag(true);
+            }
+
+        }
+
+
+
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
     }
 
@@ -160,6 +168,7 @@ public class ProductController {
         return new ResponseEntity(null, HttpStatus.OK);
     }
 
+    @Transactional
     @DeleteMapping("/wish/{wishproductid}")
     public ResponseEntity deleteWishProduct(@PathVariable String wishproductid){
         productService.deleteWishProduct(Integer.valueOf(wishproductid));
