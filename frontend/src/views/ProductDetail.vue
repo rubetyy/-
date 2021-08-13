@@ -54,7 +54,7 @@
             <!-- 로그인한사람과 판매자가 다를 때에만 채팅버튼 보이기 -->
             <div v-if='userId.id != productFile.images[0].product.userId'>
               <button class="btn-o btn-chat" @click="startchat">1:1 채팅하기</button>
-           
+
                 <button v-if="productFile.wish.flag==true" class="btn-o" @click="dislikeProduct">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
