@@ -15,6 +15,10 @@
 
     <div class="swiper-slide card" v-for="(live, idx) in lives" :key="idx" :live="live"> 
      <router-link :to="{name: 'LivePage', params: { id: live.livepk }}">
+        <div class="main-viewcount">
+          <!-- {{live}} -->
+          <p style="color: white">{{live.liveviewercount}}명이 시청 중</p>
+        </div>
         <img :src="`http://i5c103.p.ssafy.io:8080/${live.filepath}`" class="card-img-top" alt="...">
         <div class="card-body">
           <p style="text-align:center;">{{live.livetitle}}
@@ -140,5 +144,17 @@ export default {
   height: 350px;
   /* overflow: hidden; */
 }
-
+.card {
+  position: relative;
+}
+.main-viewcount {
+  position: absolute;
+  border: 5px solid #ff8a3d;
+  border-radius: 15px;
+  background-color: rgba(26,26,26,0.301961);
+  text-align: center;
+  top: 10px;
+  left: 15px;
+  height: 40px;
+}
 </style>
