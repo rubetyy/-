@@ -9,7 +9,7 @@
     <div>
 
       <!-- {{ productFile.images[0] }}  -->
-      <!-- {{productFile}} -->
+      {{productFile}}
     </div>
     <div>
       <div>
@@ -47,7 +47,7 @@
 
             <!-- 로그인한사람과 판매자가 다를 때에만 채팅버튼 보이기 -->
             <div v-if='userId.id != productFile.images[0].product.userId'>
-              <button class="btn-o" @click="chat">1:1 채팅하기</button>
+              <button class="btn-o" @click="startchat">1:1 채팅하기</button>
            
                 <button v-if="productFile.wish==true" class="btn-o" @click="dislikeProduct">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -186,9 +186,20 @@ export default {
       onSlideEnd() {
         this.sliding = false
       },
-      chat() {
-        this.$router.push({name:"ChatRoom", params: { userid: this.productFile.images[0].product.userId }})
-      },
+
+    ...mapActions(userStore, ['startChat']),
+    startchat: function() {
+      const params = {
+        productpk: this.productFile.images[0].product.id,
+        useridbuyer: JSON.parse(localStorage.getItem('userInfo')).id,
+        useridseller: this.productFile.images[0].product.userId,
+      }
+      this.startChat(params)
+      .then(res => {
+        this.$router.push({name: 'ChatRoom', params: {pk: res.chatroompk}, query: {nickname: res.sellernickname }})
+      })
+    },
+
     ...mapActions(userStore,[
     'like','dislike'
     ]),
