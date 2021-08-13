@@ -102,18 +102,24 @@ public class ProductController {
                 nickname = u.getUsernickname();
         }
         productService.addViewCount(Integer.valueOf(productId));
-        Wish w = productService.findWish(productId,detailReq.getUserid());
-
-        ProductWishRes wishRes = new ProductWishRes();
-        if(w == null) wishRes.setFlag(false);
-        else {
-            wishRes.setWishproductpk(w.getWishproductpk());
-            wishRes.setFlag(true);
-        }
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);
-        res.put("wish",wishRes);
+        //err
+        if(detailReq.getUserid() != null){
+            Wish w = productService.findWish(productId,detailReq.getUserid());
+
+            ProductWishRes wishRes = new ProductWishRes();
+            if(w == null) wishRes.setFlag(false);
+            else {
+                wishRes.setWishproductpk(w.getWishproductpk());
+                wishRes.setFlag(true);
+            }
+            res.put("wish",wishRes);
+        }
+
+
+
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
     }
 
