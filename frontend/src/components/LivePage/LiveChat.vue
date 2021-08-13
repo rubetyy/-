@@ -120,7 +120,7 @@ input:hover, input:active, input[type="text"]:focus,
 .chatlog {
   height:450px;
   overflow:auto;
-  margin: 10px 20px;
+  margin: 10px 7px;
 }
 .form-control {
   width: 80%;
@@ -129,6 +129,7 @@ input:hover, input:active, input[type="text"]:focus,
   border: 1px solid #ffeadc;
   border-radius: 5px 0 0 5px;
   border-right: none;
+  padding-left: 12px;
   /* outline: none; */
 }
 .send {

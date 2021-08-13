@@ -23,7 +23,7 @@
         </div>
         <div v-else class="inline">
           <button class="btn-g"><i class="bi bi-heart-fill"></i> 찜하기</button>
-          <button class="btn-g"><i class="bi bi-x-lg"></i> 나가기</button>
+          <button class="btn-g" @click="goMain"><i class="bi bi-x-lg"></i> 나가기</button>
         </div>
       </div>
     <!-- </div> -->
@@ -76,8 +76,11 @@ export default {
   methods: {
     ...mapActions(liveStore, ['getLiveInfo']),
     
-    goProduct: function () {
+    goProduct() {
       this.$router.push({ name: 'ProductDetail', params: { product_pk: this.data.productpk } })
+    },
+    goMain() {
+      this.$router.push({ name: 'MainPage'})
     },
   },
 }

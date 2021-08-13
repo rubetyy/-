@@ -113,11 +113,15 @@ export default {
       }
       axios.post(url, data)
       .then(res => {
-        this.previousMsg = res.data
+        if (res.data.userStatus==1) {
+          this.previousMsg = res.data.talk
+        } else {
+          alert('권한이 없습니다(userStatus)')
+        }
       })
       .catch((err) => {
         console.log(err)
-        alert('권한이 없습니다')
+        alert('권한이 없습니다(error)')
       })
     },
   }
