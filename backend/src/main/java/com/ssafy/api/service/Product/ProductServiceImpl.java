@@ -100,8 +100,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public long soldProduct(String productId) {
-        Long a = productRepositorySupport.soldProduct(Integer.valueOf(productId));
+    public long soldProduct(int productId) {
+        Long a = productRepositorySupport.soldProduct(productId);
         return 0;
     }
 

@@ -5,6 +5,7 @@ import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.request.dto.Product.*;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
 import com.ssafy.api.response.dto.Product.ProductWishRes;
+import com.ssafy.api.service.Chat.ChatServiceImpl;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.api.service.Product.ProductService;
@@ -37,6 +38,8 @@ public class ProductController {
     FileHandlerService fileHandlerService;
     @Autowired
     LiveService liveService;
+    @Autowired
+    ChatServiceImpl chatService;
 
     @Autowired
     UserService userService;
@@ -59,9 +62,14 @@ public class ProductController {
 
     //물건 판매 처리
     @Transactional
-    @GetMapping("/sold/{productId}")
-    public ResponseEntity soldProduct(@PathVariable String productId){
+    @PostMapping("/sold")
+    public ResponseEntity soldProduct(@RequestBody ProductSoldReq productSoldReq){
+        int productId = productSoldReq.getProductpk();
+        //판매완료 product table에 완료
         Long a = productService.soldProduct(productId);
+        //chatroom에 chatroomisbuyer -> 1로 바꿈
+        chatService.
+
         return new ResponseEntity(a,HttpStatus.OK);
     }
 
