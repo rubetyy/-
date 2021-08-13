@@ -38,7 +38,6 @@ public class ChatController {
         //방송종료 메소드 수행
         if ( ChatMessage.MessageType.LEAVE.equals(message.getType()) )
             message.setMessage("");//flag값 리턴?
-        System.out.println(message.getRoomId());
         messagingTemplate.convertAndSend("/sub/livechat/room/" + message.getRoomId(), message);
     }
 
@@ -62,11 +61,6 @@ public class ChatController {
         //message 보내기(웹소켓)
         ChatMessage message = new ChatMessage();
         message.setType(ChatMessage.MessageType.LEAVE);
-        System.out.println(liveid);
-        System.out.println("연지연지");
-        System.out.println("연지연지");
-        System.out.println("연지연지");
-        System.out.println("연지연지");
         messagingTemplate.convertAndSend("/sub/livechat/room/" + liveid,message);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
