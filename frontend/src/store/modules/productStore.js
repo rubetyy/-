@@ -95,9 +95,9 @@ const productStore = {
 
     // 제품상세
     async productDetail({ commit }, detailData) {   
-      const PRODUCTDETAIL_URL = BASE_URL +  `/product/detail/${detailData.productpk}`
+      const PRODUCTDETAIL_URL = BASE_URL + `/product/detail`
       console.log(PRODUCTDETAIL_URL)
-      const response = await axios.post(PRODUCTDETAIL_URL)
+      const response = await axios.post(PRODUCTDETAIL_URL, detailData)
       const data = response.data
       commit('PRODUUCT_DETAIL', data)
     },

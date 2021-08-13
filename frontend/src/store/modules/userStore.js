@@ -66,7 +66,7 @@ const userStore = {
       const url = BASE_URL + `/mypage/${userId}`
       console.log(url, userId)
       const result = await axios.get(url)
-      console.log(result)
+      // console.log(result,'result')
       return result.data
     },
     async checkNickname (context, nickname) {
@@ -88,8 +88,8 @@ const userStore = {
     },
     // 찜하기 취소
     async dislike(context, data) {
-      const url = BASE_URL + '/product/wish/${data}'
-      const res = await axios.delete(url, data)
+      const url = BASE_URL + `/product/wish/${data}`
+      const res = await axios.delete(url)
       console.log(res,'dislike')
     },
   }

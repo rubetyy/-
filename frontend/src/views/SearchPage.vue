@@ -28,11 +28,11 @@ export default {
   },
   computed: {
     ...mapGetters(productStore, ['getSearchLiveList',]),
-    searchProducts: function() {
+    searchLives: function() {
       return this.getSearchLiveList
     },
     ...mapGetters(productStore, ['getSearchProductList',]),
-    searchLives: function() {
+    searchProducts: function() {
       // console.log(this.getLiveProductInfo,'getLiveProductInfo')
       return this.getSearchProductList
     },
