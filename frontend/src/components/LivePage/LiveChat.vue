@@ -101,9 +101,11 @@ export default {
           this.connected = true
           this.stompClient.debug = function (){}
           this.stompClient.subscribe(`/sub/livechat/room/${this.roomId}`, res => {
-            console.log(res)
-            console.log('👆방송종료테스트 res')
-            this.messages.push(JSON.parse(res.body))
+            if (JSON.parse(res.body).type === 'LEAVE') {
+              this.isLive = false
+            } else {
+              this.messages.push(JSON.parse(res.body))
+            }
           })
         },
         error => {

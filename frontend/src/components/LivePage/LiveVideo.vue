@@ -2,17 +2,17 @@
 	<div>
 
 		<!-- test -->
-		<div>
+		<!-- <div>
 		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
 		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
 		💛💛 liveInfo: {{ liveInfo }} 💛💛
-		</div>
+		</div> -->
 
 		<div id="session">
 			<div id="main-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
-			<div v-if="isSeller" class="inline">
+			<div v-if="isSeller" class="inline leave">
 				<button v-if="session" class="btn-r" @click="leaveSession">방송 종료</button>
 			</div>
 			<div v-else>
@@ -111,7 +111,7 @@ export default {
 								publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
 								publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
 								// resolution: '640x480',  // The resolution of your video
-								resolution: '760x540',  // The resolution of your video
+								resolution: '760x530',  // The resolution of your video
 								frameRate: 30,			// The frame rate of your video
 								insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
 								mirror: false       	// Whether to mirror your local video or not
@@ -226,5 +226,8 @@ export default {
 .btn-r:hover {
 	text-shadow: 0 0 5px rgb(255, 238, 0), 0 0 15px rgb(255, 238, 0), 0 0 20px rgb(255, 238, 0), 0 0 30px rgb(255, 238, 0);
   color: #fff;
+}
+.leave {
+	float: right;
 }
 </style>
