@@ -8,31 +8,31 @@
     <div class='d-flex justify-content-evenly'>
       <ul>
         <h2>판매중</h2>
-        <li v-for='product in myPageInfo.issold' :key='product.id'>
+        <li v-for='product in myPageInfo.issold' :key="product.id">
           <router-link :to="{name: 'ProductDetail', params: {product_pk: product.id}}">{{product.title}}</router-link>
         </li>
       </ul>
       <ul>
         <h2>판매완료</h2>
-        <li v-for='soldout in myPageInfo.soldout' :key='soldout.id'>
+        <li v-for='soldout in myPageInfo.soldout' :key="soldout.id">
           <router-link :to="{name: 'ProductDetail', params: {product_pk: soldout.id}}">{{soldout.title}}</router-link>
         </li>
       </ul>
       <ul>
         <h2>구매완료</h2>
-        <li v-for='orderProduct in myPageInfo.orderlist' :key='orderProduct.productpk'>
+        <li v-for='orderProduct in myPageInfo.orderlist' :key="orderProduct.productpk">
           <router-link :to="{name: 'ProductDetail', params: {product_pk: orderProduct.id}}">{{orderProduct.title}}</router-link>
         </li>
       </ul>
       <ul>
         <h2>찜</h2>
-        <li v-for='wishProduct in myPageInfo.wishlist' :key='wishProduct.id'>
+        <li v-for='wishProduct in myPageInfo.wishlist' :key="wishProduct.id">
           <router-link :to="{name: 'ProductDetail', params: {product_pk: wishProduct.id}}">{{wishProduct.title}}</router-link>
         </li>
       </ul>
       <ul>
         <h2>채팅</h2>
-          <li v-for='chatroom in myPageInfo.chatlist' :key='chatroom.chatroompk'>
+          <li v-for='chatroom in myPageInfo.chatlist' :key="chatroom.chatroompk">
             <span v-if='userId==chatroom.useridseller'>
               <router-link :to="{name: 'ChatRoom', params: {pk: chatroom.chatroompk}, query: {nickname: chatroom.buyernickname }}">{{chatroom.buyernickname}}</router-link>
             </span>
