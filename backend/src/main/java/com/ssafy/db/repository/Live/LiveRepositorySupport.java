@@ -3,14 +3,14 @@ package com.ssafy.db.repository.Live;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.LiveTitlePatchReq;
-import com.ssafy.api.request.dto.Live.LiveCategoryDto;
-import com.ssafy.api.request.dto.Live.LiveMainDto;
+import com.ssafy.api.response.dto.Live.LiveCategoryDto;
+import com.ssafy.api.response.dto.Live.LiveMainDto;
+import com.ssafy.api.response.dto.Live.LiveSearchDto;
 import com.ssafy.db.entity.*;
+import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,6 +67,18 @@ public class LiveRepositorySupport {
             String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)
                     .where(qImage.product.id.eq(i.getProductpk())).fetchFirst();
             res.add(new LiveMainDto(i,filepath));
+        }
+        return res;
+    }
+
+    public List<LiveSearchDto> getSearchLives(String search){
+        List<Live> l = jpaQueryFactory.select(qLive).from(qLive)
+                .where(qLive.livetitle.contains(search)).fetch();
+        List<LiveSearchDto> res = new LinkedList();
+        for(Live li : l){
+            String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)
+                    .where(qImage.product.id.eq(li.getProductpk())).fetchFirst();
+            res.add(new LiveSearchDto(li,filepath));
         }
         return res;
     }
