@@ -8,5 +8,4 @@ import lombok.Setter;
 public class LiveDetailReq {
     int liveid;
     String userid;
-    int productpk;
 }

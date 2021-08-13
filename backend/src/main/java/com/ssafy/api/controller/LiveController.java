@@ -52,7 +52,7 @@ public class LiveController {
 		User u = live.get(1, User.class);
 		LivewithUser res = new LivewithUser(l,u);
 		if(liveDetailReq.getUserid() != null){
-			Wish w = productService.findWish(liveDetailReq.getProductpk(),liveDetailReq.getUserid());
+			Wish w = productService.findWish(l.getProductpk(),liveDetailReq.getUserid());
 			if(w == null) res.setFlag(false);
 			else res.setFlag(true);
 		}
