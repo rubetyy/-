@@ -1,16 +1,15 @@
 <template>
   <div>
-    <h1 id="header">제품 상세</h1>
-    
+    <h1 id="header">제품 상세</h1>  
         <!-- {{this.userId.id}}
         {{this.userId.nickname}} -->
     <br>
     <!-- {{ this.thumbnail }} -->
     <div>
-
       <!-- {{ productFile.images[0] }}  -->
       <!-- {{productFile}} -->
     </div>
+  
     <div>
       <div>
         <div class="img-box">
@@ -93,9 +92,11 @@
           <div style="font-size: 25px; ">제품 설명: {{ productFile.images[0].product.description }} </div>
         </div>
       </div>
-      
 
     </div>
+
+    <!-- <Modal>
+    </Modal> -->
   </div>
 </template>
 
@@ -107,11 +108,13 @@ import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
 const liveStore = 'liveStore'
 
+// import Modal from '@/components/Modal.vue'
+
 export default {
   name: 'ProductDetail',
   components: {
     Carousel,
-    // ProductDetailList
+    // Modal
   },
   data() {
       return {
@@ -169,9 +172,9 @@ export default {
         this.sliding = false
       },
       chat() {
+        // 로그인한 사용자가 1대1채팅버튼 누를때 채팅페이지로 이동
         this.$router.push({name:"ChatRoom", params: { userid: this.productFile.images[0].product.userId }})
-
-      }
+      },
   },
 
 
@@ -204,11 +207,7 @@ export default {
         if (betweenTimeDay < 365) {
           return this.createTime = `${betweenTimeDay}일전`
         }
-
-        
         return  this.createTime = `${Math.floor(betweenTimeDay / 365)}년전`
-
-
        })
     },
 }

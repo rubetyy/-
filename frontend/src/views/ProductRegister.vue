@@ -79,8 +79,8 @@
       <h3 slot="header">
         알림!
         <i class="fas fa-time closeModalBtn" @click="showModal=false"></i>
-        </h3>
-        <div slot="body" style="text-align:center">로그인 하세요</div>
+      </h3>
+      <div slot="body" style="text-align:center">로그인 하세요</div>
     </Modal>
 
 </div>
@@ -93,6 +93,8 @@ import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
 const userStore = 'userStore'
 
+import swal from 'sweetalert'
+
 export default {
   name: 'ProductRegister',
 
@@ -102,39 +104,36 @@ export default {
   },
 
   data() {
-      return {
-        selected: '선택',
-        options: [
-          { item: 1, name: '의류' },
-          { item: 2, name: '음식' },
-          { item: 3, name: '전자제품'},
-          { item: 4, name: '기타' }
-        ],
-          files: [], //업로드용 파일
-          files2:[], // 새로 이미지 담을 배열?
-          files3:[], // 테스트용
+    return {
+      selected: '선택',
+      options: [
+        { item: 1, name: '의류' },
+        { item: 2, name: '음식' },
+        { item: 3, name: '전자제품'},
+        { item: 4, name: '기타' }
+      ],
+      files: [], //업로드용 파일
+      files2:[], // 새로 이미지 담을 배열?
+      files3:[], // 테스트용
 
-          filesPreview: [],
-          uploadImageIndex: 0, // 이미지 업로드를 위한 변수
+      filesPreview: [],
+      uploadImageIndex: 0, // 이미지 업로드를 위한 변수
 
-          productFile: {
-              images: '',
-              title: '',
-              category: '',
-              description: '',
-              price: '',
-              is_sold: '',
-              live_status: '',
-              user_id: ''
-             
-          },
-          checkActive: 'active',
-          slide: 0,
-          sliding: null,
-
-          showModal: false,
-          
-      }
+      productFile: {
+        images: '',
+        title: '',
+        category: '',
+        description: '',
+        price: '',
+        is_sold: '',
+        live_status: '',
+        user_id: ''  
+      },
+      checkActive: 'active',
+      slide: 0,
+      sliding: null,
+      showModal: false,
+    }
   },
 
   computed:{
@@ -153,8 +152,7 @@ export default {
       isLogged: function(){
         return this.getToken
     },
-
-    },
+  },
       
   methods: {
       ...mapActions(productStore,[
@@ -166,30 +164,37 @@ export default {
         // this.productFile.user_id = this.userInfo
         console.log(this.productFile.images.length)
         if (this.productFile.images.length == 0) {
-          alert('사진을 등록해주세요')
+          swal({
+            text: '사진을 등록해주세요',
+            icon: 'warning',
+            button: false,
+          })
         }
         else if (this.productFile.title  =='' || this.productFile.category =='' ||
           this.productFile.description =='' || this.productFile.price =='' 
         ) {
-          alert('빈칸을 다 채워주세요')
+          swal({
+            text: '빈칸을 다 채워주세요',
+            icon: 'warning',
+            button: false,
+          })
         } else{
-
-          
           this.register(this.productFile)
-        .then(()=>{
-          console.log(this.productFile,'detail보내기전')
-          //이때 다시 받아와라? store에서 id값 가져올수있나?
-          console.log(this.productInfo)
-          const product_pk = this.productInfo.id
-          this.$router.push({name:"ProductDetail" , params: { product_pk: product_pk}})
-        })
+            .then(()=>{
+              console.log(this.productFile,'detail보내기전')
+              //이때 다시 받아와라? store에서 id값 가져올수있나?
+              console.log(this.productInfo)
+              const product_pk = this.productInfo.id
+              this.$router.push({name:"ProductDetail" , params: { product_pk: product_pk}})
+          })
         }
       },
+
       fileDeleteButton(e) {
         const name = e.target.getAttribute('name');
           this.files = this.files.filter(data => data.number !== Number(name));
       },
-      ///////////
+      
       upload(e) {
         // console.log(e.target.files)
         this.files3.push(e.target.files[0])
@@ -208,7 +213,6 @@ export default {
         }
         // 2. watch로 변환하는거 추적
       },
-
 
       onSlideStart() {
         this.sliding = true
@@ -255,6 +259,4 @@ input, select{
   text-align: center;
   overflow: hidden;
 }
-
-
 </style>

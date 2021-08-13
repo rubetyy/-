@@ -23,8 +23,8 @@
 <script>
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
-
 import Modal from '@/components/Modal'
+import swal from 'sweetalert'
 
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
@@ -55,17 +55,27 @@ export default {
         this.send()
         this.message = ''
       } else if (e.keyCode === 13 && this.sender.trim() == '') {
-        alert('로그인 후 이용해주세요')
+        swal({
+          text: '로그인 후 이용해주세요',
+          icon: 'warning',
+          button: false,
+        })
       }
     },
+
     clickMessage() {
       if(this.sender.trim() !== '' && this.message.trim() !== ''){
         this.send()
         this.message = ''
       } else if (this.sender.trim() == '') {
-        alert('로그인 후 이용해주세요')
+        swal({
+          text: '로그인 후 이용해주세요',
+          icon: 'warning',
+          button: false,
+        })
       }
     },
+
     send() {
       if (this.stompClient && this.stompClient.connected) {
         const msg = {
@@ -77,7 +87,8 @@ export default {
         this.stompClient.debug = function (){}  //do nothing
         this.stompClient.send("/pub/livechat/message", JSON.stringify(msg), {})
       }
-    },    
+    },
+        
     connect() {
       const serverURL = BASE_URL + '/ws'
       let socket = new SockJS(serverURL)

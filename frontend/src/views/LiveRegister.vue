@@ -31,18 +31,22 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 const liveStore = 'liveStore'
+import swal from 'sweetalert'
 
 export default {
   name: 'LiveRegister',
+
   data: function () {
     return {
       livetitle: '',
       pinfo: {},
     } 
   },
+
   created() {
     this.pinfo = this.getProductInfo()
   },
+  
   methods : {
     ...mapGetters(liveStore, ['getProductInfo',]),
 
@@ -65,7 +69,11 @@ export default {
           console.log(err + '방송만들기 에러')
         })
       } else {
-        alert('방송 제목을 입력해주세요')
+        swal({
+          text: '방송 제목을 입력해주세요',
+          icon: 'warning',
+          button: false,
+        })
       }
     },
   },
