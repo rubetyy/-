@@ -23,11 +23,10 @@ public class WishRepositorySupport {
         return a;
     }
 
-    public boolean findWish(int productId, String userid){
+    public Wish findWish(int productId, String userid){
         Wish wish = jpaQueryFactory.select(qWish).from(qWish).where(qWish.productpk.eq(productId),qWish.useridbuyer.eq(userid))
                 .fetchFirst();
-        if(wish == null) return false;
-        return true;
+        return wish;
     }
 
 

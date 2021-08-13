@@ -4,16 +4,14 @@ import com.querydsl.core.Tuple;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.request.dto.Product.*;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
+import com.ssafy.api.response.dto.Product.ProductWishRes;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.api.service.Product.ProductService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Image;
-import com.ssafy.db.entity.Live;
-import com.ssafy.db.entity.Product;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -104,11 +102,18 @@ public class ProductController {
                 nickname = u.getUsernickname();
         }
         productService.addViewCount(Integer.valueOf(productId));
-        boolean flag = productService.findWish(productId,detailReq.getUserid());
+        Wish w = productService.findWish(productId,detailReq.getUserid());
+
+        ProductWishRes wishRes = new ProductWishRes();
+        if(w == null) wishRes.setFlag(false);
+        else {
+            wishRes.setWishproductpk(w.getWishproductpk());
+            wishRes.setFlag(true);
+        }
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);
-        res.put("wish",flag);
+        res.put("wish",wishRes);
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
     }
 
