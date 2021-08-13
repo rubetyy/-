@@ -5,15 +5,15 @@
 		<div>
 		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
 		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
-		<!-- 💛💛 liveInfo: {{ liveInfo }} 💛💛 -->
+		💛💛 liveInfo: {{ liveInfo }} 💛💛
 		</div>
 
 		<div id="session">
 			<div id="main-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
-			<div v-if="isSeller">
-				<button v-if="session" class="btn btn-large btn-danger" @click="leaveSession">Leave session</button>
+			<div v-if="isSeller" class="inline">
+				<button v-if="session" class="btn-r" @click="leaveSession">방송 종료</button>
 			</div>
 			<div v-else>
 				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
@@ -30,6 +30,8 @@ import { mapActions } from 'vuex';
 const liveStore = 'liveStore'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+const BASE_URL = process.env.VUE_APP_BASE_URL
 
 // const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_URL = "https://" + "i5c103.p.ssafy.io";
@@ -52,8 +54,10 @@ export default {
 			publisher: undefined,
 			subscribers: [],
 
-			mySessionId: String(localStorage.getItem('wschat.roomId')),
-			myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
+			// mySessionId: String(localStorage.getItem('wschat.roomId')),
+			// myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
+			mySessionId: localStorage.getItem('wschat.roomId') ? String(localStorage.getItem('wschat.roomId')) : null,
+			myUserName: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
 		}
 	},
 	created() {
@@ -127,9 +131,14 @@ export default {
 
 		leaveSession () {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
-			if (this.session) this.session.disconnect();
-			// 판매자일때만 방송 종료 요청
-
+			if (this.session) {
+				this.session.disconnect();
+				const url = BASE_URL + `/live/end/${this.mySessionId}`
+				axios.delete(url)
+				.then(res => console.log(res))
+				.catch(err => console.log(err))
+				
+			}
 
 			this.session = undefined;
 			this.mainStreamManager = undefined;
@@ -205,3 +214,17 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.btn-r {
+  background-color: rgb(255, 62, 62);
+  border-radius: 15px;
+  padding: 0px 20px;
+  line-height: 42px;
+  color: #fff;
+}
+.btn-r:hover {
+	text-shadow: 0 0 5px rgb(255, 238, 0), 0 0 15px rgb(255, 238, 0), 0 0 20px rgb(255, 238, 0), 0 0 30px rgb(255, 238, 0);
+  color: #fff;
+}
+</style>

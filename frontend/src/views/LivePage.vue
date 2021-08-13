@@ -15,16 +15,10 @@
         </div>
       </div>
 
-      <div class="center-btn">
+      <div v-if="!isSeller" class="inline center-btn">
         <button class="btn-g" @click="goProduct">상품보기</button>
-        <div v-if="isSeller" class="inline">
-          <!-- productpk 로 연결하기 -->
-          <button class="btn-g"><i class="bi bi-x-circle"></i> 방송종료</button>
-        </div>
-        <div v-else class="inline">
-          <button class="btn-g"><i class="bi bi-heart-fill"></i> 찜하기</button>
-          <button class="btn-g" @click="goMain"><i class="bi bi-x-lg"></i> 나가기</button>
-        </div>
+        <button class="btn-g"><i class="bi bi-heart-fill"></i> 찜하기</button>
+        <button class="btn-g" @click="goMain"><i class="bi bi-x-lg"></i> 나가기</button>
       </div>
     <!-- </div> -->
 
@@ -59,6 +53,7 @@ export default {
       isSeller: false,
       // isLive: true,
       // showModal: false,
+      nowUser: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
     }
   },
   created() {
@@ -67,7 +62,7 @@ export default {
     this.getLiveInfo(liveId)
     .then(res => {
       this.data = res.data
-      if (this.data.userid  === JSON.parse(localStorage.getItem('userInfo')).id) {
+      if (this.data.userid  === this.nowUser) {
         this.isSeller = true
       }
     })
@@ -86,7 +81,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #livevideo {
   width: 722px;
   height: 541px;

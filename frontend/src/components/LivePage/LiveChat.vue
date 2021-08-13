@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      sender: '', //닉네임
+      sender: null, //닉네임
       message: '',
       messages: [],
       roomId: '',
@@ -45,16 +45,17 @@ export default {
     }
   },
   created() {
-    this.sender = JSON.parse(localStorage.getItem('userInfo')).nickname
+    // this.sender = JSON.parse(localStorage.getItem('userInfo')).nickname
+    this.sender = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).nickname : null
     this.roomId = localStorage.getItem('wschat.roomId')
     this.connect()
   },
   methods: {
     sendMessage (e) {
-      if(e.keyCode === 13 && this.sender.trim() !== '' && this.message.trim() !== ''){
+      if(e.keyCode === 13 && this.sender !== null && this.message.trim() !== ''){
         this.send()
         this.message = ''
-      } else if (e.keyCode === 13 && this.sender.trim() == '') {
+      } else if (e.keyCode === 13 && this.sender == null) {
         swal({
           text: '로그인 후 이용해주세요',
           icon: 'warning',
@@ -64,10 +65,10 @@ export default {
     },
 
     clickMessage() {
-      if(this.sender.trim() !== '' && this.message.trim() !== ''){
+      if(this.sender !== null && this.message.trim() !== ''){
         this.send()
         this.message = ''
-      } else if (this.sender.trim() == '') {
+      } else if (this.sender == null) {
         swal({
           text: '로그인 후 이용해주세요',
           icon: 'warning',
@@ -100,6 +101,8 @@ export default {
           this.connected = true
           this.stompClient.debug = function (){}
           this.stompClient.subscribe(`/sub/livechat/room/${this.roomId}`, res => {
+            console.log(res)
+            console.log('👆방송종료테스트 res')
             this.messages.push(JSON.parse(res.body))
           })
         },
