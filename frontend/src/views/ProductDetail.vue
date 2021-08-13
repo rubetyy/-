@@ -1,14 +1,14 @@
 <template>
   <div>
     <h1 id="header">제품 상세</h1>
-    <!-- {{this.productFile.wish.wishproductpk}} -->
+    <!-- {{this.productFile}} -->
         <!-- {{this.userId.id}}
         {{this.userId.nickname}} -->
     <br>
     <!-- {{ this.thumbnail }} -->
     <div>
       <!-- {{ productFile.images[0] }}  -->
-      {{productFile.images[0].product.viewCount}}
+      <!-- {{productFile.images[0].product.viewCount}} -->
     </div>
   
     <div>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- <ProductDetailList v-bind:productFile="productFile"/> -->
-      <div v-if="productFile.images[0]" class="content">
+      <div v-if="productFile.images" class="content">
   
           <div style="font-size: 20px;  padding: 30px;">
             <router-link :to="{name: 'ProfilePage', params: {userid: productFile.images[0].product.userId}}">{{productFile.usernickname}}</router-link>
@@ -120,6 +120,8 @@
 </template>
 
 <script>
+import swal from 'sweetalert'
+
 import Carousel from '@/components/Carousel'
 // import ProductDetailList from '@/components/ProductDetailList'
 
@@ -195,6 +197,13 @@ export default {
 
     ...mapActions(userStore, ['startChat']),
     startchat: function() {
+      if (localStorage.getItem('token')==null) {
+        swal({
+          text: '로그인 해주세요',
+          icon: 'warning',
+          button: false,
+        })
+      } else {
       const params = {
         productpk: this.productFile.images[0].product.id,
         useridbuyer: JSON.parse(localStorage.getItem('userInfo')).id,
@@ -204,12 +213,20 @@ export default {
       .then(res => {
         this.$router.push({name: 'ChatRoom', params: {pk: res.chatroompk}, query: {nickname: res.sellernickname }})
       })
+      }
     },
 
     ...mapActions(userStore,[
     'like','dislike'
     ]),
     likeProduct() { // 찜하기
+     if (localStorage.getItem('token')==null) {
+        swal({
+          text: '로그인 해주세요',
+          icon: 'warning',
+          button: false,
+        })
+      } else {
       const useridbuyer  = this.userId.id
       const productpk = this.productFile.images[0].product.id
       const data = {
@@ -220,6 +237,7 @@ export default {
       .then(()=>{
         this.productFile.wish.flag = true
       })
+      }
     },
     ...mapActions(userStore,[
     'dislike',

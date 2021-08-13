@@ -8,6 +8,7 @@
 
       <div v-if="data">
         <div class="title">
+          <!-- {{data}} -->
           <h2 class="inline">{{ data.livetitle }}</h2>
           <router-link :to="{ name: 'ProfilePage', params: { userid: data.userid } }">
             {{ data.usernickname }}
