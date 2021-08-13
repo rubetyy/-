@@ -37,7 +37,7 @@ const userStore = {
     },
   },
 
-  actions: {
+  actions: { //로그인
     async login({commit}, credentials) {
       const LOGIN_URL = BASE_URL + '/auth/login'
       const res = await axios.post(LOGIN_URL, credentials)
@@ -52,6 +52,7 @@ const userStore = {
     logout({commit}){
       commit('LOGOUT')
     },
+    //회원가입
     async signup({dispatch}, credentials) {
       const SIGNUP_URL = BASE_URL + '/users/join'
       const res = await axios.post(SIGNUP_URL, credentials)
@@ -65,7 +66,7 @@ const userStore = {
       const url = BASE_URL + `/mypage/${userId}`
       console.log(url, userId)
       const result = await axios.get(url)
-      console.log(result)
+      // console.log(result,'result')
       return result.data
     },
     async checkNickname (context, nickname) {
@@ -78,6 +79,18 @@ const userStore = {
       const url = BASE_URL + `/users/check/${userId}`
       const res = await axios.get(url)
       return res.data
+    },
+    //찜하기
+    async like(context, data) {
+      const url = BASE_URL + '/product/wish'
+      const res = await axios.post(url, data)
+      console.log(res,'like')
+    },
+    // 찜하기 취소
+    async dislike(context, data) {
+      const url = BASE_URL + `/product/wish/${data}`
+      const res = await axios.delete(url)
+      console.log(res,'dislike')
     },
   }
 }

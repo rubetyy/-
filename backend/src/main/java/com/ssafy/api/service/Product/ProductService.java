@@ -4,6 +4,7 @@ import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
+import com.ssafy.api.request.dto.Product.ProductWishReq;
 import com.ssafy.db.entity.Product;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,4 +20,7 @@ public interface ProductService {
     long soldProduct(String productId);
     long updateProduct(ProductPatchReq productPatchReq);
     long deleteProduct(ProductDeleteReq productDeleteReq);
+    void addWishProduct(ProductWishReq wishReq);
+    long deleteWishProduct(int wishproductid);
+    boolean findWish(int productId, String userid);
 }
