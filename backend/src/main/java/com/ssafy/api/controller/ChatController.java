@@ -54,8 +54,14 @@ public class ChatController {
     //채팅방 생성 채팅방 pk리턴해줌
     @PostMapping("/chatroom/start")
     public ResponseEntity createChat(@RequestBody Chatroom chatroom){
-        //채팅방 생성 Service 호출
-        ChatroomResponseDto chatr = chatService.createChat(chatroom);
+        //존재하면 해당 리턴
+        ChatroomResponseDto chatr = chatService.findChat(chatroom);
+
+        if(chatr == null){
+            // 없으면 채팅방 생성 Service 호출
+            chatr = chatService.createChat(chatroom);
+        }
+
         return new ResponseEntity(chatr, HttpStatus.OK);
     }
 
