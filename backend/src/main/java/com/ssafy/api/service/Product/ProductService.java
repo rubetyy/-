@@ -5,6 +5,7 @@ import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductWishReq;
+import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.db.entity.Product;
 import com.ssafy.db.entity.Wish;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,7 @@ import java.util.List;
 public interface ProductService {
     Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files);
     List<Tuple> getSearchProducts(String search);
-    List<Tuple> getMainProducts();
+    List<ProductListRes> getMainProducts();
     List<Tuple> getProductsByCategory(int categoryId);
     Product getProductByProductId(int productId);
     void addViewCount(int productId);

@@ -4,6 +4,7 @@ import com.querydsl.core.Tuple;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.request.dto.Product.*;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
+import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.api.response.dto.Product.ProductWishRes;
 import com.ssafy.api.service.Chat.ChatServiceImpl;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
@@ -68,7 +69,7 @@ public class ProductController {
         //판매완료 product table에 완료
         Long a = productService.soldProduct(productId);
         //chatroom에 chatroomisbuyer -> 1로 바꿈
-        chatService.
+        chatService.sold(productSoldReq);
 
         return new ResponseEntity(a,HttpStatus.OK);
     }
@@ -118,8 +119,6 @@ public class ProductController {
         res.put("wish",wishRes);
         if(detailReq.getUserid() != null){
             Wish w = productService.findWish(productId,detailReq.getUserid());
-
-
             if(w == null) wishRes.setFlag(false);
             else {
                 wishRes.setWishproductpk(w.getWishproductpk());
@@ -145,28 +144,12 @@ public class ProductController {
 
     @GetMapping("/main")
     @ApiOperation(value = "상품 리스트 조회", notes = "메인페이지에서 상품정보 12개 조회.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
     public ResponseEntity getMainInfo() {
         Map<String,Object> res = new HashMap<>();
-        List<Tuple> l = productService.getMainProducts();
-        int cnt = 0;
-        List<Image> il = new ArrayList<>();
-        for(Tuple t : l){
-            Image image = t.get(0,Image.class);
-            il.add(image);
-        }
-        //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-
-        List<LiveMainDto> liveman = liveService.selectMain();
-
-        res.put("liveList",liveman);
-        res.put("productList",il);
-
+        List<ProductListRes> productMainList = productService.getMainProducts();
+        List<LiveMainDto> liveMainList = liveService.selectMain();
+        res.put("liveList",liveMainList);
+        res.put("productList",productMainList);
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }
 

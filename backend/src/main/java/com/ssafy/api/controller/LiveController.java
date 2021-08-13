@@ -54,7 +54,6 @@ public class LiveController {
 		res.setUsernickname(u.getUsernickname());
 		res.setUserid(u.getUserid());
 		res.setUsercreatedat(u.getUserCreateAt());
-		if(live == null) System.out.println("xxxxx");
 		return new ResponseEntity<LivewithUser>(res, HttpStatus.OK);
 	}
 

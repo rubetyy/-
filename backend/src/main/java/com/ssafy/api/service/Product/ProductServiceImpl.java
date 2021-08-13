@@ -5,6 +5,7 @@ import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductWishReq;
+import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
@@ -83,8 +84,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Tuple> getMainProducts(){
-        return fileRepositorySupport.findMain();
+    public List<ProductListRes> getMainProducts(){
+        return productRepositorySupport.findMain();
     }
 
     @Override

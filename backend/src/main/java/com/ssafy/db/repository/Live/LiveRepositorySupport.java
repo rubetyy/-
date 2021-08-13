@@ -7,6 +7,7 @@ import com.ssafy.api.response.dto.Live.LiveCategoryDto;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
 import com.ssafy.db.entity.*;
+import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,9 @@ public class LiveRepositorySupport {
     QUser qUser = QUser.user;
     QImage qImage = QImage.image;
     QProduct qProduct = QProduct.product;
+
+    @Autowired
+    ImageRepositorySupport fileRepositorySupport;
 
     public Tuple findByLiveId(int liveid){
             Tuple live =  jpaQueryFactory.select(qLive,qUser)
@@ -64,8 +68,7 @@ public class LiveRepositorySupport {
                 .orderBy(qLive.liveviewercount.desc()).limit(12).fetch();
         List<LiveMainDto> res = new LinkedList<>();
         for(Live i : l){
-            String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)
-                    .where(qImage.product.id.eq(i.getProductpk())).fetchFirst();
+            String filepath = fileRepositorySupport.getFilePath(i.getProductpk());
             res.add(new LiveMainDto(i,filepath));
         }
         return res;
@@ -77,8 +80,7 @@ public class LiveRepositorySupport {
                 .orderBy(qLive.liveviewercount.desc()).fetch();
         List<LiveSearchDto> res = new LinkedList();
         for(Live li : l){
-            String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)
-                    .where(qImage.product.id.eq(li.getProductpk())).fetchFirst();
+            String filepath = fileRepositorySupport.getFilePath(li.getProductpk());
             res.add(new LiveSearchDto(li,filepath));
         }
         return res;
@@ -91,8 +93,7 @@ public class LiveRepositorySupport {
         List<LiveCategoryDto> res = new LinkedList<>();
         for(Tuple t : l){
             Live live = t.get(0,Live.class);
-            String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)
-                    .where(qImage.product.id.eq(live.getProductpk())).fetchFirst();
+            String filepath = fileRepositorySupport.getFilePath(live.getProductpk());
             res.add(new LiveCategoryDto(live,filepath));
         }
 

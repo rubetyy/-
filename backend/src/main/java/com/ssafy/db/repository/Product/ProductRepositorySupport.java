@@ -1,15 +1,19 @@
 package com.ssafy.db.repository.Product;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.db.entity.Product;
 import com.ssafy.db.entity.QImage;
 import com.ssafy.db.entity.QLive;
 import com.ssafy.db.entity.QProduct;
+import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
 import com.querydsl.core.Tuple;
+
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,6 +25,21 @@ public class ProductRepositorySupport {
     private JPAQueryFactory jpaQueryFactory;
     QProduct qProduct = QProduct.product;
     QImage qImage = QImage.image;
+
+    @Autowired
+    ImageRepositorySupport fileRepositorySupport;
+
+    public List<Product> findMain(){
+        List<Product> pl = jpaQueryFactory.select(qProduct).from(qProduct)
+                .where(qProduct.isSold.eq(0)).orderBy(qProduct.viewCount.desc())
+                .limit(12).fetch();
+        List<ProductListRes> mainlist = new LinkedList<>();
+        for(Product p : pl){
+            String filepath = fileRepositorySupport.getFilePath(p.getId());
+            mainlist.add(new ProductListRes(p,filepath));
+        }
+        return mainlist;
+    }
 
     public void addViewCount(int productId){
         Product p = jpaQueryFactory.select(qProduct).from(qProduct).where(qProduct.id.eq(productId)).fetchOne();
