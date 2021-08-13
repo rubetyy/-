@@ -73,7 +73,8 @@ public class LiveRepositorySupport {
 
     public List<LiveSearchDto> getSearchLives(String search){
         List<Live> l = jpaQueryFactory.select(qLive).from(qLive)
-                .where(qLive.livetitle.contains(search)).fetch();
+                .where(qLive.livetitle.contains(search))
+                .orderBy(qLive.liveviewercount.desc()).fetch();
         List<LiveSearchDto> res = new LinkedList();
         for(Live li : l){
             String filepath = jpaQueryFactory.select(qImage.filePath).from(qImage)
