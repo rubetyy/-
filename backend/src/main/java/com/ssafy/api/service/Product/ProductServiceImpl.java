@@ -127,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean findWish(int productId, String userid) {
+    public Wish findWish(int productId, String userid) {
         return wishRepositorySupport.findWish(productId,userid);
     }
 }
