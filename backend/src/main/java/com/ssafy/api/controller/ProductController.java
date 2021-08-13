@@ -44,20 +44,15 @@ public class ProductController {
 
     @Autowired
     UserService userService;
-    //검색기능
+    //검색기능 변환완료
     @PostMapping("/search")
     public ResponseEntity searchProduct(@RequestBody ProductSearchReq searchReq){
         String search = searchReq.getSearch();
-        List<LiveSearchDto> ll = liveService.getSearchLives(search);
-        List<Tuple> l = productService.getSearchProducts(search);
-        List<Image> il = new LinkedList<>();
+        List<LiveSearchDto> liveSearchList = liveService.getSearchLives(search);
+        List<ProductListRes> productSearchList = productService.getSearchProducts(search);
         Map<String,Object> res = new HashMap<>();
-        for(Tuple t : l){
-            Image i = t.get(1,Image.class);
-            il.add(i);
-        }
-        res.put("liveList",ll);
-        res.put("productList",il);
+        res.put("liveList",liveSearchList);
+        res.put("productList",productSearchList);
         return new ResponseEntity(res,HttpStatus.OK);
     }
 
@@ -70,7 +65,6 @@ public class ProductController {
         Long a = productService.soldProduct(productId);
         //chatroom에 chatroomisbuyer -> 1로 바꿈
         chatService.sold(productSoldReq);
-
         return new ResponseEntity(a,HttpStatus.OK);
     }
 
@@ -99,12 +93,12 @@ public class ProductController {
         return new ResponseEntity(product,HttpStatus.OK);
     }
 
+    //완료
     @Transactional//조회수 1증가 (update실행)
     @PostMapping("/detail")
     public ResponseEntity getProducts(@RequestBody ProductDetailReq detailReq) {
         int productId = detailReq.getProductpk();
         List<Image> images = fileHandlerService.download(Integer.valueOf(productId));
-
         String nickname = null;
         for(Image i : images){
                 User u = userService.getUserByUserId(i.getProduct().getUserId());
@@ -114,7 +108,7 @@ public class ProductController {
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);
-        //err
+
         ProductWishRes wishRes = new ProductWishRes();
         res.put("wish",wishRes);
         if(detailReq.getUserid() != null){
@@ -124,11 +118,7 @@ public class ProductController {
                 wishRes.setWishproductpk(w.getWishproductpk());
                 wishRes.setFlag(true);
             }
-
         }
-
-
-
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
     }
 
@@ -142,6 +132,7 @@ public class ProductController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
+    //완료
     @GetMapping("/main")
     @ApiOperation(value = "상품 리스트 조회", notes = "메인페이지에서 상품정보 12개 조회.")
     public ResponseEntity getMainInfo() {
@@ -153,12 +144,14 @@ public class ProductController {
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }
 
+    //완료
     @PostMapping("/wish")
     public ResponseEntity wishProduct(@RequestBody ProductWishReq wishproduct) {
         productService.addWishProduct(wishproduct);
         return new ResponseEntity(null, HttpStatus.OK);
     }
 
+    //완료
     @Transactional
     @DeleteMapping("/wish/{wishproductid}")
     public ResponseEntity deleteWishProduct(@PathVariable String wishproductid){

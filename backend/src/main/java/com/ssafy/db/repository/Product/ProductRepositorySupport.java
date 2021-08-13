@@ -8,6 +8,7 @@ import com.ssafy.db.entity.QLive;
 import com.ssafy.db.entity.QProduct;
 import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 
@@ -29,7 +30,7 @@ public class ProductRepositorySupport {
     @Autowired
     ImageRepositorySupport fileRepositorySupport;
 
-    public List<Product> findMain(){
+    public List<ProductListRes> findMain(){
         List<Product> pl = jpaQueryFactory.select(qProduct).from(qProduct)
                 .where(qProduct.isSold.eq(0)).orderBy(qProduct.viewCount.desc())
                 .limit(12).fetch();
@@ -41,17 +42,32 @@ public class ProductRepositorySupport {
         return mainlist;
     }
 
+    public List<ProductListRes> findAllByCategoryId(int categoryid){
+        List<Product> productList = jpaQueryFactory.select(qProduct).from(qProduct)
+                .where(qProduct.categoryId.eq(categoryid)).orderBy(qProduct.viewCount.desc()).fetch();
+        List<ProductListRes> categoryProductList = new LinkedList<>();
+        for(Product p : productList){
+            String filepath = fileRepositorySupport.getFilePath(p.getId());
+            categoryProductList.add(new ProductListRes(p,filepath));
+        }
+        return categoryProductList;
+    }
+
     public void addViewCount(int productId){
         Product p = jpaQueryFactory.select(qProduct).from(qProduct).where(qProduct.id.eq(productId)).fetchOne();
         Integer viewCount = p.getViewCount();
         long a = jpaQueryFactory.update(qProduct).set(qProduct.viewCount,viewCount+1).where(qProduct.id.eq(productId)).execute();
-        System.out.println(a);
     }
 
-    public List<Tuple> searchProduct(String search){
-        List<Tuple> l = jpaQueryFactory.select(qProduct,qImage).from(qProduct)
-                .join(qImage).on(qImage.product.id.eq(qProduct.id)).where(qProduct.title.contains(search)).orderBy(qImage.product.viewCount.desc()).fetch();
-        return l;
+    public List<ProductListRes> searchProduct(String search){
+        List<Product> pl = jpaQueryFactory.select(qProduct).from(qProduct)
+                .where(qProduct.title.contains(search)).orderBy(qProduct.viewCount.desc()).fetch();
+        List<ProductListRes> searchList = new LinkedList<>();
+        for(Product p : pl){
+            String filepath = fileRepositorySupport.getFilePath(p.getId());
+            searchList.add(new ProductListRes(p,filepath));
+        }
+        return searchList;
     }
 
     public Long setLivepk(int liveid,int productpk){

@@ -72,13 +72,13 @@ public class ProductServiceImpl implements ProductService {
      * 카테고리에 속한 상품 전체 조회
      * */
     @Transactional(readOnly = true)
-    public List<Tuple> getProductsByCategory(int categoryId){
-        return fileRepositorySupport.findAllByCategoryId(categoryId);
+    public List<ProductListRes> getProductsByCategory(int categoryId){
+        return productRepositorySupport.findAllByCategoryId(categoryId);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Tuple> getSearchProducts(String search) {
+    public List<ProductListRes> getSearchProducts(String search) {
         return productRepositorySupport.searchProduct(search);
     }
 
