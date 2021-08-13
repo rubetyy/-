@@ -25,7 +25,7 @@ public class Live {
     @Column(name="live_title")
     String livetitle;
     @Column(name="live_viewer_count")
-    Integer liveviewercount;
+    int liveviewercount;
     @Column(name="user_id")
     String userid;
     @Column(name="is_live")
