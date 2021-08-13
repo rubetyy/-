@@ -4,13 +4,17 @@ import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
+import com.ssafy.api.request.dto.Product.ProductWishReq;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
+import com.ssafy.db.entity.Wish;
 import com.ssafy.db.repository.Image.ImageRepository;
 import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import com.ssafy.db.repository.Product.ProductRepository;
 import com.ssafy.db.repository.Product.ProductRepositorySupport;
+import com.ssafy.db.repository.Wish.WishRepository;
+import com.ssafy.db.repository.Wish.WishRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +34,10 @@ public class ProductServiceImpl implements ProductService {
     private FileHandlerService fileHandlerService;
     @Autowired
     private ImageRepositorySupport fileRepositorySupport;
+    @Autowired
+    private WishRepository wishRepository;
+    @Autowired
+    private WishRepositorySupport wishRepositorySupport;
 
     @Override
     public Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files) {
@@ -105,5 +113,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public long deleteProduct(ProductDeleteReq productDeleteReq) {
         return 0;
+    }
+
+    @Override
+    public void addWishProduct(ProductWishReq wishReq) {
+        wishRepository.save(new Wish(wishReq));
+        return;
+    }
+
+    @Override
+    public long deleteWishProduct(int wishproductid) {
+        return wishRepositorySupport.deleteWishProduct(wishproductid);
+    }
+
+    @Override
+    public Wish findWish(int productId, String userid) {
+        return wishRepositorySupport.findWish(productId,userid);
     }
 }

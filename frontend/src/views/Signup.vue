@@ -18,9 +18,15 @@
         <!-- <label for="password">password: </label> -->
         <input type="password" id='password' class="input-form" placeholder="Password" v-model='credentials.password' style="margin-right:149.2px">
       </div>
+      <div>
+        <input type="password " id='password' class="input-form" placeholder="PasswordConfirmation" v-model='credentials.passwordconfirmation' style="margin-right:149.2px">
 
-      <button class="btn-g" v-on:click='signupClick'>회원가입</button>
+      </div>
+      <div style="display: flex; justify-content: center">
+        <button class="btn-g register" v-on:click='signupClick'>회원가입</button>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -42,22 +48,24 @@ export default {
       v : {
         id: false,
         nickname: false,
-      }
+      },
+      text:'',
+      flag: false,
     }
   },
 
   methods : {
     ...mapActions(userStore,['signup']),
     signupClick: function() {
-      if (this.v.nickname && this.v.id && this.credentials.password.trim().length > 3) {
-        this.signup(this.credentials)
-        .then(()=> {
+      if (this.v.nickname && this.v.id && this.credentials.password.trim().length > 3 && this.credentials.password == this.credentials.passwordconfirmation) {
+          this.signup(this.credentials)
+          .then(()=> {
           swal({
             text: '회원가입이 완료되었습니다',
             icon: 'success',
             button: false,
           })
-          this.$router.push({name:"MainPage"})
+            this.$router.push({name:"MainPage"})
         })
       } else if (!this.v.nickname) {
         swal({
@@ -77,6 +85,8 @@ export default {
           icon: 'warning',
           button: false,
         })
+      } else if (this.credentials.password != this.credentials.passwordconfirmation) {
+        alert('비밀번호확인과 같지 않습니다')
       }
     },
 
@@ -138,6 +148,10 @@ export default {
         })
       }
     },
+
+    goback() {
+    this.$router.go(0)
+    },
   },
 }
 </script>
@@ -145,22 +159,30 @@ export default {
 <style scoped>
 div{
   box-sizing: border-box;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 /* .form-background{
   background-color: #ff8a3d;
 } */
 .signup-form {
   height: 700px;
-  padding: 40px;;
+  padding-left: 40px;
+  padding: 40px;
   text-align: left;
   border-radius: 15px;
   background-color: #F9A77C;
 }
 .input-form {
-  margin: 50px;
+  margin: 20px;
+  margin-left: 140px;
   padding: 10px 10px;
   width: 50%;
   border-radius: 5px;
   outline:none;
+}
+.register {
+  display: flex;
+  justify-content: center;
 }
 </style>

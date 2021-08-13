@@ -95,7 +95,13 @@ export default {
       'getSearch'
     ]),
     search() {
-      this.getSearch(this.keyword)
+      const data = {
+        'search' : this.keyword
+      }
+      this.getSearch(data)
+      .then(()=>{
+        this.$router.push({name:"SearchPage"})
+      })
     }
   },
 

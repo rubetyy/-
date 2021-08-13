@@ -2,8 +2,9 @@ package com.ssafy.api.service.Live;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.LiveTitlePatchReq;
-import com.ssafy.api.request.dto.Live.LiveCategoryDto;
-import com.ssafy.api.request.dto.Live.LiveMainDto;
+import com.ssafy.api.response.dto.Live.LiveCategoryDto;
+import com.ssafy.api.response.dto.Live.LiveMainDto;
+import com.ssafy.api.response.dto.Live.LiveSearchDto;
 import com.ssafy.db.entity.Live;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface LiveService {
 	Tuple selectone(String liveid);
 	List<LiveMainDto> selectMain();
 	List<LiveCategoryDto> getLiveByCategory(int categoryid);
+	List<LiveSearchDto> getSearchLives(String search);
 }

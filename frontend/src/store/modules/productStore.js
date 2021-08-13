@@ -11,6 +11,8 @@ const productStore = {
     productList: [], // 메인페이지 상품리스트
     productDetailFile: [], // 상품 단일 상세정보 담는 곳
     CPList: [],
+    SearchLiveList: [],
+    SearchProductList: [],
   },
 
   getters: {
@@ -25,6 +27,12 @@ const productStore = {
     },
     CPList (state) {
       return state.CPList
+    },
+    getSearchLiveList(state) {
+      return state.SearchLiveList
+    },
+    getSearchProductList(state) {
+      return state.SearchProductList
     },
   },
 
@@ -42,6 +50,12 @@ const productStore = {
     },
     SET_CP_LIST (state, data) {
       state.CPList = data
+    },
+    SET_SEARCH_LIVE_LIST (state, data) {
+      state.SearchLiveList = data
+    },
+    SET_SEARCH_PRODUCT_LIST (state, data) {
+      state.SearchProductList = data
     },
   },
 
@@ -80,10 +94,10 @@ const productStore = {
     },
 
     // 제품상세
-    async productDetail({ commit }, product_pk) {   
-      const PRODUCTDETAIL_URL = BASE_URL +  `/product/${product_pk}`
+    async productDetail({ commit }, detailData) {   
+      const PRODUCTDETAIL_URL = BASE_URL + `/product/detail`
       console.log(PRODUCTDETAIL_URL)
-      const response = await axios.get(PRODUCTDETAIL_URL)
+      const response = await axios.post(PRODUCTDETAIL_URL, detailData)
       const data = response.data
       commit('PRODUUCT_DETAIL', data)
     },
@@ -102,12 +116,14 @@ const productStore = {
       context.commit('SET_CP_LIST', res.data.productList)
     },
     // 상품검색
-    async getSearch(context, search) {
-      const url = BASE_URL + `/search/${search}`
+    async getSearch({ commit }, search) {
+      const url = BASE_URL + `/product/search`
       console.log(search)
-      const res = await axios.get(url)
+      
+      const res = await axios.post(url, search)
       console.log(res)
-      // context.commit('SET_SEARCH_LIST', res.data.productList)
+      commit('SET_SEARCH_LIVE_LIST', res.data.liveList) //라이브리스트
+      commit('SET_SEARCH_PRODUCT_LIST', res.data.productList) //상세리스트
     },
   }
 }

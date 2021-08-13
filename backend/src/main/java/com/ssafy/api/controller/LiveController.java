@@ -2,11 +2,9 @@ package com.ssafy.api.controller;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.LiveTitlePatchReq;
-import com.ssafy.api.request.dto.Live.LiveMainDto;
 import com.ssafy.api.response.dto.User.LivewithUser;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Live;
 import com.ssafy.db.entity.User;
 import io.swagger.annotations.*;
@@ -16,10 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.

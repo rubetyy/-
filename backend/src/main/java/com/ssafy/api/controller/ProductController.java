@@ -1,39 +1,29 @@
 package com.ssafy.api.controller;
 
 import com.querydsl.core.Tuple;
-import com.ssafy.api.request.dto.Live.LiveMainDto;
-import com.ssafy.api.request.dto.Product.ProductDeleteReq;
-import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
-import com.ssafy.api.request.dto.Product.ProductPatchReq;
+import com.ssafy.api.response.dto.Live.LiveMainDto;
+import com.ssafy.api.request.dto.Product.*;
+import com.ssafy.api.response.dto.Live.LiveSearchDto;
+import com.ssafy.api.response.dto.Product.ProductWishRes;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.api.service.Product.ProductService;
 import com.ssafy.api.service.UserService;
-import com.ssafy.api.service.UserServiceImpl;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Image;
-import com.ssafy.db.entity.Product;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.*;
 
 @Api(value = "상품관리 API", tags = {"Product"})
@@ -51,16 +41,20 @@ public class ProductController {
     @Autowired
     UserService userService;
     //검색기능
-    @GetMapping("/search/{search}")
-    public ResponseEntity searchProduct(@PathVariable String search){
+    @PostMapping("/search")
+    public ResponseEntity searchProduct(@RequestBody ProductSearchReq searchReq){
+        String search = searchReq.getSearch();
+        List<LiveSearchDto> ll = liveService.getSearchLives(search);
         List<Tuple> l = productService.getSearchProducts(search);
-        List<Product> pl = new ArrayList<>();
-        Map<Integer,Object> imap = new HashMap<>();
+        List<Image> il = new LinkedList<>();
+        Map<String,Object> res = new HashMap<>();
         for(Tuple t : l){
             Image i = t.get(1,Image.class);
-            imap.put(i.getProduct().getId(),i);
+            il.add(i);
         }
-        return new ResponseEntity(imap,HttpStatus.OK);
+        res.put("liveList",ll);
+        res.put("productList",il);
+        return new ResponseEntity(res,HttpStatus.OK);
     }
 
     //물건 판매 처리
@@ -97,8 +91,9 @@ public class ProductController {
     }
 
     @Transactional//조회수 1증가 (update실행)
-    @GetMapping("/{productId}")
-    public ResponseEntity getProducts(@PathVariable String productId) {
+    @PostMapping("/detail")
+    public ResponseEntity getProducts(@RequestBody ProductDetailReq detailReq) {
+        int productId = detailReq.getProductpk();
         List<Image> images = fileHandlerService.download(Integer.valueOf(productId));
 
         String nickname = null;
@@ -107,9 +102,18 @@ public class ProductController {
                 nickname = u.getUsernickname();
         }
         productService.addViewCount(Integer.valueOf(productId));
+        Wish w = productService.findWish(productId,detailReq.getUserid());
+
+        ProductWishRes wishRes = new ProductWishRes();
+        if(w == null) wishRes.setFlag(false);
+        else {
+            wishRes.setWishproductpk(w.getWishproductpk());
+            wishRes.setFlag(true);
+        }
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);
+        res.put("wish",wishRes);
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
     }
 
@@ -150,4 +154,15 @@ public class ProductController {
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }
 
+    @PostMapping("/wish")
+    public ResponseEntity wishProduct(@RequestBody ProductWishReq wishproduct) {
+        productService.addWishProduct(wishproduct);
+        return new ResponseEntity(null, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/wish/{wishproductid}")
+    public ResponseEntity deleteWishProduct(@PathVariable String wishproductid){
+        productService.deleteWishProduct(Integer.valueOf(wishproductid));
+        return new ResponseEntity(null,HttpStatus.OK);
+    }
 }
