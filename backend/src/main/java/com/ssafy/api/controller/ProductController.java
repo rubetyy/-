@@ -106,16 +106,18 @@ public class ProductController {
         res.put("usernickname",nickname);
         res.put("images",images);
         //err
+        ProductWishRes wishRes = new ProductWishRes();
+        res.put("wish",wishRes);
         if(detailReq.getUserid() != null){
             Wish w = productService.findWish(productId,detailReq.getUserid());
 
-            ProductWishRes wishRes = new ProductWishRes();
+
             if(w == null) wishRes.setFlag(false);
             else {
                 wishRes.setWishproductpk(w.getWishproductpk());
                 wishRes.setFlag(true);
             }
-            res.put("wish",wishRes);
+
         }
 
 
