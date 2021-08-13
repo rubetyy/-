@@ -6,6 +6,7 @@ import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductWishReq;
 import com.ssafy.db.entity.Product;
+import com.ssafy.db.entity.Wish;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -22,5 +23,5 @@ public interface ProductService {
     long deleteProduct(ProductDeleteReq productDeleteReq);
     void addWishProduct(ProductWishReq wishReq);
     long deleteWishProduct(int wishproductid);
-    boolean findWish(int productId, String userid);
+    Wish findWish(int productId, String userid);
 }

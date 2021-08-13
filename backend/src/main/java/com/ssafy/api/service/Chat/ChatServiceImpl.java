@@ -48,6 +48,11 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
+	public ChatroomResponseDto findChat(Chatroom chatroom) {
+		return chatRoomRepositorySupport.findChat(chatroom);
+	}
+
+	@Override
 	public boolean check(ChatRoomReq chatRoomReq) {
 		return chatRoomRepositorySupport.check(chatRoomReq);
 	}

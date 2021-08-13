@@ -15,6 +15,7 @@ public interface ChatService {
     public ChatroomResponseDto createChat(Chatroom chatroom);
     public Message talk(ChatMessage chatMessage);
     public List<Message> selectAllChat(int chatroompk);
+    public ChatroomResponseDto findChat(Chatroom chatroom);
     public boolean check(ChatRoomReq chatRoomReq);
 
 }
