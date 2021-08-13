@@ -81,7 +81,7 @@ const userStore = {
       return res.data
     },
     async startChat (context, params) {
-      const url = BASE_URL + `/chat/start`
+      const url = BASE_URL + `/chatroom/start`
       const res = await axios.post(url, params)
       return res.data
     },

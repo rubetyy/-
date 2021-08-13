@@ -58,18 +58,18 @@ export default {
   },
   methods: {
     sendMessage (e) {
-      if(e.keyCode === 13 && this.sender.trim() !== '' && this.message.trim() !== ''){
+      if(e.keyCode === 13 && this.nowUser.trim() !== '' && this.message.trim() !== ''){
         this.send()
         this.message = ''
-      } else if (e.keyCode === 13 && this.sender.trim() == '') {
+      } else if (e.keyCode === 13 && this.nowUser.trim() == '') {
         alert('로그인 후 이용해주세요')
       }
     },
     clickMessage() {
-      if(this.sender.trim() !== '' && this.message.trim() !== ''){
+      if(this.nowUser.trim() !== '' && this.message.trim() !== ''){
         this.send()
         this.message = ''
-      } else if (this.sender.trim() == '') {
+      } else if (this.nowUser.trim() == '') {
         alert('로그인 후 이용해주세요')
       }
     },
@@ -113,11 +113,15 @@ export default {
       }
       axios.post(url, data)
       .then(res => {
-        this.previousMsg = res.data
+        if (res.data.userStatus==1) {
+          this.previousMsg = res.data.talk
+        } else {
+          alert('권한이 없습니다(userStatus)')
+        }
       })
       .catch((err) => {
         console.log(err)
-        alert('권한이 없습니다')
+        alert('권한이 없습니다(error)')
       })
     },
   }

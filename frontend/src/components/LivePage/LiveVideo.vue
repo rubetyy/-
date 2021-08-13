@@ -8,31 +8,10 @@
 		<!-- 💛💛 liveInfo: {{ liveInfo }} 💛💛 -->
 		</div>
 
-		<!-- 방이 안만들어졌을때 나오는 화면 -->
-		<!-- <div id="join" v-if="!session">
-			<div id="join-dialog" class="jumbotron vertical-center">
-				<div class="form-group">
-					<p class="text-center">
-						<button class="btn btn-lg btn-success" @click="joinSession()">Join!</button>
-					</p>
-				</div>
-			</div>
-		</div> -->
-
-		<!-- 방이 만들어졌을 때 나오는 화면 -->
 		<div id="session">
-			<!-- 클릭 화면, 디폴트는 내 화면 (판매자) -->
 			<div id="main-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
-
-			<!-- <div id="video-container" class="col-md-6">
-				내 화면 (판매자)
-				<user-video :stream-manager="publisher"/>
-				나를 제외한 다른 사람들 화면 (구매자 == 안보이도록)
-				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
-			</div> -->
-		
 			<div v-if="isSeller">
 				<button v-if="session" class="btn btn-large btn-danger" @click="leaveSession">Leave session</button>
 			</div>
@@ -127,7 +106,8 @@ export default {
 								videoSource: undefined, // The source of video. If undefined default webcam
 								publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
 								publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-								resolution: '640x480',  // The resolution of your video
+								// resolution: '640x480',  // The resolution of your video
+								resolution: '760x540',  // The resolution of your video
 								frameRate: 30,			// The frame rate of your video
 								insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
 								mirror: false       	// Whether to mirror your local video or not
