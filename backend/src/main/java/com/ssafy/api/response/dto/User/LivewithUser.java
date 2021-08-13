@@ -18,6 +18,7 @@ public class LivewithUser {
     String userid;
     String usernickname;
     boolean flag;
+    int wishproductpk;
     public LivewithUser(Live l, User u){
         this.livepk = l.getLivepk();
         this.productpk = l.getProductpk();

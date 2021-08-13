@@ -54,7 +54,10 @@ public class LiveController {
 		if(liveDetailReq.getUserid() != null){
 			Wish w = productService.findWish(l.getProductpk(),liveDetailReq.getUserid());
 			if(w == null) res.setFlag(false);
-			else res.setFlag(true);
+			else {
+				res.setWishproductpk(w.getWishproductpk());
+				res.setFlag(true);
+			}
 		}
 		return new ResponseEntity<LivewithUser>(res, HttpStatus.OK);
 	}
