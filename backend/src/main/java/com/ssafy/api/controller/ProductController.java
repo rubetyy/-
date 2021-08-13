@@ -166,6 +166,7 @@ public class ProductController {
         return new ResponseEntity(null, HttpStatus.OK);
     }
 
+    @Transactional
     @DeleteMapping("/wish/{wishproductid}")
     public ResponseEntity deleteWishProduct(@PathVariable String wishproductid){
         productService.deleteWishProduct(Integer.valueOf(wishproductid));
