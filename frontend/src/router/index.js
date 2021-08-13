@@ -13,6 +13,8 @@ import LiveRegister from '@/views/LiveRegister.vue'
 import ProductDetail from '@/views/ProductDetail.vue'
 import ChatRoom from '@/views/ChatRoom.vue'
 
+import SearchPage from '@/views/SearchPage.vue'
+
 
 Vue.use(VueRouter)
 
@@ -73,6 +75,11 @@ const routes = [
     path: '/chatroom/:pk',
     name: 'ChatRoom',
     component: ChatRoom
+  },
+  {
+    path: '/product/search',
+    name: 'SearchPage',
+    component: SearchPage
   },
 ]
 

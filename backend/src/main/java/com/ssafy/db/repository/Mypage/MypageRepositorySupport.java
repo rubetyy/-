@@ -59,7 +59,7 @@ public class MypageRepositorySupport {
                 .where(qWish.useridbuyer.eq(userid)).fetch();
         List<MypagePRes> wishlist = new ArrayList<>();
         for(Wish w : wishres){
-            int pk = w.getWishproductpk();
+            int pk = w.getProductpk();
             MypagePRes wish = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
                     .from(qProduct).where(qProduct.id.eq(pk)).fetchOne();
             wishlist.add(wish);

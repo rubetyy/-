@@ -93,8 +93,9 @@ public class ProductController {
     }
 
     @Transactional//조회수 1증가 (update실행)
-    @GetMapping("/{productId}")
-    public ResponseEntity getProducts(@PathVariable String productId) {
+    @PostMapping("/detail")
+    public ResponseEntity getProducts(@RequestBody ProductDetailReq detailReq) {
+        int productId = detailReq.getProductpk();
         List<Image> images = fileHandlerService.download(Integer.valueOf(productId));
 
         String nickname = null;
@@ -103,9 +104,11 @@ public class ProductController {
                 nickname = u.getUsernickname();
         }
         productService.addViewCount(Integer.valueOf(productId));
+        boolean flag = productService.findWish(productId,detailReq.getUserid());
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);
+        res.put("wish",flag);
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
     }
 

@@ -64,7 +64,10 @@ export default {
   async created() {
     this.getMyPage(this.userId)
       .then(response => {
+        // console.log(response)
         this.myPageInfo = response
+        console.log(this.myPageInfo)
+        console.log('들어옴?')
       })
       .catch(error => {
         console.log(error)
