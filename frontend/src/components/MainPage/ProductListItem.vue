@@ -2,7 +2,10 @@
   <div class="col">
     <router-link :to="{name: 'ProductDetail', params: {product_pk: product.product.id}}">
       <div class="card">
-        <img :src="`http://i5c103.p.ssafy.io:8080/${image}`" class="card-img-top" alt="...">
+          <!-- <div class="main-viewcount">
+            <p>{{product.product.viewCount}}</p>
+          </div> -->
+        <img :src="`http://i5c103.p.ssafy.io:8080/${image}`" class="card-img-top main-image" alt="...">
         <div class="card-body">
           <a>{{ product.product.title }}</a>
         </div>
@@ -41,6 +44,8 @@ export default {
   width: 14rem;
   /* height: 400px; */
   margin-top: 50px;
+  position: relative;
+
 }
 
 .card-img-top {
@@ -50,5 +55,9 @@ export default {
 a:active, a:hover {
   color:#1e1e1e !important;
   background-color:transparent !important;
+}
+.main-viewcount {
+  position: absolute;
+
 }
 </style>
