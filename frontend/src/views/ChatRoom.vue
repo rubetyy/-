@@ -37,6 +37,7 @@
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 import axios from 'axios'
+import swal from 'sweetalert'
 
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
@@ -62,7 +63,11 @@ export default {
         this.send()
         this.message = ''
       } else if (e.keyCode === 13 && this.nowUser.trim() == '') {
-        alert('로그인 후 이용해주세요')
+        swal({
+          text: '로그인 후 이용해주세요',
+          icon: 'warning',
+          button: false,
+        })
       }
     },
     clickMessage() {
@@ -70,7 +75,11 @@ export default {
         this.send()
         this.message = ''
       } else if (this.nowUser.trim() == '') {
-        alert('로그인 후 이용해주세요')
+        swal({
+          text: '로그인 후 이용해주세요',
+          icon: 'warning',
+          button: false,
+        })
       }
     },
     send() {
@@ -116,19 +125,27 @@ export default {
         if (res.data.userStatus==1) {
           this.previousMsg = res.data.talk
         } else {
-          alert('권한이 없습니다(userStatus)')
+          swal({
+            text: '권한이 없습니다',
+            icon: 'warning',
+            button: false,
+          })
         }
       })
       .catch((err) => {
         console.log(err)
-        alert('권한이 없습니다(error)')
+        swal({
+          text: '권한이 없습니다',
+          icon: 'warning',
+          button: false,
+        })
       })
     },
   }
 }
 </script>
 
-<style>
+<style scoped>
 #chatroom {
   max-width: 1000px;
   border-radius: 5px;
