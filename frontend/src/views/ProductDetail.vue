@@ -7,10 +7,10 @@
     <br>
     <!-- {{ this.thumbnail }} -->
     <div>
-
       <!-- {{ productFile.images[0] }}  -->
       {{productFile.images[0].product.viewCount}}
     </div>
+  
     <div>
       <div>
         <div class="img-box">
@@ -107,9 +107,11 @@
           <div style="font-size: 25px; ">제품 설명: {{ productFile.images[0].product.description }} </div>
         </div>
       </div>
-      
 
     </div>
+
+    <!-- <Modal>
+    </Modal> -->
   </div>
 </template>
 
@@ -122,11 +124,13 @@ const productStore = 'productStore'
 const liveStore = 'liveStore'
 const userStore = 'userStore'
 
+// import Modal from '@/components/Modal.vue'
+
 export default {
   name: 'ProductDetail',
   components: {
     Carousel,
-    // ProductDetailList
+    // Modal
   },
   data() {
       return {
@@ -261,11 +265,7 @@ export default {
         if (betweenTimeDay < 365) {
           return this.createTime = `${betweenTimeDay}일전`
         }
-
-        
         return  this.createTime = `${Math.floor(betweenTimeDay / 365)}년전`
-
-
        })
     },
 }
