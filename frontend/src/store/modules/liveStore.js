@@ -53,10 +53,10 @@ const liveStore = {
         throw new Error(res.status)
       }
     },
-    getLiveInfo: async function (context, params) {
+    getLiveInfo: async function (context, data) {
       const url = BASE_URL + `/live`
-      const res = await axios.post(url, params)
-      console.log(res)
+      const res = await axios.post(url, data)
+      console.log(res,'resres')
       if (res.status === 200) {
         console.log('겟라이브인포 성공')
         return res
