@@ -8,7 +8,7 @@
         <template #img >
           <img 
             class="d-block w-70 m-auto"
-            width="1024"
+           
 
             :src="`http://i5c103.p.ssafy.io:8080/${file}`"
             alt="image slot"
@@ -36,7 +36,9 @@ export default {
   display: none !important;
 }
 .max-size {
-  max-height: 700px;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 </style>
