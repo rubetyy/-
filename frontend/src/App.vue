@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <div id="nav">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -50,9 +50,9 @@
       <router-view/> 
     </div>
 
-    <footer class='bg-light'>
+    <!-- <footer class='bg-light'>
       © 2021 광주3팀 서울광주롱디팀
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -124,15 +124,9 @@ export default {
     font-style: normal;
 }
 
-/* #app {
-  font-family: 'Noto Sans KR';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #1e1e1e;
-  max-width: 1200px;
-  min-width: 400px;
-  margin: 0 auto;
-} */
+#app {
+  min-height: 90vh;
+}
 
 /* 임시 네비게이션 바 (추후 변경예정) */
 #nav {
@@ -148,16 +142,6 @@ export default {
 }
 .container-fluid {
   padding-inline: 100px;
-}
-
-footer {
-  /* position: absolute; */
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 /* 컨텐츠 내부 (개발하기 편하게 일단 위아래 여백 뒀습니다) */

@@ -4,7 +4,7 @@
       To. {{ this.receiver }}
     </h1>
     <div id="chatroom">
-      <div class="chatlog">
+      <div id="chatlog" ref="messages" class="chatlog">
         <div v-for="(item, idx) in previousMsg" :key="100-idx">
           <div v-if="item.sender==nowUser" class="myMsg">
             <span class="msg">{{ item.message }}</span>
@@ -62,6 +62,17 @@ export default {
   created() {
     this.connect()
     this.getMsg()
+    // var chatlog = document.getElementById('chatlog')
+    // chatlog.scrollIntoView(false)
+    // chatlog.scrollTop = chatlog.scrollHeight
+  },
+  watch: {
+    messages() {
+      this.$nextTick(() => {
+        let messages = this.$refs.messages
+        messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' })
+      })
+    },
   },
   methods: {
     sendMessage (e) {

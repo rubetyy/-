@@ -1,42 +1,40 @@
 <template>
   <div>
-    <!-- <div v-if="isLive"> -->
-      <div id="livevideo">
-        <LiveVideo :liveInfo="data" :isSeller="isSeller" />
-      </div>
-      <LiveChat />
-
+    <div v-if="isLive">
       <div v-if="data">
         <div class="title">
-          <!-- {{data}} -->
-          <h2 class="inline">{{ data.livetitle }}</h2>
+          <div class="inline">{{ data.livetitle }}</div>
           <router-link :to="{ name: 'ProfilePage', params: { userid: data.userid } }">
             {{ data.usernickname }}
           </router-link>
         </div>
       </div>
 
-      <div v-if="!isSeller" class="inline center-btn">
+      <div id="livevideo">
+        <LiveVideo :liveInfo="data" :isSeller="isSeller" />
+      </div>
+      <LiveChat />
+
+      <div v-if="!isSeller" class="center-btn" style="margin-top:30px;">
         <button class="btn-g" @click="goProduct">상품보기</button>
         <button class="btn-g"><i class="bi bi-heart-fill"></i> 찜하기</button>
         <button class="btn-g" @click="goMain"><i class="bi bi-x-lg"></i> 나가기</button>
       </div>
-    <!-- </div> -->
+    </div>
 
-    <!-- <Modal v-else @close="showModal=false">
+    <Modal v-else @close="showModal=false" :fct="goMain">
       <h3 slot="header">
         알림!
-        <i class="fas fa-time closeModalBtn" @click="showModal=false"></i>
-        </h3>
-        <div slot="body" style="text-align:center">현재 방송중이 아닙니다</div>
-    </Modal> -->
+      </h3>
+      <div slot="body" style="text-align:center">현재 방송중이 아닙니다</div>
+    </Modal>
   </div>
 </template>
 
 <script>
 import LiveVideo from '@/components/LivePage/LiveVideo'
 import LiveChat from '@/components/LivePage/LiveChat'
-// import Modal from '@/components/Modal'
+import Modal from '@/components/Modal'
 
 import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
@@ -46,13 +44,13 @@ export default {
   components: {
     LiveVideo,
     LiveChat,
-    // Modal,
+    Modal,
   },
   data: function () {
     return {
       data: null,
       isSeller: false,
-      // isLive: true,
+      isLive: true,
       // showModal: false,
       nowUser: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
     }
@@ -84,9 +82,9 @@ export default {
 
 <style>
 #livevideo {
-  width: 722px;
-  height: 541px;
-  border: 1px solid red;
+  width: 770px;
+  height: 540px;
+  /* border: 1px solid red; */
   display: inline-block;
 }
 .inline {
@@ -94,11 +92,16 @@ export default {
 }
 .title {
   width: 700px;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
+}
+.title > div {
+  font-family: 'netmarbleB';
+  font-size: 2.2rem;
 }
 .btn-g {
   margin-left: 20px;
