@@ -34,10 +34,10 @@
         <h2>채팅</h2>
           <li v-for='chatroom in myPageInfo.chatlist' :key="chatroom.chatroompk">
             <span v-if='userId==chatroom.useridseller'>
-              <router-link :to="{name: 'ChatRoom', params: {pk: chatroom.chatroompk}, query: {nickname: chatroom.buyernickname }}">{{chatroom.buyernickname}}</router-link>
+              <router-link :to="{name: 'ChatRoom', params: {pk: chatroom.chatroompk}, query: {nickname: chatroom.buyernickname, productpk: chatroom.productpk  }}">{{chatroom.buyernickname}}</router-link>
             </span>
             <span v-else>
-              <router-link :to="{name: 'ChatRoom', params: {pk: chatroom.chatroompk}, query: {nickname: chatroom.sellernickname }}">{{chatroom.sellernickname}}</router-link>
+              <router-link :to="{name: 'ChatRoom', params: {pk: chatroom.chatroompk}, query: {nickname: chatroom.sellernickname, productpk: chatroom.productpk }}">{{chatroom.sellernickname}}</router-link>
             </span>
           </li>
       </ul>

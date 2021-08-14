@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.response.dto.Live.LiveCategoryDto;
+import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.api.service.Product.ProductService;
 import com.ssafy.db.entity.Image;
@@ -32,16 +33,12 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 리스트 조회", notes = "카테고리페이지에서 상품정보 12개 조회.")
     public ResponseEntity getCategoryProducts(@PathVariable String Id) {
         Map<String,Object> res = new HashMap<>();
-        List<Tuple> l = productService.getProductsByCategory(Integer.valueOf(Id));
-        List<LiveCategoryDto> ll = liveService.getLiveByCategory(Integer.valueOf(Id));
-        int cnt = 0;
-        List<Image> il = new ArrayList<>();
-        for(Tuple t : l){
-            Image image = t.get(0,Image.class);
-            il.add(image);
-        }
-        res.put("liveList",ll);
-        res.put("productList",il);
+
+        List<ProductListRes> categoryProductList = productService.getProductsByCategory(Integer.valueOf(Id));
+        List<LiveCategoryDto> categoryLiveList = liveService.getLiveByCategory(Integer.valueOf(Id));
+
+        res.put("liveList",categoryLiveList);
+        res.put("productList",categoryProductList);
 
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }

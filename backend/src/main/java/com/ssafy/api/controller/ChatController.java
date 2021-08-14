@@ -51,6 +51,7 @@ public class ChatController {
         messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
 
     }
+    
     //방송 종료
     @Transactional
     @DeleteMapping(value="/live/end/{liveid}")
