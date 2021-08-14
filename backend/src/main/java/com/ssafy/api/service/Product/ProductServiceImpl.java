@@ -5,6 +5,7 @@ import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
 import com.ssafy.api.request.dto.Product.ProductWishReq;
+import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
@@ -71,20 +72,20 @@ public class ProductServiceImpl implements ProductService {
      * 카테고리에 속한 상품 전체 조회
      * */
     @Transactional(readOnly = true)
-    public List<Tuple> getProductsByCategory(int categoryId){
-        return fileRepositorySupport.findAllByCategoryId(categoryId);
+    public List<ProductListRes> getProductsByCategory(int categoryId){
+        return productRepositorySupport.findAllByCategoryId(categoryId);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Tuple> getSearchProducts(String search) {
+    public List<ProductListRes> getSearchProducts(String search) {
         return productRepositorySupport.searchProduct(search);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Tuple> getMainProducts(){
-        return fileRepositorySupport.findMain();
+    public List<ProductListRes> getMainProducts(){
+        return productRepositorySupport.findMain();
     }
 
     @Override
@@ -100,8 +101,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public long soldProduct(String productId) {
-        Long a = productRepositorySupport.soldProduct(Integer.valueOf(productId));
+    public long soldProduct(int productId) {
+        Long a = productRepositorySupport.soldProduct(productId);
         return 0;
     }
 

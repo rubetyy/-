@@ -17,7 +17,7 @@ public class ChatMessageRepositorySupport {
 
     public List<Message> selectAllChat(int chatroompk){
         return jpaQueryFactory.select(qMessage).from(qMessage)
-                .where(qMessage.roomId.eq(chatroompk)).fetch();
+                .where(qMessage.roomId.eq(chatroompk)).orderBy(qMessage.now.asc()).fetch();
     }
 
 

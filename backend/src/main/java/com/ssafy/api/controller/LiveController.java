@@ -1,12 +1,16 @@
 package com.ssafy.api.controller;
 
 import com.querydsl.core.Tuple;
-import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveDetailReq;
+import com.ssafy.api.response.dto.Product.ProductWishRes;
 import com.ssafy.api.response.dto.User.LivewithUser;
 import com.ssafy.api.service.Live.LiveService;
+import com.ssafy.api.service.Product.ProductServiceImpl;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Live;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.Wish;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +30,9 @@ public class LiveController {
 	@Autowired
 	LiveService liveService;
 
+	@Autowired
+	ProductServiceImpl productService;
+
 	@Transactional
 	@PostMapping("/live/live-start")
 	public ResponseEntity create(
@@ -35,26 +42,23 @@ public class LiveController {
 		return new ResponseEntity<Live>(live,HttpStatus.OK);
 	}
 
-	@GetMapping("/live/{liveid}")
+	@PostMapping("/live")
 	@ApiOperation(value = "해당방송정보반환", notes = "방송정보를 반환한다.")
-	public ResponseEntity selectOne(
-			@RequestBody @ApiParam(value="방송pk 정보", required = true) @PathVariable String liveid) {
+	public ResponseEntity selectOne(@RequestBody  LiveDetailReq liveDetailReq) {
 
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-
-		Tuple live = liveService.selectone(liveid);
+		Tuple live = liveService.selectone(liveDetailReq.getLiveid());
 		Live l = live.get(0,Live.class);
 		User u = live.get(1, User.class);
-		LivewithUser res = new LivewithUser();
-		res.setLivepk(l.getLivepk());
-		res.setProductpk(l.getProductpk());
-		res.setLivetitle(l.getLivetitle());
-		res.setLiveviewercount(l.getLiveviewercount());
-		res.setIslive(l.getIslive());
-		res.setUsernickname(u.getUsernickname());
-		res.setUserid(u.getUserid());
-		res.setUsercreatedat(u.getUserCreateAt());
-		if(live == null) System.out.println("xxxxx");
+		LivewithUser res = new LivewithUser(l,u);
+		if(liveDetailReq.getUserid() != null){
+			Wish w = productService.findWish(l.getProductpk(),liveDetailReq.getUserid());
+			if(w == null) res.setFlag(false);
+			else {
+				res.setWishproductpk(w.getWishproductpk());
+				res.setFlag(true);
+			}
+		}
 		return new ResponseEntity<LivewithUser>(res, HttpStatus.OK);
 	}
 

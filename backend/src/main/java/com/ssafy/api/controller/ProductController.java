@@ -4,7 +4,9 @@ import com.querydsl.core.Tuple;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.request.dto.Product.*;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
+import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.api.response.dto.Product.ProductWishRes;
+import com.ssafy.api.service.Chat.ChatServiceImpl;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.api.service.Product.ProductService;
@@ -37,31 +39,32 @@ public class ProductController {
     FileHandlerService fileHandlerService;
     @Autowired
     LiveService liveService;
+    @Autowired
+    ChatServiceImpl chatService;
 
     @Autowired
     UserService userService;
-    //검색기능
+    //검색기능 변환완료
     @PostMapping("/search")
     public ResponseEntity searchProduct(@RequestBody ProductSearchReq searchReq){
         String search = searchReq.getSearch();
-        List<LiveSearchDto> ll = liveService.getSearchLives(search);
-        List<Tuple> l = productService.getSearchProducts(search);
-        List<Image> il = new LinkedList<>();
+        List<LiveSearchDto> liveSearchList = liveService.getSearchLives(search);
+        List<ProductListRes> productSearchList = productService.getSearchProducts(search);
         Map<String,Object> res = new HashMap<>();
-        for(Tuple t : l){
-            Image i = t.get(1,Image.class);
-            il.add(i);
-        }
-        res.put("liveList",ll);
-        res.put("productList",il);
+        res.put("liveList",liveSearchList);
+        res.put("productList",productSearchList);
         return new ResponseEntity(res,HttpStatus.OK);
     }
 
     //물건 판매 처리
     @Transactional
-    @GetMapping("/sold/{productId}")
-    public ResponseEntity soldProduct(@PathVariable String productId){
+    @PostMapping("/sold")
+    public ResponseEntity soldProduct(@RequestBody ProductSoldReq productSoldReq){
+        int productId = productSoldReq.getProductpk();
+        //판매완료 product table에 완료
         Long a = productService.soldProduct(productId);
+        //chatroom에 chatroomisbuyer -> 1로 바꿈
+        chatService.sold(productSoldReq);
         return new ResponseEntity(a,HttpStatus.OK);
     }
 
@@ -90,12 +93,12 @@ public class ProductController {
         return new ResponseEntity(product,HttpStatus.OK);
     }
 
+    //완료
     @Transactional//조회수 1증가 (update실행)
     @PostMapping("/detail")
     public ResponseEntity getProducts(@RequestBody ProductDetailReq detailReq) {
         int productId = detailReq.getProductpk();
         List<Image> images = fileHandlerService.download(Integer.valueOf(productId));
-
         String nickname = null;
         for(Image i : images){
                 User u = userService.getUserByUserId(i.getProduct().getUserId());
@@ -105,23 +108,17 @@ public class ProductController {
         Map<String,Object> res = new HashMap<String,Object>();
         res.put("usernickname",nickname);
         res.put("images",images);
-        //err
+
         ProductWishRes wishRes = new ProductWishRes();
         res.put("wish",wishRes);
         if(detailReq.getUserid() != null){
             Wish w = productService.findWish(productId,detailReq.getUserid());
-
-
             if(w == null) wishRes.setFlag(false);
             else {
                 wishRes.setWishproductpk(w.getWishproductpk());
                 wishRes.setFlag(true);
             }
-
         }
-
-
-
         return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
     }
 
@@ -135,39 +132,26 @@ public class ProductController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
+    //완료
     @GetMapping("/main")
     @ApiOperation(value = "상품 리스트 조회", notes = "메인페이지에서 상품정보 12개 조회.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
     public ResponseEntity getMainInfo() {
         Map<String,Object> res = new HashMap<>();
-        List<Tuple> l = productService.getMainProducts();
-        int cnt = 0;
-        List<Image> il = new ArrayList<>();
-        for(Tuple t : l){
-            Image image = t.get(0,Image.class);
-            il.add(image);
-        }
-        //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-
-        List<LiveMainDto> liveman = liveService.selectMain();
-
-        res.put("liveList",liveman);
-        res.put("productList",il);
-
+        List<ProductListRes> productMainList = productService.getMainProducts();
+        List<LiveMainDto> liveMainList = liveService.selectMain();
+        res.put("liveList",liveMainList);
+        res.put("productList",productMainList);
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }
 
+    //완료
     @PostMapping("/wish")
     public ResponseEntity wishProduct(@RequestBody ProductWishReq wishproduct) {
         productService.addWishProduct(wishproduct);
         return new ResponseEntity(null, HttpStatus.OK);
     }
 
+    //완료
     @Transactional
     @DeleteMapping("/wish/{wishproductid}")
     public ResponseEntity deleteWishProduct(@PathVariable String wishproductid){

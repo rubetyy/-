@@ -2,6 +2,7 @@ package com.ssafy.db.repository.Chatroom;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.dto.Chat.ChatRoomReq;
+import com.ssafy.api.request.dto.Product.ProductSoldReq;
 import com.ssafy.api.response.dto.Chatroom.ChatroomResponseDto;
 import com.ssafy.db.entity.Chatroom;
 import com.ssafy.db.entity.QChatroom;
@@ -49,6 +50,11 @@ public class ChatRoomRepositorySupport {
         return flag;
     }
 
+    public void soldProduct(ProductSoldReq productSoldReq){
+        jpaQueryFactory.update(qChatroom).set(qChatroom.buy,1)
+                .where(qChatroom.productpk.eq(productSoldReq.getProductpk()),qChatroom.useridbuyer.eq(productSoldReq.getUserid()))
+                .execute();
+    }
 
 
 }

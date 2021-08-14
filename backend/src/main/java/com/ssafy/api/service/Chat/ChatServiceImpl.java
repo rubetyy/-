@@ -2,6 +2,7 @@ package com.ssafy.api.service.Chat;
 
 import com.ssafy.api.request.dto.Chat.ChatMessage;
 import com.ssafy.api.request.dto.Chat.ChatRoomReq;
+import com.ssafy.api.request.dto.Product.ProductSoldReq;
 import com.ssafy.api.response.dto.Chatroom.ChatroomResponseDto;
 import com.ssafy.db.entity.Chatroom;
 import com.ssafy.db.entity.Message;
@@ -55,5 +56,10 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public boolean check(ChatRoomReq chatRoomReq) {
 		return chatRoomRepositorySupport.check(chatRoomReq);
+	}
+
+	@Override
+	public void sold(ProductSoldReq productSoldReq) {
+		chatRoomRepositorySupport.soldProduct(productSoldReq);
 	}
 }
