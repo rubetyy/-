@@ -1,7 +1,7 @@
 package com.ssafy.api.service.Live;
 
 import com.querydsl.core.Tuple;
-import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
 import com.ssafy.api.response.dto.Live.LiveCategoryDto;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
@@ -62,8 +62,8 @@ public class LiveServiceImpl implements LiveService {
 	}
 
 	@Override
-	public Tuple selectone(String liveid) {
-		return liveRepositorySupport.findByLiveId(Integer.valueOf(liveid));
+	public Tuple selectone(int liveid) {
+		return liveRepositorySupport.findByLiveId(liveid);
 	}
 
 	@Override
