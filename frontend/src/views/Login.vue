@@ -19,41 +19,57 @@
 </template>
 
 <script>
+import swal from 'sweetalert'
 import { mapActions } from 'vuex'
-
 const userStore = 'userStore'
 
 export default {
   name: 'Login',
+
   data: function () {
     return {
       credentials: {
         id: null,
         password: null,
       },
-   
     }
   },
+
   methods: {
     ...mapActions(userStore, [
       'login',
     ]),
     loginClick(){
-      this.login(this.credentials)
-      .then(()=>{
-        this.$router.push({name:"MainPage"})
-      })
+      if (this.credentials.id == null) {
+        swal({
+          text: '아이디를 입력하세요',
+          icon: 'warning',
+          button: false,
+        })
+      } else if (this.credentials.password == null) {
+        swal({
+          text: '비밀번호를 입력하세요',
+          icon: 'warning',
+          button: false,
+        })
+      } else {
+        this.login(this.credentials)
+        .then(() =>{
+          this.$router.push({name:"MainPage"})
+        })
+        .catch(error => {
+          console.log('333', error)
+          // 아이디 없으면 500
+
+          // 비번 틀리면 401
+        })
+      }
     }
-
-
-    }
-
-
+  }
 }
 </script>
 
 <style scoped>
-
 div{
   box-sizing: border-box;
 }
@@ -63,7 +79,6 @@ div{
   text-align: center;
   border-radius: 15px;
   background-color: #F9A77C;
-
 }
 .input-form {
   margin: 50px;
@@ -72,5 +87,4 @@ div{
   border-radius: 5px;
   outline:none;
 }
-
 </style>
