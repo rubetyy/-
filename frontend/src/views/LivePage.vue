@@ -57,8 +57,12 @@ export default {
   },
   created() {
     const liveId = this.$route.params.id
+    const params = {
+      liveid: this.liveId,
+      userid: this.nowUser,
+    }
     localStorage.setItem('wschat.roomId',liveId)
-    this.getLiveInfo(liveId)
+    this.getLiveInfo(params)
     .then(res => {
       this.data = res.data
       if (this.data.userid  === this.nowUser) {
