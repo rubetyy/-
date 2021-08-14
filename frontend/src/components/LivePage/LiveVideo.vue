@@ -2,11 +2,11 @@
 	<div>
 
 		<!-- test -->
-		<!-- <div>
+		<div>
 		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
 		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
 		💛💛 liveInfo: {{ liveInfo }} 💛💛
-		</div> -->
+		</div>
 
 		<div id="session">
 			<div id="main-video" class="col-md-6">
@@ -27,8 +27,8 @@
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from '@/components/LivePage/UserVideo';
-import { mapActions } from 'vuex';
-const liveStore = 'liveStore'
+// import { mapActions } from 'vuex';
+// const liveStore = 'liveStore'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -209,7 +209,7 @@ export default {
 					.catch(error => reject(error.response));
 			});
 		},
-		...mapActions(liveStore, ['getLiveInfo']),
+		// ...mapActions(liveStore, ['getLiveInfo']),
 	},
 
 
