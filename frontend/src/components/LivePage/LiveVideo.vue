@@ -13,6 +13,7 @@
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
 			<div v-if="isSeller" class="inline leave">
+				<span class="caution2">방송종료 버튼을 클릭하면 방송이 종료됩니다!</span>
 				<button v-if="session" class="btn-r" @click="leaveSession">방송 종료</button>
 			</div>
 			<div v-else>
@@ -216,12 +217,19 @@ export default {
 </script>
 
 <style scoped>
+.caution2 {
+	font-size: 1.05rem;
+	font-weight: 500;
+  color: #ff5f37;
+}
 .btn-r {
   background-color: rgb(255, 62, 62);
   border-radius: 15px;
-  padding: 0px 20px;
+  padding: 8px 25px;
+	font-size: 1.2rem;
   line-height: 42px;
   color: #fff;
+	margin-left: 10px;
 }
 .btn-r:hover {
 	text-shadow: 0 0 5px rgb(255, 238, 0), 0 0 15px rgb(255, 238, 0), 0 0 20px rgb(255, 238, 0), 0 0 30px rgb(255, 238, 0);
