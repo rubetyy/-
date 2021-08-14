@@ -2,11 +2,11 @@
 	<div>
 
 		<!-- test -->
-		<div>
+		<!-- <div>
 		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
 		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
 		💛💛 liveInfo: {{ liveInfo }} 💛💛
-		</div>
+		</div> -->
 
 		<div id="session">
 			<div id="main-video" class="col-md-6">
@@ -127,25 +127,25 @@ export default {
 					});
 			});
 
-			window.addEventListener('beforeunload', this.leaveSession)
+			// window.addEventListener('beforeunload', this.leaveSession)
 		},
 
 		leaveSession () {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
 			if (this.session) {
 				this.session.disconnect();
+				this.session = undefined;
+				this.mainStreamManager = undefined;
+				this.publisher = undefined;
+				this.subscribers = [];
+				this.OV = undefined;
+				
 				const url = BASE_URL + `/live/end/${this.mySessionId}`
 				axios.delete(url)
 				.then(res => console.log(res))
 				.catch(err => console.log(err))
-				
 			}
 
-			this.session = undefined;
-			this.mainStreamManager = undefined;
-			this.publisher = undefined;
-			this.subscribers = [];
-			this.OV = undefined;
 
 			window.removeEventListener('beforeunload', this.leaveSession);
 		},
