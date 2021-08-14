@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1 id="header">방송 만들기</h1>
+    <h1 id="header">방송 시작하기</h1>
 
     <div class="form-box">
-      <div style="margin-bottom: 30px;">
+      <div style="margin-bottom: 40px; font-size:1.1rem;">
         <span>판매 상품 : </span>
         <router-link :to="{name: 'ProductDetail', params: { product_pk: pinfo.productPk }}">
           {{ pinfo.productTitle }} <i class="bi bi-arrow-up-right-square-fill"></i>
@@ -18,8 +18,11 @@
         v-model="livetitle"
         maxlength="50"
         show-word-limit
-        style="margin-bottom: 30px;"
       >
+    </div>
+    <div class="caution">
+      방송시작하기 버튼을 클릭하면 <strong>바로</strong> 방송이 시작됩니다!<br>
+      방송 준비가 다 끝난 후에 시작버튼을 클릭해주세요
     </div>
     <div class="center-btn">
       <button class="btn-o" @click="startlive">방송 시작하기</button>
@@ -83,6 +86,16 @@ export default {
 <style scoped>
 i {
   color:#ff8a3d;
+}
+.form-control {
+  margin-bottom: 30px;
+  line-height: 35px;
+}
+.caution {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ff9046;
 }
 
 </style>
