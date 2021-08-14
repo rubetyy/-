@@ -25,7 +25,6 @@ public class ProductRepositorySupport {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
     QProduct qProduct = QProduct.product;
-    QImage qImage = QImage.image;
 
     @Autowired
     ImageRepositorySupport fileRepositorySupport;

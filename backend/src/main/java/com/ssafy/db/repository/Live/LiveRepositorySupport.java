@@ -24,7 +24,6 @@ public class LiveRepositorySupport {
     private JPAQueryFactory jpaQueryFactory;
     QLive qLive = QLive.live;
     QUser qUser = QUser.user;
-    QImage qImage = QImage.image;
     QProduct qProduct = QProduct.product;
 
     @Autowired
