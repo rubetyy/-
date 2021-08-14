@@ -1,13 +1,13 @@
 <template>
   <div class="col">
-    <router-link :to="{name: 'ProductDetail', params: {product_pk: product.product.id}}">
+    <router-link :to="{name: 'ProductDetail', params: {product_pk: product.id}}">
       <div class="card">
           <!-- <div class="main-viewcount">
             <p>{{product.product.viewCount}}</p>
           </div> -->
         <img :src="`http://i5c103.p.ssafy.io:8080/${image}`" class="card-img-top main-image" alt="...">
         <div class="card-body">
-          <a>{{ product.product.title }}</a>
+          <a>{{ product.title }}</a>
         </div>
       </div>
     </router-link>
@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     image() {
-      return this.product.filePath
+      return this.product.filepath
     }
   }
 
