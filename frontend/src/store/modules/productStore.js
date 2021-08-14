@@ -125,6 +125,13 @@ const productStore = {
       commit('SET_SEARCH_LIVE_LIST', res.data.liveList) //라이브리스트
       commit('SET_SEARCH_PRODUCT_LIST', res.data.productList) //상세리스트
     },
+    //판매완료
+    async soldout(context, data) {
+      const url = BASE_URL + `/product/sold`
+      console.log(data)
+      const res = await axios.post(url, data)
+      return res.data
+    },
   }
 }
 

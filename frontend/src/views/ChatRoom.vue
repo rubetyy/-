@@ -30,6 +30,9 @@
         <button class="btn-c-sm" @click="clickMessage">보내기</button>
       </div>
     </div>
+    <div style="text-align:center;">
+      <button class="btn-g" @click="soldoutBtn">판매완료</button>
+    </div>
   </div>
 </template>
 
@@ -38,6 +41,8 @@ import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 import axios from 'axios'
 import swal from 'sweetalert'
+import { mapActions } from 'vuex'
+const productStore = 'productStore'
 
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
@@ -51,6 +56,7 @@ export default {
       roomId: this.$route.params.pk,
       nowUser: JSON.parse(localStorage.getItem('userInfo')).nickname,
       previousMsg: [],
+      productpk: this.$route.query.productpk,
     }
   },
   created() {
@@ -141,6 +147,34 @@ export default {
         })
       })
     },
+    ...mapActions(productStore,[
+    'soldout',
+    ]),
+    soldoutBtn() {
+      swal({
+        title: '정말 판매완료 하시겠습니까?',
+        text: "한번 완료하면 취소할 수 없습니다",
+
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("판매완료 되었습니다!", {
+            icon: "success",
+          });
+          const data = {
+          'userid': JSON.parse(localStorage.getItem('userInfo')).id,
+          'productpk': this.productpk
+          }
+          this.soldout(data)
+        } else {
+          swal("취소되었습니다");
+        }
+      });
+
+    }
   }
 }
 </script>

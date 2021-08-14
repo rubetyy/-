@@ -33,7 +33,7 @@
 
             <div class="content-sold" >
               <div v-if=" productFile.images[0].product.isSold == 1" style="display: flex;">
-                <p >판매완료</p>
+                <p style="margin-right: 30px; ">판매완료</p>
                 <p style="color: grey;">조회수: {{productFile.images[0].product.viewCount}}</p>
               </div>
               <div v-else style="display: flex; padding:10px;" >
@@ -199,7 +199,8 @@ export default {
       }
       this.startChat(params)
       .then(res => {
-        this.$router.push({name: 'ChatRoom', params: {pk: res.chatroompk}, query: {nickname: res.sellernickname }})
+        console.log(res)
+        this.$router.push({name: 'ChatRoom', params: {pk: res.chatroompk}, query: {nickname: res.sellernickname, productpk: res.productpk }})
       })
       }
     },
