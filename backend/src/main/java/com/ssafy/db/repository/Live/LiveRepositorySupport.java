@@ -34,8 +34,6 @@ public class LiveRepositorySupport {
                     .from(qLive)
                     .join(qUser).on(qLive.userid.eq(qUser.userid)).where(qLive.livepk.eq(liveid))
                     .fetchOne();
-            System.out.println(live.get(0,Live.class).getLivepk());
-            System.out.println(live.get(1,User.class).getUserid());
             return live;
     }
 
@@ -87,7 +85,8 @@ public class LiveRepositorySupport {
     public List<LiveCategoryDto> getLiveByCategoryId(int categoryid){
         List<Tuple> l = jpaQueryFactory.select(qLive,qProduct).from(qLive)
                 .join(qProduct).on(qProduct.id.eq(qLive.productpk))
-                .where(qProduct.isSold.eq(0),qProduct.categoryId.eq(categoryid)).fetch();
+                .where(qProduct.isSold.eq(0),qProduct.categoryId.eq(categoryid))
+                .orderBy(qLive.liveviewercount.desc()).fetch();
         List<LiveCategoryDto> res = new LinkedList<>();
         for(Tuple t : l){
             Live live = t.get(0,Live.class);
