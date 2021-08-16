@@ -30,7 +30,7 @@ import java.util.*;
 
 @Api(value = "상품관리 API", tags = {"Product"})
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
