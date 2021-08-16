@@ -18,9 +18,10 @@
       <div v-if="!isSeller" class="center-btn" style="margin-top:30px;">
         <button class="btn-g" @click="goProduct">상품보기</button>
 
-
-        <button v-if="data.wish.flag==true" class="btn-g" @click="dislikeProduct"><i class="bi bi-heart-fill"></i> 찜하기 취소</button>
-        <button v-else class="btn-g" @click="likeProduct"><i class="bi bi-heart"></i> 찜하기</button>
+        <div v-if="data">
+          <button v-if="data.wish.flag==true" class="btn-g" @click="dislikeProduct"><i class="bi bi-heart-fill"></i> 찜하기 취소</button>
+          <button v-else class="btn-g" @click="likeProduct"><i class="bi bi-heart"></i> 찜하기</button>
+        </div>
 
         <button class="btn-g" @click="goMain"><i class="bi bi-x-lg"></i> 나가기</button>
       </div>
