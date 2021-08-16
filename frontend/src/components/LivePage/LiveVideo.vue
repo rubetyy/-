@@ -1,13 +1,12 @@
 <template>
 	<div>
-
 		<!-- test -->
 		<!-- <div>
 		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
 		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
 		💛💛 liveInfo: {{ liveInfo }} 💛💛
 		</div> -->
-
+{{subscribers.length}}명이 시청중입니다
 		<div id="session">
 			<div id="main-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
@@ -40,13 +39,16 @@ const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
 	name: 'App',
+
 	props: {
 		liveInfo: Object,
 		isSeller: Boolean,
 	},
+
 	components: {
 		UserVideo,
 	},
+
 	data () {
 		return {
 			OV: undefined,
@@ -61,9 +63,30 @@ export default {
 			myUserName: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
 		}
 	},
+
 	created() {
 		this.joinSession()
 	},
+//################################# 
+	updated() {
+		console.log('라이브 pk', this.liveInfo.livepk)
+		console.log('시청자 수', this.subscribers.length)
+		
+		const LIVEVIEWER_URL = BASE_URL + `/live/live-viewer`
+		const live_data = {
+				live_pk: this.liveInfo.livepk,
+				viewer_count: this.subscribers.length, 
+				}
+				
+		axios.post(LIVEVIEWER_URL, live_data)
+			.then(response => {
+				console.log('###', response)
+			})
+			.catch(error => {
+				console.log('###', error)
+			})
+	},
+
 	methods: {
 		// 세션 가입 -> created (판매자인 경우에만)
 		joinSession () {
