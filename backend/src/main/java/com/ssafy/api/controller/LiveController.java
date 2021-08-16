@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
 import com.ssafy.api.request.dto.Live.LiveDetailReq;
+import com.ssafy.api.request.dto.Live.LiveVIewerReq;
 import com.ssafy.api.response.dto.Live.LiveWishRes;
 import com.ssafy.api.response.dto.Product.ProductWishRes;
 import com.ssafy.api.response.dto.User.LivewithUser;
@@ -70,8 +71,6 @@ public class LiveController {
 		return new ResponseEntity(r, HttpStatus.OK);
 	}
 
-
-
 	@Transactional
 	@PatchMapping(value="/live/title")
 	@ApiOperation(value = "방송제목수정", notes = "방송제목수정을 진행.")
@@ -82,4 +81,12 @@ public class LiveController {
 		long a = liveService.updatetitleLive(liveTitlePatchReq);
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
+
+	@Transactional
+	@PostMapping(value="/live/live-viewer")
+	public ResponseEntity updateViewerCount(@RequestBody LiveVIewerReq liveViewerReq){
+		long a  = liveService.updateViewerCount(liveViewerReq);
+		return new ResponseEntity(a,HttpStatus.OK);
+	}
+
 }
