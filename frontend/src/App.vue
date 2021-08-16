@@ -69,7 +69,7 @@ export default {
     logoutClick: function() {
       this.logout()
       .then(()=> {
-        this.ter.push({name:"MainPage"})
+        this.$router.push({name:"MainPage"})
       })
     },
       ...mapActions(productStore,[
