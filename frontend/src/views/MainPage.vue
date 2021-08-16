@@ -22,7 +22,7 @@ export default {
   },
   data: function () {
     return {
-      header: "인기 TOP 12",
+      header: "인기 상품 TOP 12",
     }
   },
   computed: {
