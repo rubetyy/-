@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
 import com.ssafy.api.request.dto.Live.LiveDetailReq;
+import com.ssafy.api.response.dto.Live.LiveWishRes;
 import com.ssafy.api.response.dto.Product.ProductWishRes;
 import com.ssafy.api.response.dto.User.LivewithUser;
 import com.ssafy.api.service.Live.LiveService;
@@ -18,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -50,16 +53,21 @@ public class LiveController {
 		Tuple live = liveService.selectone(liveDetailReq.getLiveid());
 		Live l = live.get(0,Live.class);
 		User u = live.get(1, User.class);
-		LivewithUser res = new LivewithUser(l,u);
+		LiveWishRes lres = new LiveWishRes();
+		LivewithUser r = new LivewithUser(l,u);
 		if(liveDetailReq.getUserid() != null){
 			Wish w = productService.findWish(l.getProductpk(),liveDetailReq.getUserid());
-			if(w == null) res.setFlag(false);
+			if(w == null) {
+				lres.setFlag(false);
+				r.setWish(lres);
+			}
 			else {
-				res.setWishproductpk(w.getWishproductpk());
-				res.setFlag(true);
+				lres.setWishproductpk(w.getWishproductpk());
+				lres.setFlag(true);
+				r.setWish(lres);
 			}
 		}
-		return new ResponseEntity<LivewithUser>(res, HttpStatus.OK);
+		return new ResponseEntity(r, HttpStatus.OK);
 	}
 
 
