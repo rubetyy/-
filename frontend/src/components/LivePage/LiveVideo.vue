@@ -74,9 +74,9 @@ export default {
 		
 		const LIVEVIEWER_URL = BASE_URL + `/live/live-viewer`
 		const live_data = {
-				live_pk: this.liveInfo.livepk,
-				viewer_count: this.subscribers.length, 
-				}
+			live_pk: this.liveInfo.livepk,
+			viewer_count: this.subscribers.length, 
+		}
 				
 		axios.post(LIVEVIEWER_URL, live_data)
 			.then(response => {
