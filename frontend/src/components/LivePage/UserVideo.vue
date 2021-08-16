@@ -1,35 +1,31 @@
 <template>
 <div v-if="streamManager">
 	<ov-video :stream-manager="streamManager"/>
-	<span>{{ clientData }}</span>
+	<!-- <span>{{ clientData }}</span> -->
 </div>
 </template>
 
 <script>
-import OvVideo from './OvVideo';
+import OvVideo from './OvVideo'
 
 export default {
 	name: 'UserVideo',
-
 	components: {
 		OvVideo,
 	},
-
 	props: {
 		streamManager: Object,
 	},
-
 	computed: {
 		clientData () {
-			const { clientData } = this.getConnectionData();
-			return clientData;
+			const { clientData } = this.getConnectionData()
+			return clientData
 		},
 	},
-
 	methods: {
 		getConnectionData () {
-			const { connection } = this.streamManager.stream;
-			return JSON.parse(connection.data);
+			const { connection } = this.streamManager.stream
+			return JSON.parse(connection.data)
 		},
 	},
 };

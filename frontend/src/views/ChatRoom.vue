@@ -14,7 +14,6 @@
             <span class="msg">{{ item.message }}</span>
           </div>
         </div>
-
         <div v-for="(item, idx) in messages" :key="idx">
           <div v-if="item.sender==nowUser" class="myMsg">
             <span class="msg">{{ item.message }}</span>
@@ -62,9 +61,9 @@ export default {
   created() {
     this.connect()
     this.getMsg()
-    // var chatlog = document.getElementById('chatlog')
-    // chatlog.scrollIntoView(false)
-    // chatlog.scrollTop = chatlog.scrollHeight
+  },
+  mounted() {
+    this.scrollDown()
   },
   watch: {
     messages() {
@@ -75,6 +74,15 @@ export default {
     },
   },
   methods: {
+    scrollDown() {
+      // var chatlog = this.$refs.messages
+      var chatlog = document.getElementById("chatlog")
+      console.log(chatlog)
+      chatlog.scrollTop = chatlog.scrollHeight;
+      console.log(chatlog.scrollTop)
+      console.log(chatlog.scrollHeight)
+      // window.scrollTo({ top: chatlog.scrollHeight, behavior: 'smooth' })
+    },
     sendMessage (e) {
       if(e.keyCode === 13 && this.nowUser.trim() !== '' && this.message.trim() !== ''){
         this.send()
@@ -102,12 +110,12 @@ export default {
     send() {
       if (this.stompClient && this.stompClient.connected) {
         const msg = {
-          type:'ONE',// ONE 으로 바꾸기
+          type:'ONE',
           roomId:this.roomId,
           sender: this.nowUser,
           message: this.message 
         }
-        this.stompClient.debug = function (){}  //do nothing
+        this.stompClient.debug = function (){}
         this.stompClient.send("/pub/chat/message", JSON.stringify(msg), {})
       }
     },    
@@ -258,5 +266,4 @@ input:hover, input:active, input[type="text"]:focus,
   font-size: 13px;
   display: block;
 }
-
 </style>

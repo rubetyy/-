@@ -6,9 +6,7 @@
             <p>{{product.product.viewCount}}</p>
           </div> -->
         <img :src="`http://i5c103.p.ssafy.io:8080/${image}`" class="card-img-top main-image" alt="...">
-        <div class="card-body">
-          <a>{{ product.title }}</a>
-        </div>
+        <div class="card-body card-t">{{ product.title }}</div>
       </div>
     </router-link>
   </div>
@@ -20,17 +18,11 @@ export default {
   props: {
     product: Object,
   },
-  data: function() {
-    return {
-      
-    }
-  },
   computed: {
     image() {
       return this.product.filepath
     }
   }
-
 }
 </script>
 
@@ -41,16 +33,17 @@ export default {
 }
 .card {
   /* margin-right: 0; */
-  width: 14rem;
+  width: 16rem;
   /* height: 400px; */
   margin-top: 50px;
   position: relative;
-
 }
-
 .card-img-top {
-  height: 14rem;
+  height: 17rem;
   /* overflow: hidden; */
+}
+.card-t {
+  font-size: 1.1rem;
 }
 a:active, a:hover {
   color:#1e1e1e !important;
@@ -58,6 +51,5 @@ a:active, a:hover {
 }
 .main-viewcount {
   position: absolute;
-
 }
 </style>

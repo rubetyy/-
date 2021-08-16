@@ -51,7 +51,6 @@ export default {
       data: null,
       isSeller: false,
       isLive: true,
-      // showModal: false,
       nowUser: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
     }
   },
@@ -70,7 +69,9 @@ export default {
         this.isSeller = true
       }
     })
-
+    .catch(() => {
+      this.isLive = false
+    })
   },
   methods: {
     ...mapActions(liveStore, ['getLiveInfo']),
@@ -89,7 +90,6 @@ export default {
 #livevideo {
   width: 770px;
   height: 540px;
-  /* border: 1px solid red; */
   display: inline-block;
 }
 .inline {
