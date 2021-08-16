@@ -1,9 +1,8 @@
 <template>
   <div>
-    <!-- {{nowLives}} -->
     <LiveList :lives="nowLives"/>
-    <hr>
-    <ProductList :products="hotProducts" />
+    <div class="line"></div>
+    <ProductList :products="hotProducts" :header="header"/>
   </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
   },
   data: function () {
     return {
-
+      header: "인기 TOP 12",
     }
   },
   computed: {
@@ -33,29 +32,24 @@ export default {
     },
     ...mapGetters(liveStore, ['getLiveProductInfo',]),
     nowLives: function() {
-      // console.log(this.getLiveProductInfo,'getLiveProductInfo')
       return this.getLiveProductInfo
     },
   },
   methods : {
     ...mapActions(productStore, ['getProductList']),
     ...mapActions(liveStore,['getLiveList'])
-
   },
   created: function() {
     this.getLiveList()
     this.getProductList()
-    .then(()=>{
-      console.log('성공 getProductList')
-    })
-    .catch(err => {
-      console.log(err)
-      console.log('에러 getProductList')
-    })
   }
 }
 </script>
 
 <style scoped>
-
+.line {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-top: 2px solid #efeff0;
+}
 </style>
