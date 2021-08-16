@@ -28,5 +28,5 @@ public interface LiveService {
 
 	List<LiveSearchDto> getSearchLives(String search);
 
-	Long updateViewerCount(LiveVIewerReq liveVIewerReq);
+	int updateViewerCount(LiveVIewerReq liveVIewerReq);
 }

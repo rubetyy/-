@@ -85,7 +85,7 @@ public class LiveController {
 	@Transactional
 	@PostMapping(value="/live/live-viewer")
 	public ResponseEntity updateViewerCount(@RequestBody LiveVIewerReq liveViewerReq){
-		long a  = liveService.updateViewerCount(liveViewerReq);
+		int a  = liveService.updateViewerCount(liveViewerReq);
 		return new ResponseEntity(a,HttpStatus.OK);
 	}
 
