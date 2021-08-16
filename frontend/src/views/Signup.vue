@@ -19,7 +19,7 @@
         <input type="password" id='password' class="input-form" placeholder="Password" v-model='credentials.password' style="margin-right:149.2px">
       </div>
       <div>
-        <input type="password " id='password' class="input-form" placeholder="PasswordConfirmation" v-model='credentials.passwordconfirmation' style="margin-right:149.2px">
+        <input type="password" id='password' class="input-form" placeholder="PasswordConfirmation" v-model='credentials.passwordconfirmation' style="margin-right:149.2px">
 
       </div>
       <div style="display: flex; justify-content: center">

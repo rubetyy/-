@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div id="session">
+		<div id="session"> 
 			<div id="seller-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
@@ -30,7 +30,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
 // const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
-const OPENVIDU_SERVER_URL = "https://" + "i5c103.p.ssafy.io";
+const OPENVIDU_SERVER_URL = "https://" + "i5c103.p.ssafy.io:8443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
@@ -80,11 +80,18 @@ export default {
 			.then(response => {
 				console.log('시청자 수 db에 수정 성공', response)
 				// 업데이트 된 시청자 수 return
-				this.liveViewerCount = response.data
+				console.log(response,'res시청자')
+				// this.liveViewerCount = response.data
 			})
 			.catch(error => {
 				console.log('시청자 수 db에 수정 실패', error)
 			})
+	},
+	watch: {
+		livelength() {
+			console.log(this.subscribers,'watch')
+			this.liveViewerCount = this.subscribers.length
+		}
 	},
 
 	methods: {
