@@ -3,6 +3,8 @@
     <h1 id='header'>
       To. {{ this.receiver }}
     </h1>
+    <h4 v-if="productFile.images" style="text-align: center; margin: 25px">상품명: {{this.productFile.images[0].product.title}}</h4>
+
     <div id="chatroom">
       <div id="chatlog" ref="messages" class="chatlog">
         <div v-for="(item, idx) in previousMsg" :key="100-idx">
@@ -29,9 +31,23 @@
         <button class="btn-c-sm" @click="clickMessage">보내기</button>
       </div>
     </div>
-    <div style="text-align:center;">
-      <button class="btn-g" @click="soldoutBtn">판매완료</button>
+
+    <div v-if="productFile.images">
+
+      <div v-if="productFile.images[0].product.isSold == 1">
+        <p style="text-align:center; font-size:20px;">판매완료 된 상품입니다.</p>
+      </div>
+
+      <div v-else>
+        <div v-if="productFile.images[0].product.userId == this.userid " style="text-align:center;">
+          <button class="btn-g" @click="soldoutBtn">판매완료</button>
+        </div>
+        <div v-else>
+        </div>
+      </div>
+
     </div>
+
   </div>
 </template>
 
@@ -40,7 +56,7 @@ import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 import axios from 'axios'
 import swal from 'sweetalert'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
 
 const BASE_URL = process.env.VUE_APP_BASE_URL
@@ -56,14 +72,31 @@ export default {
       nowUser: JSON.parse(localStorage.getItem('userInfo')).nickname,
       previousMsg: [],
       productpk: this.$route.query.productpk,
+      userid: JSON.parse(localStorage.getItem('userInfo')).id,
     }
   },
   created() {
     this.connect()
     this.getMsg()
+    const data = {
+      'userid': JSON.parse(localStorage.getItem('userInfo')).id,
+      'productpk': this.productpk,
+    }
+    this.productDetail(data)
+    // var chatlog = document.getElementById('chatlog')
+    // chatlog.scrollIntoView(false)
+    // chatlog.scrollTop = chatlog.scrollHeight
   },
   mounted() {
     this.scrollDown()
+  },
+    computed: {
+    ...mapGetters(productStore,[
+      'getProductDetailFile'
+    ]),
+    productFile: function() {
+      return this.getProductDetailFile
+    },
   },
   watch: {
     messages() {
@@ -193,7 +226,11 @@ export default {
         }
       });
 
-    }
+    },
+    ...mapActions(productStore,[
+    'productDetail',
+    ]),
+
   }
 }
 </script>
