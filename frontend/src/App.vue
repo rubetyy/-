@@ -139,6 +139,7 @@ export default {
 #header {
   text-align: center;
   font-family: 'netmarbleB';
+  font-size: 2rem;
 }
 
 .form-box {
