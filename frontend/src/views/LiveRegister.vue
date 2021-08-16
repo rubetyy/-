@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1 id="header">방송 시작하기</h1>
-
     <div class="form-box">
       <div style="margin-bottom: 40px; font-size:1.1rem;">
         <span>판매 상품 : </span>
@@ -9,7 +8,6 @@
           {{ pinfo.productTitle }} <i class="bi bi-arrow-up-right-square-fill"></i>
         </router-link>
       </div>
-
       <h3>방송 제목</h3>
       <input
         type="text"
@@ -27,7 +25,6 @@
     <div class="center-btn">
       <button class="btn-o" @click="startlive">방송 시작하기</button>
     </div>
-    
   </div>
 </template>
 
@@ -38,18 +35,15 @@ import swal from 'sweetalert'
 
 export default {
   name: 'LiveRegister',
-
   data: function () {
     return {
       livetitle: '',
       pinfo: {},
     } 
   },
-
   created() {
     this.pinfo = this.getProductInfo()
   },
-  
   methods : {
     ...mapGetters(liveStore, ['getProductInfo',]),
 
@@ -64,12 +58,10 @@ export default {
         console.log(params, typeof(params))
         this.startLive(params)
         .then(res => {
-          console.log(res.livepk)
-          console.log('라이브레지스터')
           this.$router.push({ name: 'LivePage', params: { id: res.livepk } })
         })
         .catch(err => {
-          console.log(err + '방송만들기 에러')
+          console.log(err)
         })
       } else {
         swal({
