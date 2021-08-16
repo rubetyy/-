@@ -3,13 +3,13 @@
     <div id="nav">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <router-link :to="{name: 'MainPage'}" class="navbar-brand"><img src="./assets/logo.png" alt="" width="35" height="35" class="d-inline-block align-text-middle">홍당무 라이브</router-link>
+              <router-link :to="{name: 'MainPage'}" class="navbar-brand"><img src="./assets/logo.png" alt="" width="35" height="35">홍당무 라이브</router-link>
               <router-link :to="{name: 'CategoryPage', params:{categoryId: 1}}" class="navbar-brand" >의류</router-link> 
               <router-link :to="{name: 'CategoryPage', params:{categoryId: 2}}" class="navbar-brand" >음식</router-link> 
               <router-link :to="{name: 'CategoryPage', params:{categoryId: 3}}" class="navbar-brand" >전자제품</router-link> 
@@ -18,21 +18,9 @@
 
             <div class="d-flex me-5">
               <input class="form-control me-2" type="search" placeholder="제품을 검색하세요" aria-label="Search" v-model="keyword"  @keyup.enter="search">
-              <button class="btn-o " type="submit" @click="search">Search</button>
+              <button class="btn-o btn-small" type="submit" @click="search">Search</button>
             </div>
 
-            <!-- <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                예상
-              </a>
-              
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><router-link :to="{name: 'ProductRegister'}" class="dropdown-item">상품 등록</router-link></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">다른 구분할꺼 넣을꺼</a></li>
-              </ul>
-            </div> -->
-              
             <div v-if="isLogged">
               <router-link :to="{name: 'ProductRegister'}" class="navbar-brand">상품 등록</router-link>
               <router-link :to="{name: 'MyPage'}" class="navbar-brand" >마이페이지</router-link> 
@@ -49,10 +37,6 @@
     <div id="article">
       <router-view/> 
     </div>
-
-    <!-- <footer class='bg-light'>
-      © 2021 광주3팀 서울광주롱디팀
-    </footer> -->
   </div>
 </template>
 
@@ -68,10 +52,8 @@ export default {
     return {
       userId: '',
       keyword: '',
-
     }
   },
-  
   computed: {
     ...mapGetters(userStore,[
       'getToken'
@@ -80,7 +62,6 @@ export default {
       return this.getToken
     },
   },
-
   methods : {
     ...mapActions(userStore,[
       'logout'
@@ -88,11 +69,11 @@ export default {
     logoutClick: function() {
       this.logout()
       .then(()=> {
-        this.$router.push({name:"MainPage"})
+        this.ter.push({name:"MainPage"})
       })
     },
-        ...mapActions(productStore,[
-      'getSearch'
+      ...mapActions(productStore,[
+    'getSearch'
     ]),
     search() {
       const data = {
@@ -104,7 +85,6 @@ export default {
       })
     }
   },
-
   created (){
     this.userId = JSON.parse(localStorage.getItem('userInfo'))
     console.log(this.userId)
@@ -128,7 +108,6 @@ export default {
   min-height: 90vh;
 }
 
-/* 임시 네비게이션 바 (추후 변경예정) */
 #nav {
   font-family: 'netmarbleB';
   font-size: 20px;
@@ -144,7 +123,6 @@ export default {
   padding-inline: 100px;
 }
 
-/* 컨텐츠 내부 (개발하기 편하게 일단 위아래 여백 뒀습니다) */
 #article {
   font-family: 'Noto Sans KR';
   -webkit-font-smoothing: antialiased;
@@ -158,19 +136,16 @@ export default {
   margin: 0 auto;
 }
 
-/* article의 헤더 */
 #header {
   text-align: center;
   font-family: 'netmarbleB';
 }
 
-/* form 레이아웃 */
 .form-box {
   width: 800px;
   margin: 50px auto 80px;
 }
 
-/* 버튼, input, a태그 등 기타 공통 스타일링 */
 ::selection {
   background: #ffeadc;
 }
@@ -183,7 +158,7 @@ a:active, a:hover {
   background-color:transparent;
 }
 textarea:hover, textarea:active, textarea:focus,
-input:hover, input:active, input[type="text"]:focus,
+input:hover, input:active, input[type="text"]:focus, input[type="search"]:focus,
 .uneditable-input:focus {
   border-color: #e2e2e2;
   box-shadow: 0 0 5px #fc9652c4;
@@ -197,13 +172,10 @@ button {
   outline: none;
   font-weight: bold;
 }
-/* 버튼 가운데 정렬 */
 .center-btn {
   display: flex;
   justify-content: center;
 }
-
-/* 오렌지버튼 */
 .btn-o {
   background-color: #ffeadc;
   color: #ff6600;
@@ -215,8 +187,11 @@ button {
 .btn-o:hover {
   background-color: #fff3eb;
 }
-
-/* 회색버튼 */
+.btn-small {
+  padding: 0px 10px;
+  font-size: 1rem;
+  line-height: 0;
+}
 .btn-g {
   background-color: #f4f4f4;
   border-radius: 15px;
