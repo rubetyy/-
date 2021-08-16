@@ -10,7 +10,7 @@
               <p style="font-size:25px;">사진을 업로드 해주세요</p>
             </div>
 
-            <div v-else>
+            <div v-else  class="img-box">
               <b-carousel
                 id="carousel-1"
                 v-model="slide"
@@ -19,7 +19,7 @@
                 indicators
                 background="#ababab"
                 img-width="1024"
-                img-height="480"
+                
                 style="text-shadow: 1px 1px 2px #333;"
                 @sliding-start="onSlideStart"
                 @sliding-end="onSlideEnd"
@@ -240,7 +240,7 @@ export default {
 }
 .image-container {
   margin-bottom: 0px;
-  height: 100%;
+  /* height: 100%; */
 }
 input, select{
   padding: 15px;
@@ -251,10 +251,9 @@ input, select{
 
 .img-box{
   width: 100%;
-  height: 350px;
-  border: 3px solid grey; ;
-  border-radius: 4px ;
-  text-align: center;
+  max-height: 700px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 </style>

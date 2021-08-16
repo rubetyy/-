@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div id="session">
+		<div id="session"> 
 			<div id="seller-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
@@ -80,11 +80,18 @@ export default {
 			.then(response => {
 				console.log('시청자 수 db에 수정 성공', response)
 				// 업데이트 된 시청자 수 return
-				this.liveViewerCount = response.data
+				console.log(response,'res시청자')
+				// this.liveViewerCount = response.data
 			})
 			.catch(error => {
 				console.log('시청자 수 db에 수정 실패', error)
 			})
+	},
+	watch: {
+		livelength() {
+			console.log(this.subscribers,'watch')
+			this.liveViewerCount = this.subscribers.length
+		}
 	},
 
 	methods: {
