@@ -149,7 +149,7 @@ export default {
           message: this.message 
         }
         this.stompClient.debug = function (){}
-        this.stompClient.send("/pub/chat/message", JSON.stringify(msg), {})
+        this.stompClient.send("/pub/api/chat/message", JSON.stringify(msg), {})
       }
     },    
     connect() {
