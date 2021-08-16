@@ -8,12 +8,13 @@ import ProfilePage from '@/views/ProfilePage.vue'
 
 import CategoryPage from '@/views/CategoryPage.vue'
 import LivePage from '@/views/LivePage.vue'
-import ProductRegister from '@/views/ProductRegister.vue'
 import LiveRegister from '@/views/LiveRegister.vue'
+import ProductRegister from '@/views/ProductRegister.vue'
 import ProductDetail from '@/views/ProductDetail.vue'
 import ChatRoom from '@/views/ChatRoom.vue'
 
 import SearchPage from '@/views/SearchPage.vue'
+import PageNotFound from '@/views/PageNotFound.vue'
 
 
 Vue.use(VueRouter)
@@ -55,21 +56,19 @@ const routes = [
     component: LivePage
   },
   {
-    path: '/productregister',
-    name: 'ProductRegister',
-    component: ProductRegister,
-
-  },
-  {
     path: '/live-start',
     name: 'LiveRegister',
     component: LiveRegister,
   },
   {
+    path: '/productregister',
+    name: 'ProductRegister',
+    component: ProductRegister,
+  },
+  {
     path: '/product/:product_pk',
     name: 'ProductDetail',
     component: ProductDetail,
-    
   },
   {
     path: '/chatroom/:pk',
@@ -80,6 +79,15 @@ const routes = [
     path: '/product/search',
     name: 'SearchPage',
     component: SearchPage
+  },
+  {
+    path: '*',
+    redirect: '/404'
+  },
+  {
+    path: '/404',
+    name: 'PageNotFound',
+    component: PageNotFound
   },
 ]
 
