@@ -2,6 +2,7 @@ package com.ssafy.api.service.Live;
 
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveVIewerReq;
 import com.ssafy.api.response.dto.Live.LiveCategoryDto;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
@@ -80,6 +81,11 @@ public class LiveServiceImpl implements LiveService {
 	@Override
 	public List<LiveSearchDto> getSearchLives(String search) {
 		return liveRepositorySupport.getSearchLives(search);
+	}
+
+	@Override
+	public Long updateViewerCount(LiveVIewerReq liveVIewerReq) {
+		return liveRepositorySupport.updateViewerCount(liveVIewerReq);
 	}
 
 }

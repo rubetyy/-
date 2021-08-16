@@ -3,6 +3,7 @@ package com.ssafy.db.repository.Live;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveVIewerReq;
 import com.ssafy.api.response.dto.Live.LiveCategoryDto;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
@@ -97,4 +98,8 @@ public class LiveRepositorySupport {
         return res;
     }
 
+    public Long updateViewerCount(LiveVIewerReq liveVIewerReq){
+        return jpaQueryFactory.update(qLive).set(qLive.liveviewercount,liveVIewerReq.getViewer_count())
+                .where(qLive.livepk.eq(liveVIewerReq.getLive_pk())).execute();
+    }
 }
