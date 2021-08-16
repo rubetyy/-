@@ -203,4 +203,17 @@ button {
   background-color: #f8f8f8;
   color: #333;
 }
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+} 
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 201, 164, 0.75);
+  border: 4px solid transparent;
+  border-radius: 10px;
+} 
+::-webkit-scrollbar-track { 
+  background-color: rgba(255, 139, 61, 0.15);
+}
 </style>
