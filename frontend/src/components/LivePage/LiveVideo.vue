@@ -30,7 +30,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
 // const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
-const OPENVIDU_SERVER_URL = "https://" + "i5c103.p.ssafy.io";
+const OPENVIDU_SERVER_URL = "https://" + "i5c103.p.ssafy.io:8443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
