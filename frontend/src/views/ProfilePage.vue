@@ -1,10 +1,8 @@
 <template>
-  <div class='container'>
-    <div v-if='myPageInfo' class=''>
-      <h2>아이디: {{myPageInfo.userinfo.userid}} </h2>
-      <h2>닉네임: {{myPageInfo.userinfo.usernickname}}</h2>
+  <div v-if='myPageInfo'>
+    <div class='userinfo'>
+      <strong>{{myPageInfo.userinfo.usernickname}}</strong> 님의 프로필
     </div>
-    <hr>
 
     <div class='d-flex justify-content-evenly'>
       <ul>
@@ -19,7 +17,7 @@
           <router-link :to="`/product/${soldout.id}`">{{soldout.title}}</router-link>
         </li>
       </ul>
-      <ul>
+      <!-- <ul>
         <h2>구매완료</h2>
         <li v-for='orderProduct in myPageInfo.orderlist' :key='orderProduct.productpk'>
           <router-link :to="`/product/${orderProduct.id}`">{{orderProduct.title}}</router-link>
@@ -30,7 +28,7 @@
         <li v-for='wishProduct in myPageInfo.wishlist' :key='wishProduct.id'>
           <router-link :to="`/product/${wishProduct.id}`">{{wishProduct.title}}</router-link>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </template>
@@ -41,7 +39,6 @@ const userStore = 'userStore'
 
 export default {
   name: 'MyPage',
-
   data: function () {
     return {
       userId: '',
@@ -51,23 +48,30 @@ export default {
   methods: {
     ...mapActions(userStore, ['getMyPage']),
   },
-
   async created() {
-    console.log(this.$route)
     this.userId = this.$route.params.userid
-    console.log(this.userId)
-
     this.getMyPage(this.userId)
       .then(response => {
         this.myPageInfo = response
+        if (!response.userinfo.usernickname) {
+          this.$router.push({name:"PageNotFound"})
+        }
       })
-      .catch(error => {
-        console.log(error)
+      .catch(() => {
+        this.$router.push({name:"PageNotFound"})
       })
   }
 }
 </script>
 
 <style scoped>
-
+.userinfo {
+  max-width: 90%;
+  border-radius: 15px;
+  background-color: #fff3eb;
+  margin: 40px auto 50px;
+  padding: 30px 50px;
+  font-size: 1.8rem;
+  text-align: center;
+}
 </style>
