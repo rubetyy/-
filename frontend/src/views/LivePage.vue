@@ -17,7 +17,11 @@
 
       <div v-if="!isSeller" class="center-btn" style="margin-top:30px;">
         <button class="btn-g" @click="goProduct">상품보기</button>
-        <button class="btn-g"><i class="bi bi-heart-fill"></i> 찜하기</button>
+
+
+        <button v-if="data.wish.flag==true" class="btn-g" @click="dislikeProduct"><i class="bi bi-heart-fill"></i> 찜하기 취소</button>
+        <button v-else class="btn-g" @click="likeProduct"><i class="bi bi-heart"></i> 찜하기</button>
+
         <button class="btn-g" @click="goMain"><i class="bi bi-x-lg"></i> 나가기</button>
       </div>
     </div>
@@ -35,9 +39,11 @@
 import LiveVideo from '@/components/LivePage/LiveVideo'
 import LiveChat from '@/components/LivePage/LiveChat'
 import Modal from '@/components/Modal'
+import swal from 'sweetalert'
 
 import { mapActions } from 'vuex'
 const liveStore = 'liveStore'
+const userStore = 'userStore'
 
 export default {
   name: 'LivePage',
@@ -66,6 +72,7 @@ export default {
     this.getLiveInfo(data)
     .then(res => {
       this.data = res.data
+      console.log(this.data,'겟라이브 인포해서 가져오기')
       if (this.data.userid  === this.nowUser) {
         this.isSeller = true
       }
@@ -80,6 +87,37 @@ export default {
     },
     goMain() {
       this.$router.push({ name: 'MainPage'})
+    },
+    ...mapActions(userStore,[
+    'like','dislike'
+    ]),
+    likeProduct() { // 찜하기
+     if (localStorage.getItem('token')==null) {
+        swal({
+          text: '로그인 해주세요',
+          icon: 'warning',
+          button: false,
+        })
+      } else {
+      const useridbuyer  = this.nowUser
+      const productpk = this.data.productpk
+      const data = {
+        'useridbuyer' : useridbuyer,
+        'productpk' : productpk,
+      }
+      this.like(data)
+      .then(()=>{
+        this.data.wish.flag = true
+      })
+      }
+    },
+    dislikeProduct() {
+      const wishproductpk = this.data.wish.wishproductpk
+      console.log(wishproductpk)
+      this.dislike(wishproductpk)
+        .then(()=>{
+        this.data.wish.flag = false
+      })
     },
   },
 }

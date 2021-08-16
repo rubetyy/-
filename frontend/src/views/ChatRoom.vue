@@ -3,6 +3,8 @@
     <h1 id='header'>
       To. {{ this.receiver }}
     </h1>
+    <h4 v-if="productFile.images" style="text-align: center; margin: 25px">상품명: {{this.productFile.images[0].product.title}}</h4>
+
     <div id="chatroom">
       <div id="chatlog" ref="messages" class="chatlog">
         <div v-for="(item, idx) in previousMsg" :key="100-idx">
