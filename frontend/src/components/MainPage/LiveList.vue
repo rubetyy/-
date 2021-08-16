@@ -1,25 +1,25 @@
 <template>
   <div>
-    <h1 id='header'>라이브 리스트</h1>
+    <h1 id='header'>라이브 ON</h1>
     <div v-if="lives.length">
       <CarouselList :lives="lives"/>
     </div>
     <div v-else>
-      현재 방송중인 상품이 없습니다
+      <div class="nolive-msg">
+        현재 방송중인 상품이 없습니다
+      </div>
     </div>
-
   </div>
 </template>
 
 <script>
-// import LiveListItem from '@/components/MainPage/LiveListItem.vue'
 import CarouselList from '@/components/CarouselList.vue'
 
 export default {
   name: 'LiveList',
   props: {
   lives: Array,
-},
+  },
   components: {
     CarouselList,
   },
@@ -29,13 +29,13 @@ export default {
       sliding: null,
     }
   },
-    methods: {
-  onSlideStart() {
-    this.sliding = true
-  },
-  onSlideEnd() {
-    this.sliding = false
-  },
+  methods: {
+    onSlideStart() {
+      this.sliding = true
+    },
+    onSlideEnd() {
+      this.sliding = false
+    },
   }
 }
 </script>
@@ -43,13 +43,18 @@ export default {
 <style scoped>
 #header {
   text-align: start;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
 }
 .row {
   margin-left: 5%;
   margin-right: 5%;
   display: flex;
-  /* flex-wrap: nowrap; */
   justify-content: center;
+}
+.nolive-msg {
+  font-size: 1.2rem;
+  color: rgb(133, 133, 133);
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h3>Search</h3>
+    <h1 id="header">검색 결과</h1>
     <LiveList :lives="searchLives"/>
-    <hr>
-    <ProductList :products="searchProducts" />
+    <div class="line"></div>
+    <ProductList :products="searchProducts" :header="header" />
   </div>
 </template>
 
@@ -13,7 +13,6 @@ import ProductList from '@/components/MainPage/ProductList.vue'
 import { mapGetters } from 'vuex'
 
 const productStore = 'productStore'
-// const liveStore = 'liveStore'
 
 export default {
   name:'SearchPage',
@@ -23,7 +22,7 @@ export default {
   },
   data: function () {
     return {
-
+      header: "상품 리스트",
     }
   },
   computed: {
@@ -33,15 +32,19 @@ export default {
     },
     ...mapGetters(productStore, ['getSearchProductList',]),
     searchProducts: function() {
-      // console.log(this.getLiveProductInfo,'getLiveProductInfo')
       return this.getSearchProductList
     },
   },
-
-
 }
 </script>
 
-<style>
-
+<style scoped>
+#header {
+  margin-bottom: 30px;
+}
+.line {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-top: 2px solid #efeff0;
+}
 </style>

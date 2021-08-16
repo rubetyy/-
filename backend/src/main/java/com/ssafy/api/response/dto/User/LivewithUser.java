@@ -1,5 +1,6 @@
 package com.ssafy.api.response.dto.User;
 
+import com.ssafy.api.response.dto.Live.LiveWishRes;
 import com.ssafy.db.entity.Live;
 import com.ssafy.db.entity.User;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class LivewithUser {
     String userid;
     String usernickname;
     boolean flag;
-    int wishproductpk;
+    LiveWishRes wish;
     public LivewithUser(Live l, User u){
         this.livepk = l.getLivepk();
         this.productpk = l.getProductpk();
