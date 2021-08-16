@@ -1,14 +1,7 @@
 <template>
 	<div>
-		<!-- test -->
-		<!-- <div>
-		🧡🧡 mySessionId: {{ this.mySessionId }} 🧡🧡<br>
-		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
-		💛💛 liveInfo: {{ liveInfo }} 💛💛
-		</div> -->
-{{subscribers.length}}명이 시청중입니다
 		<div id="session">
-			<div id="main-video" class="col-md-6">
+			<div id="seller-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
 			<div v-if="isSeller" class="inline leave">
@@ -16,8 +9,11 @@
 				<button v-if="session" class="btn-r" @click="leaveSession">방송 종료</button>
 			</div>
 			<div v-else>
-				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+				<user-video id="buyer-video" :stream-manager="subscribers[0]"/>
 			</div>
+		</div>
+		<div class="viewer-count">
+			<i class="bi bi-person" style="margin-right:10px;font-size:1.6rem;"></i>{{this.liveViewerCount}}
 		</div>
 	</div>
 </template>
@@ -61,6 +57,8 @@ export default {
 			// myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
 			mySessionId: localStorage.getItem('wschat.roomId') ? String(localStorage.getItem('wschat.roomId')) : null,
 			myUserName: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
+
+			liveViewerCount: 0,
 		}
 	},
 
@@ -80,10 +78,12 @@ export default {
 				
 		axios.post(LIVEVIEWER_URL, live_data)
 			.then(response => {
-				console.log('###', response)
+				console.log('시청자 수 db에 수정 성공', response)
+				// 업데이트 된 시청자 수 return
+				this.liveViewerCount = response.data
 			})
 			.catch(error => {
-				console.log('###', error)
+				console.log('시청자 수 db에 수정 실패', error)
 			})
 	},
 
@@ -140,7 +140,6 @@ export default {
 								insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
 								mirror: false       	// Whether to mirror your local video or not
 							});
-	
 							this.mainStreamManager = publisher;
 							this.session.publish(this.mainStreamManager);
 						}
@@ -260,5 +259,12 @@ export default {
 }
 .leave {
 	float: right;
+}
+.viewer-count {
+	margin-top: 10px;
+	display: flex;
+	align-items: center;
+	font-size:1.3rem;
+	margin-left: 10px;
 }
 </style>
