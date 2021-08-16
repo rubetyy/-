@@ -6,7 +6,10 @@
 		myUserName: {{ this.myUserName }} - isSeller: {{ isSeller }}<br>
 		💛💛 liveInfo: {{ liveInfo }} 💛💛
 		</div> -->
-{{subscribers.length}}명이 시청중입니다
+{{this.liveViewerCount}}명이 시청중입니다
+<hr>
+{{liveInfo}}
+
 		<div id="session">
 			<div id="main-video" class="col-md-6">
 				<user-video :stream-manager="mainStreamManager"/>
@@ -61,6 +64,8 @@ export default {
 			// myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
 			mySessionId: localStorage.getItem('wschat.roomId') ? String(localStorage.getItem('wschat.roomId')) : null,
 			myUserName: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
+
+			liveViewerCount: 0,
 		}
 	},
 
@@ -80,10 +85,12 @@ export default {
 				
 		axios.post(LIVEVIEWER_URL, live_data)
 			.then(response => {
-				console.log('###', response)
+				console.log('시청자 수 db에 수정 성공', response)
+				// 업데이트 된 시청자 수 return
+				this.liveViewerCount = response.data
 			})
 			.catch(error => {
-				console.log('###', error)
+				console.log('시청자 수 db에 수정 실패', error)
 			})
 	},
 
