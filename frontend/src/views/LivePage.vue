@@ -96,7 +96,7 @@ export default {
     likeProduct() { // 찜하기
      if (localStorage.getItem('token')==null) {
         swal({
-          text: '로그인 해주세요',
+          text: '로그인 후 이용해주세요',
           icon: 'warning',
           button: false,
         })
