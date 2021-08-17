@@ -98,8 +98,9 @@ public class LiveRepositorySupport {
         return res;
     }
 
-    public Long updateViewerCount(LiveVIewerReq liveVIewerReq){
-        return jpaQueryFactory.update(qLive).set(qLive.liveviewercount,liveVIewerReq.getViewer_count())
-                .where(qLive.livepk.eq(liveVIewerReq.getLive_pk())).execute();
+    public Long updateViewerCount(int liveid){
+        int viewer = jpaQueryFactory.select(qLive.liveviewercount).from(qLive).where(qLive.livepk.eq(liveid)).fetchOne();
+        return jpaQueryFactory.update(qLive).set(qLive.liveviewercount,viewer+1)
+                .where(qLive.livepk.eq(liveid)).execute();
     }
 }

@@ -64,6 +64,7 @@ public class LiveServiceImpl implements LiveService {
 
 	@Override
 	public Tuple selectone(int liveid) {
+		liveRepositorySupport.updateViewerCount(liveid);
 		return liveRepositorySupport.findByLiveId(liveid);
 	}
 
