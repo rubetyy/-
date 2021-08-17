@@ -3,7 +3,7 @@
       <h1 id="header">상품 등록</h1>
     <div v-if="isLogged" class="form-box product-register-form">
         <div class= "image-container">
-          <div class="img-box">
+          <div class="carousel-box">
 
             <div v-if = "!files3.length">
               <p style="font-size:25px;">사진을 업로드 해주세요</p>
@@ -238,11 +238,9 @@ input, select{
   border: 1px solid lightgrey;
 }
 
-.img-box{
-  /* width: 100%;
-  max-height: 700px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center; */
+
+.carousel-box {
+    display: flex;
+  justify-content: center;
 }
 </style>
