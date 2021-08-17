@@ -1,7 +1,7 @@
 <template>
   <div v-if='myPageInfo'>
     <div class='userinfo'>
-      <strong>{{myPageInfo.userinfo.usernickname}}</strong> 님의 프로필
+      <span class='b-name'>{{myPageInfo.userinfo.usernickname}}</span> 님의 프로필
     </div>
 
     <div class='d-flex justify-content-evenly'>
@@ -17,18 +17,6 @@
           <router-link :to="`/product/${soldout.id}`">{{soldout.title}}</router-link>
         </li>
       </ul>
-      <!-- <ul>
-        <h2>구매완료</h2>
-        <li v-for='orderProduct in myPageInfo.orderlist' :key='orderProduct.productpk'>
-          <router-link :to="`/product/${orderProduct.id}`">{{orderProduct.title}}</router-link>
-        </li>
-      </ul>
-      <ul>
-        <h2>찜</h2>
-        <li v-for='wishProduct in myPageInfo.wishlist' :key='wishProduct.id'>
-          <router-link :to="`/product/${wishProduct.id}`">{{wishProduct.title}}</router-link>
-        </li>
-      </ul> -->
     </div>
   </div>
 </template>
@@ -71,7 +59,13 @@ export default {
   background-color: #fff3eb;
   margin: 40px auto 50px;
   padding: 30px 50px;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   text-align: center;
+  line-height: 5rem;
+}
+.b-name {
+  font-weight: 600;
+  font-size: 1.8rem;
+  font-family: 'netmarbleB';
 }
 </style>
