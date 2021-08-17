@@ -16,11 +16,7 @@ https://documenter.getpostman.com/view/3490568/TzsWuARM
 
 |   Name   | 박대현                               | 성정욱                                            | 박상우                             | 최동식                                     | 황영준                                                       |
 | :------: | ------------------------------------ | ------------------------------------------------- | ---------------------------------- | ------------------------------------------ | ------------------------------------------------------------ |
-| Profile  | ![image](https://user-images.githubusercontent.com/70404643/120108730-7878a500-c1a1-11eb-868d-509a569ef2e9.png)            | ![image](https://user-images.githubusercontent.com/70404643/120108747-86c6c100-c1a1-11eb-949c-72099f21da27.png) | ![image](https://user-images.githubusercontent.com/70404643/120108772-98a86400-c1a1-11eb-94a6-4c3a3e3e30a2.png)          | ![image](https://user-images.githubusercontent.com/70404643/120108802-b07fe800-c1a1-11eb-83b9-15c95ac6cfbb.png)                  | ![황영준](https://user-images.githubusercontent.com/70404643/114732989-ee55b800-9d7d-11eb-9df3-c3378d6086cb.png) |
-| Position | Frontend & UI/UX                     | Frontend & UI/UX                                  | 팀장 & Backend Develop             | Backend Develop & CI/CD                    | Backend Develop & CI/CD                                      |
-|   Git    | [@daep93](https://github.com/daep93) | [@gluwein](https://github.com/gluwein)            | [@upswp](https://github.com/upswp) | [@pertus123](https://github.com/pertus123) | [@junjun0905](https://github.com/junjun0905)                 |
-
-![프레젠테이션1](https://user-images.githubusercontent.com/70404643/117557397-71340f00-b0ad-11eb-92ea-f0218e87ab8b.png)
+| Profile  |
 
 - ### THXSTORE Project를 함께하는 강철코딩팀을 소개합니다 !
 
