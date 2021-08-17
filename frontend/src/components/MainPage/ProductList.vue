@@ -31,10 +31,8 @@ export default {
   margin: 0;
 }
 .row {
-  /* margin-left: 5%;
-  margin-right: 5%; */
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .noproduct-msg {
   font-size: 1.2rem;
