@@ -5,7 +5,7 @@
         <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
       </div>
       <div v-else class="noproduct-msg">
-        현재 방송중인 상품이 없습니다
+        현재 판매중인 상품이 없습니다
       </div>
   </div>
 </template>
