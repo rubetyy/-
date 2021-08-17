@@ -3,7 +3,7 @@
     <h1 id='header'>
       To. {{ this.receiver }}
     </h1>
-    <h4 v-if="productFile.images" style="text-align: center; margin: 25px">상품명: {{this.productFile.images[0].product.title}}</h4>
+    <div v-if="productFile.images" style="text-align:center; margin-top:10px">상품명: {{this.productFile.images[0].product.title}}</div>
 
     <div id="chatroom">
       <div id="chatlog" ref="messages" class="chatlog">
@@ -83,11 +83,8 @@ export default {
       'productpk': this.productpk,
     }
     this.productDetail(data)
-    // var chatlog = document.getElementById('chatlog')
-    // chatlog.scrollIntoView(false)
-    // chatlog.scrollTop = chatlog.scrollHeight
   },
-  mounted() {
+  updated() {
     this.scrollDown()
   },
     computed: {
@@ -108,13 +105,15 @@ export default {
   },
   methods: {
     scrollDown() {
+      console.log(this.previousMsg)
       // var chatlog = this.$refs.messages
       var chatlog = document.getElementById("chatlog")
       console.log(chatlog)
       chatlog.scrollTop = chatlog.scrollHeight;
       console.log(chatlog.scrollTop)
       console.log(chatlog.scrollHeight)
-      // window.scrollTo({ top: chatlog.scrollHeight, behavior: 'smooth' })
+      // chatlog.scrollTo({ top: 53*this.previousMsg.length+20, behavior: 'smooth' })
+      // console.log(53*this.previousMsg.length)
     },
     sendMessage (e) {
       if(e.keyCode === 13 && this.nowUser.trim() !== '' && this.message.trim() !== ''){
@@ -149,7 +148,7 @@ export default {
           message: this.message 
         }
         this.stompClient.debug = function (){}
-        this.stompClient.send("/pub/api/chat/message", JSON.stringify(msg), {})
+        this.stompClient.send("/pub/chat/message", JSON.stringify(msg), {})
       }
     },    
     connect() {
@@ -240,7 +239,7 @@ export default {
   max-width: 1000px;
   border-radius: 5px;
   background-color: #fff3eb;
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 10px;
 }
 input:hover, input:active, input[type="text"]:focus,
@@ -251,7 +250,7 @@ input:hover, input:active, input[type="text"]:focus,
 .chatlog {
   height:450px;
   margin: 10px 20px;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 10px;
 }
 .form-control {

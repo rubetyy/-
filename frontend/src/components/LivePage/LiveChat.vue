@@ -89,7 +89,7 @@ export default {
           message: this.message 
         }
         this.stompClient.debug = function (){}  //do nothing
-        this.stompClient.send("/pub/api/livechat/message", JSON.stringify(msg), {})
+        this.stompClient.send("/pub/livechat/message", JSON.stringify(msg), {})
       }
     },
     connect() {
@@ -137,7 +137,7 @@ input:hover, input:active, input[type="text"]:focus,
 }
 .chatlog {
   height:450px;
-  overflow:auto;
+  overflow: auto;
   margin: 15px 10px 10px;
 }
 .form-control {
