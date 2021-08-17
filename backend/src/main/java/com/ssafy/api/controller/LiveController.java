@@ -82,11 +82,4 @@ public class LiveController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 
-	@Transactional
-	@PostMapping(value="/live-viewer")
-	public ResponseEntity updateViewerCount(@RequestBody LiveVIewerReq liveViewerReq){
-		int a  = liveService.updateViewerCount(liveViewerReq);
-		return new ResponseEntity(a,HttpStatus.OK);
-	}
-
 }

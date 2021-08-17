@@ -102,6 +102,5 @@ public class LiveRepositorySupport {
         int viewer = jpaQueryFactory.select(qLive.liveviewercount).from(qLive).where(qLive.livepk.eq(liveid)).fetchOne();
         return jpaQueryFactory.update(qLive).set(qLive.liveviewercount,viewer+1)
                 .where(qLive.livepk.eq(liveid)).execute();
-
     }
 }

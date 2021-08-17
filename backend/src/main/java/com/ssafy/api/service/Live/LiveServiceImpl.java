@@ -84,9 +84,5 @@ public class LiveServiceImpl implements LiveService {
 		return liveRepositorySupport.getSearchLives(search);
 	}
 
-	@Override
-	public int updateViewerCount(LiveVIewerReq liveVIewerReq) {
-		return liveRepositorySupport.updateViewerCount(liveVIewerReq);
-	}
 
 }
