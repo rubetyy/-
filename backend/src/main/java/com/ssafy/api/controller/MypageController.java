@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Api(value = "마이페이지 API",tags = {"Mypage"})
 @RestController
-@RequestMapping("/api/mypage")
+@RequestMapping("/mypage")
 public class MypageController {
 
     @Autowired

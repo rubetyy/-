@@ -27,7 +27,7 @@ import javax.transaction.Transactional;
  */
 @Api(value = "유저 API", tags = {"User"})
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 	
 	@Autowired

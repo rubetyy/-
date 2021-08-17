@@ -27,6 +27,4 @@ public interface LiveService {
 	List<LiveCategoryDto> getLiveByCategory(int categoryid);
 
 	List<LiveSearchDto> getSearchLives(String search);
-
-	int updateViewerCount(LiveVIewerReq liveVIewerReq);
 }
