@@ -95,10 +95,17 @@ export default {
 	},
 
 	methods: {
+		enableProdMode() {
+			console.log = () => { };
+			console.debug = () => { };
+			console.info = () => { };
+			console.warn = () => { };
+		},
 		// 세션 가입 -> created (판매자인 경우에만)
 		joinSession () {
 			// --- Get an OpenVidu object ---
 			this.OV = new OpenVidu();
+			this.OV.enableProdMode()
 
 			// --- Init a session ---
 			this.session = this.OV.initSession();
@@ -118,7 +125,7 @@ export default {
 					this.subscribers.splice(index, 1);
 				}
 			});
-
+			
 			// On every asynchronous exception...
 			this.session.on('exception', ({ exception }) => {
 				console.warn(exception);

@@ -3,7 +3,7 @@
     <h1 id='header'>
       To. {{ this.receiver }}
     </h1>
-    <h4 v-if="productFile.images" style="text-align: center; margin: 25px">상품명: {{this.productFile.images[0].product.title}}</h4>
+    <div v-if="productFile.images" style="text-align:center; margin-top:10px">상품명: {{this.productFile.images[0].product.title}}</div>
 
     <div id="chatroom">
       <div id="chatlog" ref="messages" class="chatlog">
@@ -33,11 +33,9 @@
     </div>
 
     <div v-if="productFile.images">
-
       <div v-if="productFile.images[0].product.isSold == 1">
         <p style="text-align:center; font-size:20px;">판매완료 된 상품입니다.</p>
       </div>
-
       <div v-else>
         <div v-if="productFile.images[0].product.userId == this.userid " style="text-align:center;">
           <button class="btn-g" @click="soldoutBtn">판매완료</button>
@@ -83,11 +81,8 @@ export default {
       'productpk': this.productpk,
     }
     this.productDetail(data)
-    // var chatlog = document.getElementById('chatlog')
-    // chatlog.scrollIntoView(false)
-    // chatlog.scrollTop = chatlog.scrollHeight
   },
-  mounted() {
+  updated() {
     this.scrollDown()
   },
     computed: {
@@ -108,13 +103,9 @@ export default {
   },
   methods: {
     scrollDown() {
-      // var chatlog = this.$refs.messages
+      console.log(this.previousMsg)
       var chatlog = document.getElementById("chatlog")
-      console.log(chatlog)
       chatlog.scrollTop = chatlog.scrollHeight;
-      console.log(chatlog.scrollTop)
-      console.log(chatlog.scrollHeight)
-      // window.scrollTo({ top: chatlog.scrollHeight, behavior: 'smooth' })
     },
     sendMessage (e) {
       if(e.keyCode === 13 && this.nowUser.trim() !== '' && this.message.trim() !== ''){
@@ -240,7 +231,7 @@ export default {
   max-width: 1000px;
   border-radius: 5px;
   background-color: #fff3eb;
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 10px;
 }
 input:hover, input:active, input[type="text"]:focus,
@@ -251,7 +242,7 @@ input:hover, input:active, input[type="text"]:focus,
 .chatlog {
   height:450px;
   margin: 10px 20px;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 10px;
 }
 .form-control {
