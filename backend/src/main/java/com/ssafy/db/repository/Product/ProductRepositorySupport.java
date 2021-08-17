@@ -43,7 +43,7 @@ public class ProductRepositorySupport {
 
     public List<ProductListRes> findAllByCategoryId(int categoryid){
         List<Product> productList = jpaQueryFactory.select(qProduct).from(qProduct)
-                .where(qProduct.categoryId.eq(categoryid)).orderBy(qProduct.viewCount.desc()).fetch();
+                .where(qProduct.categoryId.eq(categoryid),qProduct.isSold.eq(0)).orderBy(qProduct.viewCount.desc()).fetch();
         List<ProductListRes> categoryProductList = new LinkedList<>();
         for(Product p : productList){
             String filepath = fileRepositorySupport.getFilePath(p.getId());
@@ -60,7 +60,7 @@ public class ProductRepositorySupport {
 
     public List<ProductListRes> searchProduct(String search){
         List<Product> pl = jpaQueryFactory.select(qProduct).from(qProduct)
-                .where(qProduct.title.contains(search)).orderBy(qProduct.viewCount.desc()).fetch();
+                .where(qProduct.title.contains(search),qProduct.isSold.eq(0)).orderBy(qProduct.viewCount.desc()).fetch();
         List<ProductListRes> searchList = new LinkedList<>();
         for(Product p : pl){
             String filepath = fileRepositorySupport.getFilePath(p.getId());
