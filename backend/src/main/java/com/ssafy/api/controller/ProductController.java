@@ -87,6 +87,7 @@ public class ProductController {
         //request dto에 사용자 아이디를 넣어주고
         productRegisterPostReq.setUserId(userId);
         //상품 생성 서비스에 넣어서 보낸다
+        productRegisterPostReq.setDescription(productRegisterPostReq.getDescription().replace("\r\n","<br>"));
 
         Product product = productService.createProduct(productRegisterPostReq,images);
 
