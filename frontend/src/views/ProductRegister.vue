@@ -3,33 +3,18 @@
       <h1 id="header">상품 등록</h1>
     <div v-if="isLogged" class="form-box product-register-form">
         <div class= "image-container">
-          <label for="file"  style="display:block" >
           <div class="img-box">
 
             <div v-if = "!files3.length">
               <p style="font-size:25px;">사진을 업로드 해주세요</p>
             </div>
 
-            <div v-else  class="img-box">
-              <b-carousel
-                id="carousel-1"
-                v-model="slide"
-                :interval="4000"
-                controls
-                indicators
-                background="#ababab"
-                img-width="1024"
-                
-                style="text-shadow: 1px 1px 2px #333;"
-                @sliding-start="onSlideStart"
-                @sliding-end="onSlideEnd"
-              >
-                <CarouselLocal v-for="(file,idx) in filesPreview" :key="idx" :file="file"/>
-              </b-carousel>
+            <div v-else >
+                <!-- <PrCarousel class="img-box" :filesPreview="filesPreview"/> -->
+                <PrCarouselList :filesPreview="filesPreview"/>
             </div>
             
           </div>
-          </label>
           <input type="file" id="file" multiple="multiple" accept=".gif, .jpg, .png" @change="upload" >
           <button class="btn-g" style="float:right;" @click="onDelete">삭제</button>
         </div>
@@ -85,7 +70,9 @@
 
 <script>
 import Modal from '@/components/Modal'
-import CarouselLocal from '@/components/CarouselLocal'
+// import PrCarousel from '@/components/PrCarousel'
+import PrCarouselList from '@/components/PrCarouselList'
+
 import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
 const userStore = 'userStore'
@@ -96,7 +83,8 @@ export default {
   name: 'ProductRegister',
 
   components: {
-    CarouselLocal,
+    // PrCarousel,
+    PrCarouselList,
     Modal,
   },
 
@@ -211,7 +199,8 @@ export default {
         // 2. watch로 변환하는거 추적
       },
 
-      onSlideStart() {
+      onSlideStart(slide) {
+        console.log(slide)
         this.sliding = true
       },
       onSlideEnd() {
@@ -250,10 +239,10 @@ input, select{
 }
 
 .img-box{
-  width: 100%;
+  /* width: 100%;
   max-height: 700px;
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  justify-content: center; */
 }
 </style>

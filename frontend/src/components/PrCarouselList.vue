@@ -1,9 +1,9 @@
 
-<template v-if="lives">
+<template>
 <!-- Slider main container -->
 <div class="swiper-container">
   <!-- Additional required wrapper -->
-  <!-- {{lives[0]}} -->
+  <!-- {{filesPreview[0]}} -->
   <div class="swiper-wrapper">
     <!-- Slides -->
     <!-- <div class="swiper-slide" v-for="(live, idx) in lives" :key="idx" :live="live"> 
@@ -13,17 +13,10 @@
       </p>
     </div> -->
 
-    <div class="swiper-slide card" v-for="(live, idx) in lives" :key="idx" :live="live"> 
-     <router-link :to="{name: 'LivePage', params: { id: live.livepk }}">
-        <div class="main-viewcount">
-          <!-- {{live}} -->
-          <p style="color: white">{{live.liveviewercount}}명이 시청 중</p>
-        </div>
-        <img :src="`https://i5c103.p.ssafy.io/api/${live.filepath}`" class="card-img-top" alt="...">
-        <div class="card-body">
-          <div class="card-t">{{live.livetitle}}</div>
-        </div>
-    </router-link>
+    <div class="swiper-slide card" v-for="(file, idx) in filesPreview" :key="idx" :file="file"> 
+        <img :src="file" class="card-img-top" alt="...">
+        <!-- <div class="card-body">
+        </div> -->
     </div>
   </div>
   <!-- If we need pagination -->
@@ -53,7 +46,7 @@ export default {
     
   // },
   props: {
-    lives: Array,
+    filesPreview: Array,
   },
   data() {
     return {
@@ -69,7 +62,7 @@ export default {
     // Optional parameters
     direction: 'horizontal',
     loop: false,
-    slidesPerView: 4,
+    slidesPerView: 2,
     spaceBetween: 50,
     breakpoints: {
       1024: {

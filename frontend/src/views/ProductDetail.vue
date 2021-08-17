@@ -2,25 +2,8 @@
   <div>
     <h1 id="header">제품 상세</h1>
       <div>
+        <PdCarousel class="img-box" style="max-width:1024px margin:0px; " :thumbnail="thumbnail" />
 
-        <div class="img-box">
-          <b-carousel
-            id="carousel-1"
-            v-model="slide"
-            :interval="4000"
-            controls
-            indicators
-            background=white
-            img-width="1024"
-
-            style="text-shadow: 1px 1px 2px #ff8a3d;"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-          >
-            <Carousel v-for="(file,idx) in thumbnail" :key="idx" :file="file"/>
-          </b-carousel>
-        </div>
-      
         <div v-if="productFile.images" class="content">
     
             <div class="userinfo">
@@ -109,21 +92,19 @@
 <script>
 import swal from 'sweetalert'
 
-import Carousel from '@/components/Carousel'
-// import ProductDetailList from '@/components/ProductDetailList'
+import PdCarousel from '@/components/PdCarousel'
+
 
 import { mapActions, mapGetters } from 'vuex'
 const productStore = 'productStore'
 const liveStore = 'liveStore'
 const userStore = 'userStore'
 
-// import Modal from '@/components/Modal.vue'
 
 export default {
   name: 'ProductDetail',
   components: {
-    Carousel,
-    // Modal
+    PdCarousel,
   },
   data() {
       return {
@@ -175,10 +156,14 @@ export default {
       this.makeLive(data)
       this.$router.push({ name: 'LiveRegister' })
     },
-      onSlideStart() {
+      onSlideStart(slide) {
+        this.slide = slide
+        console.log(slide,'start')
         this.sliding = true
       },
       onSlideEnd() {
+        // this.slide = slide
+        // console.log(slide,'end')
         this.sliding = false
       },
 
@@ -349,5 +334,12 @@ export default {
   display: flex;
   justify-content: center;
   
+}
+.img-size {
+  max-width:810px;
+  overflow: hidden;
+  align-items:center; 
+  text-align:center;
+
 }
 </style>
