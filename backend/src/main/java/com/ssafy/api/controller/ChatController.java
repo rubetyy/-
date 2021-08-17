@@ -33,14 +33,14 @@ public class ChatController {
     private LiveServiceImpl liveService;
 
     //실시간 채팅
-    @MessageMapping("/api/livechat/message")
+    @MessageMapping("/livechat/message")
     public void message(ChatMessage message) {
         //방송종료 메소드 수행
         messagingTemplate.convertAndSend("/sub/livechat/room/" + message.getRoomId(), message);
     }
 
     //일대일 채팅 - DB에 저장
-    @MessageMapping("/api/chat/message")
+    @MessageMapping("/chat/message")
     public void OnetoOnemessage(ChatMessage message) {
         if (ChatMessage.MessageType.ONE.equals(message.getType())){
             //메세지 db에 저장 Service 호출
@@ -52,7 +52,7 @@ public class ChatController {
     
     //방송 종료
     @Transactional
-    @DeleteMapping(value="/api/live/end/{liveid}")
+    @DeleteMapping(value="/live/end/{liveid}")
     public ResponseEntity<? extends BaseResponseBody> endLive(
             @PathVariable String liveid) {
         //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
@@ -66,7 +66,7 @@ public class ChatController {
 
 
     //채팅방 생성 채팅방 pk리턴해줌
-    @PostMapping("/api/chatroom/start")
+    @PostMapping("/chatroom/start")
     public ResponseEntity createChat(@RequestBody Chatroom chatroom){
         //존재하면 해당 리턴
         ChatroomResponseDto chatr = chatService.findChat(chatroom);
@@ -79,7 +79,7 @@ public class ChatController {
         return new ResponseEntity(chatr, HttpStatus.OK);
     }
 
-    @PostMapping("/api/chatroom")
+    @PostMapping("/chatroom")
     public ResponseEntity selectAllChat(@RequestBody ChatRoomReq chatroom){
         boolean flag = chatService.check(chatroom);
         int status = 0;

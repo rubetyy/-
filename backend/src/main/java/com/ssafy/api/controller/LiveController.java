@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Api(value = "방송 API", tags = {"Live"})
 @RestController
-@RequestMapping("/api/live")
+@RequestMapping("/live")
 public class LiveController {
 	
 	@Autowired
