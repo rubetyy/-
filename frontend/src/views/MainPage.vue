@@ -1,11 +1,5 @@
 <template>
   <div>
-    <!-- <div id="main-image">
-      <div>누구나 판매할 수 있고<br>누구나 구매할 수 있는</div>
-      <div>홍당무 라이브</div>
-      <div>상품 판매를 위해 라이브 방송을 켜보세요 !</div>
-      <div>라이브방송은 판매물품 등록 후 가능합니다</div>
-    </div> -->
     <LiveList :lives="nowLives"/>
     <div class="line"></div>
     <ProductList :products="hotProducts" :header="header"/>

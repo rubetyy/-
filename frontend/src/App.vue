@@ -34,12 +34,12 @@
         </div>
       </nav>
     </div>
-    <div id="main-image" v-if="isShow">
+    <!-- <div id="main-image" v-if="isShow">
       <div>누구나 판매할 수 있고<br>누구나 구매할 수 있는</div>
       <div>홍당무 라이브</div>
       <div>상품 판매를 위해 라이브 방송을 켜보세요 !</div>
       <div>라이브방송은 판매물품 등록 후 가능합니다</div>
-    </div>
+    </div> -->
     <div id="article">
       <router-view/> 
     </div>
@@ -58,7 +58,7 @@ export default {
     return {
       userId: '',
       keyword: '',
-      isShow: true,
+      isShow: false,
     }
   },
   watch: {
@@ -136,7 +136,7 @@ export default {
   color: #ff8a3d;
 }
 .container-fluid {
-  padding-left: 20px;
+  padding-inline: 30px;
 }
 
 #article {

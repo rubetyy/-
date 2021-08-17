@@ -33,11 +33,9 @@
     </div>
 
     <div v-if="productFile.images">
-
       <div v-if="productFile.images[0].product.isSold == 1">
         <p style="text-align:center; font-size:20px;">판매완료 된 상품입니다.</p>
       </div>
-
       <div v-else>
         <div v-if="productFile.images[0].product.userId == this.userid " style="text-align:center;">
           <button class="btn-g" @click="soldoutBtn">판매완료</button>
@@ -106,14 +104,8 @@ export default {
   methods: {
     scrollDown() {
       console.log(this.previousMsg)
-      // var chatlog = this.$refs.messages
       var chatlog = document.getElementById("chatlog")
-      console.log(chatlog)
       chatlog.scrollTop = chatlog.scrollHeight;
-      console.log(chatlog.scrollTop)
-      console.log(chatlog.scrollHeight)
-      // chatlog.scrollTo({ top: 53*this.previousMsg.length+20, behavior: 'smooth' })
-      // console.log(53*this.previousMsg.length)
     },
     sendMessage (e) {
       if(e.keyCode === 13 && this.nowUser.trim() !== '' && this.message.trim() !== ''){
