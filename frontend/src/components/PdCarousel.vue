@@ -70,5 +70,8 @@
   max-height: 700px;
   overflow: hidden;
 }
+.sr-only{
+  display: none  !important;;
+}
 
 </style>
