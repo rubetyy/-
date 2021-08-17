@@ -89,7 +89,7 @@ export default {
           message: this.message 
         }
         this.stompClient.debug = function (){}  //do nothing
-        this.stompClient.send("/pub/api/livechat/message", JSON.stringify(msg), {})
+        this.stompClient.send("/pub/livechat/message", JSON.stringify(msg), {})
       }
     },
     connect() {
