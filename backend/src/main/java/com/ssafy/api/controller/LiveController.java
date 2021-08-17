@@ -46,6 +46,7 @@ public class LiveController {
 		return new ResponseEntity<Live>(live,HttpStatus.OK);
 	}
 
+	@Transactional
 	@PostMapping()
 	@ApiOperation(value = "해당방송정보반환", notes = "방송정보를 반환한다.")
 	public ResponseEntity selectOne(@RequestBody  LiveDetailReq liveDetailReq) {
