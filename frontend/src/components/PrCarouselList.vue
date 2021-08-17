@@ -13,8 +13,8 @@
       </p>
     </div> -->
 
-    <div class="swiper-slide card" v-for="(file, idx) in filesPreview" :key="idx" :file="file"> 
-        <img :src="file" class="card-img-top" alt="...">
+    <div class="swiper-slide" v-for="(file, idx) in filesPreview" :key="idx" :file="file"> 
+        <img :src="file" class="card-img-top " alt="...">
         <!-- <div class="card-body">
         </div> -->
     </div>
@@ -63,25 +63,25 @@ export default {
     direction: 'horizontal',
     loop: false,
     slidesPerView: 2,
-    spaceBetween: 50,
-    breakpoints: {
-      1024: {
-        slidesPerView: 4,
-        spaceBetween: 40
-      },
-      768: {
-        slidesPerView: 3,
-        spaceBetween: 30
-      },
-      640: {
-        slidesPerView: 2,
-        spaceBetween: 20
-      },
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 10
-      }
-    },
+    spaceBetween: 20,
+    // breakpoints: {
+    //   1024: {
+    //     slidesPerView: 1,
+    //     spaceBetween: 40
+    //   },
+    //   768: {
+    //     slidesPerView: 1,
+    //     spaceBetween: 30
+    //   },
+    //   640: {
+    //     slidesPerView: 1,
+    //     spaceBetween: 20
+    //   },
+    //   320: {
+    //     slidesPerView: 1,
+    //     spaceBetween: 10
+    //   }
+    // },
     // If we need pagination
     pagination: {
       el: '.swiper-pagination',
@@ -107,15 +107,17 @@ export default {
 </script>
 <style scoped>
 .swiper-container {
-  width: 1280px;
-  height: 450px;
+  width: 1200px;
+  height: 700px;
+  display: flex;
+  justify-content: center;
 }
 .card {
   width: 14rem;
   height: 410px;
 }
 .card-img-top {
-  height: 350px;
+  height: 500px;
 }
 .card {
   position: relative;

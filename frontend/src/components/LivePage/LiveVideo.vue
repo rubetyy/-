@@ -13,7 +13,7 @@
 			</div>
 		</div>
 		<div class="viewer-count">
-			<i class="bi bi-person" style="margin-right:10px;font-size:1.6rem;"></i>{{this.liveViewerCount}}
+			<i class="bi bi-person" style="margin-right:10px;font-size:1.6rem;"></i>{{this.liveInfo.liveviewercount}}
 		</div>
 	</div>
 </template>
@@ -58,7 +58,7 @@ export default {
 			mySessionId: localStorage.getItem('wschat.roomId') ? String(localStorage.getItem('wschat.roomId')) : null,
 			myUserName: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
 
-			liveViewerCount: 0,
+			// liveViewerCount: 0,
 		}
 	},
 
@@ -66,33 +66,33 @@ export default {
 		this.joinSession()
 	},
 //################################# 
-	updated() {
-		console.log('라이브 pk', this.liveInfo.livepk)
-		console.log('시청자 수', this.subscribers.length)
+	// updated() {
+	// 	console.log('라이브 pk', this.liveInfo.livepk)
+	// 	console.log('시청자 수', this.subscribers.length)
 		
-		const LIVEVIEWER_URL = BASE_URL + `/live/live-viewer`
-		const live_data = {
-			live_pk: this.liveInfo.livepk,
-			viewer_count: this.subscribers.length, 
-		}
+	// 	const LIVEVIEWER_URL = BASE_URL + `/live/live-viewer`
+	// 	const live_data = {
+	// 		live_pk: this.liveInfo.livepk,
+	// 		viewer_count: this.subscribers.length, 
+	// 	}
 				
-		axios.post(LIVEVIEWER_URL, live_data)
-			.then(response => {
-				console.log('시청자 수 db에 수정 성공', response)
-				// 업데이트 된 시청자 수 return
-				console.log(response,'res시청자')
-				// this.liveViewerCount = response.data
-			})
-			.catch(error => {
-				console.log('시청자 수 db에 수정 실패', error)
-			})
-	},
-	watch: {
-		livelength() {
-			console.log(this.subscribers,'watch')
-			this.liveViewerCount = this.subscribers.length
-		}
-	},
+	// 	axios.post(LIVEVIEWER_URL, live_data)
+	// 		.then(response => {
+	// 			console.log('시청자 수 db에 수정 성공', response)
+	// 			// 업데이트 된 시청자 수 return
+	// 			console.log(response,'res시청자')
+	// 			// this.liveViewerCount = response.data
+	// 		})
+	// 		.catch(error => {
+	// 			console.log('시청자 수 db에 수정 실패', error)
+	// 		})
+	// },
+	// watch: {
+	// 	livelength() {
+	// 		console.log(this.subscribers,'watch')
+	// 		this.liveViewerCount = this.subscribers.length
+	// 	}
+	// },
 
 	methods: {
 		enableProdMode() {
