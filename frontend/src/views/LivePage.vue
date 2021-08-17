@@ -72,7 +72,6 @@ export default {
     this.getLiveInfo(data)
     .then(res => {
       this.data = res.data
-      console.log(this.data,'겟라이브 인포해서 가져오기')
       if (this.data.userid  === this.nowUser) {
         this.isSeller = true
       }
@@ -93,7 +92,7 @@ export default {
     ...mapActions(userStore,[
     'like','dislike'
     ]),
-    likeProduct() { // 찜하기
+    likeProduct() {
      if (localStorage.getItem('token')==null) {
         swal({
           text: '로그인 후 이용해주세요',

@@ -12,8 +12,8 @@
 				<user-video id="buyer-video" :stream-manager="subscribers[0]"/>
 			</div>
 		</div>
-		<div class="viewer-count">
-			<i class="bi bi-person" style="margin-right:10px;font-size:1.6rem;"></i>{{this.liveInfo.liveviewercount}}
+		<div class="viewer-count" v-if="liveInfo">
+			<i class="bi bi-person" style="margin-right:10px;font-size:1.6rem;"></i>{{liveInfo.liveviewercount}}
 		</div>
 	</div>
 </template>
@@ -22,29 +22,22 @@
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from '@/components/LivePage/UserVideo';
-// import { mapActions } from 'vuex';
-// const liveStore = 'liveStore'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const BASE_URL = process.env.VUE_APP_BASE_URL
-
-// const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_URL = "https://" + "i5c103.p.ssafy.io:8443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
 	name: 'App',
-
 	props: {
 		liveInfo: Object,
 		isSeller: Boolean,
 	},
-
 	components: {
 		UserVideo,
 	},
-
 	data () {
 		return {
 			OV: undefined,
@@ -52,107 +45,49 @@ export default {
 			mainStreamManager: undefined,
 			publisher: undefined,
 			subscribers: [],
-
-			// mySessionId: String(localStorage.getItem('wschat.roomId')),
-			// myUserName: JSON.parse(localStorage.getItem('userInfo')).id,
 			mySessionId: localStorage.getItem('wschat.roomId') ? String(localStorage.getItem('wschat.roomId')) : null,
 			myUserName: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
-
-			// liveViewerCount: 0,
 		}
 	},
-
 	created() {
 		this.joinSession()
 	},
-//################################# 
-	// updated() {
-	// 	console.log('라이브 pk', this.liveInfo.livepk)
-	// 	console.log('시청자 수', this.subscribers.length)
-		
-	// 	const LIVEVIEWER_URL = BASE_URL + `/live/live-viewer`
-	// 	const live_data = {
-	// 		live_pk: this.liveInfo.livepk,
-	// 		viewer_count: this.subscribers.length, 
-	// 	}
-				
-	// 	axios.post(LIVEVIEWER_URL, live_data)
-	// 		.then(response => {
-	// 			console.log('시청자 수 db에 수정 성공', response)
-	// 			// 업데이트 된 시청자 수 return
-	// 			console.log(response,'res시청자')
-	// 			// this.liveViewerCount = response.data
-	// 		})
-	// 		.catch(error => {
-	// 			console.log('시청자 수 db에 수정 실패', error)
-	// 		})
-	// },
-	// watch: {
-	// 	livelength() {
-	// 		console.log(this.subscribers,'watch')
-	// 		this.liveViewerCount = this.subscribers.length
-	// 	}
-	// },
-
 	methods: {
-		enableProdMode() {
-			console.log = () => { };
-			console.debug = () => { };
-			console.info = () => { };
-			console.warn = () => { };
-		},
-		// 세션 가입 -> created (판매자인 경우에만)
 		joinSession () {
-			// --- Get an OpenVidu object ---
 			this.OV = new OpenVidu();
 			this.OV.enableProdMode()
 
-			// --- Init a session ---
 			this.session = this.OV.initSession();
 
-			// --- Specify the actions when events take place in the session ---
-
-			// On every new Stream received...
 			this.session.on('streamCreated', ({ stream }) => {
 				const subscriber = this.session.subscribe(stream);
 				this.subscribers.push(subscriber);
 			});
 
-			// On every Stream destroyed...
 			this.session.on('streamDestroyed', ({ stream }) => {
 				const index = this.subscribers.indexOf(stream.streamManager, 0);
 				if (index >= 0) {
 					this.subscribers.splice(index, 1);
 				}
 			});
-			
-			// On every asynchronous exception...
+
 			this.session.on('exception', ({ exception }) => {
 				console.warn(exception);
 			});
 
-			// --- Connect to the session with a valid user token ---
-
-			// 'getToken' method is simulating what your server-side should do.
-			// 'token' parameter should be retrieved and returned by your own backend
 			this.getToken(this.mySessionId).then(token => {
 				this.session.connect(token, { clientData: this.myUserName })
 					.then(() => {
-
-						// --- Get your own camera stream with the desired properties ---
-
-						// 판매자인 경우에만 mainStreamManager 등록
 						if (this.liveInfo.userid === this.myUserName) {
 							let publisher = this.OV.initPublisher(undefined, {
-								audioSource: undefined, // The source of audio. If undefined default microphone
-								videoSource: undefined, // The source of video. If undefined default webcam
-								publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
-								publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-								// resolution: '640x480',  // The resolution of your video
-								resolution: '760x530',  // The resolution of your video
-								frameRate: 30,			// The frame rate of your video
-								insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
-								mirror: false       	// Whether to mirror your local video or not
+								audioSource: undefined,
+								videoSource: undefined,
+								publishAudio: true,
+								publishVideo: true,
+								resolution: '760x530',
+								frameRate: 30,
+								insertMode: 'APPEND',
+								mirror: false
 							});
 							this.mainStreamManager = publisher;
 							this.session.publish(this.mainStreamManager);
@@ -162,12 +97,9 @@ export default {
 						console.log('세션 연결 중 에러발생:', error.code, error.message);
 					});
 			});
-
-			// window.addEventListener('beforeunload', this.leaveSession)
 		},
 
 		leaveSession () {
-			// --- Leave the session by calling 'disconnect' method over the Session object ---
 			if (this.session) {
 				this.session.disconnect();
 				this.session = undefined;
@@ -178,35 +110,17 @@ export default {
 				
 				const url = BASE_URL + `/live/end/${this.mySessionId}`
 				axios.delete(url)
-				.then(res => console.log(res))
-				.catch(err => console.log(err))
 			}
-
-
 			window.removeEventListener('beforeunload', this.leaveSession);
 		},
 
-		/**
-		 * --------------------------
-		 * SERVER-SIDE RESPONSIBILITY
-		 * --------------------------
-		 * These methods retrieve the mandatory user token from OpenVidu Server.
-		 * This behavior MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
-		 * the API REST, openvidu-java-client or openvidu-node-client):
-		 *   1) Initialize a Session in OpenVidu Server	(POST /openvidu/api/sessions)
-		 *   2) Create a Connection in OpenVidu Server (POST /openvidu/api/sessions/<SESSION_ID>/connection)
-		 *   3) The Connection.token must be consumed in Session.connect() method
-		 */
 
 		getToken (mySessionId) {
 			return this.createSession(mySessionId).then(sessionId => this.createToken(sessionId));
 		},
-
-		// See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-openviduapisessions
 		createSession (sessionId) {
 			return new Promise((resolve, reject) => {
-				axios
-					.post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, JSON.stringify({
+				axios.post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, JSON.stringify({
 						customSessionId: sessionId,
 					}), {
 						auth: {
@@ -230,11 +144,9 @@ export default {
 			});
 		},
 
-		// See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-openviduapisessionsltsession_idgtconnection
 		createToken (sessionId) {
 			return new Promise((resolve, reject) => {
-				axios
-					.post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`, {}, {
+				axios.post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`, {}, {
 						auth: {
 							username: 'OPENVIDUAPP',
 							password: OPENVIDU_SERVER_SECRET,
@@ -245,10 +157,7 @@ export default {
 					.catch(error => reject(error.response));
 			});
 		},
-		// ...mapActions(liveStore, ['getLiveInfo']),
 	},
-
-
 }
 </script>
 
