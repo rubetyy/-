@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Api(value = "방송 API", tags = {"Live"})
 @RestController
-@RequestMapping("/api/live")
+@RequestMapping("/live")
 public class LiveController {
 	
 	@Autowired
@@ -46,6 +46,7 @@ public class LiveController {
 		return new ResponseEntity<Live>(live,HttpStatus.OK);
 	}
 
+	@Transactional
 	@PostMapping()
 	@ApiOperation(value = "해당방송정보반환", notes = "방송정보를 반환한다.")
 	public ResponseEntity selectOne(@RequestBody  LiveDetailReq liveDetailReq) {
@@ -80,13 +81,6 @@ public class LiveController {
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 		long a = liveService.updatetitleLive(liveTitlePatchReq);
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
-	}
-
-	@Transactional
-	@PostMapping(value="/live-viewer")
-	public ResponseEntity updateViewerCount(@RequestBody LiveVIewerReq liveViewerReq){
-		int a  = liveService.updateViewerCount(liveViewerReq);
-		return new ResponseEntity(a,HttpStatus.OK);
 	}
 
 }

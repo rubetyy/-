@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Api(value = "카테고리탭에 속하는 화면 API", tags = {"Category"})
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired

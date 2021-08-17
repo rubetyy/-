@@ -74,10 +74,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return loggingFilter;
     }
 
-    @Bean
-    public FilterRegistrationBean loggingFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean(requestLoggingFilter());
-        registration.addUrlPatterns("/api/*");
-        return registration;
-    }
+    //@Bean
+    //public FilterRegistrationBean loggingFilterRegistration() {
+    //    FilterRegistrationBean registration = new FilterRegistrationBean(requestLoggingFilter());
+    //    registration.addUrlPatterns("/api/*");
+    //    return registration;
+    //}
 }
