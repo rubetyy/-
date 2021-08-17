@@ -21,22 +21,10 @@
         </div>
         <img :src="`http://i5c103.p.ssafy.io:8080/${live.filepath}`" class="card-img-top" alt="...">
         <div class="card-body">
-          <p style="text-align:center;">{{live.livetitle}}
-            <!-- <router-link :to="{name: 'LivePage', params: { id: live.livepk }}">라이브 방송 시청</router-link> -->
-         </p>
+          <div class="card-t">{{live.livetitle}}</div>
         </div>
     </router-link>
     </div>
-
-    <!-- <div class="swiper-slide">Slide 2</div>
-    <div class="swiper-slide">Slide 3</div>
-    <div class="swiper-slide">Slide 4</div>
-    <div class="swiper-slide">Slide 5</div>
-    <div class="swiper-slide">Slide 6</div>
-    <div class="swiper-slide">Slide 7</div>
-    <div class="swiper-slide">Slide 8</div>
-    <div class="swiper-slide">Slide 9</div> -->
-  ...
   </div>
   <!-- If we need pagination -->
   <div class="swiper-pagination"></div>
@@ -122,10 +110,6 @@ export default {
     swiper.slideNext();
     
   },
-  methods: {
-    
-  }
-  
 }
 </script>
 <style scoped>
@@ -134,18 +118,18 @@ export default {
   height: 450px;
 }
 .card {
-  /* margin-right: 0; */
   width: 14rem;
-  height: 450px;
-  margin-top: 30px;
+  height: 410px;
 }
-
 .card-img-top {
   height: 350px;
-  /* overflow: hidden; */
 }
 .card {
   position: relative;
+}
+.card-t {
+  font-size: 1rem;
+  text-align:center;
 }
 .main-viewcount {
   position: absolute;
@@ -156,5 +140,9 @@ export default {
   top: 10px;
   left: 15px;
   height: 40px;
+}
+a:active, a:hover {
+  color:#1e1e1e !important;
+  background-color:transparent !important;
 }
 </style>

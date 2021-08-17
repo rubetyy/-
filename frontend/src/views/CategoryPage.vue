@@ -1,8 +1,8 @@
 <template>
   <div>
     <LiveList :lives="categoryLiveProducts"/>
-    <hr>
-    <ProductList :products="categoryProducts" />
+    <div class="line"></div>
+    <ProductList :products="categoryProducts" :header="header" />
   </div>
 </template>
 
@@ -20,47 +20,44 @@ export default {
     LiveList,
     ProductList,
   },
+  data: function () {
+    return {
+      header: "상품 리스트",
+    }
+  },
   watch: {
     $route() {
       const categoryId = this.$route.params.categoryId
       this.getCPList(categoryId)
       this.getCPLiveList(categoryId)
-
     }
   },
-
   computed: {
-    ...mapGetters(productStore, ['CPList',]),
+    ...mapGetters(productStore, ['CPList']),
     categoryProducts: function() {
       return this.CPList
     },
-    ...mapGetters(liveStore, ['CPLiveList',]),
+    ...mapGetters(liveStore, ['CPLiveList']),
     categoryLiveProducts: function() {
       return this.CPLiveList
     },
   },
-
   methods : {
     ...mapActions(productStore, ['getCPList']),
     ...mapActions(liveStore, ['getCPLiveList']),
-
   },
   created: function() {
     const categoryId = this.$route.params.categoryId
     this.getCPList(categoryId)
     this.getCPLiveList(categoryId)
-        .then(()=>{
-      console.log('성공 getLiveList')
-    })
-        .catch(err => {
-      console.log(err)
-      console.log('에러 getLiveList')
-    })
-
   },
 }
 </script>
 
 <style scoped>
-
+.line {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-top: 2px solid #efeff0;
+}
 </style>

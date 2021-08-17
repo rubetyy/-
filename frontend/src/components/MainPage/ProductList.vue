@@ -1,41 +1,45 @@
 <template>
   <div>
-    <h1 id="header">상품 리스트</h1>
-      <div class="row">
-        <!-- <CarouselList/> -->
+    <h1 id="header">{{ header }}</h1>
+      <div v-if="products.length" class="row">
         <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
+      </div>
+      <div v-else class="noproduct-msg">
+        현재 판매중인 상품이 없습니다
       </div>
   </div>
 </template>
 
 <script>
 import ProductListItem from '@/components/MainPage/ProductListItem.vue'
-// import CarouselList from '@/components/CarouselList.vue'
 
 export default {
   name: 'ProductList',
   props: {
     products: Array,
+    header: String,
   },
   components: {
     ProductListItem,
-    // CarouselList,
-
   },
-
 }
 </script>
 
 <style scoped>
 #header {
   text-align: start;
-  margin-bottom: 2rem;
+  margin: 0;
 }
 .row {
-  margin-left: 5%;
-  margin-right: 5%;
+  /* margin-left: 5%;
+  margin-right: 5%; */
   display: flex;
-  /* flex-wrap: nowrap; */
   justify-content: center;
+}
+.noproduct-msg {
+  font-size: 1.2rem;
+  color: rgb(133, 133, 133);
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 </style>

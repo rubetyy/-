@@ -23,12 +23,11 @@
       
         <div v-if="productFile.images" class="content">
     
-            <div style="font-size: 18px;  padding: 30px; padding-left: 40px; vertical-align: middle ">
-              <svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-              </svg>
-              <router-link style="padding-left: 10px;" :to="{name: 'ProfilePage', params: {userid: productFile.images[0].product.userId}}">{{productFile.usernickname}}</router-link>
+            <div class="userinfo">
+              <i class="bi bi-person-circle"></i>
+              <router-link :to="{name: 'ProfilePage', params: {userid: productFile.images[0].product.userId}}">
+                {{productFile.usernickname}}
+              </router-link>
             </div>
 
             <div class="content-sold" >
@@ -43,7 +42,7 @@
 
               <!-- 로그인한사람과 판매자가 다를 때에만 채팅버튼 보이기 -->
               <div v-if='userId.id != productFile.images[0].product.userId'>
-                <button class="btn-o btn-chat" @click="startchat">1:1 채팅하기</button>
+                <button class="btn-o" style="margin-right:13px;" @click="startchat">1:1 채팅하기</button>
 
                   <button v-if="productFile.wish.flag==true" class="btn-o" @click="dislikeProduct">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -71,8 +70,8 @@
 
                   <div v-if="productFile.images[0].product.userId == this.userId.id">
                     <button class="btn-o" @click="makelive">방송 시작하기</button>
-                    <button class="btn-o">수정</button>
-                    <button class="btn-o">삭제</button>
+                    <!-- <button class="btn-o">수정</button>
+                    <button class="btn-o">삭제</button> -->
                   </div>
                   
                   <br>        
@@ -96,9 +95,9 @@
               <time>{{createTime}}</time>
             </div>
             <div> 
-              <p style="font-size: 20px; margin-bottom:70px;">가격: {{ productFile.images[0].product.price }}원</p>
+              <p style="font-size: 1.2rem; margin-bottom:40px;">가격: {{ productFile.images[0].product.price }}원</p>
             </div>
-            <div style="font-size: 25px; ">제품 설명: {{ productFile.images[0].product.description }} </div>
+            <div style="font-size: 1.4rem;">제품 설명: {{ productFile.images[0].product.description }} </div>
           </div>
         </div>
 
@@ -297,20 +296,21 @@ export default {
   margin-bottom: 30px;
 } */
 .content-title {
-  padding: 30px;
+  padding: 30px 30px 10px 30px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1.5px solid #e9ecef;
 }
 .content-title > p {
- font-size: 40px;
- line-height: 1.6;
+ font-size: 35px;
+ line-height: 2;
  letter-spacing: -0.6px;
+ font-weight: 450;
 }
 
 .content-sub {
   color: grey;
-  font-size: 20px;
+  font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
@@ -328,21 +328,19 @@ export default {
 .content-sold {
   padding-left: 30px;
   margin-bottom: 0px;
-  font-size: 20px;
+  font-size: 1.2rem;
 }
-
-
-/* .img-box {
-  height: 700px;
-  overflow: hidden;
-} */
-
-/* #carousel-1 {
-  max-height: 700px;
-} */
-
-.btn-chat {
-  margin-right: 20px;
+.userinfo {
+  font-size: 1.3rem;
+  padding-bottom: 8px;
+  padding-left: 40px;
+}
+.btn-o {
+  border-radius: 38.5px;
+  padding: 0px 17px;
+  line-height: 45px;
+  font-weight: 450;
+  font-size: 1rem;
 }
 .img-box {
   width: 100%;

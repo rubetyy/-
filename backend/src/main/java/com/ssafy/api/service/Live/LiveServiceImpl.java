@@ -85,7 +85,7 @@ public class LiveServiceImpl implements LiveService {
 	}
 
 	@Override
-	public Long updateViewerCount(LiveVIewerReq liveVIewerReq) {
+	public int updateViewerCount(LiveVIewerReq liveVIewerReq) {
 		return liveRepositorySupport.updateViewerCount(liveVIewerReq);
 	}
 
