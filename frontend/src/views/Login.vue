@@ -58,10 +58,19 @@ export default {
           this.$router.push({name:"MainPage"})
         })
         .catch(error => {
-          console.log('333', error)
-          // 아이디 없으면 500
-
-          // 비번 틀리면 401
+          if (error.response.status === 500) {
+            swal({
+              text: '없는 아이디 입니다',
+              icon: 'warning',
+              button: false,
+            })
+          } else if (error.response.status === 401) {
+            swal({
+              text: '잘못된 비밀번호 입니다',
+              icon: 'warning',
+              button: false,
+            })
+          }
         })
       }
     }

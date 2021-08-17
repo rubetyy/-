@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Api(value = "방송 API", tags = {"Live"})
 @RestController
-@RequestMapping()
+@RequestMapping("/live")
 public class LiveController {
 	
 	@Autowired
@@ -38,7 +38,7 @@ public class LiveController {
 	ProductServiceImpl productService;
 
 	@Transactional
-	@PostMapping("/live/live-start")
+	@PostMapping("/live-start")
 	public ResponseEntity create(
 			@RequestBody @ApiParam(value="방송생성정보반환", required = true) Live registerInfo) {
 
@@ -46,7 +46,7 @@ public class LiveController {
 		return new ResponseEntity<Live>(live,HttpStatus.OK);
 	}
 
-	@PostMapping("/live")
+	@PostMapping()
 	@ApiOperation(value = "해당방송정보반환", notes = "방송정보를 반환한다.")
 	public ResponseEntity selectOne(@RequestBody  LiveDetailReq liveDetailReq) {
 
@@ -72,7 +72,7 @@ public class LiveController {
 	}
 
 	@Transactional
-	@PatchMapping(value="/live/title")
+	@PatchMapping(value="/title")
 	@ApiOperation(value = "방송제목수정", notes = "방송제목수정을 진행.")
 	public ResponseEntity<? extends BaseResponseBody> register(
 			@RequestBody @ApiParam(value="방송제목수정", required = true) LiveTitlePatchReq liveTitlePatchReq) {
@@ -83,9 +83,9 @@ public class LiveController {
 	}
 
 	@Transactional
-	@PostMapping(value="/live/live-viewer")
+	@PostMapping(value="/live-viewer")
 	public ResponseEntity updateViewerCount(@RequestBody LiveVIewerReq liveViewerReq){
-		long a  = liveService.updateViewerCount(liveViewerReq);
+		int a  = liveService.updateViewerCount(liveViewerReq);
 		return new ResponseEntity(a,HttpStatus.OK);
 	}
 

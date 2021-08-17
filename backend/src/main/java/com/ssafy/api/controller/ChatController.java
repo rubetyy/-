@@ -36,8 +36,6 @@ public class ChatController {
     @MessageMapping("/livechat/message")
     public void message(ChatMessage message) {
         //방송종료 메소드 수행
-        if ( ChatMessage.MessageType.LEAVE.equals(message.getType()) )
-            message.setMessage("");//flag값 리턴?
         messagingTemplate.convertAndSend("/sub/livechat/room/" + message.getRoomId(), message);
     }
 

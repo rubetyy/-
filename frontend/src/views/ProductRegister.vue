@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="isLogged" class="form-box product-register-form">
       <h1 id="header">상품 등록</h1>
+    <div v-if="isLogged" class="form-box product-register-form">
         <div class= "image-container">
           <label for="file"  style="display:block" >
           <div class="img-box">
@@ -10,7 +10,7 @@
               <p style="font-size:25px;">사진을 업로드 해주세요</p>
             </div>
 
-            <div v-else>
+            <div v-else  class="img-box">
               <b-carousel
                 id="carousel-1"
                 v-model="slide"
@@ -19,7 +19,7 @@
                 indicators
                 background="#ababab"
                 img-width="1024"
-                img-height="480"
+                
                 style="text-shadow: 1px 1px 2px #333;"
                 @sliding-start="onSlideStart"
                 @sliding-end="onSlideEnd"
@@ -44,15 +44,12 @@
 
       <div>
         <p>카테고리</p>
-        <select class="form-select" aria-label="Default select example" placeholder="제목" v-model="productFile.category">
+        <select class="form-select" style="margin-bottom:25px;" aria-label="Default select example" placeholder="제목" v-model="productFile.category">
           <option value="1">의류</option>
           <option value="2">음식</option>
           <option value="3">전자제품</option>
           <option value="4">기타</option>
         </select>
-
-        <div class="mt-3">선택된 카테고리: <strong>{{ productFile.category }}</strong></div>
-        <br>
       </div>
 
       <div>
@@ -235,14 +232,15 @@ export default {
 
 <style scoped>
 .product-register-form {
-  padding: 40px;;
+  padding: 40px;
   border-radius: 15px;
 }
-
+.form-box {
+  margin-top: 0;
+}
 .image-container {
-  margin-top: 40px;
   margin-bottom: 0px;
-  height: 100%;
+  /* height: 100%; */
 }
 input, select{
   padding: 15px;
@@ -253,10 +251,9 @@ input, select{
 
 .img-box{
   width: 100%;
-  height: 350px;
-  border: 3px solid grey; ;
-  border-radius: 4px ;
-  text-align: center;
+  max-height: 700px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 </style>

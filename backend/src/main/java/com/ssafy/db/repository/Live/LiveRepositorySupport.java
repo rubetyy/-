@@ -86,7 +86,7 @@ public class LiveRepositorySupport {
     public List<LiveCategoryDto> getLiveByCategoryId(int categoryid){
         List<Tuple> l = jpaQueryFactory.select(qLive,qProduct).from(qLive)
                 .join(qProduct).on(qProduct.id.eq(qLive.productpk))
-                .where(qProduct.isSold.eq(0),qProduct.categoryId.eq(categoryid))
+                .where(qProduct.isSold.eq(0),qProduct.categoryId.eq(categoryid),qLive.islive.eq(1))
                 .orderBy(qLive.liveviewercount.desc()).fetch();
         List<LiveCategoryDto> res = new LinkedList<>();
         for(Tuple t : l){

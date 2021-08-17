@@ -1,10 +1,8 @@
 <template>
   <div id="livechat">
-    <div v-bar class="chatlog">
-      <div ref="messages">
-        <div v-for="(item, idx) in messages" :key="idx">
-          {{ item.sender }}: {{ item.message }}
-        </div>
+    <div class="chatlog" ref="messages">
+      <div v-for="(item, idx) in messages" :key="idx">
+        {{ item.sender }}: {{ item.message }}
       </div>
     </div>
     <div class="send">
@@ -18,7 +16,6 @@
       </h3>
       <div slot="body" style="text-align:center">방송이 종료되었습니다</div>
     </Modal>
-
   </div>
 </template>
 
@@ -35,19 +32,17 @@ export default {
   components: {
     Modal,
   },
-
   data() {
     return {
-      sender: null, //닉네임
+      sender: null,
       message: '',
       messages: [],
       roomId: '',
-      isLive: true,  // 방송종료시 false
+      isLive: true,
       showModal: false,
     }
   },
   created() {
-    // this.sender = JSON.parse(localStorage.getItem('userInfo')).nickname
     this.sender = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).nickname : null
     this.roomId = localStorage.getItem('wschat.roomId')
     this.connect()
@@ -73,7 +68,6 @@ export default {
         })
       }
     },
-
     clickMessage() {
       if(this.sender !== null && this.message.trim() !== ''){
         this.send()
@@ -86,7 +80,6 @@ export default {
         })
       }
     },
-
     send() {
       if (this.stompClient && this.stompClient.connected) {
         const msg = {
@@ -99,7 +92,6 @@ export default {
         this.stompClient.send("/pub/livechat/message", JSON.stringify(msg), {})
       }
     },
-        
     connect() {
       const serverURL = BASE_URL + '/ws'
       let socket = new SockJS(serverURL)
@@ -156,7 +148,6 @@ input:hover, input:active, input[type="text"]:focus,
   border-radius: 5px 0 0 5px;
   border-right: none;
   padding-left: 12px;
-  /* outline: none; */
 }
 .send {
   display: flex;
@@ -171,51 +162,5 @@ input:hover, input:active, input[type="text"]:focus,
   border-radius: 0 5px 5px 0;
   padding: 6px 8px;
   font-weight: 400;
-}
-
-.vb > .vb-dragger {
-    z-index: 5;
-    width: 12px;
-    right: 0;
-}
-
-.vb > .vb-dragger > .vb-dragger-styler {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform: rotate3d(0,0,0,0);
-    transform: rotate3d(0,0,0,0);
-    -webkit-transition:
-        background-color 100ms ease-out,
-        margin 100ms ease-out,
-        height 100ms ease-out;
-    transition:
-        background-color 100ms ease-out,
-        margin 100ms ease-out,
-        height 100ms ease-out;
-    background-color: rgba(48, 121, 244,.1);
-    margin: 5px 5px 5px 0;
-    border-radius: 20px;
-    height: calc(100% - 10px);
-    display: block;
-}
-
-.vb.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {
-    background-color: rgba(48, 121, 244,.3);
-}
-
-.vb > .vb-dragger:hover > .vb-dragger-styler {
-    background-color: rgba(48, 121, 244,.5);
-    margin: 0px;
-    height: 100%;
-}
-
-.vb.vb-dragging > .vb-dragger > .vb-dragger-styler {
-    background-color: rgba(48, 121, 244,.5);
-    margin: 0px;
-    height: 100%;
-}
-
-.vb.vb-dragging-phantom > .vb-dragger > .vb-dragger-styler {
-    background-color: rgba(48, 121, 244,.5);
 }
 </style>
