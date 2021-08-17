@@ -5,7 +5,7 @@
           <!-- <div class="main-viewcount">
             <p>{{product.product.viewCount}}</p>
           </div> -->
-        <img :src="`http://i5c103.p.ssafy.io:8080/${image}`" class="card-img-top main-image" alt="...">
+        <img :src="`http://i5c103.p.ssafy.io/api/${image}`" class="card-img-top main-image" alt="...">
         <div class="card-body card-t">{{ product.title }}</div>
       </div>
     </router-link>

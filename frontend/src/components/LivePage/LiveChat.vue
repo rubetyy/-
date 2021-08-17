@@ -137,7 +137,7 @@ input:hover, input:active, input[type="text"]:focus,
 }
 .chatlog {
   height:450px;
-  overflow:auto;
+  overflow: auto;
   margin: 15px 10px 10px;
 }
 .form-control {
