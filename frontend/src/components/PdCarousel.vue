@@ -19,7 +19,7 @@
         <b-carousel-slide v-for="(file, idx) in thumbnail" :key="idx" :file="file">
           <template #img >
             <img
-              class="d-block w-70 m-auto"
+              class="d-block w-70 m-auto card-img-top"
               :src="`http://i5c103.p.ssafy.io:/api/${file}`"
               alt="image slot"
             >

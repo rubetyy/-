@@ -62,4 +62,9 @@ public class ChatServiceImpl implements ChatService {
 	public void sold(ProductSoldReq productSoldReq) {
 		chatRoomRepositorySupport.soldProduct(productSoldReq);
 	}
+
+	@Override
+	public String getBuyerId(int chatroompk) {
+		return chatRoomRepositorySupport.getBuyerId(chatroompk);
+	}
 }
