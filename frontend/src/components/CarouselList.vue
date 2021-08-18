@@ -20,9 +20,7 @@
           <p style="color: white">{{live.liveviewercount}}명이 시청 중</p>
         </div>
         <img :src="`https://i5c103.p.ssafy.io/api/${live.filepath}`" class="card-img-top" alt="...">
-        <div class="card-body">
-          <div class="card-t">{{live.livetitle}}</div>
-        </div>
+        <div class="card-body card-t">{{live.livetitle}}</div>
     </router-link>
     </div>
   </div>
@@ -72,21 +70,21 @@ export default {
     slidesPerView: 4,
     spaceBetween: 50,
     breakpoints: {
-      1024: {
+      // 1024: {
+      //   slidesPerView: 4,
+      //   spaceBetween: 40
+      // },
+      // 768: {
+      //   slidesPerView: 3,
+      //   spaceBetween: 30
+      // },
+      // 640: {
+      //   slidesPerView: 2,
+      //   spaceBetween: 20
+      // },
+      320: {
         slidesPerView: 4,
         spaceBetween: 40
-      },
-      768: {
-        slidesPerView: 3,
-        spaceBetween: 30
-      },
-      640: {
-        slidesPerView: 2,
-        spaceBetween: 20
-      },
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 10
       }
     },
     // If we need pagination
@@ -114,21 +112,21 @@ export default {
 </script>
 <style scoped>
 .swiper-container {
-  width: 1280px;
-  height: 450px;
+  width: 1200px;
+  height: 430px;
 }
 .card {
   width: 14rem;
-  height: 410px;
+  height: 23rem;
 }
 .card-img-top {
-  height: 350px;
+  height: 19rem;
 }
 .card {
   position: relative;
 }
 .card-t {
-  font-size: 1rem;
+  font-size: 1.1rem;
   text-align:center;
 }
 .main-viewcount {

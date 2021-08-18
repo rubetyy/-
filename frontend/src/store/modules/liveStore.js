@@ -8,8 +8,6 @@ const liveStore = {
     productInfo: null,
     liveList: [],
     CPLiveList: [],
-
-
   },
   getters: {
     getProductInfo(state) {
@@ -31,7 +29,6 @@ const liveStore = {
     },
     SET_LIVE_LIST (state, data) {
       state.liveList = data
-      // console.log(state.liveList,'state')
     },
     SET_CP_LIVE_LIST (state, data) {
       state.CPLiveList = data
@@ -42,46 +39,32 @@ const liveStore = {
       const url = BASE_URL + '/live/live-start'
       const res = await axios.post(url, params)
       if (res.status === 200) {
-        console.log('스타트라이브 성공')
         context.commit('REMOVE_P_INFO')
-        console.log(res)
         return res.data
       } else {
-        console.log('스타트라이브 에러')
-        console.log(res.status)
-        console.log(res)
         throw new Error(res.status)
       }
     },
     getLiveInfo: async function (context, data) {
       const url = BASE_URL + `/live`
       const res = await axios.post(url, data)
-      console.log(res,'resres')
       if (res.status === 200) {
-        console.log('겟라이브인포 성공')
         return res
       } else {
-        console.log(res.status)
-        console.log(res)
-        console.log('겟라이브인포 에러')
         throw new Error(res.status)
       }
     },
     makeLive(context, data) {
       context.commit('SET_P_INFO', data)
     },
-    // 메인페이지 라이브리스트
     async getLiveList(context) {
       const url = BASE_URL + '/product/main'
       const res = await axios.get(url)
-      console.log(res.data.liveList)
       context.commit('SET_LIVE_LIST', res.data.liveList)
     },
-    //카테고리 라이브리스트
     getCPLiveList: async function(context, categoryId) {
       const url = BASE_URL + `/category/${categoryId}`
       const res = await axios.get(url)
-      // res data 정렬 기준 무엇? id 오름차순? 조회수?
       context.commit('SET_CP_LIVE_LIST', res.data.liveList)
     },
   }

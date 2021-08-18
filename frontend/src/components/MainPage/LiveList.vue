@@ -46,8 +46,6 @@ export default {
   margin-bottom: 20px;
 }
 .row {
-  margin-left: 5%;
-  margin-right: 5%;
   display: flex;
   justify-content: center;
 }

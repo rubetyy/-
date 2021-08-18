@@ -6,7 +6,6 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
           <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <router-link :to="{name: 'MainPage'}" class="navbar-brand"><img src="./assets/logo.png" alt="" width="35" height="35">홍당무 라이브</router-link>
@@ -15,12 +14,10 @@
               <router-link :to="{name: 'CategoryPage', params:{categoryId: 3}}" class="navbar-brand" >전자제품</router-link> 
               <router-link :to="{name: 'CategoryPage', params:{categoryId: 4}}" class="navbar-brand" >기타</router-link> 
             </ul>
-
             <div class="d-flex me-5">
               <input class="form-control me-2" type="search" placeholder="제품을 검색하세요" aria-label="Search" v-model="keyword"  @keyup.enter="search">
               <button class="btn-o btn-small" type="submit" @click="search">Search</button>
             </div>
-
             <div v-if="isLogged">
               <router-link :to="{name: 'ProductRegister'}" class="navbar-brand">상품 등록</router-link>
               <router-link :to="{name: 'MyPage'}" class="navbar-brand" >마이페이지</router-link> 
@@ -34,12 +31,30 @@
         </div>
       </nav>
     </div>
-    <!-- <div id="main-image" v-if="isShow">
-      <div>누구나 판매할 수 있고<br>누구나 구매할 수 있는</div>
-      <div>홍당무 라이브</div>
-      <div>상품 판매를 위해 라이브 방송을 켜보세요 !</div>
-      <div>라이브방송은 판매물품 등록 후 가능합니다</div>
-    </div> -->
+
+    <section id="section-top">
+      <div id="home-main-top" v-if="isShow">
+        <div class="home-main-desc">
+          <div class="intro-text">누구나 판매할 수 있고 누구나 구매할 수 있는
+            <span class="logo-name">홍당무 라이브</span>
+          </div>
+          <div class="move">
+            <span>L</span>
+            <span>I</span>
+            <span>V</span>
+            <span>E</span>
+            <span>!</span>
+          </div>
+            사진과 다소 다른 상품 때문에 당황하셨나요?<br>
+            상품의 상태를 실시간 영상으로 확인해보세요<br><br>
+            <span class="logo-name">홍당무 라이브</span>가 해결해드리겠습니다!<br><br>
+            상품 판매를 위해 라이브 방송을 켜보세요 !<br>
+            라이브방송은 판매물품 등록 후 가능합니다
+        </div>
+        <div class="home-main-img"></div>
+      </div>
+    </section>
+
     <div id="article">
       <router-view/> 
     </div>
@@ -53,7 +68,6 @@ const productStore = 'productStore'
 
 export default {
   name: 'App',
-
   data: function () {
     return {
       userId: '',
@@ -79,21 +93,17 @@ export default {
     },
   },
   methods : {
-    ...mapActions(userStore,[
-      'logout'
-    ]),
+    ...mapActions(userStore,['logout']),
     logoutClick: function() {
       this.logout()
       .then(()=> {
         this.$router.push({name:"MainPage"})
       })
     },
-      ...mapActions(productStore,[
-    'getSearch'
-    ]),
+      ...mapActions(productStore,['getSearch']),
     search() {
       const data = {
-        'search' : this.keyword
+        'search': this.keyword
       }
       this.getSearch(data)
       .then(()=>{
@@ -103,7 +113,6 @@ export default {
   },
   created (){
     this.userId = JSON.parse(localStorage.getItem('userInfo'))
-    console.log(this.userId)
   }
 }
 </script>
@@ -122,6 +131,10 @@ export default {
 
 #app {
   min-height: 90vh;
+  font-family: 'Noto Sans KR';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #1e1e1e;
 }
 
 #nav {
@@ -139,23 +152,75 @@ export default {
   padding-inline: 30px;
 }
 
+#section-top {
+  background-color: #fff8f4;
+}
+#home-main-top {
+  width: 900px;
+  height: 600px;
+  background-color: #fff8f4;
+  margin: 0 auto;
+  position: relative;
+}
+.home-main-desc {
+  line-height: 1.3;
+  padding-top: 70px;
+}
+.home-main-img {
+  position: absolute;
+  right: 0;
+  top: 160px;
+  width: 514px;
+  height: 341px;
+  background: #fff8f4 url('./assets/main-img.png') no-repeat;
+  background-size: 513px 341px;
+}
+.logo-name {
+  color: #ff9c4b;
+  font-weight: 450;
+  font-family: 'netmarbleB';
+  font-size: 1.1rem;
+}
+.intro-text {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 450;
+  letter-spacing: -0.5px;
+}
+.intro-text span {
+  font-size: 1.5rem;
+}
+.move {
+  margin-top: 100px;
+}
+.move span {
+  position: relative;
+  top: 0;
+  display: inline-block;
+  animation: bounce .6s ease infinite alternate;
+  font-family: 'netmarbleB';
+  font-size: 5rem;
+  color: #ffaf6e;
+}
+
+.move span:nth-child(2) { animation-delay: .1s; }
+.move span:nth-child(3) { animation-delay: .2s; }
+.move span:nth-child(4) { animation-delay: .3s; }
+.move span:nth-child(5) { animation-delay: .4s; }
+
+@keyframes bounce {
+  100% {
+    top: -20px;
+  }
+}
+
 #article {
-  font-family: 'Noto Sans KR';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #1e1e1e;
   padding-top: 48px;
   padding-bottom: 100px;
   box-sizing: border-box;
   max-width: 1200px;
   min-width: 400px;
   margin: 0 auto;
-}
-
-#main-image {
-  height: 400px;
-  background-color: #fff3eb;
-  margin-bottom: 80px;
 }
 
 #header {

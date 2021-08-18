@@ -1,10 +1,7 @@
 <template>
-  <div class="col">
+  <div class="col-sm-6 col-lg-4 col-xl-3">
     <router-link :to="{name: 'ProductDetail', params: {product_pk: product.id}}">
       <div class="card">
-          <!-- <div class="main-viewcount">
-            <p>{{product.product.viewCount}}</p>
-          </div> -->
         <img :src="`http://i5c103.p.ssafy.io/api/${image}`" class="card-img-top main-image" alt="...">
         <div class="card-body card-t">{{ product.title }}</div>
       </div>
@@ -27,29 +24,20 @@ export default {
 </script>
 
 <style scoped>
-.col {
-  flex: 0;
-  text-align: center;
-}
 .card {
-  /* margin-right: 0; */
   width: 16rem;
-  /* height: 400px; */
-  margin-top: 50px;
+  margin: 25px auto;
   position: relative;
 }
 .card-img-top {
   height: 17rem;
-  /* overflow: hidden; */
 }
 .card-t {
   font-size: 1.1rem;
+  text-align: center;
 }
 a:active, a:hover {
   color:#1e1e1e !important;
   background-color:transparent !important;
-}
-.main-viewcount {
-  position: absolute;
 }
 </style>
