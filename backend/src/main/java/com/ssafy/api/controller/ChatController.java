@@ -91,6 +91,8 @@ public class ChatController {
             res.put("talk",ml);
         }
         res.put("userStatus",status);
+        String useridbuyer = chatService.getBuyerId(chatroom.getChatroompk());
+        res.put("buyerid",useridbuyer);
 
         if(ml == null) return new ResponseEntity("대화내용이 없습니다.",HttpStatus.OK);
         return new ResponseEntity(res,HttpStatus.OK);

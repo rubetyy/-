@@ -56,5 +56,9 @@ public class ChatRoomRepositorySupport {
                 .execute();
     }
 
+    public String getBuyerId(int chatroompk){
+        return jpaQueryFactory.select(qChatroom.useridbuyer).from(qChatroom)
+                .where(qChatroom.chatroompk.eq(chatroompk)).fetchOne();
+    }
 
 }
