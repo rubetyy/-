@@ -52,7 +52,7 @@ public class ChatRoomRepositorySupport {
 
     public void soldProduct(ProductSoldReq productSoldReq){
         jpaQueryFactory.update(qChatroom).set(qChatroom.buy,1)
-                .where(qChatroom.productpk.eq(productSoldReq.getProductpk()),qChatroom.useridbuyer.eq(productSoldReq.getUserid()))
+                .where(qChatroom.productpk.eq(productSoldReq.getProductpk()),qChatroom.useridseller.eq(productSoldReq.getUserid()))
                 .execute();
     }
 
