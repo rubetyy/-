@@ -13,7 +13,7 @@
       </div>
       <button class="btn-g" v-on:click='loginClick'>로그인</button>
       <!-- <input type="submit" class="button" v-on:click='loginClick'> -->
-      <router-link  :to="{name: 'Signup'}" style="display: block;  margin-top: 30px">아직 계정이 없나요?</router-link>
+      <router-link class="r-link" :to="{name: 'Signup'}" style="display: block;  margin-top: 30px">아직 계정이 없나요?</router-link>
     </div>
   </div>
 </template>

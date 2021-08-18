@@ -4,7 +4,7 @@
     <div class="form-box">
       <div style="margin-bottom: 40px; font-size:1.1rem;">
         <span>판매 상품 : </span>
-        <router-link :to="{name: 'ProductDetail', params: { product_pk: pinfo.productPk }}">
+        <router-link class="r-link" :to="{name: 'ProductDetail', params: { product_pk: pinfo.productPk }}">
           {{ pinfo.productTitle }} <i class="bi bi-arrow-up-right-square-fill"></i>
         </router-link>
       </div>
