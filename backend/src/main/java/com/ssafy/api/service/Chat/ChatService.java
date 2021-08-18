@@ -19,5 +19,6 @@ public interface ChatService {
     public ChatroomResponseDto findChat(Chatroom chatroom);
     public boolean check(ChatRoomReq chatRoomReq);
     public void sold(ProductSoldReq productSoldReq);
+    public String getBuyerId(int chatroompk);
 
 }

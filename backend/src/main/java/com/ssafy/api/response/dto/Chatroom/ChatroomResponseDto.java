@@ -19,6 +19,7 @@ public class ChatroomResponseDto {
     int buy;
 
     String sellernickname;
+
     public ChatroomResponseDto(Chatroom chatroom , String buyernickname, String sellernickname){
         this.chatroompk = chatroom.getChatroompk();
         this.productpk = chatroom.getProductpk();

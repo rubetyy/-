@@ -34,7 +34,12 @@
 
     <div v-if="productFile.images">
       <div v-if="productFile.images[0].product.isSold == 1">
-        <p style="text-align:center; font-size:20px;">판매완료 된 상품입니다.</p>
+        <div v-if="productFile.images[0].product.userId == this.userid" >
+          <p style="text-align:center; font-size:20px;">판매완료 된 상품입니다.</p>
+        </div>
+        <div v-else>
+          <p style="text-align:center; font-size:20px;">판매완료 된 상품입니다.</p>
+        </div>
       </div>
       <div v-else>
         <div v-if="productFile.images[0].product.userId == this.userid " style="text-align:center;">
@@ -71,6 +76,7 @@ export default {
       previousMsg: [],
       productpk: this.$route.query.productpk,
       userid: JSON.parse(localStorage.getItem('userInfo')).id,
+      buyerid: ''
     }
   },
   created() {
@@ -171,8 +177,10 @@ export default {
       }
       axios.post(url, data)
       .then(res => {
+        console.log(res,'res임')
         if (res.data.userStatus==1) {
           this.previousMsg = res.data.talk
+          this.buyerid = res.data.buyerid
         } else {
           swal({
             text: '권한이 없습니다',
@@ -208,7 +216,7 @@ export default {
             icon: "success",
           });
           const data = {
-          'userid': JSON.parse(localStorage.getItem('userInfo')).id,
+          'userid': this.buyerid,
           'productpk': this.productpk
           }
           this.soldout(data)
