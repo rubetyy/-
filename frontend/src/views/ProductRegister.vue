@@ -62,7 +62,7 @@
         알림!
         <i class="fas fa-time closeModalBtn" @click="showModal=false"></i>
       </h3>
-      <div slot="body" style="text-align:center">로그인 하세요</div>
+      <div slot="body" style="text-align:center">로그인 후 이용해주세요</div>
     </Modal>
 
 </div>
