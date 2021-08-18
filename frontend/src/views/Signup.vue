@@ -88,7 +88,7 @@ export default {
       } else if (this.credentials.password != this.credentials.passwordconfirmation) {
         swal({
           text: '비밀번호 확인과 다릅니다',
-          icon: 'success',
+          icon: 'warning',
           button: false,
         })
       }
