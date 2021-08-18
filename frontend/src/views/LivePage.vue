@@ -4,7 +4,7 @@
       <div v-if="data">
         <div class="title">
           <div class="inline">{{ data.livetitle }}</div>
-          <router-link :to="{ name: 'ProfilePage', params: { userid: data.userid } }">
+          <router-link class="r-link" :to="{ name: 'ProfilePage', params: { userid: data.userid } }">
             {{ data.usernickname }}
           </router-link>
         </div>

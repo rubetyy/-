@@ -113,7 +113,12 @@ export default {
   },
   created (){
     this.userId = JSON.parse(localStorage.getItem('userInfo'))
-  }
+    if (this.$route.name==="MainPage") {
+        this.isShow = true
+      } else {
+        this.isShow = false
+      }
+  },
 }
 </script>
 
@@ -237,11 +242,11 @@ export default {
 ::selection {
   background: #ffeadc;
 }
-a {
+.r-link {
   color: #1e1e1e;
   text-decoration:none;
 }
-a:active, a:hover {
+.r-link:active, .r-link:hover {
   color:#ff6600;
   background-color:transparent;
 }

@@ -8,13 +8,13 @@
       <ul>
         <h2>판매중</h2>
         <li v-for='product in myPageInfo.issold' :key='product.id'>
-          <router-link :to="`/product/${product.id}`">- {{product.title}}</router-link>
+          <router-link class="r-link" :to="`/product/${product.id}`">- {{product.title}}</router-link>
         </li>
       </ul>
       <ul>
         <h2>판매완료</h2>
         <li v-for='soldout in myPageInfo.soldout' :key='soldout.id'>
-          <router-link :to="`/product/${soldout.id}`">- {{soldout.title}}</router-link>
+          <router-link class="r-link" :to="`/product/${soldout.id}`">- {{soldout.title}}</router-link>
         </li>
       </ul>
     </div>
