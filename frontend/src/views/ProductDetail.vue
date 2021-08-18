@@ -8,7 +8,7 @@
     
             <div class="userinfo">
               <i class="bi bi-person-circle"></i>
-              <router-link :to="{name: 'ProfilePage', params: {userid: productFile.images[0].product.userId}}">
+              <router-link class="r-link" :to="{name: 'ProfilePage', params: {userid: productFile.images[0].product.userId}}">
                 {{productFile.usernickname}}
               </router-link>
             </div>
@@ -65,7 +65,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16" style="color: green">
                     <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
                   </svg>
-                  <router-link :to="{name: 'LivePage', params: { id: productFile.images[0].product.liveId }}">라이브 방송 시청</router-link>
+                  <router-link class="r-link" :to="{name: 'LivePage', params: { id: productFile.images[0].product.liveId }}">라이브 방송 시청</router-link>
                   <br>
                 </div>  
               </section>
@@ -133,14 +133,6 @@ export default {
     productFile: function() {
       return this.getProductDetailFile
     },
-    // image() {
-    //   for (let idx = 0; idx < array.length; idx++) {
-    //     let images = this.productFile.images[idx].filePath
-        
-    //   }
-    //     return images
-    // },
-
   },
 
   methods: {
@@ -162,8 +154,6 @@ export default {
         this.sliding = true
       },
       onSlideEnd() {
-        // this.slide = slide
-        // console.log(slide,'end')
         this.sliding = false
       },
 
@@ -269,17 +259,10 @@ export default {
 </script>
 
 <style scoped>
-/* #carouselExampleCaptions {
-  height: 100px;
-  position: relative;
-} */
 .content {
   margin-top: 50px;
   padding: 20px;;
 }
-/* .content > div {
-  margin-bottom: 30px;
-} */
 .content-title {
   padding: 30px 30px 10px 30px;
   display: flex;
