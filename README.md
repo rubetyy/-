@@ -91,22 +91,21 @@
     </ul>   
     <ul>
         <li>JS, HTML, CSS</li>
-        <li>SCSS</li>
-        <li>Vue.js @2.6.11</li>
+        <li>Vue.js @2.6.14</li>
     </ul>
     <li>--------------------------------------------------------------------------------------</li>
      <ul>
         <li>라이브러리 📚</li>
     </ul>   
     <ul>
-        <li>axios @0.21.1 : Promise 기반 HTPP 클라이언트</li>
-        <li>fontawesome @2.0.2 : 아이콘 라이브러리</li>
-        <li>openvidu-browser @2.17.0 : webRTC 라이브러리</li>
-        <li>vue-awesome-swiper @4.1.1 : 이미지 슬라이더 라이브러리</li>
-        <li>eslint & prettier @6.7.2 : 협업을 위한 formatter 라이브러리</li>
-        <li>node-sass @5.0.0 : SASS/SCSS 적용을 위한 라이브러리</li>
-        <li>sass-loader @10.1.1 : SASS/SCSS 적용을 위한 라이브러리</li>
-        <li>vue-masonry-css @1.0.3 : masonry 디자인 적용을 위한 라이브러리, 추후 직접 구현할 예정</li>
+        <li>axios @0.21.1 : Promise 기반 HTTP 클라이언트</li>
+        <li>bootstrap-vue @2.21.2</li>
+        <li>core-js @3.6.5</li>
+        <li>openvidu-browser @2.19.0 : 실시간 라이브 방송</li>
+        <li>sockjs-client @1.5.1 : 실시간 채팅</li>
+        <li>sweetalert @2.1.2 : alert 커스텀</li>
+        <li>swiper @6.8.1 : 캐로우셀 구현</li>
+        <li>webstomp-client @1.2.6 : 1대1 채팅</li>
     </ul>
 </details>
 
