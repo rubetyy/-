@@ -1,12 +1,12 @@
 <template>
   <div>
     <h1 id="header">{{ header }}</h1>
-      <div v-if="products.length" class="row">
-        <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
-      </div>
-      <div v-else class="noproduct-msg">
-        현재 판매중인 상품이 없습니다
-      </div>
+    <div v-if="products.length" class="row">
+      <ProductListItem v-for="(product, idx) in products" :key="idx" :product="product"/>
+    </div>
+    <div v-else class="noproduct-msg">
+      현재 판매중인 상품이 없습니다
+    </div>
   </div>
 </template>
 

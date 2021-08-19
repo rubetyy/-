@@ -1,18 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import MainPage from '../views/MainPage.vue'
 import Signup from '@/views/Signup.vue'
 import Login from '@/views/Login.vue'
 import MyPage from '@/views/MyPage.vue'
 import ProfilePage from '@/views/ProfilePage.vue'
-
 import CategoryPage from '@/views/CategoryPage.vue'
 import LivePage from '@/views/LivePage.vue'
 import LiveRegister from '@/views/LiveRegister.vue'
 import ProductRegister from '@/views/ProductRegister.vue'
 import ProductDetail from '@/views/ProductDetail.vue'
 import ChatRoom from '@/views/ChatRoom.vue'
-
 import SearchPage from '@/views/SearchPage.vue'
 import PageNotFound from '@/views/PageNotFound.vue'
 
@@ -58,17 +57,17 @@ const routes = [
   {
     path: '/live-start',
     name: 'LiveRegister',
-    component: LiveRegister,
+    component: LiveRegister
   },
   {
     path: '/productregister',
     name: 'ProductRegister',
-    component: ProductRegister,
+    component: ProductRegister
   },
   {
     path: '/product/:product_pk',
     name: 'ProductDetail',
-    component: ProductDetail,
+    component: ProductDetail
   },
   {
     path: '/chatroom/:pk',

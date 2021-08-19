@@ -9,7 +9,6 @@ import productStore from '@/store/modules/productStore.js'
 
 const store = new Vuex.Store({
   modules: {
-    // 키: 값 형태로 저장됩니다.
     userStore: userStore,
     liveStore: liveStore,
     productStore: productStore,

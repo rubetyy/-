@@ -3,41 +3,34 @@
     <div class="form-box signup-form">
       <h1 id="header">Signup</h1>
       <div>
-        <!-- <label for="nickname">nickname: </label> -->
         <input type="text" userNickname='nickname' class="input-form" placeholder="Nickname" v-model='credentials.nickname'>
         <button class="btn-g" @click="checknickname">중복검사</button>
       </div>
-
       <div>
-        <!-- <label for="id">id: </label> -->
         <input type="text" id='id' class="input-form" placeholder="ID" v-model='credentials.id'>
         <button  class="btn-g" @click="checkid">중복검사</button>
       </div>
-
       <div>
-        <!-- <label for="password">password: </label> -->
         <input type="password" id='password' class="input-form" placeholder="Password" v-model='credentials.password' style="margin-right:149.2px">
       </div>
       <div>
         <input type="password" id='password' class="input-form" placeholder="PasswordConfirmation" v-model='credentials.passwordconfirmation' style="margin-right:149.2px">
-
       </div>
       <div style="display: flex; justify-content: center">
         <button class="btn-g register" v-on:click='signupClick'>회원가입</button>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-const userStore = 'userStore'
 import swal from 'sweetalert'
+
+const userStore = 'userStore'
 
 export default {
   name: 'Signup',
-
   data: function () {
     return {
       credentials: {
@@ -53,7 +46,6 @@ export default {
       flag: false,
     }
   },
-
   methods : {
     ...mapActions(userStore,['signup']),
     signupClick: function() {
@@ -128,7 +120,6 @@ export default {
       if (this.credentials.id.trim()) {
         this.checkUserid(this.credentials.id)
         .then((res) => {
-          // 0 -> 없는 아이디 / 1 -> 중복, 이미 있는 아이디
           if (res === 0) {
             this.v.id = true
             swal({
@@ -152,7 +143,6 @@ export default {
         })
       }
     },
-
     goback() {
     this.$router.go(0)
     },
@@ -166,9 +156,6 @@ div{
   margin-bottom: 30px;
   margin-top: 30px;
 }
-/* .form-background{
-  background-color: #ff8a3d;
-} */
 .signup-form {
   height: 700px;
   padding-left: 40px;

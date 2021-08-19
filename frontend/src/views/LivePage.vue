@@ -17,12 +17,10 @@
 
       <div v-if="!isSeller" class="center-btn" style="margin-top:30px;">
         <button class="btn-g" @click="goProduct">상품보기</button>
-
         <div v-if="data">
           <button v-if="data.wish.flag==true" class="btn-g" @click="dislikeProduct"><i class="bi bi-heart-fill"></i> 찜하기 취소</button>
           <button v-else class="btn-g" @click="likeProduct"><i class="bi bi-heart"></i> 찜하기</button>
         </div>
-
         <button class="btn-g" @click="goMain"><i class="bi bi-x-lg"></i> 나가기</button>
       </div>
     </div>
@@ -41,8 +39,8 @@ import LiveVideo from '@/components/LivePage/LiveVideo'
 import LiveChat from '@/components/LivePage/LiveChat'
 import Modal from '@/components/Modal'
 import swal from 'sweetalert'
-
 import { mapActions } from 'vuex'
+
 const liveStore = 'liveStore'
 const userStore = 'userStore'
 
@@ -82,16 +80,7 @@ export default {
   },
   methods: {
     ...mapActions(liveStore, ['getLiveInfo']),
-    
-    goProduct() {
-      this.$router.push({ name: 'ProductDetail', params: { product_pk: this.data.productpk } })
-    },
-    goMain() {
-      this.$router.push({ name: 'MainPage'})
-    },
-    ...mapActions(userStore,[
-    'like','dislike'
-    ]),
+    ...mapActions(userStore,['like','dislike']),
     likeProduct() {
      if (localStorage.getItem('token')==null) {
         swal({
@@ -114,11 +103,16 @@ export default {
     },
     dislikeProduct() {
       const wishproductpk = this.data.wish.wishproductpk
-      console.log(wishproductpk)
       this.dislike(wishproductpk)
         .then(()=>{
         this.data.wish.flag = false
       })
+    },
+    goProduct() {
+      this.$router.push({ name: 'ProductDetail', params: { product_pk: this.data.productpk } })
+    },
+    goMain() {
+      this.$router.push({ name: 'MainPage'})
     },
   },
 }
