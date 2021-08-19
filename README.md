@@ -5,10 +5,10 @@
 `feat:[FE/BE] 코드작성한내용`
 
 ## 팀 노션
-https://jazzy-partner-3a0.notion.site/74deb92179b54a66a10d6cfa45c10766
+
 
 ## API 명세서
-https://documenter.getpostman.com/view/3490568/TzsWuARM
+
 
 ---
 
@@ -220,12 +220,10 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
 
 | 구분         | 링크                                                         |
 | ------------ | ------------------------------------------------------------ |
-| Meeting Log👣 | [Meeting Log - wiki](https://github.com/upswp/SSAFY-FINAL-PROJECT/wiki/Meeting-Log) |
-| Convention🤙  | [Convention - wiki](https://github.com/upswp/SSAFY-FINAL-PROJECT/wiki/Convention) |
-| JIRA🔥        | [SSAFY-JIRA](https://jira.ssafy.com/projects/S04P31B202/summary) |
-| GitLab🌟      | [SSAFY-GitLab](https://lab.ssafy.com/s04-final/s04p31b202)   |
-| Jenkins🤓     | [SSAFY-Jenkins](http://k4b202.p.ssafy.io:9090/)              |
-| REST Docs📚   | [THXSTORE_RESTDocs](https://k4b202.p.ssafy.io/api/docs/index.html) |
+| Team Notion👣 | [Team Notion](https://jazzy-partner-3a0.notion.site/74deb92179b54a66a10d6cfa45c10766) |
+| JIRA🔥        | [SSAFY-JIRA](https://jira.ssafy.com/projects/S05P13C103/summary) |
+| GitLab🌟      | [SSAFY-GitLab](https://lab.ssafy.com/s05-webmobile1-sub3/S05P13C103)   |         |
+| REST Docs📚   | [Postman_RESTDocs](https://documenter.getpostman.com/view/3490568/TzsWuARM) |
 
 - 일부 링크는 보안문제로 열람이 불가능 할 수 있습니다. 
   요청은 (tkddnsos@gmail.com)을 통하여 연락주시면 열람권한 드리겠습니다.
