@@ -75,7 +75,7 @@ const routes = [
     component: ChatRoom
   },
   {
-    path: '/search?q=:q',
+    path: '/search/:q',
     name: 'SearchPage',
     component: SearchPage
   },

@@ -144,7 +144,7 @@ export default {
         }
         this.startChat(params)
         .then(res => {
-          this.$router.push({name: 'ChatRoom', params: {pk: res.chatroompk}, query: {nickname: res.sellernickname, productpk: res.productpk }})
+          this.$router.push({name: 'ChatRoom', params: {pk: res.chatroompk}, query: {nickname: res.sellernickname, productpk: params.productpk }})
         })
       }
     },
