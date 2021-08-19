@@ -4,13 +4,6 @@
 
 
 
-### 커밋 컨벤션
-`feat:[FE/BE] 코드작성한내용`
-
----
-
-
-
 |   Name   | 김용재| 김창규| 이연지  | 최성은|
 | :------: | ---  | ---   | ---     | ----  |
 | Profile  ||[GitHub](https://github.com/Kim-Chang-Kyoo)|||
@@ -143,44 +136,14 @@
 
 #### 시스템 구성
 
-- jenkins 2.3
-  - blueocean : 지속적 배포와 관리 할 수 있는 UI를 지원합니다.
-- docker
-  - Backend와 Frontend를 컨테이너화합니다.
-- docker-compose - jenkins
 - DB 서버 : mysql  Ver 8.0.26-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))
 - 파일 서버 : 프로젝트 images폴더
 - WebRTC : openvidu-server:2.19.0 
 
 
 
-#### Ubuntu 버전 업 및 기본 설치
-
-```bash
-sudo apt-get update
-sudo apt-get install nodejs
-sudo apt-get install npm
-```
-
-
-#### 도커 명령어
-
-- 도커 컨테이너 보는 법
-  - sudo docker ps -a
-- 도커 컨테이너 삭제
-  - sudo docker rm <container_id>
-- 도커 이미지 보는 법
-  - sudo docker images
-- 도커 이미지 삭제
-  - sudo docker rmi <image_id>
-- 강제 옵션 -f (삭제가 안될 때,)
-  - ex) docker rmi -f <image_id>
-- 도커 로그 확인
-  - docker logs <image_id> : 도커가 꺼져있어도(컨테이너가) 최종적으로 실행된 기록을 가지고 있습니다(오류 잡을 때, 매우 유용)
-
-
 #### HTTPS 키 발급
-
+<details>
 frontend에서는 ssl이 적용되어 있기 때문에 HTTPS 인증을 받아야합니다.
 
 ```bash
@@ -195,6 +158,7 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
  ssl_certificate /etc/letsencrypt/live/도메인이름/fullchain.pem; 
  ssl_certificate_key /etc/letsencrypt/live/도메인이름/privkey.pem; 
 ```
+</details>
 
 
 
