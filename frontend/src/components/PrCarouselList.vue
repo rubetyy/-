@@ -1,15 +1,15 @@
 <template>
-<div class="swiper-container">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide" v-for="(file, idx) in filesPreview" :key="idx" :file="file"> 
-      <img :src="file" class="card-img-top " alt="card-img">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" v-for="(file, idx) in filesPreview" :key="idx" :file="file"> 
+        <img :src="file" class="card-img-top " alt="card-img">
+      </div>
     </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-scrollbar"></div>
   </div>
-  <div class="swiper-pagination"></div>
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-  <div class="swiper-scrollbar"></div>
-</div>
 </template>
 
 <script>

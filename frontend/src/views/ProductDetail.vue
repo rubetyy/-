@@ -217,7 +217,7 @@ export default {
 <style scoped>
 .content {
   margin-top: 50px;
-  padding: 20px;;
+  padding: 20px;
 }
 .content-title {
   padding: 30px 30px 10px 30px;

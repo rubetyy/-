@@ -77,7 +77,7 @@ div {
 }
 .login-form {
   height: 500px;
-  padding: 40px;;
+  padding: 40px;
   text-align: center;
   border-radius: 15px;
   background-color: #F9A77C;

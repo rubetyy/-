@@ -1,25 +1,26 @@
 <template v-if="lives">
-<div class="swiper-container">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide card" v-for="(live, idx) in lives" :key="idx" :live="live"> 
-     <router-link class="r-link" :to="{name: 'LivePage', params: { id: live.livepk }}">
-        <div class="main-viewcount">
-          <p style="color: white">{{live.liveviewercount}}명이 시청 중</p>
-        </div>
-        <img :src="`https://i5c103.p.ssafy.io/api/${live.filepath}`" class="card-img-top" alt="live thumnail">
-        <div class="card-body card-t">{{live.livetitle}}</div>
-    </router-link>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide card" v-for="(live, idx) in lives" :key="idx" :live="live"> 
+      <router-link class="r-link" :to="{name: 'LivePage', params: { id: live.livepk }}">
+          <div class="main-viewcount">
+            <p style="color: white">{{live.liveviewercount}}명이 시청 중</p>
+          </div>
+          <img :src="`https://i5c103.p.ssafy.io/api/${live.filepath}`" class="card-img-top" alt="live thumnail">
+          <div class="card-body card-t">{{live.livetitle}}</div>
+      </router-link>
+      </div>
     </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-scrollbar"></div>
   </div>
-  <div class="swiper-pagination"></div>
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-  <div class="swiper-scrollbar"></div>
-</div>
 </template>
+
 <script>
-  import 'swiper/swiper-bundle.css';
-  import Swiper from 'swiper/bundle';
+import 'swiper/swiper-bundle.css';
+import Swiper from 'swiper/bundle';
 
 export default {
   props: {

@@ -59,8 +59,8 @@
 <script>
 import Modal from '@/components/Modal'
 import PrCarouselList from '@/components/PrCarouselList'
-import { mapActions, mapGetters } from 'vuex'
 import swal from 'sweetalert'
+import { mapActions, mapGetters } from 'vuex'
 
 const productStore = 'productStore'
 const userStore = 'userStore'

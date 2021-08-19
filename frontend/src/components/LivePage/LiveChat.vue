@@ -9,7 +9,6 @@
       <input type="text" class="form-control" v-model="message" @keyup="sendMessage">
       <button class="btn-g-sm" @click="clickMessage">보내기</button>
     </div>
-
     <Modal v-if="!isLive" @close="showModal=false" :fct="goMain">
       <h3 slot="header">
         알림!

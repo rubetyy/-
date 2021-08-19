@@ -2,7 +2,7 @@
   <div class="col-sm-6 col-lg-4 col-xl-3">
     <router-link class="r-link" :to="{name: 'ProductDetail', params: {product_pk: product.id}}">
       <div class="card">
-        <img :src="`http://i5c103.p.ssafy.io/api/${image}`" class="card-img-top main-image" alt="...">
+        <img :src="`https://i5c103.p.ssafy.io/api/${image}`" class="card-img-top main-image" alt="product thumnail">
         <div class="card-body card-t">{{ product.title }}</div>
       </div>
     </router-link>

@@ -8,7 +8,6 @@
       indicators
       background="white;"
       img-width="1024"
-
       style="text-shadow: 1px 1px 2px #ff8a3d;"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
@@ -17,7 +16,7 @@
         <template #img >
           <img
             class="d-block w-70 m-auto card-img-top"
-            :src="`http://i5c103.p.ssafy.io:/api/${file}`"
+            :src="`https://i5c103.p.ssafy.io/api/${file}`"
             alt="image slot"
           >
         </template>
