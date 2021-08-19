@@ -6,8 +6,6 @@ import com.ssafy.db.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 public class LivewithUser {

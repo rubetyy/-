@@ -1,11 +1,7 @@
 package com.ssafy.api.response.dto.Chatroom;
 
 import com.ssafy.db.entity.Chatroom;
-import com.ssafy.db.entity.Image;
 import lombok.Getter;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
 
 @Getter
 public class ChatroomResponseDto {

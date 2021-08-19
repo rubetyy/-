@@ -1,6 +1,5 @@
 package com.ssafy.api.service.Product;
 
-import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;

@@ -69,7 +69,6 @@ public class UserController {
 			}
 			으로 헤더에 전송한다. in postman
 		 */
-		System.out.println(userId);
 		boolean check = userService.check(userId);
 		String res = "회원가입 가능합니다.";
 		if(check) {
