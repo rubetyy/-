@@ -48,9 +48,7 @@
         <div v-else>
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -60,8 +58,8 @@ import SockJS from 'sockjs-client'
 import axios from 'axios'
 import swal from 'sweetalert'
 import { mapActions, mapGetters } from 'vuex'
-const productStore = 'productStore'
 
+const productStore = 'productStore'
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
 export default {
@@ -91,10 +89,8 @@ export default {
   updated() {
     this.scrollDown()
   },
-    computed: {
-    ...mapGetters(productStore,[
-      'getProductDetailFile'
-    ]),
+  computed: {
+    ...mapGetters(productStore,['getProductDetailFile']),
     productFile: function() {
       return this.getProductDetailFile
     },
@@ -109,7 +105,6 @@ export default {
   },
   methods: {
     scrollDown() {
-      console.log(this.previousMsg)
       var chatlog = document.getElementById("chatlog")
       chatlog.scrollTop = chatlog.scrollHeight;
     },
@@ -163,8 +158,7 @@ export default {
             this.messages.push(JSON.parse(res.body))
           })
         },
-        error => {
-          console.log('소켓 연결 실패', error)
+        () => {
           this.connected = false
         }
       )
@@ -177,7 +171,6 @@ export default {
       }
       axios.post(url, data)
       .then(res => {
-        console.log(res,'res임')
         if (res.data.userStatus==1) {
           this.previousMsg = res.data.talk
           this.buyerid = res.data.buyerid
@@ -189,8 +182,7 @@ export default {
           })
         }
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
         swal({
           text: '권한이 없습니다',
           icon: 'warning',
@@ -198,9 +190,7 @@ export default {
         })
       })
     },
-    ...mapActions(productStore,[
-    'soldout',
-    ]),
+    ...mapActions(productStore,['soldout']),
     soldoutBtn() {
       swal({
         title: '정말 판매완료 하시겠습니까?',
@@ -226,10 +216,7 @@ export default {
       });
 
     },
-    ...mapActions(productStore,[
-    'productDetail',
-    ]),
-
+    ...mapActions(productStore,['productDetail']),
   }
 }
 </script>

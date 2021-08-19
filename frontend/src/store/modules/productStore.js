@@ -2,14 +2,13 @@ import axios from 'axios'
 
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
-
 const productStore = {
   namespaced: true,
 
   state: {
-    productFile: [], // 등록 시 상품 단일 상세정보
-    productList: [], // 메인페이지 상품리스트
-    productDetailFile: [], // 상품 단일 상세정보 담는 곳
+    productFile: [],
+    productList: [],
+    productDetailFile: [],
     CPList: [],
     SearchLiveList: [],
     SearchProductList: [],
@@ -37,10 +36,8 @@ const productStore = {
   },
 
   mutations: {
-    REGISTER(state, file) { //제품등록
-      // state.productFile = JSON.parse(file)
+    REGISTER(state, file) {
       state.productFile = file
-      // console.log(state.productFile.get('title'))
     },
     SET_PRODUCT_LIST (state, data) {
       state.productList = data
@@ -60,15 +57,12 @@ const productStore = {
   },
 
   actions: {
-    // 제품등록
-    async register({commit}, productFile) {
+    register: async function ({commit}, productFile) {
       const REGISTER_URL = BASE_URL + '/product/create'
       let data = new FormData();
       if (productFile.images != null) {
         for (let i = 0; i < productFile.images.length; i++) {
-          console.log(i,'i')
           const images = productFile.images[i];
-          console.log(images,'images')
           data.append('images', images);
         }
       }
@@ -86,49 +80,33 @@ const productStore = {
           Authorization: `Bearer ${token}`
         }
       }
-      console.log(data.images,'data.image')
       const response = await axios.post(REGISTER_URL, data, config)
-      console.log(response,'ressponse')
-      // console.log(response.config.data)
       commit('REGISTER', response.data)
     },
-
-    // 제품상세
-    async productDetail({ commit }, detailData) {   
+    productDetail: async function ({ commit }, detailData) {   
       const PRODUCTDETAIL_URL = BASE_URL + `/product/detail`
-      console.log(PRODUCTDETAIL_URL)
       const response = await axios.post(PRODUCTDETAIL_URL, detailData)
       const data = response.data
       commit('PRODUUCT_DETAIL', data)
     },
-
-    // 메인페이지 상품리스트
-    getProductList: async function(context) {
+    getProductList: async function (context) {
       const url = BASE_URL + '/product/main'
       const res = await axios.get(url)
       context.commit('SET_PRODUCT_LIST', res.data.productList)
     },
-    // 카테고리 상품리스트
-    getCPList: async function(context, categoryId) {
+    getCPList: async function (context, categoryId) {
       const url = BASE_URL + `/category/${categoryId}`
       const res = await axios.get(url)
-      // res data 정렬 기준 무엇? id 오름차순? 조회수?
       context.commit('SET_CP_LIST', res.data.productList)
     },
-    // 상품검색
-    async getSearch({ commit }, search) {
+    getSearch: async function ({ commit }, search) {
       const url = BASE_URL + `/product/search`
-      console.log(search)
-      
       const res = await axios.post(url, search)
-      console.log(res)
-      commit('SET_SEARCH_LIVE_LIST', res.data.liveList) //라이브리스트
-      commit('SET_SEARCH_PRODUCT_LIST', res.data.productList) //상세리스트
+      commit('SET_SEARCH_LIVE_LIST', res.data.liveList)
+      commit('SET_SEARCH_PRODUCT_LIST', res.data.productList)
     },
-    //판매완료
-    async soldout(context, data) {
+    soldout: async function (context, data) {
       const url = BASE_URL + `/product/sold`
-      console.log(data)
       const res = await axios.post(url, data)
       return res.data
     },

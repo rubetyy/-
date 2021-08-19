@@ -31,7 +31,6 @@
         </div>
       </nav>
     </div>
-
     <section id="section-top">
       <div id="home-main-top" v-if="isShow">
         <div class="home-main-desc">
@@ -54,7 +53,6 @@
         <div class="home-main-img"></div>
       </div>
     </section>
-
     <div id="article">
       <router-view/> 
     </div>
@@ -63,6 +61,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
 const userStore = 'userStore'
 const productStore = 'productStore'
 
@@ -85,9 +84,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(userStore,[
-      'getToken'
-    ]),
+    ...mapGetters(userStore,['getToken']),
     isLogged: function(){
       return this.getToken
     },
@@ -100,7 +97,7 @@ export default {
         this.$router.push({name:"MainPage"})
       })
     },
-      ...mapActions(productStore,['getSearch']),
+    ...mapActions(productStore,['getSearch']),
     search() {
       const data = {
         'search': this.keyword
@@ -141,7 +138,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #1e1e1e;
 }
-
 #nav {
   font-family: 'netmarbleB';
   font-size: 20px;
@@ -156,7 +152,6 @@ export default {
 .container-fluid {
   padding-inline: 30px;
 }
-
 #section-top {
   background-color: #fff8f4;
 }
@@ -207,7 +202,6 @@ export default {
   font-size: 5rem;
   color: #ffaf6e;
 }
-
 .move span:nth-child(2) { animation-delay: .1s; }
 .move span:nth-child(3) { animation-delay: .2s; }
 .move span:nth-child(4) { animation-delay: .3s; }
@@ -227,18 +221,15 @@ export default {
   min-width: 400px;
   margin: 0 auto;
 }
-
 #header {
   text-align: center;
   font-family: 'netmarbleB';
   font-size: 2rem;
 }
-
 .form-box {
   width: 800px;
   margin: 50px auto 80px;
 }
-
 ::selection {
   background: #ffeadc;
 }

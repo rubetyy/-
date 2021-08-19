@@ -1,11 +1,9 @@
 package com.ssafy.api.controller;
 
-import com.querydsl.core.Tuple;
 import com.ssafy.api.response.dto.Live.LiveCategoryDto;
 import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.api.service.Product.ProductService;
-import com.ssafy.db.entity.Image;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

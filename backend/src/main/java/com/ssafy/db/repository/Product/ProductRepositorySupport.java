@@ -3,12 +3,9 @@ package com.ssafy.db.repository.Product;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.db.entity.Product;
-import com.ssafy.db.entity.QImage;
-import com.ssafy.db.entity.QLive;
 import com.ssafy.db.entity.QProduct;
 import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 

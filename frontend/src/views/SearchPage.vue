@@ -26,11 +26,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(productStore, ['getSearchLiveList',]),
+    ...mapGetters(productStore, ['getSearchLiveList']),
     searchLives: function() {
       return this.getSearchLiveList
     },
-    ...mapGetters(productStore, ['getSearchProductList',]),
+    ...mapGetters(productStore, ['getSearchProductList']),
     searchProducts: function() {
       return this.getSearchProductList
     },

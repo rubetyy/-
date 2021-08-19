@@ -4,11 +4,13 @@ const BASE_URL = process.env.VUE_APP_BASE_URL
 
 const liveStore = {
   namespaced: true,
+
   state: {
     productInfo: null,
     liveList: [],
     CPLiveList: [],
   },
+
   getters: {
     getProductInfo(state) {
       return state.productInfo
@@ -20,6 +22,7 @@ const liveStore = {
       return state.CPLiveList
     },
   },
+
   mutations: {
     SET_P_INFO(state, data) {
       state.productInfo = data
@@ -34,6 +37,7 @@ const liveStore = {
       state.CPLiveList = data
     },
   },
+
   actions: {
     startLive: async function (context, params) {
       const url = BASE_URL + '/live/live-start'
@@ -57,12 +61,12 @@ const liveStore = {
     makeLive(context, data) {
       context.commit('SET_P_INFO', data)
     },
-    async getLiveList(context) {
+    getLiveList: async function (context) {
       const url = BASE_URL + '/product/main'
       const res = await axios.get(url)
       context.commit('SET_LIVE_LIST', res.data.liveList)
     },
-    getCPLiveList: async function(context, categoryId) {
+    getCPLiveList: async function (context, categoryId) {
       const url = BASE_URL + `/category/${categoryId}`
       const res = await axios.get(url)
       context.commit('SET_CP_LIVE_LIST', res.data.liveList)
