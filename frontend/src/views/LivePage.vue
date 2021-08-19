@@ -56,7 +56,7 @@ export default {
       data: null,
       isSeller: false,
       isLive: true,
-      nowUser: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : null,
+      nowUser: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).id : '',
     }
   },
   created() {
