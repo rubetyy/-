@@ -64,14 +64,7 @@
           <li>modelmapper : 2.3.8</li>
           <li>jjwt : 0.9.1</li>
           <li>lombok</li>
-          <li>mysql : 8.0.22</li>
-          <li>h2 : 1.4.200</li>
-          <li>pusher : 2.2.1</li>
-          <li>JUnitParams : 1.1.1</li>
-          <li>junit : 4.12</li>
-          <li>jersey-multipart : 1.19.4</li>
-          <li>spring-restdocs-asciidoctor : 2.0.3.RELEASE</li>
-          <li>spring-restdocs-mockmvc : 2.0.3.RELEASE</li>
+          <li>mysql : 8.0.24</li>
       </ul>
       <ul>
         <li>라이브러리 📚</li>
