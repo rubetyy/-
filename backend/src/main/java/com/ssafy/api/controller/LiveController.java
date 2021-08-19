@@ -3,9 +3,7 @@ package com.ssafy.api.controller;
 import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
 import com.ssafy.api.request.dto.Live.LiveDetailReq;
-import com.ssafy.api.request.dto.Live.LiveVIewerReq;
 import com.ssafy.api.response.dto.Live.LiveWishRes;
-import com.ssafy.api.response.dto.Product.ProductWishRes;
 import com.ssafy.api.response.dto.User.LivewithUser;
 import com.ssafy.api.service.Live.LiveService;
 import com.ssafy.api.service.Product.ProductServiceImpl;
@@ -20,9 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
