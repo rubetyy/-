@@ -88,7 +88,7 @@ export default {
           sender: this.sender,
           message: this.message 
         }
-        this.stompClient.debug = function (){}  //do nothing
+        this.stompClient.debug = function (){}
         this.stompClient.send("/pub/livechat/message", JSON.stringify(msg), {})
       }
     },
@@ -110,8 +110,7 @@ export default {
             }
           })
         },
-        error => {
-          console.log('소켓 연결 실패', error)
+        () => {
           this.connected = false
         }
       )

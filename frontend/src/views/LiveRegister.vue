@@ -30,8 +30,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-const liveStore = 'liveStore'
 import swal from 'sweetalert'
+
+const liveStore = 'liveStore'
 
 export default {
   name: 'LiveRegister',
@@ -46,7 +47,6 @@ export default {
   },
   methods : {
     ...mapGetters(liveStore, ['getProductInfo',]),
-
     ...mapActions(liveStore, ['startLive']),
     startlive: function() {
       if (this.livetitle.trim()) {
@@ -55,13 +55,9 @@ export default {
           livetitle: this.livetitle.trim(),
           userid: JSON.parse(localStorage.getItem('userInfo')).id,
         }
-        console.log(params, typeof(params))
         this.startLive(params)
         .then(res => {
           this.$router.push({ name: 'LivePage', params: { id: res.livepk } })
-        })
-        .catch(err => {
-          console.log(err)
         })
       } else {
         swal({
@@ -89,5 +85,4 @@ i {
   margin-bottom: 30px;
   color: #ff9046;
 }
-
 </style>

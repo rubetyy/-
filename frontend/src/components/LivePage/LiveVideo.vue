@@ -71,8 +71,7 @@ export default {
 				}
 			});
 
-			this.session.on('exception', ({ exception }) => {
-				console.warn(exception);
+			this.session.on('exception', () => {
 			});
 
 			this.getToken(this.mySessionId).then(token => {
@@ -93,9 +92,6 @@ export default {
 							this.session.publish(this.mainStreamManager);
 						}
 					})
-					.catch(error => {
-						console.log('세션 연결 중 에러발생:', error.code, error.message);
-					});
 			});
 		},
 
@@ -114,10 +110,10 @@ export default {
 			window.removeEventListener('beforeunload', this.leaveSession);
 		},
 
-
 		getToken (mySessionId) {
 			return this.createSession(mySessionId).then(sessionId => this.createToken(sessionId));
 		},
+		
 		createSession (sessionId) {
 			return new Promise((resolve, reject) => {
 				axios.post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, JSON.stringify({
@@ -134,7 +130,6 @@ export default {
 						if (error.response.status === 409) {
 							resolve(sessionId);
 						} else {
-							console.warn(`No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}`);
 							if (window.confirm(`No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}\n\nClick OK to navigate and accept it. If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${OPENVIDU_SERVER_URL}"`)) {
 								location.assign(`${OPENVIDU_SERVER_URL}/accept-certificate`);
 							}

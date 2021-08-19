@@ -26,11 +26,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(productStore, ['hotProductList',]),
+    ...mapGetters(productStore, ['hotProductList']),
     hotProducts: function() {
       return this.hotProductList
     },
-    ...mapGetters(liveStore, ['getLiveProductInfo',]),
+    ...mapGetters(liveStore, ['getLiveProductInfo']),
     nowLives: function() {
       return this.getLiveProductInfo
     },
