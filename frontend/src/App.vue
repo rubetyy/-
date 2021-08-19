@@ -104,7 +104,7 @@ export default {
       }
       this.getSearch(data)
       .then(()=>{
-        this.$router.push({name:"SearchPage"})
+        this.$router.push({name:"SearchPage", params: {q: this.keyword}})
       })
     }
   },
