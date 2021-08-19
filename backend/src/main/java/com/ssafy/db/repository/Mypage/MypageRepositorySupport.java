@@ -29,7 +29,6 @@ public class MypageRepositorySupport {
         //userinfo
         User user = jpaQueryFactory.select(Projections.fields(User.class,qUser.userid,qUser.usernickname)).from(qUser)
                 .where(qUser.userid.eq(userid)).fetchOne();
-//        System.out.println(user);
         res.put("userinfo",user);
 
         //issold

@@ -1,6 +1,5 @@
 package com.ssafy.api.controller;
 
-import com.querydsl.core.Tuple;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.request.dto.Product.*;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;
@@ -16,8 +15,6 @@ import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

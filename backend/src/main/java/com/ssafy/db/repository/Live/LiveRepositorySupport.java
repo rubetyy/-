@@ -3,7 +3,6 @@ package com.ssafy.db.repository.Live;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
-import com.ssafy.api.request.dto.Live.LiveVIewerReq;
 import com.ssafy.api.response.dto.Live.LiveCategoryDto;
 import com.ssafy.api.response.dto.Live.LiveMainDto;
 import com.ssafy.api.response.dto.Live.LiveSearchDto;

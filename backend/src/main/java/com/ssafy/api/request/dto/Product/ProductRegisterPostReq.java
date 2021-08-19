@@ -1,7 +1,6 @@
 package com.ssafy.api.request.dto.Product;
 
 import com.ssafy.db.entity.Product;
-import com.ssafy.db.entity.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;

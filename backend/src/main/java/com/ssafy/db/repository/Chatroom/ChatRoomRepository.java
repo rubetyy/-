@@ -1,7 +1,6 @@
 package com.ssafy.db.repository.Chatroom;
 
 import com.ssafy.db.entity.Chatroom;
-import com.ssafy.db.entity.Live;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
