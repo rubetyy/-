@@ -4,7 +4,6 @@
       <span class='b-name'>{{myPageInfo.userinfo.usernickname}}</span> 님, 안녕하세요
       <h5>ID: {{myPageInfo.userinfo.userid}}</h5>
     </div>
-
     <div class='d-flex justify-content-evenly container'>
       <ul>
         <h2>판매중</h2>
@@ -47,6 +46,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+
 const userStore = 'userStore'
 
 export default {

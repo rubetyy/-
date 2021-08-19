@@ -3,7 +3,6 @@
     <div class='userinfo'>
       <span class='b-name'>{{myPageInfo.userinfo.usernickname}}</span> 님의 프로필
     </div>
-
     <div class='d-flex justify-content-evenly'>
       <ul>
         <h2>판매중</h2>
@@ -23,6 +22,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+
 const userStore = 'userStore'
 
 export default {

@@ -3,16 +3,12 @@
     <div class="form-box login-form">
       <h1 id="header">Login</h1>
       <div class="id-input">
-        <!-- <label for="userid">id: </label> -->
         <input type="text" id='id' placeholder="ID" class="input-form" v-model='credentials.id'>
       </div>
-
       <div class="password-input">
-        <!-- <label for="userpassword">password: </label> -->
         <input type="password" id='password' placeholder="Password" class="input-form" v-model='credentials.password'>
       </div>
       <button class="btn-g" v-on:click='loginClick'>로그인</button>
-      <!-- <input type="submit" class="button" v-on:click='loginClick'> -->
       <router-link class="r-link" :to="{name: 'Signup'}" style="display: block;  margin-top: 30px">아직 계정이 없나요?</router-link>
     </div>
   </div>
@@ -21,11 +17,11 @@
 <script>
 import swal from 'sweetalert'
 import { mapActions } from 'vuex'
+
 const userStore = 'userStore'
 
 export default {
   name: 'Login',
-
   data: function () {
     return {
       credentials: {
@@ -34,11 +30,8 @@ export default {
       },
     }
   },
-
   methods: {
-    ...mapActions(userStore, [
-      'login',
-    ]),
+    ...mapActions(userStore, ['login']),
     loginClick(){
       if (this.credentials.id == null) {
         swal({
@@ -79,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-div{
+div {
   box-sizing: border-box;
 }
 .login-form {
