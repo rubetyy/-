@@ -89,16 +89,16 @@ export default {
           button: false,
         })
       } else {
-      const useridbuyer  = this.nowUser
-      const productpk = this.data.productpk
-      const data = {
-        'useridbuyer' : useridbuyer,
-        'productpk' : productpk,
-      }
-      this.like(data)
-      .then(()=>{
-        this.data.wish.flag = true
-      })
+        const useridbuyer = this.nowUser
+        const productpk = this.data.productpk
+        const data = {
+          'useridbuyer' : useridbuyer,
+          'productpk' : productpk,
+        }
+        this.like(data)
+        .then(()=>{
+          this.data.wish.flag = true
+        })
       }
     },
     dislikeProduct() {
