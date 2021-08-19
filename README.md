@@ -99,6 +99,7 @@
     </ul>   
     <ul>
         <li>axios @0.21.1 : Promise 기반 HTTP 클라이언트</li>
+        <li>bootstrap @5.0.2 : 전체적인 디자인</li>
         <li>bootstrap-vue @2.21.2</li>
         <li>core-js @3.6.5</li>
         <li>openvidu-browser @2.19.0 : 실시간 라이브 방송</li>
