@@ -6,6 +6,8 @@
 누구나 판매할 수 있고 누구나 구매할 수 있는 중고 상품과 소상공인을 위한 라이브 커머스 프로젝트입니다. 
 🤗👉[홍당무라이브](https://i5c103.p.ssafy.io/)
 
+<br>
+
 ### 홍당무 라이브를 개발한 서울광주롱디팀을 소개합니다 !
 
 - 김용재 😤
@@ -21,13 +23,19 @@
   - 마감기한을 잘 지키는 사람이 되겠습니다
   
 
+<br>
+
+![서비스소개이미지](./docs/image/홍당무소개.jpg)
+
+<br>
+
 ---
 
 ## 🚀 서비스 아키텍처
 
 ![서비스아키텍쳐](./docs/image/architecture.png)
 
-
+<br>
 
 ## :video_game: 기술 스택
 
@@ -92,6 +100,7 @@
           <li>Docker</li>
       </ul>
   </details>
+<br>
 
 -------------------------------------------------
 
@@ -141,7 +150,9 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
 ```
 </details>
 
+<br>
 
+---
 
 
 ##   :open_file_folder: 개발 스프린트
@@ -159,8 +170,8 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
 
 ## 📕 프로젝트 산출물
 
-- UCC
-- 시연영상
+- [UCC](./docs/video/UCC.mp4)
+- [시연영상](./docs/video/시연.mp4)
 - [발표 PPT](./docs/발표ppt.pdf)
 - [ERD](./docs/image/erd.png)
 - [Component](./docs/image/component.png)
