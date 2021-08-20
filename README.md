@@ -13,7 +13,7 @@
 
   - 코딩 하지마... / 그게 뭔데? / 코딩 하지말라고... / 알겠어
 - 이연지 😎
-  - 작성 예정
+  - 사용자 만족감을 최상으로하는 완성도 있는 서비스 구현을 목표로 합니다 !
 - 최성은 🤩
   - 작성 예정
   
@@ -49,9 +49,6 @@
           <li>lombok</li>
           <li>mysql : 8.0.24</li>
       </ul>
-      <ul>
-        <li>라이브러리 📚</li>
-      </ul>
   </details>
 
 ### ✨Front-End
@@ -85,7 +82,7 @@
 ### 🌏Infra
 
   <details>
-      <summary>개발, CI/CD 자세히 살펴보기 🔥</summary>
+      <summary>개발, 자세히 살펴보기 🔥</summary>
       <ul>
           <li>AWS EC2 - Deploy Server</li>
           <li>GitLab</li>
@@ -96,21 +93,25 @@
 -------------------------------------------------
 
 
-
 ## ⚙️ Install and Usage
 
 #### 시스템 환경
 
-홍당무라이브는 아래와 같은 환경에서 실행 중입니다.
+<details>
+<summary>홍당무라이브는 아래와 같은 환경에서 실행 중입니다.</summary>
 
+```
 - OS : Linux version 5.8.0-1041-aws (buildd@lgw01-amd64-035) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #43~20.04.1-Ubuntu SMP Thu Jul 15 11:07:29 UTC 2021
 - Cpu 모델 : Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz
 - Total Memory: 16395128 kB
 - 물리 cpu 개수 : 4		cpu당 물리 코어 : 4		논리 코어 수 : 32
-
+```
+</details>
 
 
 #### 시스템 구성
+
+</details>
 
 - DB 서버 : mysql  Ver 8.0.26-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))
 - 파일 서버 : 프로젝트 images폴더
