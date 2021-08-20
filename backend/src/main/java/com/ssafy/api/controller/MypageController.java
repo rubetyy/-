@@ -1,9 +1,6 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.service.Mypage.MypageServiceImpl;
-import com.ssafy.api.service.UserServiceImpl;
-import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -45,7 +42,6 @@ public class MypageController {
 			}
 			으로 헤더에 전송한다. in postman
 		 */
-        System.out.println(userId);
         Map<String,Object> res = mypageService.mypageinfo(userId);
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
     }

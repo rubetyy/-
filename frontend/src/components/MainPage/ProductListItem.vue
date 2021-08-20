@@ -1,11 +1,9 @@
 <template>
-  <div class="col">
-    <router-link :to="`/product/${product.product.id}`">
+  <div class="col-sm-6 col-lg-4 col-xl-3">
+    <router-link class="r-link" :to="{name: 'ProductDetail', params: {product_pk: product.id}}">
       <div class="card">
-        <img :src="`http://i5c103.p.ssafy.io/${image}`" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5>{{ product.product.title }}</h5>
-        </div>
+        <img :src="`https://i5c103.p.ssafy.io/api/${image}`" class="card-img-top main-image" alt="product thumnail">
+        <div class="card-body card-t">{{ product.title }}</div>
       </div>
     </router-link>
   </div>
@@ -17,37 +15,28 @@ export default {
   props: {
     product: Object,
   },
-  data: function() {
-    return {
-      
-    }
-  },
   computed: {
     image() {
-      return this.product.filePath
+      return this.product.filepath
     }
   }
-
 }
 </script>
 
 <style scoped>
-.col {
-  flex: 0;
+.card {
+  width: 16rem;
+  margin: 25px auto;
+  position: relative;
+}
+.card-img-top {
+  height: 17rem;
+}
+.card-t {
+  font-size: 1.1rem;
   text-align: center;
 }
-.card {
-  /* margin-right: 0; */
-  width: 14rem;
-  /* height: 400px; */
-  margin-top: 50px;
-}
-
-.card-img-top {
-  height: 14rem;
-  /* overflow: hidden; */
-}
-a:active, a:hover {
+.r-link:active, .r-link:hover {
   color:#1e1e1e !important;
   background-color:transparent !important;
 }

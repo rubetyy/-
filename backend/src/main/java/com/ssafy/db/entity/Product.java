@@ -20,7 +20,7 @@ public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_pk")
-    private Long id;
+    private Integer id;
 
     @Column(name="user_id_seller")
     private String userId;
@@ -29,7 +29,7 @@ public class Product{
     private Integer liveId;
 
     @Column(name = "category_pk")
-    private Long categoryId;
+    private Integer categoryId;
 
     @Column(name = "product_title")
     private String title;
@@ -62,7 +62,7 @@ public class Product{
     private List<Image> image = new ArrayList<>();
 
     @Builder
-    public Product(String userId, Integer liveId, Long categoryId, String title, String description, Integer price, Integer viewCount, Integer isSold, Integer isLive) {
+    public Product(String userId, Integer liveId, Integer categoryId, String title, String description, Integer price, Integer viewCount, Integer isSold, Integer isLive) {
         this.userId = userId;
         this.liveId = liveId;
         this.categoryId = categoryId;

@@ -1,8 +1,6 @@
 package com.ssafy.api.service.Image;
 
 import com.ssafy.api.response.dto.Image.ImageResponseDto;
-import com.ssafy.api.response.dto.Product.ProductListResponseDto;
-import com.ssafy.db.entity.Image;
 import com.ssafy.db.repository.Image.ImageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +15,7 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<ImageResponseDto> findAllByProduct(Long productId) {
+    public List<ImageResponseDto> findAllByProduct(int productId) {
         return imageRepository.findAllByProductId(productId)
                 .stream()
                 .map(ImageResponseDto::new)

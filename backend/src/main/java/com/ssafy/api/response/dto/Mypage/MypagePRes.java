@@ -1,7 +1,5 @@
 package com.ssafy.api.response.dto.Mypage;
 
-import com.ssafy.db.entity.User;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -15,6 +13,6 @@ import lombok.Setter;
 @ApiModel("MypageProductResponse")
 public class MypagePRes {
 	@ApiModelProperty(name="Product PK")
-	Long id;
+	Integer id;
 	String title;
 }

@@ -20,16 +20,16 @@ import javax.persistence.Table;
 public class Chatroom {
     @Id
     @Column(name="chat_room_pk")
-    Long chatroompk;
+    int chatroompk;
 
     @Column(name="product_pk")
-    Long productpk;
+    Integer productpk;
 
     @Column(name="user_id_buyer")
     String useridbuyer;
 
     @Column(name="chat_room_is_buyer")
-    Long buy;
+    int buy;
 
     @Column(name="user_id_seller")
     String useridseller;
