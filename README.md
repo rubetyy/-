@@ -99,25 +99,25 @@
 
 <details>
 <summary>홍당무라이브는 아래와 같은 환경에서 실행 중입니다.</summary>
-
-```
-- OS : Linux version 5.8.0-1041-aws (buildd@lgw01-amd64-035) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #43~20.04.1-Ubuntu SMP Thu Jul 15 11:07:29 UTC 2021
-- Cpu 모델 : Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz
-- Total Memory: 16395128 kB
-- 물리 cpu 개수 : 4		cpu당 물리 코어 : 4		논리 코어 수 : 32
-```
+      <ul>
+          <li>OS : Linux version 5.8.0-1041-aws (buildd@lgw01-amd64-035) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #43~20.04.1-Ubuntu SMP Thu Jul 15 11:07:29 UTC 2021</li>
+          <li>Cpu 모델 : Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz</li>
+          <li>Total Memory: 16395128 kB</li>
+          <li>물리 cpu 개수 : 4,	cpu당 물리 코어 : 4,	논리 코어 수 : 32</li>
+      </ul>
 </details>
 
 
 #### 시스템 구성
 
+<details>
+<summary>상세보기</summary>
+      <ul>
+          <li>DB 서버 : mysql  Ver 8.0.26-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))</li>
+          <li>파일 서버 : 프로젝트 backend/images 폴더</li>
+          <li>WebRTC : openvidu-server:2.19.0</li>
+      </ul>
 </details>
-
-- DB 서버 : mysql  Ver 8.0.26-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))
-- 파일 서버 : 프로젝트 images폴더
-- WebRTC : openvidu-server:2.19.0 
-
-<br>
 
 
 #### HTTPS 키 발급
