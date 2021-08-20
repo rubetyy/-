@@ -2,10 +2,17 @@ package com.ssafy.db.repository.Live;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.api.request.LiveTitlePatchReq;
+import com.ssafy.api.request.dto.Live.LiveTitlePatchReq;
+import com.ssafy.api.response.dto.Live.LiveCategoryDto;
+import com.ssafy.api.response.dto.Live.LiveMainDto;
+import com.ssafy.api.response.dto.Live.LiveSearchDto;
 import com.ssafy.db.entity.*;
+import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -17,15 +24,17 @@ public class LiveRepositorySupport {
     private JPAQueryFactory jpaQueryFactory;
     QLive qLive = QLive.live;
     QUser qUser = QUser.user;
+    QProduct qProduct = QProduct.product;
+
+    @Autowired
+    ImageRepositorySupport fileRepositorySupport;
 
     public Tuple findByLiveId(int liveid){
-        Tuple live =  jpaQueryFactory.select(qLive,qUser)
-                .from(qLive)
-                .join(qUser).on(qLive.userid.eq(qUser.userid)).where(qLive.livepk.eq(liveid))
-                .fetchOne();
-        System.out.println(live.get(0,Live.class).getLivepk());
-        System.out.println(live.get(1,User.class).getUserid());
-        return live;
+            Tuple live =  jpaQueryFactory.select(qLive,qUser)
+                    .from(qLive)
+                    .join(qUser).on(qLive.userid.eq(qUser.userid)).where(qLive.livepk.eq(liveid))
+                    .fetchOne();
+            return live;
     }
 
     public Live findMaxIdx(){
@@ -33,12 +42,13 @@ public class LiveRepositorySupport {
         return live;
     }
 
-//    public Long endLive(String value){
-//        Long a = jpaQueryFactory.update(qLive).set(qLive.liveon,1)
-//                .set(qLive.live_fin_date, Timestamp.valueOf(LocalDateTime.now()))
-//                .where(qLive.userid.eq(value)).execute();
-//        return a;
-//    }
+    public Long endLive(int value){
+        //Live테이블에 islive0값으로 update
+        Long a = jpaQueryFactory.update(qLive).set(qLive.islive,0)
+                .where(qLive.livepk.eq(value)).execute();
+        //Product 테이블에 isLive 0값으로 update
+        return a;
+    }
 
     public Long updatetitleLive(LiveTitlePatchReq liveTitlePatchReq){
         Long a =  jpaQueryFactory.update(qLive).set(qLive.livetitle, liveTitlePatchReq.getLivetitle())
@@ -46,4 +56,48 @@ public class LiveRepositorySupport {
         return a;
     }
 
+    public List<LiveMainDto> selectMain(){
+        List<Live> l = jpaQueryFactory.select(qLive).from(qLive)
+                .where(qLive.islive.eq(1))
+                .orderBy(qLive.liveviewercount.desc()).limit(12).fetch();
+        List<LiveMainDto> res = new LinkedList<>();
+        for(Live i : l){
+            String filepath = fileRepositorySupport.getFilePath(i.getProductpk());
+            res.add(new LiveMainDto(i,filepath));
+        }
+        return res;
+    }
+
+    public List<LiveSearchDto> getSearchLives(String search){
+        List<Live> l = jpaQueryFactory.select(qLive).from(qLive)
+                .where(qLive.livetitle.contains(search),qLive.islive.eq(1))
+                .orderBy(qLive.liveviewercount.desc()).fetch();
+        List<LiveSearchDto> res = new LinkedList();
+        for(Live li : l){
+            String filepath = fileRepositorySupport.getFilePath(li.getProductpk());
+            res.add(new LiveSearchDto(li,filepath));
+        }
+        return res;
+    }
+
+    public List<LiveCategoryDto> getLiveByCategoryId(int categoryid){
+        List<Tuple> l = jpaQueryFactory.select(qLive,qProduct).from(qLive)
+                .join(qProduct).on(qProduct.id.eq(qLive.productpk))
+                .where(qProduct.isSold.eq(0),qProduct.categoryId.eq(categoryid),qLive.islive.eq(1))
+                .orderBy(qLive.liveviewercount.desc()).fetch();
+        List<LiveCategoryDto> res = new LinkedList<>();
+        for(Tuple t : l){
+            Live live = t.get(0,Live.class);
+            String filepath = fileRepositorySupport.getFilePath(live.getProductpk());
+            res.add(new LiveCategoryDto(live,filepath));
+        }
+
+        return res;
+    }
+
+    public Long updateViewerCount(int liveid){
+        int viewer = jpaQueryFactory.select(qLive.liveviewercount).from(qLive).where(qLive.livepk.eq(liveid)).fetchOne();
+        return jpaQueryFactory.update(qLive).set(qLive.liveviewercount,viewer+1)
+                .where(qLive.livepk.eq(liveid)).execute();
+    }
 }

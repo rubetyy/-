@@ -1,15 +1,20 @@
 package com.ssafy.api.service.Product;
 
-import com.querydsl.core.Tuple;
 import com.ssafy.api.request.dto.Product.ProductDeleteReq;
 import com.ssafy.api.request.dto.Product.ProductPatchReq;
 import com.ssafy.api.request.dto.Product.ProductRegisterPostReq;
+import com.ssafy.api.request.dto.Product.ProductWishReq;
+import com.ssafy.api.response.dto.Product.ProductListRes;
 import com.ssafy.api.service.FileHandler.FileHandlerService;
 import com.ssafy.db.entity.Image;
 import com.ssafy.db.entity.Product;
+import com.ssafy.db.entity.Wish;
 import com.ssafy.db.repository.Image.ImageRepository;
 import com.ssafy.db.repository.Image.ImageRepositorySupport;
 import com.ssafy.db.repository.Product.ProductRepository;
+import com.ssafy.db.repository.Product.ProductRepositorySupport;
+import com.ssafy.db.repository.Wish.WishRepository;
+import com.ssafy.db.repository.Wish.WishRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,11 +27,17 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
+    private ProductRepositorySupport productRepositorySupport;
+    @Autowired
     private ImageRepository fileRepository;
     @Autowired
     private FileHandlerService fileHandlerService;
     @Autowired
     private ImageRepositorySupport fileRepositorySupport;
+    @Autowired
+    private WishRepository wishRepository;
+    @Autowired
+    private WishRepositorySupport wishRepositorySupport;
 
     @Override
     public Product createProduct(ProductRegisterPostReq productRegisterPostReq, List<MultipartFile> files) {
@@ -60,26 +71,38 @@ public class ProductServiceImpl implements ProductService {
      * 카테고리에 속한 상품 전체 조회
      * */
     @Transactional(readOnly = true)
-    public List<Product> getProductsByCategory(Long categoryId){
-        return productRepository.findAllByCategoryId(categoryId);
+    public List<ProductListRes> getProductsByCategory(int categoryId){
+        return productRepositorySupport.findAllByCategoryId(categoryId);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Product> getAllProducts(Long productId) {
-        return null;
+    public List<ProductListRes> getSearchProducts(String search) {
+        return productRepositorySupport.searchProduct(search);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Tuple> getMainProducts(){
-        return fileRepositorySupport.findMain();
+    public List<ProductListRes> getMainProducts(){
+        return productRepositorySupport.findMain();
     }
 
     @Override
-    public Product getProductByProductId(Long productId) {
-        Product product = productRepository.findById(productId).orElse(null);
+    public Product getProductByProductId(int productId) {
+        Long id = Long.valueOf(productId);
+        Product product = productRepository.findById(id).orElse(null);
         return product;
+    }
+
+    @Override
+    public void addViewCount(int productId) {
+        productRepositorySupport.addViewCount(productId);
+    }
+
+    @Override
+    public long soldProduct(int productId) {
+        Long a = productRepositorySupport.soldProduct(productId);
+        return 0;
     }
 
     @Override
@@ -90,5 +113,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public long deleteProduct(ProductDeleteReq productDeleteReq) {
         return 0;
+    }
+
+    @Override
+    public void addWishProduct(ProductWishReq wishReq) {
+        wishRepository.save(new Wish(wishReq));
+        return;
+    }
+
+    @Override
+    public long deleteWishProduct(int wishproductid) {
+        return wishRepositorySupport.deleteWishProduct(wishproductid);
+    }
+
+    @Override
+    public Wish findWish(int productId, String userid) {
+        return wishRepositorySupport.findWish(productId,userid);
     }
 }

@@ -1,15 +1,13 @@
 <template>
   <div>
-    <h1 id="header">방송 만들기</h1>
-
+    <h1 id="header">방송 시작하기</h1>
     <div class="form-box">
-      <div style="margin-bottom: 30px;">
+      <div style="margin-bottom: 40px; font-size:1.1rem;">
         <span>판매 상품 : </span>
-        <router-link :to="{name: 'ProductDetail', params: { product_pk: pinfo.productPk }}">
+        <router-link class="r-link" :to="{name: 'ProductDetail', params: { product_pk: pinfo.productPk }}">
           {{ pinfo.productTitle }} <i class="bi bi-arrow-up-right-square-fill"></i>
         </router-link>
       </div>
-
       <h3>방송 제목</h3>
       <input
         type="text"
@@ -18,18 +16,22 @@
         v-model="livetitle"
         maxlength="50"
         show-word-limit
-        style="margin-bottom: 30px;"
       >
+    </div>
+    <div class="caution">
+      방송시작하기 버튼을 클릭하면 <strong>바로</strong> 방송이 시작됩니다!<br>
+      방송 준비가 다 끝난 후에 시작버튼을 클릭해주세요
     </div>
     <div class="center-btn">
       <button class="btn-o" @click="startlive">방송 시작하기</button>
     </div>
-    
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import swal from 'sweetalert'
+
 const liveStore = 'liveStore'
 
 export default {
@@ -45,7 +47,6 @@ export default {
   },
   methods : {
     ...mapGetters(liveStore, ['getProductInfo',]),
-
     ...mapActions(liveStore, ['startLive']),
     startlive: function() {
       if (this.livetitle.trim()) {
@@ -54,21 +55,18 @@ export default {
           livetitle: this.livetitle.trim(),
           userid: JSON.parse(localStorage.getItem('userInfo')).id,
         }
-        console.log(params, typeof(params))
         this.startLive(params)
         .then(res => {
-          console.log(res.livepk)
-          console.log('라이브레지스터')
           this.$router.push({ name: 'LivePage', params: { id: res.livepk } })
         })
-        .catch(err => {
-          console.log(err + '방송만들기 에러')
-        })
       } else {
-        alert('방송 제목을 입력해주세요')
+        swal({
+          text: '방송 제목을 입력해주세요',
+          icon: 'warning',
+          button: false,
+        })
       }
     },
-
   },
 }
 </script>
@@ -77,5 +75,14 @@ export default {
 i {
   color:#ff8a3d;
 }
-
+.form-control {
+  margin-bottom: 30px;
+  line-height: 35px;
+}
+.caution {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ff9046;
+}
 </style>

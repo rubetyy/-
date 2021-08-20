@@ -20,12 +20,14 @@ public class Live {
     @Column(name="live_pk")
     int livepk;
     @Column(name="product_pk")
-    int productpk;
+    Integer productpk;
     @Column(name="live_title")
     String livetitle;
     @Column(name="live_viewer_count")
     int liveviewercount;
     @Column(name="user_id")
     String userid;
+    @Column(name="is_live")
+    Integer islive;
 
 }

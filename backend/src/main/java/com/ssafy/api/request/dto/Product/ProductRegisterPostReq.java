@@ -1,7 +1,6 @@
 package com.ssafy.api.request.dto.Product;
 
 import com.ssafy.db.entity.Product;
-import com.ssafy.db.entity.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -21,7 +20,7 @@ public class ProductRegisterPostReq {
     @ApiModelProperty(name="상품 설명", example="미개봉 새제품입니다")
     private String description;
     @ApiModelProperty(name="상품 카테고리", example="3")
-    private Long category;
+    private Integer category;
     @ApiModelProperty(name="상품 가격", example="5500")
     private Integer price;
     @ApiModelProperty(name="상품 판매 여부", example="0")
@@ -30,7 +29,7 @@ public class ProductRegisterPostReq {
     private Integer is_live;
 
     @Builder
-    public ProductRegisterPostReq(String userId, String title, String description, Long category, Integer price, Integer is_sold, Integer is_live) {
+    public ProductRegisterPostReq(String userId, String title, String description, Integer category, Integer price, Integer is_sold, Integer is_live) {
         this.userId = userId;
         this.title = title;
         this.description = description;

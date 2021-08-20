@@ -2,6 +2,7 @@ package com.ssafy.db.repository.Mypage;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.api.response.dto.Mypage.MypageChatList;
 import com.ssafy.api.response.dto.Mypage.MypagePRes;
 import com.ssafy.db.entity.*;
 
@@ -28,7 +29,6 @@ public class MypageRepositorySupport {
         //userinfo
         User user = jpaQueryFactory.select(Projections.fields(User.class,qUser.userid,qUser.usernickname)).from(qUser)
                 .where(qUser.userid.eq(userid)).fetchOne();
-//        System.out.println(user);
         res.put("userinfo",user);
 
         //issold
@@ -43,10 +43,10 @@ public class MypageRepositorySupport {
 
         //orderlist
         List<Chatroom> orderlistc = (List<Chatroom>) jpaQueryFactory.select(qChatroom).from(qChatroom)
-                .where(qChatroom.useridbuyer.eq(userid),qChatroom.buy.eq(Long.valueOf(1))).fetch();
+                .where(qChatroom.useridbuyer.eq(userid),qChatroom.buy.eq(1)).fetch();
         List<MypagePRes> orderlist = new ArrayList<>();
         for(Chatroom c : orderlistc){
-            Long pk = c.getProductpk();
+            int pk = c.getProductpk();
             MypagePRes order = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
                     .from(qProduct).where(qProduct.id.eq(pk)).fetchOne();
             orderlist.add(order);
@@ -58,7 +58,7 @@ public class MypageRepositorySupport {
                 .where(qWish.useridbuyer.eq(userid)).fetch();
         List<MypagePRes> wishlist = new ArrayList<>();
         for(Wish w : wishres){
-            Long pk = w.getWishproductpk();
+            int pk = w.getProductpk();
             MypagePRes wish = jpaQueryFactory.select(Projections.fields(MypagePRes.class,qProduct.id,qProduct.title))
                     .from(qProduct).where(qProduct.id.eq(pk)).fetchOne();
             wishlist.add(wish);
@@ -68,7 +68,18 @@ public class MypageRepositorySupport {
         //chatlist
         List<Chatroom> chatres = (List<Chatroom>) jpaQueryFactory.select(qChatroom).from(qChatroom)
                 .where(qChatroom.useridseller.eq(userid).or(qChatroom.useridbuyer.eq(userid))).fetch();
-        res.put("chatlist",chatres);
+        List<MypageChatList> chatlist = new LinkedList<>();
+        for(Chatroom c : chatres){
+            String buyernickname = jpaQueryFactory.select(qUser.usernickname).from(qUser)
+                    .where(qUser.userid.eq(c.getUseridbuyer())).fetchOne();
+            String sellernickname = jpaQueryFactory.select(qUser.usernickname).from(qUser)
+                    .where(qUser.userid.eq(c.getUseridseller())).fetchFirst();
+            MypageChatList mypageChat = new MypageChatList(c);
+            mypageChat.setBuyernickname(buyernickname);
+            mypageChat.setSellernickname(sellernickname);
+            chatlist.add(mypageChat);
+        }
+        res.put("chatlist",chatlist);
         return res;
     }
 }
